@@ -1,0 +1,38 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Conda virtual environments
+.env/
+.venv/
+env/
+venv/
+*.env
+
+# Environment files
+*.yaml
+*.yml
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints
+
+# Mac system files
+.DS_Store
+
+# IDE settings
+.vscode/
+../.idea/
+
+# Logs
+*.log
+
+# Output files
+output/
+*.xlsx
+*.yaml
+
+# Python virtual environment folders
+*.egg-info/
+dist/
+build/
