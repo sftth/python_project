@@ -1,5 +1,6 @@
 import requests
 import pandas as pd
+import os
 from openpyxl import load_workbook
 from openpyxl.styles import Font, Alignment, PatternFill, Border, Side, NamedStyle
 
@@ -25,6 +26,8 @@ stock_list_us = [
 ["etf","YieldMax COIN Option Income Strategy ETF","CONY.K"],
 ["etf","2x Bitcoin Strategy ETF","BITX.K"]
 ]
+
+OUTPUT_DIR = "output"
 
 # ✅ API 기본 URL
 base_url = "https://m.stock.naver.com/api/{}/{}/price?pageSize=1&page=1"
@@ -78,11 +81,13 @@ def ht_save_xlsx():
 
     if df.empty:
         print("⚠️ 데이터가 없습니다. API 응답을 확인하세요.")
-    else:
-        print(df.head())  # ✅ 데이터가 들어있는지 확인
+#    else:
+#        print(df.head())  # ✅ 데이터가 들어있는지 확인
 
     # ✅ 엑셀 파일로 저장
-    excel_filename = "ht_stocks_data_v1.1.xlsx"
+    os.makedirs(OUTPUT_DIR, exist_ok=True)
+    excel_filename = os.path.join(OUTPUT_DIR, "ht.xlsx")
+#    excel_filename = "ht_stocks_data_v1.1.xlsx"
     df.to_excel(excel_filename, index=False, sheet_name="Stock Prices")
 
     # ✅ 엑셀 파일 불러와 서식 적용

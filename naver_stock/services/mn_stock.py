@@ -1,5 +1,6 @@
 import requests
 import pandas as pd
+import os
 from openpyxl import load_workbook
 from openpyxl.styles import Font, Alignment, PatternFill, Border, Side, NamedStyle
 
@@ -46,6 +47,8 @@ stock_list = [
 ["stock","블록","XYZ"]
 ]
 
+OUTPUT_DIR = "output"
+
 # ✅ API 기본 URL
 base_url = "https://api.stock.naver.com/{}/{}/price?page=1&pageSize=1"
 
@@ -84,7 +87,9 @@ def mn_save_xlsx():
     df = pd.DataFrame(all_stock_data)
 
     # ✅ 엑셀 파일로 저장
-    excel_filename = "mn_stocks_data_v1.1.xlsx"
+    os.makedirs(OUTPUT_DIR, exist_ok=True)
+    excel_filename = os.path.join(OUTPUT_DIR, "mn.xlsx")
+#    excel_filename = "mn_stocks_data_v1.1.xlsx"
     df.to_excel(excel_filename, index=False, sheet_name="Stock Prices")
 
     # ✅ 엑셀 파일 불러와 서식 적용
