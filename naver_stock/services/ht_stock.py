@@ -3,6 +3,7 @@ import pandas as pd
 import os
 from openpyxl import load_workbook
 from openpyxl.styles import Font, Alignment, PatternFill, Border, Side, NamedStyle
+from naver_stock.utils.file_utils import generate_dated_excel_filename
 
 # ✅ 조회할 종목 리스트
 stock_list = [
@@ -86,7 +87,7 @@ def ht_save_xlsx():
 
     # ✅ 엑셀 파일로 저장
     os.makedirs(OUTPUT_DIR, exist_ok=True)
-    excel_filename = os.path.join(OUTPUT_DIR, "ht.xlsx")
+    excel_filename = generate_dated_excel_filename(prefix="ht", output_dir=OUTPUT_DIR)
 #    excel_filename = "ht_stocks_data_v1.1.xlsx"
     df.to_excel(excel_filename, index=False, sheet_name="Stock Prices")
 
