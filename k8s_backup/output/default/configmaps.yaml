@@ -1,0 +1,409 @@
+apiVersion: v1
+items:
+- apiVersion: v1
+  kind: ConfigMap
+  metadata:
+    annotations:
+      control-plane.alpha.kubernetes.io/leader: '{"holderIdentity":"solr-operator-d776b7dbf-lpx4d_f4441252-130d-4bfa-ad85-95909260b380","leaseDurationSeconds":15,"acquireTime":"2023-09-25T11:18:51Z","renewTime":"2023-09-25T11:22:30Z","leaderTransitions":0}'
+    creationTimestamp: "2023-09-25T11:18:51Z"
+    name: 88488bdc.solr.apache.org
+    namespace: default
+    resourceVersion: "403243207"
+    uid: 1b115347-7b11-411b-beea-c11a4f81afff
+- apiVersion: v1
+  data:
+    ca.crt: |
+      -----BEGIN CERTIFICATE-----
+      MIIC5zCCAc+gAwIBAgIBADANBgkqhkiG9w0BAQsFADAVMRMwEQYDVQQDEwprdWJl
+      cm5ldGVzMB4XDTIxMDMyMTA3MjAzN1oXDTMxMDMxOTA3MjAzN1owFTETMBEGA1UE
+      AxMKa3ViZXJuZXRlczCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAK5Q
+      Km9SlI0/d+B0K9PMOxkqAEWKODDnjTfrp2ckTe/TC0/UV3+pS+w9Hgak+OJtLJJU
+      vY5hTf5V/COPVAVP8ID7xJDSZ1pb2Zj1PxHxOd+bmQglFMWUJ0Qgb39cRQ8ALAl2
+      m4Bmbz0bGiN5CC1Rjb8erHZH/Cv/A1wHXA781+jWSMq4tHsLchmPT2YnSbbKplx1
+      c8a6c+KR4PwTq+pTMOt+S2A7943B7l+zAX4PF4wGZ4HI2dwOBBmBIJJxrFDwskpu
+      bS4tJIAnVZpZXLJVaziVY6kvG6Ed7sfzWYa5lJa5v/oQi6F5vcmgJGkYe3OsAbWv
+      lJOucg1sTB8E3f+RJlUCAwEAAaNCMEAwDgYDVR0PAQH/BAQDAgKkMA8GA1UdEwEB
+      /wQFMAMBAf8wHQYDVR0OBBYEFO9ymTLPikbJTjoy+ph5WinG061iMA0GCSqGSIb3
+      DQEBCwUAA4IBAQCVJXNuq+T6dIzybWjijSoYzbCvatsA0TA0nFsa3B7s3wAK0D1h
+      52Vq5Q0FcbbE5kQgUJ6vEGWTenVeCNeEkS5rlYifLRR1rHGfpZuIlb2ES9NYHuYo
+      iKi5unndzg4DCaFr7x9zK5+YhBLzSXpfbhaMvh9M4eroZNP80R4cNYmUJ4y9b28M
+      uhXMDRrJwF7Q95hDhUWY6bNkXqpylGrTzyefvKY4WAIdlnu2i6+wV57JJS1U2e3U
+      KWFXkZUE8jB/V0EXF7kH0NuDSjEz7uwZ+VRR+tTZoraoPrGDt9bvk08GecYM8dxG
+      xksFOuY8WfHwLu0VgkB5mbGaZth6UmG9GZUd
+      -----END CERTIFICATE-----
+  kind: ConfigMap
+  metadata:
+    creationTimestamp: "2021-03-21T07:21:51Z"
+    name: kube-root-ca.crt
+    namespace: default
+    resourceVersion: "396"
+    uid: 97d0ef0d-964e-413b-a249-bef816ea0d44
+- apiVersion: v1
+  data:
+    init-certs.sh: |-
+      #!/bin/bash
+
+      . /opt/bitnami/scripts/liblog.sh
+
+      if [[ -f "/certs/keystore.p12" ]] && [[ -f "/certs/truststore.p12" ]]; then
+          # the user provided keystore.p12 and truststore.p12 files (prefered)
+          cp "/certs/keystore.p12" "/opt/bitnami/solr/certs/keystore.p12"
+          cp "/certs/truststore.p12" "/opt/bitnami/solr/certs/truststore.p12"
+      elif [[ -f "/certs/ca.crt" ]] && [[ -f "/certs/tls.key" ]] && [[ -f "/certs/tls.crt" ]]; then
+          # the user provided ca.crt & tls.key & tls.crt so we "calculate" keystore.p12 and truststore.p12
+          openssl pkcs12 -export -in "/certs/tls.crt" \
+              -inkey "/certs/tls.key" -out "/tmp/keystore.p12" \
+              -passin pass:"/certs/tls.key" -passout pass:"${SOLR_SSL_KEY_STORE_PASSWORD}"
+          keytool -importkeystore -srckeystore "/tmp/keystore.p12" \
+              -srcstoretype PKCS12 \
+              -srcstorepass "${SOLR_SSL_KEY_STORE_PASSWORD}" \
+              -deststorepass "${SOLR_SSL_KEY_STORE_PASSWORD}" \
+              -destkeystore "/opt/bitnami/solr/certs/keystore.p12" \
+              -noprompt
+          rm "/tmp/keystore.p12"
+          keytool -import -file "/certs/ca.crt" -keystore "/opt/bitnami/solr/certs/truststore.p12" -storepass "${SOLR_SSL_TRUST_STORE_PASSWORD}" -noprompt
+      else
+          info "No certificate files provided ... nothing to do ..."
+      fi
+    setup.sh: |-
+      #!/bin/bash
+      NODE_ID="${MY_POD_NAME#"my-release-solr-"}"
+      if [[ "$NODE_ID" -eq "0" ]]; then
+          export SOLR_CLOUD_BOOTSTRAP=yes
+      fi
+      # Use hostname instead of IP to register in ZooKeeper
+      export SOLR_HOST="${MY_POD_NAME}.my-release-solr-headless.default.svc.cluster.local"
+      /opt/bitnami/scripts/solr/entrypoint.sh /opt/bitnami/scripts/solr/run.sh
+  kind: ConfigMap
+  metadata:
+    annotations:
+      meta.helm.sh/release-name: my-release
+      meta.helm.sh/release-namespace: default
+    creationTimestamp: "2023-12-04T13:10:22Z"
+    labels:
+      app.kubernetes.io/component: solr
+      app.kubernetes.io/instance: my-release
+      app.kubernetes.io/managed-by: Helm
+      app.kubernetes.io/name: solr
+      app.kubernetes.io/version: 9.4.0
+      helm.sh/chart: solr-8.3.2
+    name: my-release-solr-scripts
+    namespace: default
+    resourceVersion: "455874357"
+    uid: bd1a7486-97f4-4640-9688-7b83265194d2
+- apiVersion: v1
+  data:
+    init-certs.sh: '#!/bin/bash'
+    setup.sh: |-
+      #!/bin/bash
+
+      # Execute entrypoint as usual after obtaining ZOO_SERVER_ID
+      # check ZOO_SERVER_ID in persistent volume via myid
+      # if not present, set based on POD hostname
+      if [[ -f "/bitnami/zookeeper/data/myid" ]]; then
+          export ZOO_SERVER_ID="$(cat /bitnami/zookeeper/data/myid)"
+      else
+          HOSTNAME="$(hostname -s)"
+          if [[ $HOSTNAME =~ (.*)-([0-9]+)$ ]]; then
+              ORD=${BASH_REMATCH[2]}
+              export ZOO_SERVER_ID="$((ORD + 1 ))"
+          else
+              echo "Failed to get index from hostname $HOSTNAME"
+              exit 1
+          fi
+      fi
+      exec /entrypoint.sh /run.sh
+  kind: ConfigMap
+  metadata:
+    annotations:
+      meta.helm.sh/release-name: my-release
+      meta.helm.sh/release-namespace: default
+    creationTimestamp: "2023-12-04T13:10:22Z"
+    labels:
+      app.kubernetes.io/component: zookeeper
+      app.kubernetes.io/instance: my-release
+      app.kubernetes.io/managed-by: Helm
+      app.kubernetes.io/name: zookeeper
+      app.kubernetes.io/version: 3.9.1
+      helm.sh/chart: zookeeper-12.3.2
+    name: my-release-zookeeper-scripts
+    namespace: default
+    resourceVersion: "455874356"
+    uid: c9116511-8662-4014-aef9-00631da19550
+- apiVersion: v1
+  data:
+    master.conf: |-
+      dir /data
+      rename-command FLUSHDB ""
+      rename-command FLUSHALL ""
+    redis.conf: |-
+      # User-supplied configuration:
+      # Enable AOF https://redis.io/topics/persistence#append-only-file
+      appendonly yes
+      # Disable RDB persistence, AOF persistence already enabled.
+      save ""
+    replica.conf: |-
+      dir /data
+      slave-read-only yes
+      rename-command FLUSHDB ""
+      rename-command FLUSHALL ""
+  kind: ConfigMap
+  metadata:
+    annotations:
+      meta.helm.sh/release-name: spinnaker
+      meta.helm.sh/release-namespace: default
+    creationTimestamp: "2021-07-26T06:35:31Z"
+    labels:
+      app: redis
+      app.kubernetes.io/managed-by: Helm
+      chart: redis-10.5.3
+      heritage: Helm
+      release: spinnaker
+    name: spinnaker-redis
+    namespace: default
+    resourceVersion: "31949891"
+    uid: 4f5f89df-1768-4b85-9d35-df3355bee033
+- apiVersion: v1
+  data:
+    ping_liveness_local.sh: |-
+      response=$(
+        timeout -s 9 $1 \
+        redis-cli \
+          -a $REDIS_PASSWORD --no-auth-warning \
+          -h localhost \
+          -p $REDIS_PORT \
+          ping
+      )
+      if [ "$response" != "PONG" ] && [ "$response" != "LOADING Redis is loading the dataset in memory" ]; then
+        echo "$response"
+        exit 1
+      fi
+    ping_liveness_local_and_master.sh: |-
+      script_dir="$(dirname "$0")"
+      exit_status=0
+      "$script_dir/ping_liveness_local.sh" $1 || exit_status=$?
+      "$script_dir/ping_liveness_master.sh" $1 || exit_status=$?
+      exit $exit_status
+    ping_liveness_master.sh: |-
+      response=$(
+        timeout -s 9 $1 \
+        redis-cli \
+          -a $REDIS_MASTER_PASSWORD --no-auth-warning \
+          -h $REDIS_MASTER_HOST \
+          -p $REDIS_MASTER_PORT_NUMBER \
+          ping
+      )
+      if [ "$response" != "PONG" ] && [ "$response" != "LOADING Redis is loading the dataset in memory" ]; then
+        echo "$response"
+        exit 1
+      fi
+    ping_readiness_local.sh: |-
+      response=$(
+        timeout -s 9 $1 \
+        redis-cli \
+          -a $REDIS_PASSWORD --no-auth-warning \
+          -h localhost \
+          -p $REDIS_PORT \
+          ping
+      )
+      if [ "$response" != "PONG" ]; then
+        echo "$response"
+        exit 1
+      fi
+    ping_readiness_local_and_master.sh: |-
+      script_dir="$(dirname "$0")"
+      exit_status=0
+      "$script_dir/ping_readiness_local.sh" $1 || exit_status=$?
+      "$script_dir/ping_readiness_master.sh" $1 || exit_status=$?
+      exit $exit_status
+    ping_readiness_master.sh: |-
+      response=$(
+        timeout -s 9 $1 \
+        redis-cli \
+          -a $REDIS_MASTER_PASSWORD --no-auth-warning \
+          -h $REDIS_MASTER_HOST \
+          -p $REDIS_MASTER_PORT_NUMBER \
+          ping
+      )
+      if [ "$response" != "PONG" ]; then
+        echo "$response"
+        exit 1
+      fi
+  kind: ConfigMap
+  metadata:
+    annotations:
+      meta.helm.sh/release-name: spinnaker
+      meta.helm.sh/release-namespace: default
+    creationTimestamp: "2021-07-26T06:35:31Z"
+    labels:
+      app: redis
+      app.kubernetes.io/managed-by: Helm
+      chart: redis-10.5.3
+      heritage: Helm
+      release: spinnaker
+    name: spinnaker-redis-health
+    namespace: default
+    resourceVersion: "31949892"
+    uid: 1d934a8e-d66d-4e0c-b4e8-dcdd49e140a1
+- apiVersion: v1
+  data:
+    gate-local.yml: '{}'
+  kind: ConfigMap
+  metadata:
+    annotations:
+      meta.helm.sh/release-name: spinnaker
+      meta.helm.sh/release-namespace: default
+    creationTimestamp: "2021-07-26T06:35:31Z"
+    labels:
+      app: spinnaker-spinnaker
+      app.kubernetes.io/managed-by: Helm
+      chart: spinnaker-2.2.6
+      heritage: Helm
+      release: spinnaker
+    name: spinnaker-spinnaker-additional-profile-config-maps
+    namespace: default
+    resourceVersion: "31949890"
+    uid: b8f4d746-bc3e-455b-8783-1c65840a5972
+- apiVersion: v1
+  data:
+    clean.sh: |
+      export HAL_COMMAND='hal --daemon-endpoint http://spinnaker-spinnaker-halyard:8064'
+      $HAL_COMMAND deploy clean -q
+    config.sh: |
+      # Spinnaker version
+
+      $HAL_COMMAND config version edit --version 1.21.2
+
+
+      # Storage
+
+
+
+
+
+      # Docker Registry
+      $HAL_COMMAND config provider docker-registry enable
+
+      if $HAL_COMMAND config provider docker-registry account get dockerhub; then
+        PROVIDER_COMMAND='edit'
+      else
+        PROVIDER_COMMAND='add'
+      fi
+
+      $HAL_COMMAND config provider docker-registry account $PROVIDER_COMMAND dockerhub --address index.docker.io \
+         \
+        --repositories library/alpine,library/ubuntu,library/centos,library/nginx
+
+      $HAL_COMMAND config provider kubernetes enable
+
+      if $HAL_COMMAND config provider kubernetes account get default; then
+        PROVIDER_COMMAND='edit'
+      else
+        PROVIDER_COMMAND='add'
+      fi
+
+      $HAL_COMMAND config provider kubernetes account $PROVIDER_COMMAND default --docker-registries dockerhub \
+                  --context default --service-account true \
+                   \
+                   \
+                   \
+                   \
+                  --omit-namespaces=kube-system,kube-public \
+                   \
+                   \
+                   \
+                  --provider-version v2
+      $HAL_COMMAND config deploy edit --account-name default --type distributed \
+                             --location default
+      # Use Deck to route to Gate
+      $HAL_COMMAND config security api edit --no-validate --override-base-url /gate
+      $HAL_COMMAND config features edit --artifacts true
+    install.sh: |
+      #!/bin/bash
+
+      # Wait for the Hal daemon to be ready
+      export DAEMON_ENDPOINT=http://spinnaker-spinnaker-halyard:8064
+      export HAL_COMMAND="hal --daemon-endpoint $DAEMON_ENDPOINT"
+      until $HAL_COMMAND --ready; do sleep 10 ; done
+
+      bash -xe /opt/halyard/scripts/config.sh
+
+      $HAL_COMMAND deploy apply
+  kind: ConfigMap
+  metadata:
+    annotations:
+      meta.helm.sh/release-name: spinnaker
+      meta.helm.sh/release-namespace: default
+    creationTimestamp: "2021-07-26T06:35:31Z"
+    labels:
+      app: spinnaker-spinnaker
+      app.kubernetes.io/managed-by: Helm
+      chart: spinnaker-2.2.6
+      heritage: Helm
+      release: spinnaker
+    name: spinnaker-spinnaker-halyard-config
+    namespace: default
+    resourceVersion: "31949894"
+    uid: 8c76618a-6be4-4027-9e1c-fc444154a669
+- apiVersion: v1
+  data:
+    init.sh: |
+      #!/bin/bash
+
+      # Override Halyard daemon's listen address
+      cp /opt/halyard/config/* /tmp/config
+      printf 'server.address: 0.0.0.0\n' > /tmp/config/halyard-local.yml
+
+      # Use Redis deployed via the dependent Helm chart
+      rm -rf /tmp/spinnaker/.hal/default/service-settings
+      mkdir -p /tmp/spinnaker/.hal/default/service-settings
+      cp /tmp/service-settings/* /tmp/spinnaker/.hal/default/service-settings/
+
+      rm -rf /tmp/spinnaker/.hal/default/profiles
+      mkdir -p /tmp/spinnaker/.hal/default/profiles
+      cp /tmp/additionalProfileConfigMaps/* /tmp/spinnaker/.hal/default/profiles/
+
+      rm -rf /tmp/spinnaker/.hal/.boms
+  kind: ConfigMap
+  metadata:
+    annotations:
+      meta.helm.sh/release-name: spinnaker
+      meta.helm.sh/release-namespace: default
+    creationTimestamp: "2021-07-26T06:35:31Z"
+    labels:
+      app: spinnaker-spinnaker
+      app.kubernetes.io/managed-by: Helm
+      chart: spinnaker-2.2.6
+      heritage: Helm
+      release: spinnaker
+    name: spinnaker-spinnaker-halyard-init-script
+    namespace: default
+    resourceVersion: "31949893"
+    uid: 38950292-f538-49ab-a0e4-511d46a46d35
+- apiVersion: v1
+  data:
+    deck.yml: |-
+      env:
+        API_HOST: http://spin-gate:8084
+    redis.yml: |-
+      overrideBaseUrl: redis://:password@spinnaker-redis-master:6379
+      skipLifeCycleManagement: true
+  kind: ConfigMap
+  metadata:
+    annotations:
+      meta.helm.sh/release-name: spinnaker
+      meta.helm.sh/release-namespace: default
+    creationTimestamp: "2021-07-26T06:35:31Z"
+    labels:
+      app: spinnaker-spinnaker
+      app.kubernetes.io/managed-by: Helm
+      chart: spinnaker-2.2.6
+      heritage: Helm
+      release: spinnaker
+    name: spinnaker-spinnaker-service-settings
+    namespace: default
+    resourceVersion: "31949895"
+    uid: 39e51d87-d204-4b45-8ca9-65ac6825b379
+kind: List
+metadata:
+  resourceVersion: ""

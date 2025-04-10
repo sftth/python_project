@@ -1,0 +1,4037 @@
+apiVersion: v1
+items:
+- apiVersion: v1
+  kind: PersistentVolume
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","kind":"PersistentVolume","metadata":{"annotations":{},"name":"cicd-gitlab-data-pv"},"spec":{"accessModes":["ReadWriteOnce"],"capacity":{"storage":"300Gi"},"claimRef":{"kind":"PersistentVolumeClaim","name":"cicd-gitlab-data-pvc","namespace":"cicd-gitlab"},"mountOptions":["hard","nfsvers=3"],"nfs":{"path":"/k8s/cicd/gitlab/data","server":"21.2.0.201"},"persistentVolumeReclaimPolicy":"Retain","volumeMode":"Filesystem"}}
+    creationTimestamp: "2024-02-23T11:50:56Z"
+    finalizers:
+    - kubernetes.io/pv-protection
+    name: cicd-gitlab-data-pv
+    resourceVersion: "519114743"
+    uid: db720a72-bf07-429a-ba37-02e42d3d23f7
+  spec:
+    accessModes:
+    - ReadWriteOnce
+    capacity:
+      storage: 300Gi
+    claimRef:
+      apiVersion: v1
+      kind: PersistentVolumeClaim
+      name: cicd-gitlab-data-pvc
+      namespace: cicd-gitlab
+      resourceVersion: "519114741"
+      uid: 0f3300f6-30a8-470c-acba-4eb49cfba5e5
+    mountOptions:
+    - hard
+    - nfsvers=3
+    nfs:
+      path: /k8s/cicd/gitlab/data
+      server: 21.2.0.201
+    persistentVolumeReclaimPolicy: Retain
+    volumeMode: Filesystem
+  status:
+    phase: Bound
+- apiVersion: v1
+  kind: PersistentVolume
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","kind":"PersistentVolume","metadata":{"annotations":{},"name":"cicd-gitlab-postgres-pv"},"spec":{"accessModes":["ReadWriteOnce"],"capacity":{"storage":"300Gi"},"claimRef":{"kind":"PersistentVolumeClaim","name":"cicd-gitlab-postgres-pvc","namespace":"cicd-gitlab"},"mountOptions":["hard","nfsvers=3"],"nfs":{"path":"/k8s/cicd/gitlab/postgres","server":"21.2.0.201"},"persistentVolumeReclaimPolicy":"Retain","volumeMode":"Filesystem"}}
+    creationTimestamp: "2024-02-23T11:50:56Z"
+    finalizers:
+    - kubernetes.io/pv-protection
+    name: cicd-gitlab-postgres-pv
+    resourceVersion: "519114746"
+    uid: 22d82d10-3713-4c05-9cce-5bd8f337e437
+  spec:
+    accessModes:
+    - ReadWriteOnce
+    capacity:
+      storage: 300Gi
+    claimRef:
+      apiVersion: v1
+      kind: PersistentVolumeClaim
+      name: cicd-gitlab-postgres-pvc
+      namespace: cicd-gitlab
+      resourceVersion: "519114744"
+      uid: 4458614b-08fd-4dde-8207-f57a6e07ed60
+    mountOptions:
+    - hard
+    - nfsvers=3
+    nfs:
+      path: /k8s/cicd/gitlab/postgres
+      server: 21.2.0.201
+    persistentVolumeReclaimPolicy: Retain
+    volumeMode: Filesystem
+  status:
+    phase: Bound
+- apiVersion: v1
+  kind: PersistentVolume
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","kind":"PersistentVolume","metadata":{"annotations":{},"name":"cicd-gitlab-redis-pv"},"spec":{"accessModes":["ReadWriteOnce"],"capacity":{"storage":"100Gi"},"claimRef":{"kind":"PersistentVolumeClaim","name":"cicd-gitlab-redis-pvc","namespace":"cicd-gitlab"},"mountOptions":["hard","nfsvers=3"],"nfs":{"path":"/k8s/cicd/gitlab/redis","server":"21.2.0.201"},"persistentVolumeReclaimPolicy":"Retain","volumeMode":"Filesystem"}}
+    creationTimestamp: "2024-02-23T11:50:56Z"
+    finalizers:
+    - kubernetes.io/pv-protection
+    name: cicd-gitlab-redis-pv
+    resourceVersion: "519114753"
+    uid: e925c466-bfa0-4dfb-8435-d9e6b6bbf60d
+  spec:
+    accessModes:
+    - ReadWriteOnce
+    capacity:
+      storage: 100Gi
+    claimRef:
+      apiVersion: v1
+      kind: PersistentVolumeClaim
+      name: cicd-gitlab-redis-pvc
+      namespace: cicd-gitlab
+      resourceVersion: "519114749"
+      uid: c76d5d6e-232b-4edb-b567-b024fe5051a3
+    mountOptions:
+    - hard
+    - nfsvers=3
+    nfs:
+      path: /k8s/cicd/gitlab/redis
+      server: 21.2.0.201
+    persistentVolumeReclaimPolicy: Retain
+    volumeMode: Filesystem
+  status:
+    phase: Bound
+- apiVersion: v1
+  kind: PersistentVolume
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","kind":"PersistentVolume","metadata":{"annotations":{},"name":"cicd-jenkins-agent-0-pv"},"spec":{"accessModes":["ReadWriteMany"],"capacity":{"storage":"10Gi"},"claimRef":{"kind":"PersistentVolumeClaim","name":"agent-data-jenkins-agent-0","namespace":"cicd-jenkins"},"mountOptions":["hard","nfsvers=3"],"nfs":{"path":"/k8s/cicd/jenkins/agent/pv-00","server":"21.2.0.201"},"persistentVolumeReclaimPolicy":"Retain","volumeMode":"Filesystem"}}
+    creationTimestamp: "2024-01-08T07:51:34Z"
+    finalizers:
+    - kubernetes.io/pv-protection
+    name: cicd-jenkins-agent-0-pv
+    resourceVersion: "478695632"
+    uid: 5295da1a-c415-44a8-9604-b33aac89d182
+  spec:
+    accessModes:
+    - ReadWriteMany
+    capacity:
+      storage: 10Gi
+    claimRef:
+      apiVersion: v1
+      kind: PersistentVolumeClaim
+      name: agent-data-jenkins-agent-0
+      namespace: cicd-jenkins
+      resourceVersion: "478695628"
+      uid: 791f43e3-44c2-4c0e-ad63-64e58c4ba3a1
+    mountOptions:
+    - hard
+    - nfsvers=3
+    nfs:
+      path: /k8s/cicd/jenkins/agent/pv-00
+      server: 21.2.0.201
+    persistentVolumeReclaimPolicy: Retain
+    volumeMode: Filesystem
+  status:
+    phase: Bound
+- apiVersion: v1
+  kind: PersistentVolume
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","kind":"PersistentVolume","metadata":{"annotations":{},"name":"cicd-jenkins-agent-1-pv"},"spec":{"accessModes":["ReadWriteMany"],"capacity":{"storage":"10Gi"},"claimRef":{"kind":"PersistentVolumeClaim","name":"agent-data-jenkins-agent-1","namespace":"cicd-jenkins"},"mountOptions":["hard","nfsvers=3"],"nfs":{"path":"/k8s/cicd/jenkins/agent/pv-01","server":"21.2.0.201"},"persistentVolumeReclaimPolicy":"Retain","volumeMode":"Filesystem"}}
+    creationTimestamp: "2024-01-08T07:51:34Z"
+    finalizers:
+    - kubernetes.io/pv-protection
+    name: cicd-jenkins-agent-1-pv
+    resourceVersion: "478696390"
+    uid: d3b2457b-1189-45f2-a2da-1c5989b389b6
+  spec:
+    accessModes:
+    - ReadWriteMany
+    capacity:
+      storage: 10Gi
+    claimRef:
+      apiVersion: v1
+      kind: PersistentVolumeClaim
+      name: agent-data-jenkins-agent-1
+      namespace: cicd-jenkins
+      resourceVersion: "478696385"
+      uid: ad2e7338-3db1-433c-90aa-93e14130190e
+    mountOptions:
+    - hard
+    - nfsvers=3
+    nfs:
+      path: /k8s/cicd/jenkins/agent/pv-01
+      server: 21.2.0.201
+    persistentVolumeReclaimPolicy: Retain
+    volumeMode: Filesystem
+  status:
+    phase: Bound
+- apiVersion: v1
+  kind: PersistentVolume
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","kind":"PersistentVolume","metadata":{"annotations":{},"name":"cicd-jenkins-agent-10-pv"},"spec":{"accessModes":["ReadWriteMany"],"capacity":{"storage":"10Gi"},"claimRef":{"kind":"PersistentVolumeClaim","name":"agent-data-jenkins-agent-10","namespace":"cicd-jenkins"},"mountOptions":["hard","nfsvers=3"],"nfs":{"path":"/k8s/cicd/jenkins/agent/pv-10","server":"21.2.0.201"},"persistentVolumeReclaimPolicy":"Retain","volumeMode":"Filesystem"}}
+    creationTimestamp: "2024-05-07T03:44:34Z"
+    finalizers:
+    - kubernetes.io/pv-protection
+    name: cicd-jenkins-agent-10-pv
+    resourceVersion: "582761165"
+    uid: bdf8a03b-d04e-435d-9fd3-705baf277d68
+  spec:
+    accessModes:
+    - ReadWriteMany
+    capacity:
+      storage: 10Gi
+    claimRef:
+      apiVersion: v1
+      kind: PersistentVolumeClaim
+      name: agent-data-jenkins-agent-10
+      namespace: cicd-jenkins
+      resourceVersion: "582754881"
+      uid: 2873fee8-cf55-4630-b43b-fe45ce2e4b1d
+    mountOptions:
+    - hard
+    - nfsvers=3
+    nfs:
+      path: /k8s/cicd/jenkins/agent/pv-10
+      server: 21.2.0.201
+    persistentVolumeReclaimPolicy: Retain
+    volumeMode: Filesystem
+  status:
+    phase: Bound
+- apiVersion: v1
+  kind: PersistentVolume
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","kind":"PersistentVolume","metadata":{"annotations":{},"name":"cicd-jenkins-agent-11-pv"},"spec":{"accessModes":["ReadWriteMany"],"capacity":{"storage":"10Gi"},"claimRef":{"kind":"PersistentVolumeClaim","name":"agent-data-jenkins-agent-11","namespace":"cicd-jenkins"},"mountOptions":["hard","nfsvers=3"],"nfs":{"path":"/k8s/cicd/jenkins/agent/pv-11","server":"21.2.0.201"},"persistentVolumeReclaimPolicy":"Retain","volumeMode":"Filesystem"}}
+    creationTimestamp: "2024-05-07T03:44:34Z"
+    finalizers:
+    - kubernetes.io/pv-protection
+    name: cicd-jenkins-agent-11-pv
+    resourceVersion: "582762772"
+    uid: dfbcdc5c-611b-434b-83b2-434afd773612
+  spec:
+    accessModes:
+    - ReadWriteMany
+    capacity:
+      storage: 10Gi
+    claimRef:
+      apiVersion: v1
+      kind: PersistentVolumeClaim
+      name: agent-data-jenkins-agent-11
+      namespace: cicd-jenkins
+      resourceVersion: "582762766"
+      uid: dfd214f7-8329-451d-b7b0-1f14cd1b4311
+    mountOptions:
+    - hard
+    - nfsvers=3
+    nfs:
+      path: /k8s/cicd/jenkins/agent/pv-11
+      server: 21.2.0.201
+    persistentVolumeReclaimPolicy: Retain
+    volumeMode: Filesystem
+  status:
+    phase: Bound
+- apiVersion: v1
+  kind: PersistentVolume
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","kind":"PersistentVolume","metadata":{"annotations":{},"name":"cicd-jenkins-agent-12-pv"},"spec":{"accessModes":["ReadWriteMany"],"capacity":{"storage":"10Gi"},"claimRef":{"kind":"PersistentVolumeClaim","name":"agent-data-jenkins-agent-12","namespace":"cicd-jenkins"},"mountOptions":["hard","nfsvers=3"],"nfs":{"path":"/k8s/cicd/jenkins/agent/pv-12","server":"21.2.0.201"},"persistentVolumeReclaimPolicy":"Retain","volumeMode":"Filesystem"}}
+    creationTimestamp: "2024-05-07T03:44:34Z"
+    finalizers:
+    - kubernetes.io/pv-protection
+    name: cicd-jenkins-agent-12-pv
+    resourceVersion: "582765066"
+    uid: 576b75d3-6b99-4e20-9732-6629fc4bab69
+  spec:
+    accessModes:
+    - ReadWriteMany
+    capacity:
+      storage: 10Gi
+    claimRef:
+      apiVersion: v1
+      kind: PersistentVolumeClaim
+      name: agent-data-jenkins-agent-12
+      namespace: cicd-jenkins
+      resourceVersion: "582765062"
+      uid: c999b6a3-755e-4a56-bd11-3b18eae3488a
+    mountOptions:
+    - hard
+    - nfsvers=3
+    nfs:
+      path: /k8s/cicd/jenkins/agent/pv-12
+      server: 21.2.0.201
+    persistentVolumeReclaimPolicy: Retain
+    volumeMode: Filesystem
+  status:
+    phase: Bound
+- apiVersion: v1
+  kind: PersistentVolume
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","kind":"PersistentVolume","metadata":{"annotations":{},"name":"cicd-jenkins-agent-13-pv"},"spec":{"accessModes":["ReadWriteMany"],"capacity":{"storage":"10Gi"},"claimRef":{"kind":"PersistentVolumeClaim","name":"agent-data-jenkins-agent-13","namespace":"cicd-jenkins"},"mountOptions":["hard","nfsvers=3"],"nfs":{"path":"/k8s/cicd/jenkins/agent/pv-13","server":"21.2.0.201"},"persistentVolumeReclaimPolicy":"Retain","volumeMode":"Filesystem"}}
+    creationTimestamp: "2024-05-07T03:44:35Z"
+    finalizers:
+    - kubernetes.io/pv-protection
+    name: cicd-jenkins-agent-13-pv
+    resourceVersion: "582766554"
+    uid: d8fb7f94-5fd4-4e8b-8eab-b152aed31d0d
+  spec:
+    accessModes:
+    - ReadWriteMany
+    capacity:
+      storage: 10Gi
+    claimRef:
+      apiVersion: v1
+      kind: PersistentVolumeClaim
+      name: agent-data-jenkins-agent-13
+      namespace: cicd-jenkins
+      resourceVersion: "582766549"
+      uid: 7e7e38bf-5983-46bc-94db-5b1ab661e274
+    mountOptions:
+    - hard
+    - nfsvers=3
+    nfs:
+      path: /k8s/cicd/jenkins/agent/pv-13
+      server: 21.2.0.201
+    persistentVolumeReclaimPolicy: Retain
+    volumeMode: Filesystem
+  status:
+    phase: Bound
+- apiVersion: v1
+  kind: PersistentVolume
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","kind":"PersistentVolume","metadata":{"annotations":{},"name":"cicd-jenkins-agent-14-pv"},"spec":{"accessModes":["ReadWriteMany"],"capacity":{"storage":"10Gi"},"claimRef":{"kind":"PersistentVolumeClaim","name":"agent-data-jenkins-agent-14","namespace":"cicd-jenkins"},"mountOptions":["hard","nfsvers=3"],"nfs":{"path":"/k8s/cicd/jenkins/agent/pv-14","server":"21.2.0.201"},"persistentVolumeReclaimPolicy":"Retain","volumeMode":"Filesystem"}}
+    creationTimestamp: "2024-05-07T03:44:35Z"
+    finalizers:
+    - kubernetes.io/pv-protection
+    name: cicd-jenkins-agent-14-pv
+    resourceVersion: "582767234"
+    uid: 6e5dcdea-e0b1-4b3e-8acc-f8de6539590e
+  spec:
+    accessModes:
+    - ReadWriteMany
+    capacity:
+      storage: 10Gi
+    claimRef:
+      apiVersion: v1
+      kind: PersistentVolumeClaim
+      name: agent-data-jenkins-agent-14
+      namespace: cicd-jenkins
+      resourceVersion: "582767230"
+      uid: ef3fdc38-1a54-4747-815e-9a68c78f1052
+    mountOptions:
+    - hard
+    - nfsvers=3
+    nfs:
+      path: /k8s/cicd/jenkins/agent/pv-14
+      server: 21.2.0.201
+    persistentVolumeReclaimPolicy: Retain
+    volumeMode: Filesystem
+  status:
+    phase: Bound
+- apiVersion: v1
+  kind: PersistentVolume
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","kind":"PersistentVolume","metadata":{"annotations":{},"name":"cicd-jenkins-agent-15-pv"},"spec":{"accessModes":["ReadWriteMany"],"capacity":{"storage":"10Gi"},"claimRef":{"kind":"PersistentVolumeClaim","name":"agent-data-jenkins-agent-15","namespace":"cicd-jenkins"},"mountOptions":["hard","nfsvers=3"],"nfs":{"path":"/k8s/cicd/jenkins/agent/pv-15","server":"21.2.0.201"},"persistentVolumeReclaimPolicy":"Retain","volumeMode":"Filesystem"}}
+    creationTimestamp: "2024-05-07T03:44:35Z"
+    finalizers:
+    - kubernetes.io/pv-protection
+    name: cicd-jenkins-agent-15-pv
+    resourceVersion: "582772940"
+    uid: 872083eb-f626-4cc8-8348-d31a823c0417
+  spec:
+    accessModes:
+    - ReadWriteMany
+    capacity:
+      storage: 10Gi
+    claimRef:
+      apiVersion: v1
+      kind: PersistentVolumeClaim
+      name: agent-data-jenkins-agent-15
+      namespace: cicd-jenkins
+      resourceVersion: "582772937"
+      uid: 5997f96b-a238-4db2-9d89-b3af30bd7348
+    mountOptions:
+    - hard
+    - nfsvers=3
+    nfs:
+      path: /k8s/cicd/jenkins/agent/pv-15
+      server: 21.2.0.201
+    persistentVolumeReclaimPolicy: Retain
+    volumeMode: Filesystem
+  status:
+    phase: Bound
+- apiVersion: v1
+  kind: PersistentVolume
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","kind":"PersistentVolume","metadata":{"annotations":{},"name":"cicd-jenkins-agent-16-pv"},"spec":{"accessModes":["ReadWriteMany"],"capacity":{"storage":"10Gi"},"claimRef":{"kind":"PersistentVolumeClaim","name":"agent-data-jenkins-agent-16","namespace":"cicd-jenkins"},"mountOptions":["hard","nfsvers=3"],"nfs":{"path":"/k8s/cicd/jenkins/agent/pv-16","server":"21.2.0.201"},"persistentVolumeReclaimPolicy":"Retain","volumeMode":"Filesystem"}}
+    creationTimestamp: "2024-05-07T03:44:35Z"
+    finalizers:
+    - kubernetes.io/pv-protection
+    name: cicd-jenkins-agent-16-pv
+    resourceVersion: "589439302"
+    uid: 7678624a-0c38-444d-9b7c-88759ae4a3d3
+  spec:
+    accessModes:
+    - ReadWriteMany
+    capacity:
+      storage: 10Gi
+    claimRef:
+      apiVersion: v1
+      kind: PersistentVolumeClaim
+      name: agent-data-jenkins-agent-16
+      namespace: cicd-jenkins
+      resourceVersion: "589439297"
+      uid: 2d264ead-0b40-465a-a370-67aefa5c5ff2
+    mountOptions:
+    - hard
+    - nfsvers=3
+    nfs:
+      path: /k8s/cicd/jenkins/agent/pv-16
+      server: 21.2.0.201
+    persistentVolumeReclaimPolicy: Retain
+    volumeMode: Filesystem
+  status:
+    phase: Bound
+- apiVersion: v1
+  kind: PersistentVolume
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","kind":"PersistentVolume","metadata":{"annotations":{},"name":"cicd-jenkins-agent-17-pv"},"spec":{"accessModes":["ReadWriteMany"],"capacity":{"storage":"10Gi"},"claimRef":{"kind":"PersistentVolumeClaim","name":"agent-data-jenkins-agent-17","namespace":"cicd-jenkins"},"mountOptions":["hard","nfsvers=3"],"nfs":{"path":"/k8s/cicd/jenkins/agent/pv-17","server":"21.2.0.201"},"persistentVolumeReclaimPolicy":"Retain","volumeMode":"Filesystem"}}
+    creationTimestamp: "2024-05-07T03:44:35Z"
+    finalizers:
+    - kubernetes.io/pv-protection
+    name: cicd-jenkins-agent-17-pv
+    resourceVersion: "589446586"
+    uid: 5fed3c48-6c51-4f98-a07f-20878ddf8b25
+  spec:
+    accessModes:
+    - ReadWriteMany
+    capacity:
+      storage: 10Gi
+    claimRef:
+      apiVersion: v1
+      kind: PersistentVolumeClaim
+      name: agent-data-jenkins-agent-17
+      namespace: cicd-jenkins
+      resourceVersion: "589446580"
+      uid: 2ddb8e6e-5f68-4e57-aad1-d141340dd77f
+    mountOptions:
+    - hard
+    - nfsvers=3
+    nfs:
+      path: /k8s/cicd/jenkins/agent/pv-17
+      server: 21.2.0.201
+    persistentVolumeReclaimPolicy: Retain
+    volumeMode: Filesystem
+  status:
+    phase: Bound
+- apiVersion: v1
+  kind: PersistentVolume
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","kind":"PersistentVolume","metadata":{"annotations":{},"name":"cicd-jenkins-agent-18-pv"},"spec":{"accessModes":["ReadWriteMany"],"capacity":{"storage":"10Gi"},"claimRef":{"kind":"PersistentVolumeClaim","name":"agent-data-jenkins-agent-18","namespace":"cicd-jenkins"},"mountOptions":["hard","nfsvers=3"],"nfs":{"path":"/k8s/cicd/jenkins/agent/pv-18","server":"21.2.0.201"},"persistentVolumeReclaimPolicy":"Retain","volumeMode":"Filesystem"}}
+    creationTimestamp: "2024-05-07T03:44:35Z"
+    finalizers:
+    - kubernetes.io/pv-protection
+    name: cicd-jenkins-agent-18-pv
+    resourceVersion: "589466289"
+    uid: d65819d5-b3a5-4a60-9c1a-482ea5cadbfe
+  spec:
+    accessModes:
+    - ReadWriteMany
+    capacity:
+      storage: 10Gi
+    claimRef:
+      apiVersion: v1
+      kind: PersistentVolumeClaim
+      name: agent-data-jenkins-agent-18
+      namespace: cicd-jenkins
+      resourceVersion: "589466283"
+      uid: 1301692e-0c14-43a6-a0e4-d90e34b8058c
+    mountOptions:
+    - hard
+    - nfsvers=3
+    nfs:
+      path: /k8s/cicd/jenkins/agent/pv-18
+      server: 21.2.0.201
+    persistentVolumeReclaimPolicy: Retain
+    volumeMode: Filesystem
+  status:
+    phase: Bound
+- apiVersion: v1
+  kind: PersistentVolume
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","kind":"PersistentVolume","metadata":{"annotations":{},"name":"cicd-jenkins-agent-19-pv"},"spec":{"accessModes":["ReadWriteMany"],"capacity":{"storage":"10Gi"},"claimRef":{"kind":"PersistentVolumeClaim","name":"agent-data-jenkins-agent-19","namespace":"cicd-jenkins"},"mountOptions":["hard","nfsvers=3"],"nfs":{"path":"/k8s/cicd/jenkins/agent/pv-19","server":"21.2.0.201"},"persistentVolumeReclaimPolicy":"Retain","volumeMode":"Filesystem"}}
+    creationTimestamp: "2024-05-07T03:44:35Z"
+    finalizers:
+    - kubernetes.io/pv-protection
+    name: cicd-jenkins-agent-19-pv
+    resourceVersion: "589478755"
+    uid: fce731f6-50b1-4939-956b-2cbb9e091804
+  spec:
+    accessModes:
+    - ReadWriteMany
+    capacity:
+      storage: 10Gi
+    claimRef:
+      apiVersion: v1
+      kind: PersistentVolumeClaim
+      name: agent-data-jenkins-agent-19
+      namespace: cicd-jenkins
+      resourceVersion: "589478747"
+      uid: 35ff92ce-dd25-4cda-b366-d6330d2c55a3
+    mountOptions:
+    - hard
+    - nfsvers=3
+    nfs:
+      path: /k8s/cicd/jenkins/agent/pv-19
+      server: 21.2.0.201
+    persistentVolumeReclaimPolicy: Retain
+    volumeMode: Filesystem
+  status:
+    phase: Bound
+- apiVersion: v1
+  kind: PersistentVolume
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","kind":"PersistentVolume","metadata":{"annotations":{},"name":"cicd-jenkins-agent-2-pv"},"spec":{"accessModes":["ReadWriteMany"],"capacity":{"storage":"10Gi"},"claimRef":{"kind":"PersistentVolumeClaim","name":"agent-data-jenkins-agent-2","namespace":"cicd-jenkins"},"mountOptions":["hard","nfsvers=3"],"nfs":{"path":"/k8s/jenkins-agent/pv-02","server":"21.2.0.201"},"persistentVolumeReclaimPolicy":"Retain","volumeMode":"Filesystem"}}
+    creationTimestamp: "2024-01-08T07:51:34Z"
+    finalizers:
+    - kubernetes.io/pv-protection
+    name: cicd-jenkins-agent-2-pv
+    resourceVersion: "478697087"
+    uid: fd422e87-d813-4652-9d34-ce24232c7474
+  spec:
+    accessModes:
+    - ReadWriteMany
+    capacity:
+      storage: 10Gi
+    claimRef:
+      apiVersion: v1
+      kind: PersistentVolumeClaim
+      name: agent-data-jenkins-agent-2
+      namespace: cicd-jenkins
+      resourceVersion: "478697081"
+      uid: 2d05c875-65ec-4aa9-a2f3-12b7a24a648e
+    mountOptions:
+    - hard
+    - nfsvers=3
+    nfs:
+      path: /k8s/jenkins-agent/pv-02
+      server: 21.2.0.201
+    persistentVolumeReclaimPolicy: Retain
+    volumeMode: Filesystem
+  status:
+    phase: Bound
+- apiVersion: v1
+  kind: PersistentVolume
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","kind":"PersistentVolume","metadata":{"annotations":{},"name":"cicd-jenkins-agent-20-pv"},"spec":{"accessModes":["ReadWriteMany"],"capacity":{"storage":"10Gi"},"claimRef":{"kind":"PersistentVolumeClaim","name":"agent-data-jenkins-agent-20","namespace":"cicd-jenkins"},"mountOptions":["hard","nfsvers=3"],"nfs":{"path":"/k8s/cicd/jenkins/agent/pv-20","server":"21.2.0.201"},"persistentVolumeReclaimPolicy":"Retain","volumeMode":"Filesystem"}}
+    creationTimestamp: "2024-05-14T14:16:51Z"
+    finalizers:
+    - kubernetes.io/pv-protection
+    name: cicd-jenkins-agent-20-pv
+    resourceVersion: "589481443"
+    uid: cab0adeb-60a2-4e1f-92df-4248403c8563
+  spec:
+    accessModes:
+    - ReadWriteMany
+    capacity:
+      storage: 10Gi
+    claimRef:
+      apiVersion: v1
+      kind: PersistentVolumeClaim
+      name: agent-data-jenkins-agent-20
+      namespace: cicd-jenkins
+      resourceVersion: "589481438"
+      uid: 72b4ab51-f9b7-4114-96d3-6985574ba25a
+    mountOptions:
+    - hard
+    - nfsvers=3
+    nfs:
+      path: /k8s/cicd/jenkins/agent/pv-20
+      server: 21.2.0.201
+    persistentVolumeReclaimPolicy: Retain
+    volumeMode: Filesystem
+  status:
+    phase: Bound
+- apiVersion: v1
+  kind: PersistentVolume
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","kind":"PersistentVolume","metadata":{"annotations":{},"name":"cicd-jenkins-agent-3-pv"},"spec":{"accessModes":["ReadWriteMany"],"capacity":{"storage":"10Gi"},"claimRef":{"kind":"PersistentVolumeClaim","name":"agent-data-jenkins-agent-3","namespace":"cicd-jenkins"},"mountOptions":["hard","nfsvers=3"],"nfs":{"path":"/k8s/cicd/jenkins/agent/pv-03","server":"21.2.0.201"},"persistentVolumeReclaimPolicy":"Retain","volumeMode":"Filesystem"}}
+    creationTimestamp: "2024-04-16T05:38:20Z"
+    finalizers:
+    - kubernetes.io/pv-protection
+    name: cicd-jenkins-agent-3-pv
+    resourceVersion: "563987543"
+    uid: d0b69317-98a0-40a2-9361-49eee651e7bf
+  spec:
+    accessModes:
+    - ReadWriteMany
+    capacity:
+      storage: 10Gi
+    claimRef:
+      apiVersion: v1
+      kind: PersistentVolumeClaim
+      name: agent-data-jenkins-agent-3
+      namespace: cicd-jenkins
+      resourceVersion: "563987368"
+      uid: 10f1d896-bea6-4cce-9020-384c3eec290b
+    mountOptions:
+    - hard
+    - nfsvers=3
+    nfs:
+      path: /k8s/cicd/jenkins/agent/pv-03
+      server: 21.2.0.201
+    persistentVolumeReclaimPolicy: Retain
+    volumeMode: Filesystem
+  status:
+    phase: Bound
+- apiVersion: v1
+  kind: PersistentVolume
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","kind":"PersistentVolume","metadata":{"annotations":{},"name":"cicd-jenkins-agent-4-pv"},"spec":{"accessModes":["ReadWriteMany"],"capacity":{"storage":"10Gi"},"claimRef":{"kind":"PersistentVolumeClaim","name":"agent-data-jenkins-agent-4","namespace":"cicd-jenkins"},"mountOptions":["hard","nfsvers=3"],"nfs":{"path":"/k8s/cicd/jenkins/agent/pv-04","server":"21.2.0.201"},"persistentVolumeReclaimPolicy":"Retain","volumeMode":"Filesystem"}}
+    creationTimestamp: "2024-04-16T05:37:03Z"
+    finalizers:
+    - kubernetes.io/pv-protection
+    name: cicd-jenkins-agent-4-pv
+    resourceVersion: "563986504"
+    uid: abb1f185-abee-44c7-ad75-eda8efc23ead
+  spec:
+    accessModes:
+    - ReadWriteMany
+    capacity:
+      storage: 10Gi
+    claimRef:
+      apiVersion: v1
+      kind: PersistentVolumeClaim
+      name: agent-data-jenkins-agent-4
+      namespace: cicd-jenkins
+      resourceVersion: "563986380"
+      uid: ff38d0af-4600-4b35-864a-50970c793f72
+    mountOptions:
+    - hard
+    - nfsvers=3
+    nfs:
+      path: /k8s/cicd/jenkins/agent/pv-04
+      server: 21.2.0.201
+    persistentVolumeReclaimPolicy: Retain
+    volumeMode: Filesystem
+  status:
+    phase: Bound
+- apiVersion: v1
+  kind: PersistentVolume
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","kind":"PersistentVolume","metadata":{"annotations":{},"name":"cicd-jenkins-agent-5-pv"},"spec":{"accessModes":["ReadWriteMany"],"capacity":{"storage":"10Gi"},"claimRef":{"kind":"PersistentVolumeClaim","name":"agent-data-jenkins-agent-5","namespace":"cicd-jenkins"},"mountOptions":["hard","nfsvers=5"],"nfs":{"path":"/k8s/cicd/jenkins/agent/pv-05","server":"21.2.0.201"},"persistentVolumeReclaimPolicy":"Retain","volumeMode":"Filesystem"}}
+    creationTimestamp: "2024-04-16T05:53:11Z"
+    finalizers:
+    - kubernetes.io/pv-protection
+    labels:
+      k8slens-edit-resource-version: v1
+    name: cicd-jenkins-agent-5-pv
+    resourceVersion: "564000654"
+    uid: 144045fe-1920-4bc2-9693-d2bc219924ca
+  spec:
+    accessModes:
+    - ReadWriteMany
+    capacity:
+      storage: 10Gi
+    claimRef:
+      apiVersion: v1
+      kind: PersistentVolumeClaim
+      name: agent-data-jenkins-agent-5
+      namespace: cicd-jenkins
+      resourceVersion: "563998424"
+      uid: ac5f9d39-717d-4743-9060-bf44029af4d2
+    mountOptions:
+    - hard
+    - nfsvers=3
+    nfs:
+      path: /k8s/cicd/jenkins/agent/pv-05
+      server: 21.2.0.201
+    persistentVolumeReclaimPolicy: Retain
+    volumeMode: Filesystem
+  status:
+    phase: Bound
+- apiVersion: v1
+  kind: PersistentVolume
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","kind":"PersistentVolume","metadata":{"annotations":{},"name":"cicd-jenkins-agent-6-pv"},"spec":{"accessModes":["ReadWriteMany"],"capacity":{"storage":"10Gi"},"claimRef":{"kind":"PersistentVolumeClaim","name":"agent-data-jenkins-agent-6","namespace":"cicd-jenkins"},"mountOptions":["hard","nfsvers=4"],"nfs":{"path":"/k8s/cicd/jenkins/agent/pv-06","server":"21.2.0.201"},"persistentVolumeReclaimPolicy":"Retain","volumeMode":"Filesystem"}}
+    creationTimestamp: "2024-04-16T05:54:40Z"
+    finalizers:
+    - kubernetes.io/pv-protection
+    labels:
+      k8slens-edit-resource-version: v1
+    name: cicd-jenkins-agent-6-pv
+    resourceVersion: "564005864"
+    uid: 007800ca-1b22-4123-af8d-96dd503ce9b8
+  spec:
+    accessModes:
+    - ReadWriteMany
+    capacity:
+      storage: 10Gi
+    claimRef:
+      apiVersion: v1
+      kind: PersistentVolumeClaim
+      name: agent-data-jenkins-agent-6
+      namespace: cicd-jenkins
+      resourceVersion: "564001720"
+      uid: f7868061-18ef-4215-9222-2288390fa99e
+    mountOptions:
+    - hard
+    - nfsvers=3
+    nfs:
+      path: /k8s/cicd/jenkins/agent/pv-06
+      server: 21.2.0.201
+    persistentVolumeReclaimPolicy: Retain
+    volumeMode: Filesystem
+  status:
+    phase: Bound
+- apiVersion: v1
+  kind: PersistentVolume
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","kind":"PersistentVolume","metadata":{"annotations":{},"name":"cicd-jenkins-agent-7-pv"},"spec":{"accessModes":["ReadWriteMany"],"capacity":{"storage":"10Gi"},"claimRef":{"kind":"PersistentVolumeClaim","name":"agent-data-jenkins-agent-7","namespace":"cicd-jenkins"},"mountOptions":["hard","nfsvers=4"],"nfs":{"path":"/k8s/cicd/jenkins/agent/pv-07","server":"21.2.0.201"},"persistentVolumeReclaimPolicy":"Retain","volumeMode":"Filesystem"}}
+    creationTimestamp: "2024-04-16T05:59:48Z"
+    finalizers:
+    - kubernetes.io/pv-protection
+    labels:
+      k8slens-edit-resource-version: v1
+    name: cicd-jenkins-agent-7-pv
+    resourceVersion: "564010873"
+    uid: 7b50cbce-9ead-4593-9b58-feb8c961e214
+  spec:
+    accessModes:
+    - ReadWriteMany
+    capacity:
+      storage: 10Gi
+    claimRef:
+      apiVersion: v1
+      kind: PersistentVolumeClaim
+      name: agent-data-jenkins-agent-7
+      namespace: cicd-jenkins
+      resourceVersion: "564007654"
+      uid: 1d436097-fa5f-4e18-80e1-09823c949103
+    mountOptions:
+    - hard
+    - nfsvers=3
+    nfs:
+      path: /k8s/cicd/jenkins/agent/pv-07
+      server: 21.2.0.201
+    persistentVolumeReclaimPolicy: Retain
+    volumeMode: Filesystem
+  status:
+    phase: Bound
+- apiVersion: v1
+  kind: PersistentVolume
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","kind":"PersistentVolume","metadata":{"annotations":{},"name":"cicd-jenkins-agent-8-pv"},"spec":{"accessModes":["ReadWriteMany"],"capacity":{"storage":"10Gi"},"claimRef":{"kind":"PersistentVolumeClaim","name":"agent-data-jenkins-agent-8","namespace":"cicd-jenkins"},"mountOptions":["hard","nfsvers=3"],"nfs":{"path":"/k8s/cicd/jenkins/agent/pv-08","server":"21.2.0.201"},"persistentVolumeReclaimPolicy":"Retain","volumeMode":"Filesystem"}}
+    creationTimestamp: "2024-04-16T06:15:26Z"
+    finalizers:
+    - kubernetes.io/pv-protection
+    name: cicd-jenkins-agent-8-pv
+    resourceVersion: "564012550"
+    uid: c965dcb1-e359-4016-974c-694f42e2c2a4
+  spec:
+    accessModes:
+    - ReadWriteMany
+    capacity:
+      storage: 10Gi
+    claimRef:
+      apiVersion: v1
+      kind: PersistentVolumeClaim
+      name: agent-data-jenkins-agent-8
+      namespace: cicd-jenkins
+      resourceVersion: "564011931"
+      uid: 88bef387-26a4-4d43-8db4-375ee6886452
+    mountOptions:
+    - hard
+    - nfsvers=3
+    nfs:
+      path: /k8s/cicd/jenkins/agent/pv-08
+      server: 21.2.0.201
+    persistentVolumeReclaimPolicy: Retain
+    volumeMode: Filesystem
+  status:
+    phase: Bound
+- apiVersion: v1
+  kind: PersistentVolume
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","kind":"PersistentVolume","metadata":{"annotations":{},"name":"cicd-jenkins-agent-9-pv"},"spec":{"accessModes":["ReadWriteMany"],"capacity":{"storage":"10Gi"},"claimRef":{"kind":"PersistentVolumeClaim","name":"agent-data-jenkins-agent-9","namespace":"cicd-jenkins"},"mountOptions":["hard","nfsvers=3"],"nfs":{"path":"/k8s/cicd/jenkins/agent/pv-09","server":"21.2.0.201"},"persistentVolumeReclaimPolicy":"Retain","volumeMode":"Filesystem"}}
+    creationTimestamp: "2024-04-16T06:17:50Z"
+    finalizers:
+    - kubernetes.io/pv-protection
+    name: cicd-jenkins-agent-9-pv
+    resourceVersion: "564014193"
+    uid: bebea293-463d-440d-8595-ab42977ddcee
+  spec:
+    accessModes:
+    - ReadWriteMany
+    capacity:
+      storage: 10Gi
+    claimRef:
+      apiVersion: v1
+      kind: PersistentVolumeClaim
+      name: agent-data-jenkins-agent-9
+      namespace: cicd-jenkins
+      resourceVersion: "564013240"
+      uid: 05d98514-afb6-4fb8-b84d-d2fec612365b
+    mountOptions:
+    - hard
+    - nfsvers=3
+    nfs:
+      path: /k8s/cicd/jenkins/agent/pv-09
+      server: 21.2.0.201
+    persistentVolumeReclaimPolicy: Retain
+    volumeMode: Filesystem
+  status:
+    phase: Bound
+- apiVersion: v1
+  kind: PersistentVolume
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","kind":"PersistentVolume","metadata":{"annotations":{},"name":"cicd-jenkins-agent-repo-0-pv"},"spec":{"accessModes":["ReadWriteMany"],"capacity":{"storage":"10Gi"},"claimRef":{"kind":"PersistentVolumeClaim","name":"repo-cache-jenkins-agent-0","namespace":"cicd-jenkins"},"mountOptions":["hard","nfsvers=3"],"nfs":{"path":"/k8s/cicd/jenkins/agent/repo-cache","server":"21.2.0.201"},"persistentVolumeReclaimPolicy":"Retain","volumeMode":"Filesystem"}}
+    creationTimestamp: "2024-01-08T07:51:34Z"
+    finalizers:
+    - kubernetes.io/pv-protection
+    name: cicd-jenkins-agent-repo-0-pv
+    resourceVersion: "478696301"
+    uid: ef73ca15-abbf-477d-a7ba-cc88d1306d98
+  spec:
+    accessModes:
+    - ReadWriteMany
+    capacity:
+      storage: 10Gi
+    claimRef:
+      apiVersion: v1
+      kind: PersistentVolumeClaim
+      name: repo-cache-jenkins-agent-0
+      namespace: cicd-jenkins
+      resourceVersion: "478696298"
+      uid: 54198a79-1dcf-45b2-b49b-ed0b76052d1f
+    mountOptions:
+    - hard
+    - nfsvers=3
+    nfs:
+      path: /k8s/cicd/jenkins/agent/repo-cache
+      server: 21.2.0.201
+    persistentVolumeReclaimPolicy: Retain
+    volumeMode: Filesystem
+  status:
+    phase: Bound
+- apiVersion: v1
+  kind: PersistentVolume
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","kind":"PersistentVolume","metadata":{"annotations":{},"name":"cicd-jenkins-agent-repo-1-pv"},"spec":{"accessModes":["ReadWriteMany"],"capacity":{"storage":"10Gi"},"claimRef":{"kind":"PersistentVolumeClaim","name":"repo-cache-jenkins-agent-1","namespace":"cicd-jenkins"},"mountOptions":["hard","nfsvers=3"],"nfs":{"path":"/k8s/cicd/jenkins/agent/repo-cache","server":"21.2.0.201"},"persistentVolumeReclaimPolicy":"Retain","volumeMode":"Filesystem"}}
+    creationTimestamp: "2024-01-08T07:51:34Z"
+    finalizers:
+    - kubernetes.io/pv-protection
+    name: cicd-jenkins-agent-repo-1-pv
+    resourceVersion: "478696581"
+    uid: c31ba289-d28d-4e16-a905-1337fd8929d0
+  spec:
+    accessModes:
+    - ReadWriteMany
+    capacity:
+      storage: 10Gi
+    claimRef:
+      apiVersion: v1
+      kind: PersistentVolumeClaim
+      name: repo-cache-jenkins-agent-1
+      namespace: cicd-jenkins
+      resourceVersion: "478696578"
+      uid: d534eccb-8aa3-4623-b8f7-1a87014e16ad
+    mountOptions:
+    - hard
+    - nfsvers=3
+    nfs:
+      path: /k8s/cicd/jenkins/agent/repo-cache
+      server: 21.2.0.201
+    persistentVolumeReclaimPolicy: Retain
+    volumeMode: Filesystem
+  status:
+    phase: Bound
+- apiVersion: v1
+  kind: PersistentVolume
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","kind":"PersistentVolume","metadata":{"annotations":{},"name":"cicd-jenkins-agent-repo-10-pv"},"spec":{"accessModes":["ReadWriteMany"],"capacity":{"storage":"10Gi"},"claimRef":{"kind":"PersistentVolumeClaim","name":"repo-cache-jenkins-agent-10","namespace":"cicd-jenkins"},"mountOptions":["hard","nfsvers=3"],"nfs":{"path":"/k8s/cicd/jenkins/agent/repo-cache","server":"21.2.0.201"},"persistentVolumeReclaimPolicy":"Retain","volumeMode":"Filesystem"}}
+    creationTimestamp: "2024-05-07T03:44:34Z"
+    finalizers:
+    - kubernetes.io/pv-protection
+    name: cicd-jenkins-agent-repo-10-pv
+    resourceVersion: "582762110"
+    uid: 7035e856-2704-4276-890c-0c0033204c3d
+  spec:
+    accessModes:
+    - ReadWriteMany
+    capacity:
+      storage: 10Gi
+    claimRef:
+      apiVersion: v1
+      kind: PersistentVolumeClaim
+      name: repo-cache-jenkins-agent-10
+      namespace: cicd-jenkins
+      resourceVersion: "582762108"
+      uid: a6845313-0491-442b-bd45-f8169eda3529
+    mountOptions:
+    - hard
+    - nfsvers=3
+    nfs:
+      path: /k8s/cicd/jenkins/agent/repo-cache
+      server: 21.2.0.201
+    persistentVolumeReclaimPolicy: Retain
+    volumeMode: Filesystem
+  status:
+    phase: Bound
+- apiVersion: v1
+  kind: PersistentVolume
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","kind":"PersistentVolume","metadata":{"annotations":{},"name":"cicd-jenkins-agent-repo-11-pv"},"spec":{"accessModes":["ReadWriteMany"],"capacity":{"storage":"10Gi"},"claimRef":{"kind":"PersistentVolumeClaim","name":"repo-cache-jenkins-agent-11","namespace":"cicd-jenkins"},"mountOptions":["hard","nfsvers=3"],"nfs":{"path":"/k8s/cicd/jenkins/agent/repo-cache","server":"21.2.0.201"},"persistentVolumeReclaimPolicy":"Retain","volumeMode":"Filesystem"}}
+    creationTimestamp: "2024-05-07T03:44:34Z"
+    finalizers:
+    - kubernetes.io/pv-protection
+    name: cicd-jenkins-agent-repo-11-pv
+    resourceVersion: "582764899"
+    uid: 9a949a9e-4ddc-426e-ac96-8c83661a4ead
+  spec:
+    accessModes:
+    - ReadWriteMany
+    capacity:
+      storage: 10Gi
+    claimRef:
+      apiVersion: v1
+      kind: PersistentVolumeClaim
+      name: repo-cache-jenkins-agent-11
+      namespace: cicd-jenkins
+      resourceVersion: "582764896"
+      uid: 17ed920d-bfa6-49c9-b560-f562e0ea9e72
+    mountOptions:
+    - hard
+    - nfsvers=3
+    nfs:
+      path: /k8s/cicd/jenkins/agent/repo-cache
+      server: 21.2.0.201
+    persistentVolumeReclaimPolicy: Retain
+    volumeMode: Filesystem
+  status:
+    phase: Bound
+- apiVersion: v1
+  kind: PersistentVolume
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","kind":"PersistentVolume","metadata":{"annotations":{},"name":"cicd-jenkins-agent-repo-12-pv"},"spec":{"accessModes":["ReadWriteMany"],"capacity":{"storage":"10Gi"},"claimRef":{"kind":"PersistentVolumeClaim","name":"repo-cache-jenkins-agent-12","namespace":"cicd-jenkins"},"mountOptions":["hard","nfsvers=3"],"nfs":{"path":"/k8s/cicd/jenkins/agent/repo-cache","server":"21.2.0.201"},"persistentVolumeReclaimPolicy":"Retain","volumeMode":"Filesystem"}}
+    creationTimestamp: "2024-05-07T03:44:35Z"
+    finalizers:
+    - kubernetes.io/pv-protection
+    name: cicd-jenkins-agent-repo-12-pv
+    resourceVersion: "582766295"
+    uid: c4fed09b-934f-4aa5-b86e-dd9910ad681f
+  spec:
+    accessModes:
+    - ReadWriteMany
+    capacity:
+      storage: 10Gi
+    claimRef:
+      apiVersion: v1
+      kind: PersistentVolumeClaim
+      name: repo-cache-jenkins-agent-12
+      namespace: cicd-jenkins
+      resourceVersion: "582766293"
+      uid: 8d0f1df0-b388-4c40-aae8-407b88a21b72
+    mountOptions:
+    - hard
+    - nfsvers=3
+    nfs:
+      path: /k8s/cicd/jenkins/agent/repo-cache
+      server: 21.2.0.201
+    persistentVolumeReclaimPolicy: Retain
+    volumeMode: Filesystem
+  status:
+    phase: Bound
+- apiVersion: v1
+  kind: PersistentVolume
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","kind":"PersistentVolume","metadata":{"annotations":{},"name":"cicd-jenkins-agent-repo-13-pv"},"spec":{"accessModes":["ReadWriteMany"],"capacity":{"storage":"10Gi"},"claimRef":{"kind":"PersistentVolumeClaim","name":"repo-cache-jenkins-agent-13","namespace":"cicd-jenkins"},"mountOptions":["hard","nfsvers=3"],"nfs":{"path":"/k8s/cicd/jenkins/agent/repo-cache","server":"21.2.0.201"},"persistentVolumeReclaimPolicy":"Retain","volumeMode":"Filesystem"}}
+    creationTimestamp: "2024-05-07T03:44:35Z"
+    finalizers:
+    - kubernetes.io/pv-protection
+    name: cicd-jenkins-agent-repo-13-pv
+    resourceVersion: "582767109"
+    uid: 443d771f-41d9-4367-ae34-d43086a16570
+  spec:
+    accessModes:
+    - ReadWriteMany
+    capacity:
+      storage: 10Gi
+    claimRef:
+      apiVersion: v1
+      kind: PersistentVolumeClaim
+      name: repo-cache-jenkins-agent-13
+      namespace: cicd-jenkins
+      resourceVersion: "582767107"
+      uid: 6d779822-a283-407e-ac35-639c2d64fd97
+    mountOptions:
+    - hard
+    - nfsvers=3
+    nfs:
+      path: /k8s/cicd/jenkins/agent/repo-cache
+      server: 21.2.0.201
+    persistentVolumeReclaimPolicy: Retain
+    volumeMode: Filesystem
+  status:
+    phase: Bound
+- apiVersion: v1
+  kind: PersistentVolume
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","kind":"PersistentVolume","metadata":{"annotations":{},"name":"cicd-jenkins-agent-repo-14-pv"},"spec":{"accessModes":["ReadWriteMany"],"capacity":{"storage":"10Gi"},"claimRef":{"kind":"PersistentVolumeClaim","name":"repo-cache-jenkins-agent-14","namespace":"cicd-jenkins"},"mountOptions":["hard","nfsvers=3"],"nfs":{"path":"/k8s/cicd/jenkins/agent/repo-cache","server":"21.2.0.201"},"persistentVolumeReclaimPolicy":"Retain","volumeMode":"Filesystem"}}
+    creationTimestamp: "2024-05-07T03:44:35Z"
+    finalizers:
+    - kubernetes.io/pv-protection
+    name: cicd-jenkins-agent-repo-14-pv
+    resourceVersion: "582767683"
+    uid: ad1b6ce0-84b4-400a-9344-5e55e0e4b193
+  spec:
+    accessModes:
+    - ReadWriteMany
+    capacity:
+      storage: 10Gi
+    claimRef:
+      apiVersion: v1
+      kind: PersistentVolumeClaim
+      name: repo-cache-jenkins-agent-14
+      namespace: cicd-jenkins
+      resourceVersion: "582767680"
+      uid: c0a53656-5c0a-4755-b829-528ba9189298
+    mountOptions:
+    - hard
+    - nfsvers=3
+    nfs:
+      path: /k8s/cicd/jenkins/agent/repo-cache
+      server: 21.2.0.201
+    persistentVolumeReclaimPolicy: Retain
+    volumeMode: Filesystem
+  status:
+    phase: Bound
+- apiVersion: v1
+  kind: PersistentVolume
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","kind":"PersistentVolume","metadata":{"annotations":{},"name":"cicd-jenkins-agent-repo-15-pv"},"spec":{"accessModes":["ReadWriteMany"],"capacity":{"storage":"10Gi"},"claimRef":{"kind":"PersistentVolumeClaim","name":"repo-cache-jenkins-agent-15","namespace":"cicd-jenkins"},"mountOptions":["hard","nfsvers=3"],"nfs":{"path":"/k8s/cicd/jenkins/agent/repo-cache","server":"21.2.0.201"},"persistentVolumeReclaimPolicy":"Retain","volumeMode":"Filesystem"}}
+    creationTimestamp: "2024-05-07T03:44:35Z"
+    finalizers:
+    - kubernetes.io/pv-protection
+    name: cicd-jenkins-agent-repo-15-pv
+    resourceVersion: "582773370"
+    uid: 3a6d5330-6443-4816-a2be-18836085244c
+  spec:
+    accessModes:
+    - ReadWriteMany
+    capacity:
+      storage: 10Gi
+    claimRef:
+      apiVersion: v1
+      kind: PersistentVolumeClaim
+      name: repo-cache-jenkins-agent-15
+      namespace: cicd-jenkins
+      resourceVersion: "582773367"
+      uid: 38c210a5-18f9-4f03-9a3a-4df102ab6fe9
+    mountOptions:
+    - hard
+    - nfsvers=3
+    nfs:
+      path: /k8s/cicd/jenkins/agent/repo-cache
+      server: 21.2.0.201
+    persistentVolumeReclaimPolicy: Retain
+    volumeMode: Filesystem
+  status:
+    phase: Bound
+- apiVersion: v1
+  kind: PersistentVolume
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","kind":"PersistentVolume","metadata":{"annotations":{},"name":"cicd-jenkins-agent-repo-16-pv"},"spec":{"accessModes":["ReadWriteMany"],"capacity":{"storage":"10Gi"},"claimRef":{"kind":"PersistentVolumeClaim","name":"repo-cache-jenkins-agent-16","namespace":"cicd-jenkins"},"mountOptions":["hard","nfsvers=3"],"nfs":{"path":"/k8s/cicd/jenkins/agent/repo-cache","server":"21.2.0.201"},"persistentVolumeReclaimPolicy":"Retain","volumeMode":"Filesystem"}}
+    creationTimestamp: "2024-05-07T03:44:35Z"
+    finalizers:
+    - kubernetes.io/pv-protection
+    name: cicd-jenkins-agent-repo-16-pv
+    resourceVersion: "589445555"
+    uid: 3aef9f7a-94fb-4930-a179-b85f47232aa7
+  spec:
+    accessModes:
+    - ReadWriteMany
+    capacity:
+      storage: 10Gi
+    claimRef:
+      apiVersion: v1
+      kind: PersistentVolumeClaim
+      name: repo-cache-jenkins-agent-16
+      namespace: cicd-jenkins
+      resourceVersion: "589445552"
+      uid: c2c52a67-8230-49db-a71a-659bd8373cf8
+    mountOptions:
+    - hard
+    - nfsvers=3
+    nfs:
+      path: /k8s/cicd/jenkins/agent/repo-cache
+      server: 21.2.0.201
+    persistentVolumeReclaimPolicy: Retain
+    volumeMode: Filesystem
+  status:
+    phase: Bound
+- apiVersion: v1
+  kind: PersistentVolume
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","kind":"PersistentVolume","metadata":{"annotations":{},"name":"cicd-jenkins-agent-repo-17-pv"},"spec":{"accessModes":["ReadWriteMany"],"capacity":{"storage":"10Gi"},"claimRef":{"kind":"PersistentVolumeClaim","name":"repo-cache-jenkins-agent-17","namespace":"cicd-jenkins"},"mountOptions":["hard","nfsvers=3"],"nfs":{"path":"/k8s/cicd/jenkins/agent/repo-cache","server":"21.2.0.201"},"persistentVolumeReclaimPolicy":"Retain","volumeMode":"Filesystem"}}
+    creationTimestamp: "2024-05-07T03:44:35Z"
+    finalizers:
+    - kubernetes.io/pv-protection
+    name: cicd-jenkins-agent-repo-17-pv
+    resourceVersion: "589466096"
+    uid: 0e621f9d-3678-4e8e-9270-3820f3d7c96e
+  spec:
+    accessModes:
+    - ReadWriteMany
+    capacity:
+      storage: 10Gi
+    claimRef:
+      apiVersion: v1
+      kind: PersistentVolumeClaim
+      name: repo-cache-jenkins-agent-17
+      namespace: cicd-jenkins
+      resourceVersion: "589466094"
+      uid: dc3a8544-50d0-4523-ac1c-e785ea769177
+    mountOptions:
+    - hard
+    - nfsvers=3
+    nfs:
+      path: /k8s/cicd/jenkins/agent/repo-cache
+      server: 21.2.0.201
+    persistentVolumeReclaimPolicy: Retain
+    volumeMode: Filesystem
+  status:
+    phase: Bound
+- apiVersion: v1
+  kind: PersistentVolume
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","kind":"PersistentVolume","metadata":{"annotations":{},"name":"cicd-jenkins-agent-repo-18-pv"},"spec":{"accessModes":["ReadWriteMany"],"capacity":{"storage":"10Gi"},"claimRef":{"kind":"PersistentVolumeClaim","name":"repo-cache-jenkins-agent-18","namespace":"cicd-jenkins"},"mountOptions":["hard","nfsvers=3"],"nfs":{"path":"/k8s/cicd/jenkins/agent/repo-cache","server":"21.2.0.201"},"persistentVolumeReclaimPolicy":"Retain","volumeMode":"Filesystem"}}
+    creationTimestamp: "2024-05-07T03:44:35Z"
+    finalizers:
+    - kubernetes.io/pv-protection
+    name: cicd-jenkins-agent-repo-18-pv
+    resourceVersion: "589477629"
+    uid: 0f7ac5b1-74b8-429f-b271-652f45b9c979
+  spec:
+    accessModes:
+    - ReadWriteMany
+    capacity:
+      storage: 10Gi
+    claimRef:
+      apiVersion: v1
+      kind: PersistentVolumeClaim
+      name: repo-cache-jenkins-agent-18
+      namespace: cicd-jenkins
+      resourceVersion: "589477627"
+      uid: 60d6950c-a60b-46b6-beb5-9598e33f3372
+    mountOptions:
+    - hard
+    - nfsvers=3
+    nfs:
+      path: /k8s/cicd/jenkins/agent/repo-cache
+      server: 21.2.0.201
+    persistentVolumeReclaimPolicy: Retain
+    volumeMode: Filesystem
+  status:
+    phase: Bound
+- apiVersion: v1
+  kind: PersistentVolume
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","kind":"PersistentVolume","metadata":{"annotations":{},"name":"cicd-jenkins-agent-repo-19-pv"},"spec":{"accessModes":["ReadWriteMany"],"capacity":{"storage":"10Gi"},"claimRef":{"kind":"PersistentVolumeClaim","name":"repo-cache-jenkins-agent-19","namespace":"cicd-jenkins"},"mountOptions":["hard","nfsvers=3"],"nfs":{"path":"/k8s/cicd/jenkins/agent/repo-cache","server":"21.2.0.201"},"persistentVolumeReclaimPolicy":"Retain","volumeMode":"Filesystem"}}
+    creationTimestamp: "2024-05-07T03:44:35Z"
+    finalizers:
+    - kubernetes.io/pv-protection
+    name: cicd-jenkins-agent-repo-19-pv
+    resourceVersion: "589480223"
+    uid: 4d90489c-b334-494c-9bec-3e80c8a4ecf1
+  spec:
+    accessModes:
+    - ReadWriteMany
+    capacity:
+      storage: 10Gi
+    claimRef:
+      apiVersion: v1
+      kind: PersistentVolumeClaim
+      name: repo-cache-jenkins-agent-19
+      namespace: cicd-jenkins
+      resourceVersion: "589480221"
+      uid: 404f94af-bea1-4c01-a066-087d6033b938
+    mountOptions:
+    - hard
+    - nfsvers=3
+    nfs:
+      path: /k8s/cicd/jenkins/agent/repo-cache
+      server: 21.2.0.201
+    persistentVolumeReclaimPolicy: Retain
+    volumeMode: Filesystem
+  status:
+    phase: Bound
+- apiVersion: v1
+  kind: PersistentVolume
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","kind":"PersistentVolume","metadata":{"annotations":{},"name":"cicd-jenkins-agent-repo-2-pv"},"spec":{"accessModes":["ReadWriteMany"],"capacity":{"storage":"10Gi"},"claimRef":{"kind":"PersistentVolumeClaim","name":"repo-cache-jenkins-agent-2","namespace":"cicd-jenkins"},"mountOptions":["hard","nfsvers=3"],"nfs":{"path":"/k8s/cicd/jenkins/agent/repo-cache","server":"21.2.0.201"},"persistentVolumeReclaimPolicy":"Retain","volumeMode":"Filesystem"}}
+    creationTimestamp: "2024-01-08T07:51:34Z"
+    finalizers:
+    - kubernetes.io/pv-protection
+    name: cicd-jenkins-agent-repo-2-pv
+    resourceVersion: "478697300"
+    uid: d817c16e-c4bc-4df4-848a-7f33fdd963fb
+  spec:
+    accessModes:
+    - ReadWriteMany
+    capacity:
+      storage: 10Gi
+    claimRef:
+      apiVersion: v1
+      kind: PersistentVolumeClaim
+      name: repo-cache-jenkins-agent-2
+      namespace: cicd-jenkins
+      resourceVersion: "478697297"
+      uid: 09f4fe56-6e0d-4378-b6fb-0265c4784804
+    mountOptions:
+    - hard
+    - nfsvers=3
+    nfs:
+      path: /k8s/cicd/jenkins/agent/repo-cache
+      server: 21.2.0.201
+    persistentVolumeReclaimPolicy: Retain
+    volumeMode: Filesystem
+  status:
+    phase: Bound
+- apiVersion: v1
+  kind: PersistentVolume
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","kind":"PersistentVolume","metadata":{"annotations":{},"name":"cicd-jenkins-agent-repo-20-pv"},"spec":{"accessModes":["ReadWriteMany"],"capacity":{"storage":"10Gi"},"claimRef":{"kind":"PersistentVolumeClaim","name":"repo-cache-jenkins-agent-20","namespace":"cicd-jenkins"},"mountOptions":["hard","nfsvers=3"],"nfs":{"path":"/k8s/cicd/jenkins/agent/repo-cache","server":"21.2.0.201"},"persistentVolumeReclaimPolicy":"Retain","volumeMode":"Filesystem"}}
+    creationTimestamp: "2024-05-14T15:35:27Z"
+    finalizers:
+    - kubernetes.io/pv-protection
+    name: cicd-jenkins-agent-repo-20-pv
+    resourceVersion: "589492081"
+    uid: 5b2c650b-7860-49d1-9c05-ffb914f00d26
+  spec:
+    accessModes:
+    - ReadWriteMany
+    capacity:
+      storage: 10Gi
+    claimRef:
+      apiVersion: v1
+      kind: PersistentVolumeClaim
+      name: repo-cache-jenkins-agent-20
+      namespace: cicd-jenkins
+      resourceVersion: "589492079"
+      uid: 7f629a84-0ae3-401d-8baa-81dd7a774b1e
+    mountOptions:
+    - hard
+    - nfsvers=3
+    nfs:
+      path: /k8s/cicd/jenkins/agent/repo-cache
+      server: 21.2.0.201
+    persistentVolumeReclaimPolicy: Retain
+    volumeMode: Filesystem
+  status:
+    phase: Bound
+- apiVersion: v1
+  kind: PersistentVolume
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","kind":"PersistentVolume","metadata":{"annotations":{},"name":"cicd-jenkins-agent-repo-3-pv"},"spec":{"accessModes":["ReadWriteMany"],"capacity":{"storage":"10Gi"},"claimRef":{"kind":"PersistentVolumeClaim","name":"repo-cache-jenkins-agent-3","namespace":"cicd-jenkins"},"mountOptions":["hard","nfsvers=3"],"nfs":{"path":"/k8s/cicd/jenkins/agent/repo-cache","server":"21.2.0.201"},"persistentVolumeReclaimPolicy":"Retain","volumeMode":"Filesystem"}}
+    creationTimestamp: "2024-04-16T05:38:20Z"
+    finalizers:
+    - kubernetes.io/pv-protection
+    name: cicd-jenkins-agent-repo-3-pv
+    resourceVersion: "563987547"
+    uid: f80dda49-cb38-4134-9556-bd171a1ece2e
+  spec:
+    accessModes:
+    - ReadWriteMany
+    capacity:
+      storage: 10Gi
+    claimRef:
+      apiVersion: v1
+      kind: PersistentVolumeClaim
+      name: repo-cache-jenkins-agent-3
+      namespace: cicd-jenkins
+      resourceVersion: "563987369"
+      uid: 45741909-0215-45b7-80ab-b51771c1f5f0
+    mountOptions:
+    - hard
+    - nfsvers=3
+    nfs:
+      path: /k8s/cicd/jenkins/agent/repo-cache
+      server: 21.2.0.201
+    persistentVolumeReclaimPolicy: Retain
+    volumeMode: Filesystem
+  status:
+    phase: Bound
+- apiVersion: v1
+  kind: PersistentVolume
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","kind":"PersistentVolume","metadata":{"annotations":{},"name":"cicd-jenkins-agent-repo-4-pv"},"spec":{"accessModes":["ReadWriteMany"],"capacity":{"storage":"10Gi"},"claimRef":{"kind":"PersistentVolumeClaim","name":"repo-cache-jenkins-agent-4","namespace":"cicd-jenkins"},"mountOptions":["hard","nfsvers=3"],"nfs":{"path":"/k8s/cicd/jenkins/agent/repo-cache","server":"21.2.0.201"},"persistentVolumeReclaimPolicy":"Retain","volumeMode":"Filesystem"}}
+    creationTimestamp: "2024-04-16T05:37:03Z"
+    finalizers:
+    - kubernetes.io/pv-protection
+    name: cicd-jenkins-agent-repo-4-pv
+    resourceVersion: "563986506"
+    uid: 6223bd54-c94a-4812-8902-05b7c84b29c0
+  spec:
+    accessModes:
+    - ReadWriteMany
+    capacity:
+      storage: 10Gi
+    claimRef:
+      apiVersion: v1
+      kind: PersistentVolumeClaim
+      name: repo-cache-jenkins-agent-4
+      namespace: cicd-jenkins
+      resourceVersion: "563986381"
+      uid: 87bc0c58-15a3-4d9f-83e8-650100cfb9e0
+    mountOptions:
+    - hard
+    - nfsvers=3
+    nfs:
+      path: /k8s/cicd/jenkins/agent/repo-cache
+      server: 21.2.0.201
+    persistentVolumeReclaimPolicy: Retain
+    volumeMode: Filesystem
+  status:
+    phase: Bound
+- apiVersion: v1
+  kind: PersistentVolume
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","kind":"PersistentVolume","metadata":{"annotations":{},"name":"cicd-jenkins-agent-repo-5-pv"},"spec":{"accessModes":["ReadWriteMany"],"capacity":{"storage":"10Gi"},"claimRef":{"kind":"PersistentVolumeClaim","name":"repo-cache-jenkins-agent-5","namespace":"cicd-jenkins"},"mountOptions":["hard","nfsvers=5"],"nfs":{"path":"/k8s/cicd/jenkins/agent/repo-cache","server":"21.2.0.201"},"persistentVolumeReclaimPolicy":"Retain","volumeMode":"Filesystem"}}
+    creationTimestamp: "2024-04-16T05:53:11Z"
+    finalizers:
+    - kubernetes.io/pv-protection
+    labels:
+      k8slens-edit-resource-version: v1
+    name: cicd-jenkins-agent-repo-5-pv
+    resourceVersion: "564000757"
+    uid: 49bc6fe5-89a4-4f78-a681-1677d61475dc
+  spec:
+    accessModes:
+    - ReadWriteMany
+    capacity:
+      storage: 10Gi
+    claimRef:
+      apiVersion: v1
+      kind: PersistentVolumeClaim
+      name: repo-cache-jenkins-agent-5
+      namespace: cicd-jenkins
+      resourceVersion: "563998425"
+      uid: 06bfcf5c-cda4-44d5-b95b-0bb6f028fefe
+    mountOptions:
+    - hard
+    - nfsvers=3
+    nfs:
+      path: /k8s/cicd/jenkins/agent/repo-cache
+      server: 21.2.0.201
+    persistentVolumeReclaimPolicy: Retain
+    volumeMode: Filesystem
+  status:
+    phase: Bound
+- apiVersion: v1
+  kind: PersistentVolume
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","kind":"PersistentVolume","metadata":{"annotations":{},"name":"cicd-jenkins-agent-repo-6-pv"},"spec":{"accessModes":["ReadWriteMany"],"capacity":{"storage":"10Gi"},"claimRef":{"kind":"PersistentVolumeClaim","name":"repo-cache-jenkins-agent-6","namespace":"cicd-jenkins"},"mountOptions":["hard","nfsvers=4"],"nfs":{"path":"/k8s/cicd/jenkins/agent/repo-cache","server":"21.2.0.201"},"persistentVolumeReclaimPolicy":"Retain","volumeMode":"Filesystem"}}
+    creationTimestamp: "2024-04-16T05:54:40Z"
+    finalizers:
+    - kubernetes.io/pv-protection
+    labels:
+      k8slens-edit-resource-version: v1
+    name: cicd-jenkins-agent-repo-6-pv
+    resourceVersion: "608459878"
+    uid: d6587c83-9d21-4529-90fe-89b7b1caa948
+  spec:
+    accessModes:
+    - ReadWriteMany
+    capacity:
+      storage: 10Gi
+    claimRef:
+      apiVersion: v1
+      kind: PersistentVolumeClaim
+      name: repo-cache-jenkins-agent-6
+      namespace: cicd-jenkins
+      resourceVersion: "564004311"
+      uid: 85fe45c3-b595-4eeb-b2d1-2a550057352b
+    mountOptions:
+    - hard
+    - nfsvers=3
+    nfs:
+      path: /k8s/cicd/jenkins/agent/repo-cache
+      server: 21.2.0.201
+    persistentVolumeReclaimPolicy: Retain
+    volumeMode: Filesystem
+  status:
+    phase: Bound
+- apiVersion: v1
+  kind: PersistentVolume
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","kind":"PersistentVolume","metadata":{"annotations":{},"name":"cicd-jenkins-agent-repo-7-pv"},"spec":{"accessModes":["ReadWriteMany"],"capacity":{"storage":"10Gi"},"claimRef":{"kind":"PersistentVolumeClaim","name":"repo-cache-jenkins-agent-7","namespace":"cicd-jenkins"},"mountOptions":["hard","nfsvers=3"],"nfs":{"path":"/k8s/cicd/jenkins/agent/repo-cache","server":"21.2.0.201"},"persistentVolumeReclaimPolicy":"Retain","volumeMode":"Filesystem"}}
+    creationTimestamp: "2024-04-16T05:59:48Z"
+    finalizers:
+    - kubernetes.io/pv-protection
+    name: cicd-jenkins-agent-repo-7-pv
+    resourceVersion: "564008399"
+    uid: 17f9e9aa-e534-43b4-93cd-e38868050266
+  spec:
+    accessModes:
+    - ReadWriteMany
+    capacity:
+      storage: 10Gi
+    claimRef:
+      apiVersion: v1
+      kind: PersistentVolumeClaim
+      name: repo-cache-jenkins-agent-7
+      namespace: cicd-jenkins
+      resourceVersion: "564008397"
+      uid: bb7172b7-498f-42d2-8682-1e19e0e6b92b
+    mountOptions:
+    - hard
+    - nfsvers=3
+    nfs:
+      path: /k8s/cicd/jenkins/agent/repo-cache
+      server: 21.2.0.201
+    persistentVolumeReclaimPolicy: Retain
+    volumeMode: Filesystem
+  status:
+    phase: Bound
+- apiVersion: v1
+  kind: PersistentVolume
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","kind":"PersistentVolume","metadata":{"annotations":{},"name":"cicd-jenkins-agent-repo-8-pv"},"spec":{"accessModes":["ReadWriteMany"],"capacity":{"storage":"10Gi"},"claimRef":{"kind":"PersistentVolumeClaim","name":"repo-cache-jenkins-agent-8","namespace":"cicd-jenkins"},"mountOptions":["hard","nfsvers=3"],"nfs":{"path":"/k8s/cicd/jenkins/agent/repo-cache","server":"21.2.0.201"},"persistentVolumeReclaimPolicy":"Retain","volumeMode":"Filesystem"}}
+    creationTimestamp: "2024-04-16T06:15:26Z"
+    finalizers:
+    - kubernetes.io/pv-protection
+    name: cicd-jenkins-agent-repo-8-pv
+    resourceVersion: "564012853"
+    uid: f6368750-4a04-4489-be6d-47dc9a9c6428
+  spec:
+    accessModes:
+    - ReadWriteMany
+    capacity:
+      storage: 10Gi
+    claimRef:
+      apiVersion: v1
+      kind: PersistentVolumeClaim
+      name: repo-cache-jenkins-agent-8
+      namespace: cicd-jenkins
+      resourceVersion: "564012851"
+      uid: a45bdcdd-54e6-4368-8fd9-e31045c06953
+    mountOptions:
+    - hard
+    - nfsvers=3
+    nfs:
+      path: /k8s/cicd/jenkins/agent/repo-cache
+      server: 21.2.0.201
+    persistentVolumeReclaimPolicy: Retain
+    volumeMode: Filesystem
+  status:
+    phase: Bound
+- apiVersion: v1
+  kind: PersistentVolume
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","kind":"PersistentVolume","metadata":{"annotations":{},"name":"cicd-jenkins-agent-repo-9-pv"},"spec":{"accessModes":["ReadWriteMany"],"capacity":{"storage":"10Gi"},"claimRef":{"kind":"PersistentVolumeClaim","name":"repo-cache-jenkins-agent-9","namespace":"cicd-jenkins"},"mountOptions":["hard","nfsvers=3"],"nfs":{"path":"/k8s/cicd/jenkins/agent/repo-cache","server":"21.2.0.201"},"persistentVolumeReclaimPolicy":"Retain","volumeMode":"Filesystem"}}
+    creationTimestamp: "2024-04-16T06:17:50Z"
+    finalizers:
+    - kubernetes.io/pv-protection
+    name: cicd-jenkins-agent-repo-9-pv
+    resourceVersion: "564014505"
+    uid: b3bbae43-ba06-4df3-91be-8bdf1fba4fd1
+  spec:
+    accessModes:
+    - ReadWriteMany
+    capacity:
+      storage: 10Gi
+    claimRef:
+      apiVersion: v1
+      kind: PersistentVolumeClaim
+      name: repo-cache-jenkins-agent-9
+      namespace: cicd-jenkins
+      resourceVersion: "564014503"
+      uid: c82461f2-39b8-40b7-8d0a-9aac143e4379
+    mountOptions:
+    - hard
+    - nfsvers=3
+    nfs:
+      path: /k8s/cicd/jenkins/agent/repo-cache
+      server: 21.2.0.201
+    persistentVolumeReclaimPolicy: Retain
+    volumeMode: Filesystem
+  status:
+    phase: Bound
+- apiVersion: v1
+  kind: PersistentVolume
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","kind":"PersistentVolume","metadata":{"annotations":{},"name":"cicd-jenkins-buildx-agent-0-pv"},"spec":{"accessModes":["ReadWriteMany"],"capacity":{"storage":"10Gi"},"claimRef":{"kind":"PersistentVolumeClaim","name":"agent-data-jenkins-buildx-agent-0","namespace":"cicd-jenkins"},"mountOptions":["hard","nfsvers=3"],"nfs":{"path":"/k8s/cicd/jenkins/agent/bv-00","server":"21.2.0.201"},"persistentVolumeReclaimPolicy":"Retain","volumeMode":"Filesystem"}}
+    creationTimestamp: "2024-12-18T03:24:38Z"
+    finalizers:
+    - kubernetes.io/pv-protection
+    name: cicd-jenkins-buildx-agent-0-pv
+    resourceVersion: "739783840"
+    uid: 54fa2a58-05b7-42fb-acad-df3884fb2fbc
+  spec:
+    accessModes:
+    - ReadWriteMany
+    capacity:
+      storage: 10Gi
+    claimRef:
+      apiVersion: v1
+      kind: PersistentVolumeClaim
+      name: agent-data-jenkins-buildx-agent-0
+      namespace: cicd-jenkins
+      resourceVersion: "739781494"
+      uid: 963d5249-44c4-45b7-8383-48d688a5fb75
+    mountOptions:
+    - hard
+    - nfsvers=3
+    nfs:
+      path: /k8s/cicd/jenkins/agent/bv-00
+      server: 21.2.0.201
+    persistentVolumeReclaimPolicy: Retain
+    volumeMode: Filesystem
+  status:
+    phase: Bound
+- apiVersion: v1
+  kind: PersistentVolume
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","kind":"PersistentVolume","metadata":{"annotations":{},"name":"cicd-jenkins-buildx-agent-1-pv"},"spec":{"accessModes":["ReadWriteMany"],"capacity":{"storage":"10Gi"},"claimRef":{"kind":"PersistentVolumeClaim","name":"agent-data-jenkins-buildx-agent-1","namespace":"cicd-jenkins"},"mountOptions":["hard","nfsvers=3"],"nfs":{"path":"/k8s/cicd/jenkins/agent/bv-01","server":"21.2.0.201"},"persistentVolumeReclaimPolicy":"Retain","volumeMode":"Filesystem"}}
+    creationTimestamp: "2024-12-20T05:18:55Z"
+    finalizers:
+    - kubernetes.io/pv-protection
+    name: cicd-jenkins-buildx-agent-1-pv
+    resourceVersion: "740826270"
+    uid: e91643a5-90b4-409a-be15-af66fb950bbe
+  spec:
+    accessModes:
+    - ReadWriteMany
+    capacity:
+      storage: 10Gi
+    claimRef:
+      apiVersion: v1
+      kind: PersistentVolumeClaim
+      name: agent-data-jenkins-buildx-agent-1
+      namespace: cicd-jenkins
+      resourceVersion: "740826267"
+      uid: 321e5b68-e7a6-4fed-a68b-99351284ab1d
+    mountOptions:
+    - hard
+    - nfsvers=3
+    nfs:
+      path: /k8s/cicd/jenkins/agent/bv-01
+      server: 21.2.0.201
+    persistentVolumeReclaimPolicy: Retain
+    volumeMode: Filesystem
+  status:
+    phase: Bound
+- apiVersion: v1
+  kind: PersistentVolume
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","kind":"PersistentVolume","metadata":{"annotations":{},"name":"cicd-jenkins-buildx-agent-10-pv"},"spec":{"accessModes":["ReadWriteMany"],"capacity":{"storage":"10Gi"},"claimRef":{"kind":"PersistentVolumeClaim","name":"agent-data-jenkins-buildx-agent-10","namespace":"cicd-jenkins"},"mountOptions":["hard","nfsvers=3"],"nfs":{"path":"/k8s/cicd/jenkins/agent/bv-10","server":"21.2.0.201"},"persistentVolumeReclaimPolicy":"Retain","volumeMode":"Filesystem"}}
+    creationTimestamp: "2025-02-17T07:14:28Z"
+    finalizers:
+    - kubernetes.io/pv-protection
+    name: cicd-jenkins-buildx-agent-10-pv
+    resourceVersion: "767045849"
+    uid: 65016654-81b1-4bdb-8bc1-ae408124ad56
+  spec:
+    accessModes:
+    - ReadWriteMany
+    capacity:
+      storage: 10Gi
+    claimRef:
+      apiVersion: v1
+      kind: PersistentVolumeClaim
+      name: agent-data-jenkins-buildx-agent-10
+      namespace: cicd-jenkins
+      resourceVersion: "767045847"
+      uid: 0b6df98a-717d-462f-9630-60fb7f5a4361
+    mountOptions:
+    - hard
+    - nfsvers=3
+    nfs:
+      path: /k8s/cicd/jenkins/agent/bv-10
+      server: 21.2.0.201
+    persistentVolumeReclaimPolicy: Retain
+    volumeMode: Filesystem
+  status:
+    phase: Bound
+- apiVersion: v1
+  kind: PersistentVolume
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","kind":"PersistentVolume","metadata":{"annotations":{},"name":"cicd-jenkins-buildx-agent-11-pv"},"spec":{"accessModes":["ReadWriteMany"],"capacity":{"storage":"10Gi"},"claimRef":{"kind":"PersistentVolumeClaim","name":"agent-data-jenkins-buildx-agent-11","namespace":"cicd-jenkins"},"mountOptions":["hard","nfsvers=3"],"nfs":{"path":"/k8s/cicd/jenkins/agent/bv-11","server":"21.2.0.201"},"persistentVolumeReclaimPolicy":"Retain","volumeMode":"Filesystem"}}
+    creationTimestamp: "2025-02-17T07:14:28Z"
+    finalizers:
+    - kubernetes.io/pv-protection
+    name: cicd-jenkins-buildx-agent-11-pv
+    resourceVersion: "767045896"
+    uid: 2b18d5f8-80c8-414e-8961-60c490b36648
+  spec:
+    accessModes:
+    - ReadWriteMany
+    capacity:
+      storage: 10Gi
+    claimRef:
+      apiVersion: v1
+      kind: PersistentVolumeClaim
+      name: agent-data-jenkins-buildx-agent-11
+      namespace: cicd-jenkins
+      resourceVersion: "767045893"
+      uid: 5803322f-4cc8-47fc-90dd-e32d66608ab7
+    mountOptions:
+    - hard
+    - nfsvers=3
+    nfs:
+      path: /k8s/cicd/jenkins/agent/bv-11
+      server: 21.2.0.201
+    persistentVolumeReclaimPolicy: Retain
+    volumeMode: Filesystem
+  status:
+    phase: Bound
+- apiVersion: v1
+  kind: PersistentVolume
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","kind":"PersistentVolume","metadata":{"annotations":{},"name":"cicd-jenkins-buildx-agent-2-pv"},"spec":{"accessModes":["ReadWriteMany"],"capacity":{"storage":"10Gi"},"claimRef":{"kind":"PersistentVolumeClaim","name":"agent-data-jenkins-buildx-agent-2","namespace":"cicd-jenkins"},"mountOptions":["hard","nfsvers=3"],"nfs":{"path":"/k8s/cicd/jenkins/agent/bv-02","server":"21.2.0.201"},"persistentVolumeReclaimPolicy":"Retain","volumeMode":"Filesystem"}}
+    creationTimestamp: "2024-12-20T05:21:06Z"
+    finalizers:
+    - kubernetes.io/pv-protection
+    name: cicd-jenkins-buildx-agent-2-pv
+    resourceVersion: "740826908"
+    uid: 849f7167-6c67-4107-8abb-4e9a0b9bc985
+  spec:
+    accessModes:
+    - ReadWriteMany
+    capacity:
+      storage: 10Gi
+    claimRef:
+      apiVersion: v1
+      kind: PersistentVolumeClaim
+      name: agent-data-jenkins-buildx-agent-2
+      namespace: cicd-jenkins
+      resourceVersion: "740826316"
+      uid: 9bbc206b-ed1f-4423-af9a-ba6fe6e8a39c
+    mountOptions:
+    - hard
+    - nfsvers=3
+    nfs:
+      path: /k8s/cicd/jenkins/agent/bv-02
+      server: 21.2.0.201
+    persistentVolumeReclaimPolicy: Retain
+    volumeMode: Filesystem
+  status:
+    phase: Bound
+- apiVersion: v1
+  kind: PersistentVolume
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","kind":"PersistentVolume","metadata":{"annotations":{},"name":"cicd-jenkins-buildx-agent-3-pv"},"spec":{"accessModes":["ReadWriteMany"],"capacity":{"storage":"10Gi"},"claimRef":{"kind":"PersistentVolumeClaim","name":"agent-data-jenkins-buildx-agent-3","namespace":"cicd-jenkins"},"mountOptions":["hard","nfsvers=3"],"nfs":{"path":"/k8s/cicd/jenkins/agent/bv-03","server":"21.2.0.201"},"persistentVolumeReclaimPolicy":"Retain","volumeMode":"Filesystem"}}
+    creationTimestamp: "2024-12-20T05:18:55Z"
+    finalizers:
+    - kubernetes.io/pv-protection
+    name: cicd-jenkins-buildx-agent-3-pv
+    resourceVersion: "740831031"
+    uid: fcca3dcc-d28b-44fb-b34e-d36ab0f4974b
+  spec:
+    accessModes:
+    - ReadWriteMany
+    capacity:
+      storage: 10Gi
+    claimRef:
+      apiVersion: v1
+      kind: PersistentVolumeClaim
+      name: agent-data-jenkins-buildx-agent-3
+      namespace: cicd-jenkins
+      resourceVersion: "740831028"
+      uid: 4a6a2641-8bdb-4e17-b347-c3cdc83551bb
+    mountOptions:
+    - hard
+    - nfsvers=3
+    nfs:
+      path: /k8s/cicd/jenkins/agent/bv-03
+      server: 21.2.0.201
+    persistentVolumeReclaimPolicy: Retain
+    volumeMode: Filesystem
+  status:
+    phase: Bound
+- apiVersion: v1
+  kind: PersistentVolume
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","kind":"PersistentVolume","metadata":{"annotations":{},"name":"cicd-jenkins-buildx-agent-4-pv"},"spec":{"accessModes":["ReadWriteMany"],"capacity":{"storage":"10Gi"},"claimRef":{"kind":"PersistentVolumeClaim","name":"agent-data-jenkins-buildx-agent-4","namespace":"cicd-jenkins"},"mountOptions":["hard","nfsvers=3"],"nfs":{"path":"/k8s/cicd/jenkins/agent/bv-04","server":"21.2.0.201"},"persistentVolumeReclaimPolicy":"Retain","volumeMode":"Filesystem"}}
+    creationTimestamp: "2024-12-20T05:18:55Z"
+    finalizers:
+    - kubernetes.io/pv-protection
+    name: cicd-jenkins-buildx-agent-4-pv
+    resourceVersion: "740833977"
+    uid: 61cc488c-5790-46f6-a16b-fb970c88ba61
+  spec:
+    accessModes:
+    - ReadWriteMany
+    capacity:
+      storage: 10Gi
+    claimRef:
+      apiVersion: v1
+      kind: PersistentVolumeClaim
+      name: agent-data-jenkins-buildx-agent-4
+      namespace: cicd-jenkins
+      resourceVersion: "740833974"
+      uid: 6f80ed24-cc59-4db6-80fa-c934a1c2e3c5
+    mountOptions:
+    - hard
+    - nfsvers=3
+    nfs:
+      path: /k8s/cicd/jenkins/agent/bv-04
+      server: 21.2.0.201
+    persistentVolumeReclaimPolicy: Retain
+    volumeMode: Filesystem
+  status:
+    phase: Bound
+- apiVersion: v1
+  kind: PersistentVolume
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","kind":"PersistentVolume","metadata":{"annotations":{},"name":"cicd-jenkins-buildx-agent-5-pv"},"spec":{"accessModes":["ReadWriteMany"],"capacity":{"storage":"10Gi"},"claimRef":{"kind":"PersistentVolumeClaim","name":"agent-data-jenkins-buildx-agent-5","namespace":"cicd-jenkins"},"mountOptions":["hard","nfsvers=3"],"nfs":{"path":"/k8s/cicd/jenkins/agent/bv-05","server":"21.2.0.201"},"persistentVolumeReclaimPolicy":"Retain","volumeMode":"Filesystem"}}
+    creationTimestamp: "2024-12-20T05:18:55Z"
+    finalizers:
+    - kubernetes.io/pv-protection
+    name: cicd-jenkins-buildx-agent-5-pv
+    resourceVersion: "740835232"
+    uid: 559370e0-20c5-4b1c-b851-9cd343bce5d1
+  spec:
+    accessModes:
+    - ReadWriteMany
+    capacity:
+      storage: 10Gi
+    claimRef:
+      apiVersion: v1
+      kind: PersistentVolumeClaim
+      name: agent-data-jenkins-buildx-agent-5
+      namespace: cicd-jenkins
+      resourceVersion: "740835228"
+      uid: f3bb47f4-0230-4961-9d6e-faa5be272d04
+    mountOptions:
+    - hard
+    - nfsvers=3
+    nfs:
+      path: /k8s/cicd/jenkins/agent/bv-05
+      server: 21.2.0.201
+    persistentVolumeReclaimPolicy: Retain
+    volumeMode: Filesystem
+  status:
+    phase: Bound
+- apiVersion: v1
+  kind: PersistentVolume
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","kind":"PersistentVolume","metadata":{"annotations":{},"name":"cicd-jenkins-buildx-agent-6-pv"},"spec":{"accessModes":["ReadWriteMany"],"capacity":{"storage":"10Gi"},"claimRef":{"kind":"PersistentVolumeClaim","name":"agent-data-jenkins-buildx-agent-6","namespace":"cicd-jenkins"},"mountOptions":["hard","nfsvers=3"],"nfs":{"path":"/k8s/cicd/jenkins/agent/bv-06","server":"21.2.0.201"},"persistentVolumeReclaimPolicy":"Retain","volumeMode":"Filesystem"}}
+    creationTimestamp: "2025-02-17T07:14:28Z"
+    finalizers:
+    - kubernetes.io/pv-protection
+    name: cicd-jenkins-buildx-agent-6-pv
+    resourceVersion: "767043890"
+    uid: 13d7b4c6-fc52-4396-b983-dca9f0004965
+  spec:
+    accessModes:
+    - ReadWriteMany
+    capacity:
+      storage: 10Gi
+    claimRef:
+      apiVersion: v1
+      kind: PersistentVolumeClaim
+      name: agent-data-jenkins-buildx-agent-6
+      namespace: cicd-jenkins
+      resourceVersion: "767043885"
+      uid: c559b12f-7ad4-4e6c-9d23-7545a89d6c67
+    mountOptions:
+    - hard
+    - nfsvers=3
+    nfs:
+      path: /k8s/cicd/jenkins/agent/bv-06
+      server: 21.2.0.201
+    persistentVolumeReclaimPolicy: Retain
+    volumeMode: Filesystem
+  status:
+    phase: Bound
+- apiVersion: v1
+  kind: PersistentVolume
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","kind":"PersistentVolume","metadata":{"annotations":{},"name":"cicd-jenkins-buildx-agent-7-pv"},"spec":{"accessModes":["ReadWriteMany"],"capacity":{"storage":"10Gi"},"claimRef":{"kind":"PersistentVolumeClaim","name":"agent-data-jenkins-buildx-agent-7","namespace":"cicd-jenkins"},"mountOptions":["hard","nfsvers=3"],"nfs":{"path":"/k8s/cicd/jenkins/agent/bv-07","server":"21.2.0.201"},"persistentVolumeReclaimPolicy":"Retain","volumeMode":"Filesystem"}}
+    creationTimestamp: "2025-02-17T07:14:28Z"
+    finalizers:
+    - kubernetes.io/pv-protection
+    name: cicd-jenkins-buildx-agent-7-pv
+    resourceVersion: "767043936"
+    uid: 0a8a95d5-4fe3-4d53-916c-8ec4a4d42e2a
+  spec:
+    accessModes:
+    - ReadWriteMany
+    capacity:
+      storage: 10Gi
+    claimRef:
+      apiVersion: v1
+      kind: PersistentVolumeClaim
+      name: agent-data-jenkins-buildx-agent-7
+      namespace: cicd-jenkins
+      resourceVersion: "767043934"
+      uid: 07cc319c-058e-491f-9390-3aaddff85bce
+    mountOptions:
+    - hard
+    - nfsvers=3
+    nfs:
+      path: /k8s/cicd/jenkins/agent/bv-07
+      server: 21.2.0.201
+    persistentVolumeReclaimPolicy: Retain
+    volumeMode: Filesystem
+  status:
+    phase: Bound
+- apiVersion: v1
+  kind: PersistentVolume
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","kind":"PersistentVolume","metadata":{"annotations":{},"name":"cicd-jenkins-buildx-agent-8-pv"},"spec":{"accessModes":["ReadWriteMany"],"capacity":{"storage":"10Gi"},"claimRef":{"kind":"PersistentVolumeClaim","name":"agent-data-jenkins-buildx-agent-8","namespace":"cicd-jenkins"},"mountOptions":["hard","nfsvers=3"],"nfs":{"path":"/k8s/cicd/jenkins/agent/bv-08","server":"21.2.0.201"},"persistentVolumeReclaimPolicy":"Retain","volumeMode":"Filesystem"}}
+    creationTimestamp: "2025-02-17T07:14:28Z"
+    finalizers:
+    - kubernetes.io/pv-protection
+    name: cicd-jenkins-buildx-agent-8-pv
+    resourceVersion: "767043988"
+    uid: b9435b45-acd1-4bdf-9f1a-fbfa63bde97e
+  spec:
+    accessModes:
+    - ReadWriteMany
+    capacity:
+      storage: 10Gi
+    claimRef:
+      apiVersion: v1
+      kind: PersistentVolumeClaim
+      name: agent-data-jenkins-buildx-agent-8
+      namespace: cicd-jenkins
+      resourceVersion: "767043985"
+      uid: 72e4de6a-8c57-4355-b0cb-02ad57b0cdb8
+    mountOptions:
+    - hard
+    - nfsvers=3
+    nfs:
+      path: /k8s/cicd/jenkins/agent/bv-08
+      server: 21.2.0.201
+    persistentVolumeReclaimPolicy: Retain
+    volumeMode: Filesystem
+  status:
+    phase: Bound
+- apiVersion: v1
+  kind: PersistentVolume
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","kind":"PersistentVolume","metadata":{"annotations":{},"name":"cicd-jenkins-buildx-agent-9-pv"},"spec":{"accessModes":["ReadWriteMany"],"capacity":{"storage":"10Gi"},"claimRef":{"kind":"PersistentVolumeClaim","name":"agent-data-jenkins-buildx-agent-9","namespace":"cicd-jenkins"},"mountOptions":["hard","nfsvers=3"],"nfs":{"path":"/k8s/cicd/jenkins/agent/bv-09","server":"21.2.0.201"},"persistentVolumeReclaimPolicy":"Retain","volumeMode":"Filesystem"}}
+    creationTimestamp: "2025-02-17T07:14:28Z"
+    finalizers:
+    - kubernetes.io/pv-protection
+    name: cicd-jenkins-buildx-agent-9-pv
+    resourceVersion: "767044037"
+    uid: 200e4770-148a-474a-b717-95097ea38da1
+  spec:
+    accessModes:
+    - ReadWriteMany
+    capacity:
+      storage: 10Gi
+    claimRef:
+      apiVersion: v1
+      kind: PersistentVolumeClaim
+      name: agent-data-jenkins-buildx-agent-9
+      namespace: cicd-jenkins
+      resourceVersion: "767044035"
+      uid: 3a4048ba-a262-4586-a4d3-878b32142cf5
+    mountOptions:
+    - hard
+    - nfsvers=3
+    nfs:
+      path: /k8s/cicd/jenkins/agent/bv-09
+      server: 21.2.0.201
+    persistentVolumeReclaimPolicy: Retain
+    volumeMode: Filesystem
+  status:
+    phase: Bound
+- apiVersion: v1
+  kind: PersistentVolume
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","kind":"PersistentVolume","metadata":{"annotations":{},"name":"cicd-jenkins-pv"},"spec":{"accessModes":["ReadWriteMany"],"capacity":{"storage":"200Gi"},"claimRef":{"kind":"PersistentVolumeClaim","name":"jenkins-pvc","namespace":"cicd-jenkins"},"mountOptions":["hard","nfsvers=3"],"nfs":{"path":"/k8s/cicd/jenkins/master","server":"21.2.0.201"},"persistentVolumeReclaimPolicy":"Retain","volumeMode":"Filesystem"}}
+    creationTimestamp: "2024-01-08T03:02:34Z"
+    finalizers:
+    - kubernetes.io/pv-protection
+    name: cicd-jenkins-pv
+    resourceVersion: "478548052"
+    uid: e16d7c53-c129-433f-aa28-580962f0920d
+  spec:
+    accessModes:
+    - ReadWriteMany
+    capacity:
+      storage: 200Gi
+    claimRef:
+      apiVersion: v1
+      kind: PersistentVolumeClaim
+      name: jenkins-pvc
+      namespace: cicd-jenkins
+      resourceVersion: "478547979"
+      uid: 28bd9146-973a-4be5-8716-c542f0626c87
+    mountOptions:
+    - hard
+    - nfsvers=3
+    nfs:
+      path: /k8s/cicd/jenkins/master
+      server: 21.2.0.201
+    persistentVolumeReclaimPolicy: Retain
+    volumeMode: Filesystem
+  status:
+    phase: Bound
+- apiVersion: v1
+  kind: PersistentVolume
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","kind":"PersistentVolume","metadata":{"annotations":{},"labels":{"app.kubernetes.io/component":"data","app.kubernetes.io/name":"cicd-nexus","app.kubernetes.io/type":"cicd"},"name":"cicd-nexus-data-pv"},"spec":{"accessModes":["ReadWriteOnce"],"capacity":{"storage":"500Gi"},"claimRef":{"kind":"PersistentVolumeClaim","name":"cicd-nexus-data-pvc","namespace":"cicd-nexus"},"nfs":{"path":"/k8s/cicd/nexus/data","server":"21.2.0.201"},"persistentVolumeReclaimPolicy":"Retain","volumeMode":"Filesystem"}}
+    creationTimestamp: "2023-11-10T06:08:24Z"
+    finalizers:
+    - kubernetes.io/pv-protection
+    labels:
+      app.kubernetes.io/component: data
+      app.kubernetes.io/name: cicd-nexus
+      app.kubernetes.io/type: cicd
+    name: cicd-nexus-data-pv
+    resourceVersion: "438365632"
+    uid: dc5cbc2d-1468-479b-86f6-4a2793b77f9f
+  spec:
+    accessModes:
+    - ReadWriteOnce
+    capacity:
+      storage: 500Gi
+    claimRef:
+      apiVersion: v1
+      kind: PersistentVolumeClaim
+      name: cicd-nexus-data-pvc
+      namespace: cicd-nexus
+      resourceVersion: "438365628"
+      uid: f5dd09c9-67d8-4476-ba8f-1d64712d2d37
+    nfs:
+      path: /k8s/cicd/nexus/data
+      server: 21.2.0.201
+    persistentVolumeReclaimPolicy: Retain
+    volumeMode: Filesystem
+  status:
+    phase: Bound
+- apiVersion: v1
+  kind: PersistentVolume
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","kind":"PersistentVolume","metadata":{"annotations":{},"labels":{"app.kubernetes.io/component":"plugins","app.kubernetes.io/name":"cicd-nexus","app.kubernetes.io/type":"cicd"},"name":"cicd-nexus-plugins-pv"},"spec":{"accessModes":["ReadWriteOnce"],"capacity":{"storage":"1Gi"},"claimRef":{"kind":"PersistentVolumeClaim","name":"cicd-nexus-plugins-pvc","namespace":"cicd-nexus"},"nfs":{"path":"/k8s/cicd/nexus/plugins","server":"21.2.0.201"},"persistentVolumeReclaimPolicy":"Retain","volumeMode":"Filesystem"}}
+    creationTimestamp: "2023-11-10T06:08:24Z"
+    finalizers:
+    - kubernetes.io/pv-protection
+    labels:
+      app.kubernetes.io/component: plugins
+      app.kubernetes.io/name: cicd-nexus
+      app.kubernetes.io/type: cicd
+    name: cicd-nexus-plugins-pv
+    resourceVersion: "438365635"
+    uid: f3e5acc6-4d5b-4d3e-8724-19d2a5e34911
+  spec:
+    accessModes:
+    - ReadWriteOnce
+    capacity:
+      storage: 1Gi
+    claimRef:
+      apiVersion: v1
+      kind: PersistentVolumeClaim
+      name: cicd-nexus-plugins-pvc
+      namespace: cicd-nexus
+      resourceVersion: "438365633"
+      uid: caca1199-6a0c-4952-80fc-11aaaee42f36
+    nfs:
+      path: /k8s/cicd/nexus/plugins
+      server: 21.2.0.201
+    persistentVolumeReclaimPolicy: Retain
+    volumeMode: Filesystem
+  status:
+    phase: Bound
+- apiVersion: v1
+  kind: PersistentVolume
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","kind":"PersistentVolume","metadata":{"annotations":{},"name":"cicd-spinnaker-minio-pv"},"spec":{"accessModes":["ReadWriteOnce"],"capacity":{"storage":"500Gi"},"claimRef":{"kind":"PersistentVolumeClaim","name":"cicd-spinnaker-minio-pvc","namespace":"cicd-spinnaker"},"mountOptions":["hard","nfsvers=4.1"],"nfs":{"path":"/k8s/cicd/spinnaker/minio","server":"21.2.0.201"},"persistentVolumeReclaimPolicy":"Retain","volumeMode":"Filesystem"}}
+    creationTimestamp: "2023-12-07T03:35:19Z"
+    finalizers:
+    - kubernetes.io/pv-protection
+    name: cicd-spinnaker-minio-pv
+    resourceVersion: "457702178"
+    uid: 66395f56-c6a8-469f-9962-1e503689cec1
+  spec:
+    accessModes:
+    - ReadWriteOnce
+    capacity:
+      storage: 500Gi
+    claimRef:
+      apiVersion: v1
+      kind: PersistentVolumeClaim
+      name: cicd-spinnaker-minio-pvc
+      namespace: cicd-spinnaker
+      resourceVersion: "457702176"
+      uid: a9db831c-5abb-4494-b0fd-ef2cc79797cd
+    mountOptions:
+    - hard
+    - nfsvers=4.1
+    nfs:
+      path: /k8s/cicd/spinnaker/minio
+      server: 21.2.0.201
+    persistentVolumeReclaimPolicy: Retain
+    volumeMode: Filesystem
+  status:
+    phase: Bound
+- apiVersion: v1
+  kind: PersistentVolume
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","kind":"PersistentVolume","metadata":{"annotations":{},"labels":{"app-service":"cicd-spinnaker","app-system":"cicd","app-tier":"backend"},"name":"cicd-spinnaker-redis-pv"},"spec":{"accessModes":["ReadWriteOnce"],"capacity":{"storage":"100Gi"},"claimRef":{"kind":"PersistentVolumeClaim","name":"cicd-spinnaker-redis-pvc","namespace":"cicd-spinnaker"},"mountOptions":["hard","nfsvers=4.1"],"nfs":{"path":"/k8s/cicd/spinnaker/redis","server":"21.2.0.201"},"persistentVolumeReclaimPolicy":"Retain","volumeMode":"Filesystem"}}
+    creationTimestamp: "2023-11-03T09:10:04Z"
+    finalizers:
+    - kubernetes.io/pv-protection
+    labels:
+      app-service: cicd-spinnaker
+      app-system: cicd
+      app-tier: backend
+    name: cicd-spinnaker-redis-pv
+    resourceVersion: "433310238"
+    uid: b3dabbaa-8748-476e-89dd-4d0f30a14071
+  spec:
+    accessModes:
+    - ReadWriteOnce
+    capacity:
+      storage: 100Gi
+    claimRef:
+      apiVersion: v1
+      kind: PersistentVolumeClaim
+      name: cicd-spinnaker-redis-pvc
+      namespace: cicd-spinnaker
+      resourceVersion: "433310236"
+      uid: 397eb564-273b-4d01-9448-6c1cf6c66cc8
+    mountOptions:
+    - hard
+    - nfsvers=4.1
+    nfs:
+      path: /k8s/cicd/spinnaker/redis
+      server: 21.2.0.201
+    persistentVolumeReclaimPolicy: Retain
+    volumeMode: Filesystem
+  status:
+    phase: Bound
+- apiVersion: v1
+  kind: PersistentVolume
+  metadata:
+    annotations:
+      pv.kubernetes.io/provisioned-by: nfs.csi.k8s.io
+    creationTimestamp: "2024-11-18T05:28:12Z"
+    finalizers:
+    - kubernetes.io/pv-protection
+    name: pvc-07c3b67c-480c-41f6-98a5-1c95486fdfe9
+    resourceVersion: "724215793"
+    uid: 38c07da5-51a9-4d7c-85d5-137d7f06baa8
+  spec:
+    accessModes:
+    - ReadWriteMany
+    capacity:
+      storage: 10Gi
+    claimRef:
+      apiVersion: v1
+      kind: PersistentVolumeClaim
+      name: nfs-quorum-wal-cots-global-messagequeue-be-server-1
+      namespace: cots-dev
+      resourceVersion: "724214122"
+      uid: 07c3b67c-480c-41f6-98a5-1c95486fdfe9
+    csi:
+      driver: nfs.csi.k8s.io
+      volumeAttributes:
+        server: 21.2.0.201
+        share: /k8s/dynamic/cots-dev/rabbitmq/pvc-07c3b67c-480c-41f6-98a5-1c95486fdfe9
+        storage.kubernetes.io/csiProvisionerIdentity: 1731389538793-8081-nfs.csi.k8s.io
+      volumeHandle: 21.2.0.201/k8s/dynamic/cots-dev/rabbitmq/pvc-07c3b67c-480c-41f6-98a5-1c95486fdfe9
+    mountOptions:
+    - hard
+    - nolock
+    - vers=3
+    persistentVolumeReclaimPolicy: Delete
+    storageClassName: cots-nfs-csi-nolock-cots-dev-rabbitmq
+    volumeMode: Filesystem
+  status:
+    phase: Bound
+- apiVersion: v1
+  kind: PersistentVolume
+  metadata:
+    annotations:
+      pv.kubernetes.io/provisioned-by: nfs.csi.k8s.io
+    creationTimestamp: "2024-11-18T05:28:19Z"
+    finalizers:
+    - kubernetes.io/pv-protection
+    name: pvc-10729752-5c73-46d3-af41-6a49d236f5fe
+    resourceVersion: "724215943"
+    uid: 78461d8b-491b-46ca-a942-22e670869233
+  spec:
+    accessModes:
+    - ReadWriteMany
+    capacity:
+      storage: 10Gi
+    claimRef:
+      apiVersion: v1
+      kind: PersistentVolumeClaim
+      name: persistence-cots-batch-messagequeue-be-server-3
+      namespace: cots-dev
+      resourceVersion: "724214263"
+      uid: 10729752-5c73-46d3-af41-6a49d236f5fe
+    csi:
+      driver: nfs.csi.k8s.io
+      volumeAttributes:
+        server: 21.2.0.201
+        share: /k8s/dynamic/cots-dev/rabbitmq-batch/pvc-10729752-5c73-46d3-af41-6a49d236f5fe
+        storage.kubernetes.io/csiProvisionerIdentity: 1731389538793-8081-nfs.csi.k8s.io
+      volumeHandle: 21.2.0.201/k8s/dynamic/cots-dev/rabbitmq-batch/pvc-10729752-5c73-46d3-af41-6a49d236f5fe
+    mountOptions:
+    - hard
+    - nolock
+    - vers=3
+    persistentVolumeReclaimPolicy: Delete
+    storageClassName: cots-nfs-csi-nolock-cots-dev-rabbitmq-batch
+    volumeMode: Filesystem
+  status:
+    phase: Bound
+- apiVersion: v1
+  kind: PersistentVolume
+  metadata:
+    annotations:
+      pv.kubernetes.io/provisioned-by: nfs.csi.k8s.io
+    creationTimestamp: "2024-12-23T09:27:37Z"
+    finalizers:
+    - kubernetes.io/pv-protection
+    name: pvc-1379d358-598e-4a28-941b-ce6758a2006d
+    resourceVersion: "742420717"
+    uid: 9e4e7c3a-aed6-46f3-b265-3970f17c9259
+  spec:
+    accessModes:
+    - ReadWriteOnce
+    capacity:
+      storage: 8Gi
+    claimRef:
+      apiVersion: v1
+      kind: PersistentVolumeClaim
+      name: data-solr-0
+      namespace: temp-solr
+      resourceVersion: "742420630"
+      uid: 1379d358-598e-4a28-941b-ce6758a2006d
+    csi:
+      driver: nfs.csi.k8s.io
+      volumeAttributes:
+        server: 21.2.0.201
+        share: /k8s/pvc-1379d358-598e-4a28-941b-ce6758a2006d
+        storage.kubernetes.io/csiProvisionerIdentity: 1734750476868-8081-nfs.csi.k8s.io
+      volumeHandle: 21.2.0.201/k8s/pvc-1379d358-598e-4a28-941b-ce6758a2006d
+    mountOptions:
+    - hard
+    - nfsvers=3
+    persistentVolumeReclaimPolicy: Retain
+    storageClassName: nfs-csi
+    volumeMode: Filesystem
+  status:
+    phase: Bound
+- apiVersion: v1
+  kind: PersistentVolume
+  metadata:
+    annotations:
+      pv.kubernetes.io/provisioned-by: nfs.csi.k8s.io
+    creationTimestamp: "2024-11-18T05:28:16Z"
+    finalizers:
+    - kubernetes.io/pv-protection
+    name: pvc-16aca518-a423-4a67-81d9-9984b27f4505
+    resourceVersion: "724215889"
+    uid: b749198a-d1ab-424a-9ed6-91403c79661f
+  spec:
+    accessModes:
+    - ReadWriteMany
+    capacity:
+      storage: 10Gi
+    claimRef:
+      apiVersion: v1
+      kind: PersistentVolumeClaim
+      name: nfs-quorum-wal-cots-global-messagequeue-be-server-4
+      namespace: cots-dev
+      resourceVersion: "724214409"
+      uid: 16aca518-a423-4a67-81d9-9984b27f4505
+    csi:
+      driver: nfs.csi.k8s.io
+      volumeAttributes:
+        server: 21.2.0.201
+        share: /k8s/dynamic/cots-dev/rabbitmq/pvc-16aca518-a423-4a67-81d9-9984b27f4505
+        storage.kubernetes.io/csiProvisionerIdentity: 1731389538793-8081-nfs.csi.k8s.io
+      volumeHandle: 21.2.0.201/k8s/dynamic/cots-dev/rabbitmq/pvc-16aca518-a423-4a67-81d9-9984b27f4505
+    mountOptions:
+    - hard
+    - nolock
+    - vers=3
+    persistentVolumeReclaimPolicy: Delete
+    storageClassName: cots-nfs-csi-nolock-cots-dev-rabbitmq
+    volumeMode: Filesystem
+  status:
+    phase: Bound
+- apiVersion: v1
+  kind: PersistentVolume
+  metadata:
+    annotations:
+      pv.kubernetes.io/provisioned-by: nfs.csi.k8s.io
+    creationTimestamp: "2024-12-23T09:27:41Z"
+    finalizers:
+    - kubernetes.io/pv-protection
+    name: pvc-18022edb-57b4-4d6a-8668-699edf93ac7c
+    resourceVersion: "742420806"
+    uid: 9bd9b014-fe9e-471e-bc49-e2f46a9078db
+  spec:
+    accessModes:
+    - ReadWriteOnce
+    capacity:
+      storage: 8Gi
+    claimRef:
+      apiVersion: v1
+      kind: PersistentVolumeClaim
+      name: data-solr-zookeeper-0
+      namespace: temp-solr
+      resourceVersion: "742420599"
+      uid: 18022edb-57b4-4d6a-8668-699edf93ac7c
+    csi:
+      driver: nfs.csi.k8s.io
+      volumeAttributes:
+        server: 21.2.0.201
+        share: /k8s/pvc-18022edb-57b4-4d6a-8668-699edf93ac7c
+        storage.kubernetes.io/csiProvisionerIdentity: 1734750476868-8081-nfs.csi.k8s.io
+      volumeHandle: 21.2.0.201/k8s/pvc-18022edb-57b4-4d6a-8668-699edf93ac7c
+    mountOptions:
+    - hard
+    - nfsvers=3
+    persistentVolumeReclaimPolicy: Retain
+    storageClassName: nfs-csi
+    volumeMode: Filesystem
+  status:
+    phase: Bound
+- apiVersion: v1
+  kind: PersistentVolume
+  metadata:
+    annotations:
+      pv.kubernetes.io/provisioned-by: nfs.csi.k8s.io
+    creationTimestamp: "2024-11-18T05:26:27Z"
+    finalizers:
+    - kubernetes.io/pv-protection
+    name: pvc-1c77e670-04ed-45d1-a25f-68f62c98c385
+    resourceVersion: "724213455"
+    uid: 64e9e640-e671-470b-9a12-67e54e07f8c7
+  spec:
+    accessModes:
+    - ReadWriteMany
+    capacity:
+      storage: 10Gi
+    claimRef:
+      apiVersion: v1
+      kind: PersistentVolumeClaim
+      name: nfs-quorum-wal-cots-batch-messagequeue-be-server-0
+      namespace: cots-dev
+      resourceVersion: "724213123"
+      uid: 1c77e670-04ed-45d1-a25f-68f62c98c385
+    csi:
+      driver: nfs.csi.k8s.io
+      volumeAttributes:
+        server: 21.2.0.201
+        share: /k8s/dynamic/cots-dev/rabbitmq-batch/pvc-1c77e670-04ed-45d1-a25f-68f62c98c385
+        storage.kubernetes.io/csiProvisionerIdentity: 1731389538793-8081-nfs.csi.k8s.io
+      volumeHandle: 21.2.0.201/k8s/dynamic/cots-dev/rabbitmq-batch/pvc-1c77e670-04ed-45d1-a25f-68f62c98c385
+    mountOptions:
+    - hard
+    - nolock
+    - vers=3
+    persistentVolumeReclaimPolicy: Delete
+    storageClassName: cots-nfs-csi-nolock-cots-dev-rabbitmq-batch
+    volumeMode: Filesystem
+  status:
+    phase: Bound
+- apiVersion: v1
+  kind: PersistentVolume
+  metadata:
+    annotations:
+      pv.kubernetes.io/provisioned-by: nfs.csi.k8s.io
+    creationTimestamp: "2024-11-18T05:26:24Z"
+    finalizers:
+    - kubernetes.io/pv-protection
+    name: pvc-2370f498-c29e-4bce-8c67-5e5aaad1fbc3
+    resourceVersion: "724213383"
+    uid: 37b734aa-918a-46d6-88ac-cadff3270b7a
+  spec:
+    accessModes:
+    - ReadWriteOnce
+    capacity:
+      storage: 10Gi
+    claimRef:
+      apiVersion: v1
+      kind: PersistentVolumeClaim
+      name: data-cots-dev-cots-global-discovery-be-dev-server-4
+      namespace: cots-dev
+      resourceVersion: "724213173"
+      uid: 2370f498-c29e-4bce-8c67-5e5aaad1fbc3
+    csi:
+      driver: nfs.csi.k8s.io
+      volumeAttributes:
+        server: 21.2.0.201
+        share: /k8s/dynamic/cots-dev/consul/pvc-2370f498-c29e-4bce-8c67-5e5aaad1fbc3
+        storage.kubernetes.io/csiProvisionerIdentity: 1731389538793-8081-nfs.csi.k8s.io
+      volumeHandle: 21.2.0.201/k8s/dynamic/cots-dev/consul/pvc-2370f498-c29e-4bce-8c67-5e5aaad1fbc3
+    mountOptions:
+    - hard
+    - nolock
+    - vers=3
+    persistentVolumeReclaimPolicy: Retain
+    storageClassName: cots-nfs-csi-nolock-cots-dev-consul
+    volumeMode: Filesystem
+  status:
+    phase: Bound
+- apiVersion: v1
+  kind: PersistentVolume
+  metadata:
+    annotations:
+      pv.kubernetes.io/provisioned-by: nfs.csi.k8s.io
+    creationTimestamp: "2024-11-18T05:28:11Z"
+    finalizers:
+    - kubernetes.io/pv-protection
+    name: pvc-29e9f791-7438-411a-ba8f-ffd2c351ffb9
+    resourceVersion: "724215774"
+    uid: 579854e6-e81d-411f-b8d8-9d7a86f9c877
+  spec:
+    accessModes:
+    - ReadWriteMany
+    capacity:
+      storage: 10Gi
+    claimRef:
+      apiVersion: v1
+      kind: PersistentVolumeClaim
+      name: persistence-cots-global-messagequeue-be-server-2
+      namespace: cots-dev
+      resourceVersion: "724214218"
+      uid: 29e9f791-7438-411a-ba8f-ffd2c351ffb9
+    csi:
+      driver: nfs.csi.k8s.io
+      volumeAttributes:
+        server: 21.2.0.201
+        share: /k8s/dynamic/cots-dev/rabbitmq/pvc-29e9f791-7438-411a-ba8f-ffd2c351ffb9
+        storage.kubernetes.io/csiProvisionerIdentity: 1731389538793-8081-nfs.csi.k8s.io
+      volumeHandle: 21.2.0.201/k8s/dynamic/cots-dev/rabbitmq/pvc-29e9f791-7438-411a-ba8f-ffd2c351ffb9
+    mountOptions:
+    - hard
+    - nolock
+    - vers=3
+    persistentVolumeReclaimPolicy: Delete
+    storageClassName: cots-nfs-csi-nolock-cots-dev-rabbitmq
+    volumeMode: Filesystem
+  status:
+    phase: Bound
+- apiVersion: v1
+  kind: PersistentVolume
+  metadata:
+    annotations:
+      pv.kubernetes.io/provisioned-by: nfs.csi.k8s.io
+    creationTimestamp: "2024-11-18T05:26:16Z"
+    finalizers:
+    - kubernetes.io/pv-protection
+    name: pvc-2d7b88f0-b00d-4c29-9f9e-00d2eea3ab99
+    resourceVersion: "724213107"
+    uid: 59008885-f261-4244-94f1-90e985d1adca
+  spec:
+    accessModes:
+    - ReadWriteOnce
+    capacity:
+      storage: 10Gi
+    claimRef:
+      apiVersion: v1
+      kind: PersistentVolumeClaim
+      name: data-cots-dev-cots-global-discovery-be-dev-server-2
+      namespace: cots-dev
+      resourceVersion: "724212985"
+      uid: 2d7b88f0-b00d-4c29-9f9e-00d2eea3ab99
+    csi:
+      driver: nfs.csi.k8s.io
+      volumeAttributes:
+        server: 21.2.0.201
+        share: /k8s/dynamic/cots-dev/consul/pvc-2d7b88f0-b00d-4c29-9f9e-00d2eea3ab99
+        storage.kubernetes.io/csiProvisionerIdentity: 1731389538793-8081-nfs.csi.k8s.io
+      volumeHandle: 21.2.0.201/k8s/dynamic/cots-dev/consul/pvc-2d7b88f0-b00d-4c29-9f9e-00d2eea3ab99
+    mountOptions:
+    - hard
+    - nolock
+    - vers=3
+    persistentVolumeReclaimPolicy: Retain
+    storageClassName: cots-nfs-csi-nolock-cots-dev-consul
+    volumeMode: Filesystem
+  status:
+    phase: Bound
+- apiVersion: v1
+  kind: PersistentVolume
+  metadata:
+    annotations:
+      pv.kubernetes.io/provisioned-by: nfs.csi.k8s.io
+    creationTimestamp: "2024-11-18T05:26:27Z"
+    finalizers:
+    - kubernetes.io/pv-protection
+    name: pvc-31e18c93-4527-4b01-a0d9-417ceaaaf04a
+    resourceVersion: "724213460"
+    uid: a9fcbe78-aa2e-4fd6-9e88-c7c7c0ab8a85
+  spec:
+    accessModes:
+    - ReadWriteMany
+    capacity:
+      storage: 10Gi
+    claimRef:
+      apiVersion: v1
+      kind: PersistentVolumeClaim
+      name: persistence-cots-global-messagequeue-be-server-0
+      namespace: cots-dev
+      resourceVersion: "724213144"
+      uid: 31e18c93-4527-4b01-a0d9-417ceaaaf04a
+    csi:
+      driver: nfs.csi.k8s.io
+      volumeAttributes:
+        server: 21.2.0.201
+        share: /k8s/dynamic/cots-dev/rabbitmq/pvc-31e18c93-4527-4b01-a0d9-417ceaaaf04a
+        storage.kubernetes.io/csiProvisionerIdentity: 1731389538793-8081-nfs.csi.k8s.io
+      volumeHandle: 21.2.0.201/k8s/dynamic/cots-dev/rabbitmq/pvc-31e18c93-4527-4b01-a0d9-417ceaaaf04a
+    mountOptions:
+    - hard
+    - nolock
+    - vers=3
+    persistentVolumeReclaimPolicy: Delete
+    storageClassName: cots-nfs-csi-nolock-cots-dev-rabbitmq
+    volumeMode: Filesystem
+  status:
+    phase: Bound
+- apiVersion: v1
+  kind: PersistentVolume
+  metadata:
+    annotations:
+      pv.kubernetes.io/provisioned-by: nfs.csi.k8s.io
+    creationTimestamp: "2024-11-18T05:28:51Z"
+    finalizers:
+    - kubernetes.io/pv-protection
+    name: pvc-32bbdfe3-0283-4248-a08c-e1d9d48fce9f
+    resourceVersion: "724216347"
+    uid: b5033ea5-381a-40c0-a1e3-39f14755f732
+  spec:
+    accessModes:
+    - ReadWriteMany
+    capacity:
+      storage: 10Gi
+    claimRef:
+      apiVersion: v1
+      kind: PersistentVolumeClaim
+      name: persistence-cots-batch-messagequeue-be-server-4
+      namespace: cots-dev
+      resourceVersion: "724214361"
+      uid: 32bbdfe3-0283-4248-a08c-e1d9d48fce9f
+    csi:
+      driver: nfs.csi.k8s.io
+      volumeAttributes:
+        server: 21.2.0.201
+        share: /k8s/dynamic/cots-dev/rabbitmq-batch/pvc-32bbdfe3-0283-4248-a08c-e1d9d48fce9f
+        storage.kubernetes.io/csiProvisionerIdentity: 1731389538793-8081-nfs.csi.k8s.io
+      volumeHandle: 21.2.0.201/k8s/dynamic/cots-dev/rabbitmq-batch/pvc-32bbdfe3-0283-4248-a08c-e1d9d48fce9f
+    mountOptions:
+    - hard
+    - nolock
+    - vers=3
+    persistentVolumeReclaimPolicy: Delete
+    storageClassName: cots-nfs-csi-nolock-cots-dev-rabbitmq-batch
+    volumeMode: Filesystem
+  status:
+    phase: Bound
+- apiVersion: v1
+  kind: PersistentVolume
+  metadata:
+    annotations:
+      pv.kubernetes.io/provisioned-by: nfs.csi.k8s.io
+    creationTimestamp: "2023-11-20T00:48:30Z"
+    finalizers:
+    - kubernetes.io/pv-protection
+    name: pvc-48e44973-ee04-4b92-a4c8-a3c13980554f
+    resourceVersion: "444891486"
+    uid: f3bb4823-b609-419a-8304-254229d00d1b
+  spec:
+    accessModes:
+    - ReadWriteOnce
+    capacity:
+      storage: 1Gi
+    claimRef:
+      apiVersion: v1
+      kind: PersistentVolumeClaim
+      name: demo-stateful-volume-claim-demo-stateful-2
+      namespace: default
+      resourceVersion: "444891472"
+      uid: 48e44973-ee04-4b92-a4c8-a3c13980554f
+    csi:
+      driver: nfs.csi.k8s.io
+      volumeAttributes:
+        server: 21.2.0.201
+        share: /k8s/pvc-48e44973-ee04-4b92-a4c8-a3c13980554f
+        storage.kubernetes.io/csiProvisionerIdentity: 1698347282526-8081-nfs.csi.k8s.io
+      volumeHandle: 21.2.0.201/k8s/pvc-48e44973-ee04-4b92-a4c8-a3c13980554f
+    mountOptions:
+    - hard
+    - nfsvers=3
+    persistentVolumeReclaimPolicy: Retain
+    storageClassName: nfs-csi
+    volumeMode: Filesystem
+  status:
+    phase: Bound
+- apiVersion: v1
+  kind: PersistentVolume
+  metadata:
+    annotations:
+      pv.kubernetes.io/provisioned-by: nfs.csi.k8s.io
+    creationTimestamp: "2024-12-23T09:27:44Z"
+    finalizers:
+    - kubernetes.io/pv-protection
+    name: pvc-55d6662f-9c8f-4dc7-bd9a-5d81d9996d32
+    resourceVersion: "742420851"
+    uid: 7fafe44d-00ce-42af-8ef8-183d02ab0329
+  spec:
+    accessModes:
+    - ReadWriteOnce
+    capacity:
+      storage: 8Gi
+    claimRef:
+      apiVersion: v1
+      kind: PersistentVolumeClaim
+      name: data-solr-1
+      namespace: temp-solr
+      resourceVersion: "742420664"
+      uid: 55d6662f-9c8f-4dc7-bd9a-5d81d9996d32
+    csi:
+      driver: nfs.csi.k8s.io
+      volumeAttributes:
+        server: 21.2.0.201
+        share: /k8s/pvc-55d6662f-9c8f-4dc7-bd9a-5d81d9996d32
+        storage.kubernetes.io/csiProvisionerIdentity: 1734750476868-8081-nfs.csi.k8s.io
+      volumeHandle: 21.2.0.201/k8s/pvc-55d6662f-9c8f-4dc7-bd9a-5d81d9996d32
+    mountOptions:
+    - hard
+    - nfsvers=3
+    persistentVolumeReclaimPolicy: Retain
+    storageClassName: nfs-csi
+    volumeMode: Filesystem
+  status:
+    phase: Bound
+- apiVersion: v1
+  kind: PersistentVolume
+  metadata:
+    annotations:
+      pv.kubernetes.io/provisioned-by: nfs.csi.k8s.io
+    creationTimestamp: "2023-11-20T00:48:12Z"
+    finalizers:
+    - kubernetes.io/pv-protection
+    name: pvc-5a0fe284-5a47-449e-a732-812a73b9ca9f
+    resourceVersion: "444891335"
+    uid: 848deec5-e62b-4213-bf02-151c19027a4f
+  spec:
+    accessModes:
+    - ReadWriteOnce
+    capacity:
+      storage: 1Gi
+    claimRef:
+      apiVersion: v1
+      kind: PersistentVolumeClaim
+      name: demo-stateful-volume-claim-demo-stateful-0
+      namespace: default
+      resourceVersion: "444891317"
+      uid: 5a0fe284-5a47-449e-a732-812a73b9ca9f
+    csi:
+      driver: nfs.csi.k8s.io
+      volumeAttributes:
+        server: 21.2.0.201
+        share: /k8s/pvc-5a0fe284-5a47-449e-a732-812a73b9ca9f
+        storage.kubernetes.io/csiProvisionerIdentity: 1698347282526-8081-nfs.csi.k8s.io
+      volumeHandle: 21.2.0.201/k8s/pvc-5a0fe284-5a47-449e-a732-812a73b9ca9f
+    mountOptions:
+    - hard
+    - nfsvers=3
+    persistentVolumeReclaimPolicy: Retain
+    storageClassName: nfs-csi
+    volumeMode: Filesystem
+  status:
+    phase: Bound
+- apiVersion: v1
+  kind: PersistentVolume
+  metadata:
+    annotations:
+      pv.kubernetes.io/provisioned-by: nfs.csi.k8s.io
+    creationTimestamp: "2024-11-18T05:27:54Z"
+    finalizers:
+    - kubernetes.io/pv-protection
+    name: pvc-5a1d77a0-fdbf-483d-8ef5-d2befdec7528
+    resourceVersion: "724215545"
+    uid: 2dbd2226-a79c-4193-b8fb-fb8a53d88630
+  spec:
+    accessModes:
+    - ReadWriteMany
+    capacity:
+      storage: 10Gi
+    claimRef:
+      apiVersion: v1
+      kind: PersistentVolumeClaim
+      name: persistence-cots-batch-messagequeue-be-server-2
+      namespace: cots-dev
+      resourceVersion: "724214173"
+      uid: 5a1d77a0-fdbf-483d-8ef5-d2befdec7528
+    csi:
+      driver: nfs.csi.k8s.io
+      volumeAttributes:
+        server: 21.2.0.201
+        share: /k8s/dynamic/cots-dev/rabbitmq-batch/pvc-5a1d77a0-fdbf-483d-8ef5-d2befdec7528
+        storage.kubernetes.io/csiProvisionerIdentity: 1731389538793-8081-nfs.csi.k8s.io
+      volumeHandle: 21.2.0.201/k8s/dynamic/cots-dev/rabbitmq-batch/pvc-5a1d77a0-fdbf-483d-8ef5-d2befdec7528
+    mountOptions:
+    - hard
+    - nolock
+    - vers=3
+    persistentVolumeReclaimPolicy: Delete
+    storageClassName: cots-nfs-csi-nolock-cots-dev-rabbitmq-batch
+    volumeMode: Filesystem
+  status:
+    phase: Bound
+- apiVersion: v1
+  kind: PersistentVolume
+  metadata:
+    annotations:
+      pv.kubernetes.io/provisioned-by: nfs.csi.k8s.io
+    creationTimestamp: "2023-11-20T00:48:21Z"
+    finalizers:
+    - kubernetes.io/pv-protection
+    name: pvc-5cb685d9-f2c1-4e42-b84e-c9849b55c7b2
+    resourceVersion: "444891408"
+    uid: af167ec1-b02e-4c21-8b3d-ebe92ecd0cff
+  spec:
+    accessModes:
+    - ReadWriteOnce
+    capacity:
+      storage: 1Gi
+    claimRef:
+      apiVersion: v1
+      kind: PersistentVolumeClaim
+      name: demo-stateful-volume-claim-demo-stateful-1
+      namespace: default
+      resourceVersion: "444891396"
+      uid: 5cb685d9-f2c1-4e42-b84e-c9849b55c7b2
+    csi:
+      driver: nfs.csi.k8s.io
+      volumeAttributes:
+        server: 21.2.0.201
+        share: /k8s/pvc-5cb685d9-f2c1-4e42-b84e-c9849b55c7b2
+        storage.kubernetes.io/csiProvisionerIdentity: 1698347282526-8081-nfs.csi.k8s.io
+      volumeHandle: 21.2.0.201/k8s/pvc-5cb685d9-f2c1-4e42-b84e-c9849b55c7b2
+    mountOptions:
+    - hard
+    - nfsvers=3
+    persistentVolumeReclaimPolicy: Retain
+    storageClassName: nfs-csi
+    volumeMode: Filesystem
+  status:
+    phase: Bound
+- apiVersion: v1
+  kind: PersistentVolume
+  metadata:
+    annotations:
+      pv.kubernetes.io/provisioned-by: nfs.csi.k8s.io
+    creationTimestamp: "2024-11-18T05:28:08Z"
+    finalizers:
+    - kubernetes.io/pv-protection
+    name: pvc-5d765832-cba7-47f6-ab4b-47872e9d456c
+    resourceVersion: "724215735"
+    uid: 48ad28eb-8b68-401a-a883-975689ca7ab8
+  spec:
+    accessModes:
+    - ReadWriteMany
+    capacity:
+      storage: 10Gi
+    claimRef:
+      apiVersion: v1
+      kind: PersistentVolumeClaim
+      name: persistence-cots-batch-messagequeue-be-server-1
+      namespace: cots-dev
+      resourceVersion: "724214081"
+      uid: 5d765832-cba7-47f6-ab4b-47872e9d456c
+    csi:
+      driver: nfs.csi.k8s.io
+      volumeAttributes:
+        server: 21.2.0.201
+        share: /k8s/dynamic/cots-dev/rabbitmq-batch/pvc-5d765832-cba7-47f6-ab4b-47872e9d456c
+        storage.kubernetes.io/csiProvisionerIdentity: 1731389538793-8081-nfs.csi.k8s.io
+      volumeHandle: 21.2.0.201/k8s/dynamic/cots-dev/rabbitmq-batch/pvc-5d765832-cba7-47f6-ab4b-47872e9d456c
+    mountOptions:
+    - hard
+    - nolock
+    - vers=3
+    persistentVolumeReclaimPolicy: Delete
+    storageClassName: cots-nfs-csi-nolock-cots-dev-rabbitmq-batch
+    volumeMode: Filesystem
+  status:
+    phase: Bound
+- apiVersion: v1
+  kind: PersistentVolume
+  metadata:
+    annotations:
+      pv.kubernetes.io/provisioned-by: nfs.csi.k8s.io
+    creationTimestamp: "2024-11-18T05:28:08Z"
+    finalizers:
+    - kubernetes.io/pv-protection
+    name: pvc-679c2c52-8000-46ee-bd13-bebecbc598fa
+    resourceVersion: "724215729"
+    uid: bf38769b-f5c9-41f2-af31-f8e579f2f994
+  spec:
+    accessModes:
+    - ReadWriteMany
+    capacity:
+      storage: 10Gi
+    claimRef:
+      apiVersion: v1
+      kind: PersistentVolumeClaim
+      name: nfs-quorum-wal-cots-batch-messagequeue-be-server-1
+      namespace: cots-dev
+      resourceVersion: "724214089"
+      uid: 679c2c52-8000-46ee-bd13-bebecbc598fa
+    csi:
+      driver: nfs.csi.k8s.io
+      volumeAttributes:
+        server: 21.2.0.201
+        share: /k8s/dynamic/cots-dev/rabbitmq-batch/pvc-679c2c52-8000-46ee-bd13-bebecbc598fa
+        storage.kubernetes.io/csiProvisionerIdentity: 1731389538793-8081-nfs.csi.k8s.io
+      volumeHandle: 21.2.0.201/k8s/dynamic/cots-dev/rabbitmq-batch/pvc-679c2c52-8000-46ee-bd13-bebecbc598fa
+    mountOptions:
+    - hard
+    - nolock
+    - vers=3
+    persistentVolumeReclaimPolicy: Delete
+    storageClassName: cots-nfs-csi-nolock-cots-dev-rabbitmq-batch
+    volumeMode: Filesystem
+  status:
+    phase: Bound
+- apiVersion: v1
+  kind: PersistentVolume
+  metadata:
+    annotations:
+      pv.kubernetes.io/provisioned-by: nfs.csi.k8s.io
+    creationTimestamp: "2024-11-18T05:28:15Z"
+    finalizers:
+    - kubernetes.io/pv-protection
+    name: pvc-6e124497-3714-439a-bc8f-6a68089f9b85
+    resourceVersion: "724215856"
+    uid: d32552cb-e312-4f8f-a5f2-76002da269d4
+  spec:
+    accessModes:
+    - ReadWriteMany
+    capacity:
+      storage: 10Gi
+    claimRef:
+      apiVersion: v1
+      kind: PersistentVolumeClaim
+      name: nfs-quorum-wal-cots-batch-messagequeue-be-server-3
+      namespace: cots-dev
+      resourceVersion: "724214272"
+      uid: 6e124497-3714-439a-bc8f-6a68089f9b85
+    csi:
+      driver: nfs.csi.k8s.io
+      volumeAttributes:
+        server: 21.2.0.201
+        share: /k8s/dynamic/cots-dev/rabbitmq-batch/pvc-6e124497-3714-439a-bc8f-6a68089f9b85
+        storage.kubernetes.io/csiProvisionerIdentity: 1731389538793-8081-nfs.csi.k8s.io
+      volumeHandle: 21.2.0.201/k8s/dynamic/cots-dev/rabbitmq-batch/pvc-6e124497-3714-439a-bc8f-6a68089f9b85
+    mountOptions:
+    - hard
+    - nolock
+    - vers=3
+    persistentVolumeReclaimPolicy: Delete
+    storageClassName: cots-nfs-csi-nolock-cots-dev-rabbitmq-batch
+    volumeMode: Filesystem
+  status:
+    phase: Bound
+- apiVersion: v1
+  kind: PersistentVolume
+  metadata:
+    annotations:
+      pv.kubernetes.io/provisioned-by: nfs.csi.k8s.io
+    creationTimestamp: "2024-11-18T05:26:15Z"
+    finalizers:
+    - kubernetes.io/pv-protection
+    name: pvc-7b272cd4-22b2-4fd6-85ba-7452dae74f92
+    resourceVersion: "724212999"
+    uid: 6fc2b69f-2a6f-4799-979d-4cb36a358ff0
+  spec:
+    accessModes:
+    - ReadWriteOnce
+    capacity:
+      storage: 10Gi
+    claimRef:
+      apiVersion: v1
+      kind: PersistentVolumeClaim
+      name: data-cots-dev-cots-global-discovery-be-dev-server-1
+      namespace: cots-dev
+      resourceVersion: "724212942"
+      uid: 7b272cd4-22b2-4fd6-85ba-7452dae74f92
+    csi:
+      driver: nfs.csi.k8s.io
+      volumeAttributes:
+        server: 21.2.0.201
+        share: /k8s/dynamic/cots-dev/consul/pvc-7b272cd4-22b2-4fd6-85ba-7452dae74f92
+        storage.kubernetes.io/csiProvisionerIdentity: 1731389538793-8081-nfs.csi.k8s.io
+      volumeHandle: 21.2.0.201/k8s/dynamic/cots-dev/consul/pvc-7b272cd4-22b2-4fd6-85ba-7452dae74f92
+    mountOptions:
+    - hard
+    - nolock
+    - vers=3
+    persistentVolumeReclaimPolicy: Retain
+    storageClassName: cots-nfs-csi-nolock-cots-dev-consul
+    volumeMode: Filesystem
+  status:
+    phase: Bound
+- apiVersion: v1
+  kind: PersistentVolume
+  metadata:
+    annotations:
+      pv.kubernetes.io/provisioned-by: nfs.csi.k8s.io
+    creationTimestamp: "2024-11-18T05:28:14Z"
+    finalizers:
+    - kubernetes.io/pv-protection
+    name: pvc-7ec9b76d-cda0-41f2-9e6a-f5ec2750836f
+    resourceVersion: "724215844"
+    uid: 6aaa7ee4-4adf-484d-ba44-cf9cdc135214
+  spec:
+    accessModes:
+    - ReadWriteMany
+    capacity:
+      storage: 10Gi
+    claimRef:
+      apiVersion: v1
+      kind: PersistentVolumeClaim
+      name: persistence-cots-global-messagequeue-be-server-1
+      namespace: cots-dev
+      resourceVersion: "724214131"
+      uid: 7ec9b76d-cda0-41f2-9e6a-f5ec2750836f
+    csi:
+      driver: nfs.csi.k8s.io
+      volumeAttributes:
+        server: 21.2.0.201
+        share: /k8s/dynamic/cots-dev/rabbitmq/pvc-7ec9b76d-cda0-41f2-9e6a-f5ec2750836f
+        storage.kubernetes.io/csiProvisionerIdentity: 1731389538793-8081-nfs.csi.k8s.io
+      volumeHandle: 21.2.0.201/k8s/dynamic/cots-dev/rabbitmq/pvc-7ec9b76d-cda0-41f2-9e6a-f5ec2750836f
+    mountOptions:
+    - hard
+    - nolock
+    - vers=3
+    persistentVolumeReclaimPolicy: Delete
+    storageClassName: cots-nfs-csi-nolock-cots-dev-rabbitmq
+    volumeMode: Filesystem
+  status:
+    phase: Bound
+- apiVersion: v1
+  kind: PersistentVolume
+  metadata:
+    annotations:
+      pv.kubernetes.io/provisioned-by: nfs.csi.k8s.io
+    creationTimestamp: "2024-12-23T09:27:41Z"
+    finalizers:
+    - kubernetes.io/pv-protection
+    name: pvc-844ecaee-7ef4-4d12-baf6-d0bfbe795c5c
+    resourceVersion: "742420813"
+    uid: 38312c12-a336-4e85-bfc3-533ea12e82eb
+  spec:
+    accessModes:
+    - ReadWriteOnce
+    capacity:
+      storage: 8Gi
+    claimRef:
+      apiVersion: v1
+      kind: PersistentVolumeClaim
+      name: data-solr-zookeeper-1
+      namespace: temp-solr
+      resourceVersion: "742420620"
+      uid: 844ecaee-7ef4-4d12-baf6-d0bfbe795c5c
+    csi:
+      driver: nfs.csi.k8s.io
+      volumeAttributes:
+        server: 21.2.0.201
+        share: /k8s/pvc-844ecaee-7ef4-4d12-baf6-d0bfbe795c5c
+        storage.kubernetes.io/csiProvisionerIdentity: 1734750476868-8081-nfs.csi.k8s.io
+      volumeHandle: 21.2.0.201/k8s/pvc-844ecaee-7ef4-4d12-baf6-d0bfbe795c5c
+    mountOptions:
+    - hard
+    - nfsvers=3
+    persistentVolumeReclaimPolicy: Retain
+    storageClassName: nfs-csi
+    volumeMode: Filesystem
+  status:
+    phase: Bound
+- apiVersion: v1
+  kind: PersistentVolume
+  metadata:
+    annotations:
+      pv.kubernetes.io/provisioned-by: nfs.csi.k8s.io
+    creationTimestamp: "2023-12-08T13:07:21Z"
+    finalizers:
+    - kubernetes.io/pv-protection
+    name: pvc-8992dfe5-4ee4-40d1-8510-44e79a724347
+    resourceVersion: "458666777"
+    uid: dea83833-f5da-4b01-9e8b-055eba903dde
+  spec:
+    accessModes:
+    - ReadWriteOnce
+    capacity:
+      storage: 10Gi
+    claimRef:
+      apiVersion: v1
+      kind: PersistentVolumeClaim
+      name: data-vault-test-server-0
+      namespace: vault
+      resourceVersion: "458666758"
+      uid: 8992dfe5-4ee4-40d1-8510-44e79a724347
+    csi:
+      driver: nfs.csi.k8s.io
+      volumeAttributes:
+        server: 21.2.0.201
+        share: /k8s/pvc-8992dfe5-4ee4-40d1-8510-44e79a724347
+        storage.kubernetes.io/csiProvisionerIdentity: 1702000067236-8081-nfs.csi.k8s.io
+      volumeHandle: 21.2.0.201/k8s/pvc-8992dfe5-4ee4-40d1-8510-44e79a724347
+    mountOptions:
+    - hard
+    - nfsvers=3
+    persistentVolumeReclaimPolicy: Retain
+    storageClassName: nfs-csi
+    volumeMode: Filesystem
+  status:
+    phase: Bound
+- apiVersion: v1
+  kind: PersistentVolume
+  metadata:
+    annotations:
+      pv.kubernetes.io/provisioned-by: nfs.csi.k8s.io
+    creationTimestamp: "2024-11-18T05:28:18Z"
+    finalizers:
+    - kubernetes.io/pv-protection
+    name: pvc-92a31f48-090f-43a6-b3ee-fd3ddc9a202b
+    resourceVersion: "724215934"
+    uid: 3e939cba-6f6c-429a-b121-8926c0fb2a71
+  spec:
+    accessModes:
+    - ReadWriteMany
+    capacity:
+      storage: 10Gi
+    claimRef:
+      apiVersion: v1
+      kind: PersistentVolumeClaim
+      name: persistence-cots-global-messagequeue-be-server-4
+      namespace: cots-dev
+      resourceVersion: "724214402"
+      uid: 92a31f48-090f-43a6-b3ee-fd3ddc9a202b
+    csi:
+      driver: nfs.csi.k8s.io
+      volumeAttributes:
+        server: 21.2.0.201
+        share: /k8s/dynamic/cots-dev/rabbitmq/pvc-92a31f48-090f-43a6-b3ee-fd3ddc9a202b
+        storage.kubernetes.io/csiProvisionerIdentity: 1731389538793-8081-nfs.csi.k8s.io
+      volumeHandle: 21.2.0.201/k8s/dynamic/cots-dev/rabbitmq/pvc-92a31f48-090f-43a6-b3ee-fd3ddc9a202b
+    mountOptions:
+    - hard
+    - nolock
+    - vers=3
+    persistentVolumeReclaimPolicy: Delete
+    storageClassName: cots-nfs-csi-nolock-cots-dev-rabbitmq
+    volumeMode: Filesystem
+  status:
+    phase: Bound
+- apiVersion: v1
+  kind: PersistentVolume
+  metadata:
+    annotations:
+      pv.kubernetes.io/provisioned-by: nfs.csi.k8s.io
+    creationTimestamp: "2024-11-18T05:27:52Z"
+    finalizers:
+    - kubernetes.io/pv-protection
+    name: pvc-9ed33620-7111-48ec-a41d-89c0f24fdbcc
+    resourceVersion: "724215498"
+    uid: 3cd27cec-f13b-4467-b1c7-0ed9dda03bb6
+  spec:
+    accessModes:
+    - ReadWriteMany
+    capacity:
+      storage: 10Gi
+    claimRef:
+      apiVersion: v1
+      kind: PersistentVolumeClaim
+      name: nfs-quorum-wal-cots-batch-messagequeue-be-server-2
+      namespace: cots-dev
+      resourceVersion: "724214174"
+      uid: 9ed33620-7111-48ec-a41d-89c0f24fdbcc
+    csi:
+      driver: nfs.csi.k8s.io
+      volumeAttributes:
+        server: 21.2.0.201
+        share: /k8s/dynamic/cots-dev/rabbitmq-batch/pvc-9ed33620-7111-48ec-a41d-89c0f24fdbcc
+        storage.kubernetes.io/csiProvisionerIdentity: 1731389538793-8081-nfs.csi.k8s.io
+      volumeHandle: 21.2.0.201/k8s/dynamic/cots-dev/rabbitmq-batch/pvc-9ed33620-7111-48ec-a41d-89c0f24fdbcc
+    mountOptions:
+    - hard
+    - nolock
+    - vers=3
+    persistentVolumeReclaimPolicy: Delete
+    storageClassName: cots-nfs-csi-nolock-cots-dev-rabbitmq-batch
+    volumeMode: Filesystem
+  status:
+    phase: Bound
+- apiVersion: v1
+  kind: PersistentVolume
+  metadata:
+    annotations:
+      pv.kubernetes.io/provisioned-by: nfs.csi.k8s.io
+    creationTimestamp: "2024-11-18T05:26:29Z"
+    finalizers:
+    - kubernetes.io/pv-protection
+    name: pvc-aaca9ac7-a92d-4185-b0d7-9f50964304af
+    resourceVersion: "724213512"
+    uid: c9335c6d-e769-4b50-af3e-95128eef7a26
+  spec:
+    accessModes:
+    - ReadWriteMany
+    capacity:
+      storage: 10Gi
+    claimRef:
+      apiVersion: v1
+      kind: PersistentVolumeClaim
+      name: persistence-cots-batch-messagequeue-be-server-0
+      namespace: cots-dev
+      resourceVersion: "724213116"
+      uid: aaca9ac7-a92d-4185-b0d7-9f50964304af
+    csi:
+      driver: nfs.csi.k8s.io
+      volumeAttributes:
+        server: 21.2.0.201
+        share: /k8s/dynamic/cots-dev/rabbitmq-batch/pvc-aaca9ac7-a92d-4185-b0d7-9f50964304af
+        storage.kubernetes.io/csiProvisionerIdentity: 1731389538793-8081-nfs.csi.k8s.io
+      volumeHandle: 21.2.0.201/k8s/dynamic/cots-dev/rabbitmq-batch/pvc-aaca9ac7-a92d-4185-b0d7-9f50964304af
+    mountOptions:
+    - hard
+    - nolock
+    - vers=3
+    persistentVolumeReclaimPolicy: Delete
+    storageClassName: cots-nfs-csi-nolock-cots-dev-rabbitmq-batch
+    volumeMode: Filesystem
+  status:
+    phase: Bound
+- apiVersion: v1
+  kind: PersistentVolume
+  metadata:
+    annotations:
+      pv.kubernetes.io/provisioned-by: nfs.csi.k8s.io
+    creationTimestamp: "2024-11-18T05:28:09Z"
+    finalizers:
+    - kubernetes.io/pv-protection
+    name: pvc-bf724ed1-0aa8-4fc3-987b-1224350f5613
+    resourceVersion: "724215749"
+    uid: 2604a8a1-b5b4-4489-9eba-b5e608de3662
+  spec:
+    accessModes:
+    - ReadWriteMany
+    capacity:
+      storage: 10Gi
+    claimRef:
+      apiVersion: v1
+      kind: PersistentVolumeClaim
+      name: nfs-quorum-wal-cots-global-messagequeue-be-server-2
+      namespace: cots-dev
+      resourceVersion: "724214214"
+      uid: bf724ed1-0aa8-4fc3-987b-1224350f5613
+    csi:
+      driver: nfs.csi.k8s.io
+      volumeAttributes:
+        server: 21.2.0.201
+        share: /k8s/dynamic/cots-dev/rabbitmq/pvc-bf724ed1-0aa8-4fc3-987b-1224350f5613
+        storage.kubernetes.io/csiProvisionerIdentity: 1731389538793-8081-nfs.csi.k8s.io
+      volumeHandle: 21.2.0.201/k8s/dynamic/cots-dev/rabbitmq/pvc-bf724ed1-0aa8-4fc3-987b-1224350f5613
+    mountOptions:
+    - hard
+    - nolock
+    - vers=3
+    persistentVolumeReclaimPolicy: Delete
+    storageClassName: cots-nfs-csi-nolock-cots-dev-rabbitmq
+    volumeMode: Filesystem
+  status:
+    phase: Bound
+- apiVersion: v1
+  kind: PersistentVolume
+  metadata:
+    annotations:
+      pv.kubernetes.io/provisioned-by: nfs.csi.k8s.io
+    creationTimestamp: "2024-11-18T05:26:31Z"
+    finalizers:
+    - kubernetes.io/pv-protection
+    name: pvc-c1924cd3-dd4e-45a2-b4b1-6558cb4aa42b
+    resourceVersion: "724213555"
+    uid: e1cd31fb-4086-4f0f-aabe-3fe71e35fbd4
+  spec:
+    accessModes:
+    - ReadWriteMany
+    capacity:
+      storage: 10Gi
+    claimRef:
+      apiVersion: v1
+      kind: PersistentVolumeClaim
+      name: nfs-quorum-wal-cots-global-messagequeue-be-server-0
+      namespace: cots-dev
+      resourceVersion: "724213149"
+      uid: c1924cd3-dd4e-45a2-b4b1-6558cb4aa42b
+    csi:
+      driver: nfs.csi.k8s.io
+      volumeAttributes:
+        server: 21.2.0.201
+        share: /k8s/dynamic/cots-dev/rabbitmq/pvc-c1924cd3-dd4e-45a2-b4b1-6558cb4aa42b
+        storage.kubernetes.io/csiProvisionerIdentity: 1731389538793-8081-nfs.csi.k8s.io
+      volumeHandle: 21.2.0.201/k8s/dynamic/cots-dev/rabbitmq/pvc-c1924cd3-dd4e-45a2-b4b1-6558cb4aa42b
+    mountOptions:
+    - hard
+    - nolock
+    - vers=3
+    persistentVolumeReclaimPolicy: Delete
+    storageClassName: cots-nfs-csi-nolock-cots-dev-rabbitmq
+    volumeMode: Filesystem
+  status:
+    phase: Bound
+- apiVersion: v1
+  kind: PersistentVolume
+  metadata:
+    annotations:
+      pv.kubernetes.io/provisioned-by: nfs.csi.k8s.io
+    creationTimestamp: "2024-11-18T05:28:51Z"
+    finalizers:
+    - kubernetes.io/pv-protection
+    name: pvc-c48454b2-952e-40e5-96c9-70620d2deffa
+    resourceVersion: "724216339"
+    uid: f685345f-1388-4358-898c-57bd4812d3a8
+  spec:
+    accessModes:
+    - ReadWriteMany
+    capacity:
+      storage: 10Gi
+    claimRef:
+      apiVersion: v1
+      kind: PersistentVolumeClaim
+      name: persistence-cots-global-messagequeue-be-server-3
+      namespace: cots-dev
+      resourceVersion: "724214315"
+      uid: c48454b2-952e-40e5-96c9-70620d2deffa
+    csi:
+      driver: nfs.csi.k8s.io
+      volumeAttributes:
+        server: 21.2.0.201
+        share: /k8s/dynamic/cots-dev/rabbitmq/pvc-c48454b2-952e-40e5-96c9-70620d2deffa
+        storage.kubernetes.io/csiProvisionerIdentity: 1731389538793-8081-nfs.csi.k8s.io
+      volumeHandle: 21.2.0.201/k8s/dynamic/cots-dev/rabbitmq/pvc-c48454b2-952e-40e5-96c9-70620d2deffa
+    mountOptions:
+    - hard
+    - nolock
+    - vers=3
+    persistentVolumeReclaimPolicy: Delete
+    storageClassName: cots-nfs-csi-nolock-cots-dev-rabbitmq
+    volumeMode: Filesystem
+  status:
+    phase: Bound
+- apiVersion: v1
+  kind: PersistentVolume
+  metadata:
+    annotations:
+      pv.kubernetes.io/provisioned-by: nfs.csi.k8s.io
+    creationTimestamp: "2024-11-18T05:26:31Z"
+    finalizers:
+    - kubernetes.io/pv-protection
+    name: pvc-c6d5e18b-d6b6-421e-8d3c-60e6cdad2826
+    resourceVersion: "724213537"
+    uid: 5ae22a79-1f79-4b25-af30-4dee901f1b29
+  spec:
+    accessModes:
+    - ReadWriteOnce
+    capacity:
+      storage: 10Gi
+    claimRef:
+      apiVersion: v1
+      kind: PersistentVolumeClaim
+      name: data-cots-dev-cots-global-discovery-be-dev-server-3
+      namespace: cots-dev
+      resourceVersion: "724213079"
+      uid: c6d5e18b-d6b6-421e-8d3c-60e6cdad2826
+    csi:
+      driver: nfs.csi.k8s.io
+      volumeAttributes:
+        server: 21.2.0.201
+        share: /k8s/dynamic/cots-dev/consul/pvc-c6d5e18b-d6b6-421e-8d3c-60e6cdad2826
+        storage.kubernetes.io/csiProvisionerIdentity: 1731389538793-8081-nfs.csi.k8s.io
+      volumeHandle: 21.2.0.201/k8s/dynamic/cots-dev/consul/pvc-c6d5e18b-d6b6-421e-8d3c-60e6cdad2826
+    mountOptions:
+    - hard
+    - nolock
+    - vers=3
+    persistentVolumeReclaimPolicy: Retain
+    storageClassName: cots-nfs-csi-nolock-cots-dev-consul
+    volumeMode: Filesystem
+  status:
+    phase: Bound
+- apiVersion: v1
+  kind: PersistentVolume
+  metadata:
+    annotations:
+      pv.kubernetes.io/provisioned-by: nfs.csi.k8s.io
+    creationTimestamp: "2024-11-18T05:26:14Z"
+    finalizers:
+    - kubernetes.io/pv-protection
+    name: pvc-df06e478-0a29-480b-9878-fab42d0dcdf5
+    resourceVersion: "724212975"
+    uid: 2f740e83-bf89-4a45-9bb6-2ca3af4f1780
+  spec:
+    accessModes:
+    - ReadWriteOnce
+    capacity:
+      storage: 10Gi
+    claimRef:
+      apiVersion: v1
+      kind: PersistentVolumeClaim
+      name: data-cots-dev-cots-global-discovery-be-dev-server-0
+      namespace: cots-dev
+      resourceVersion: "724212913"
+      uid: df06e478-0a29-480b-9878-fab42d0dcdf5
+    csi:
+      driver: nfs.csi.k8s.io
+      volumeAttributes:
+        server: 21.2.0.201
+        share: /k8s/dynamic/cots-dev/consul/pvc-df06e478-0a29-480b-9878-fab42d0dcdf5
+        storage.kubernetes.io/csiProvisionerIdentity: 1731389538793-8081-nfs.csi.k8s.io
+      volumeHandle: 21.2.0.201/k8s/dynamic/cots-dev/consul/pvc-df06e478-0a29-480b-9878-fab42d0dcdf5
+    mountOptions:
+    - hard
+    - nolock
+    - vers=3
+    persistentVolumeReclaimPolicy: Retain
+    storageClassName: cots-nfs-csi-nolock-cots-dev-consul
+    volumeMode: Filesystem
+  status:
+    phase: Bound
+- apiVersion: v1
+  kind: PersistentVolume
+  metadata:
+    annotations:
+      pv.kubernetes.io/provisioned-by: nfs.csi.k8s.io
+    creationTimestamp: "2024-12-23T09:27:40Z"
+    finalizers:
+    - kubernetes.io/pv-protection
+    name: pvc-e2e9603b-6793-4d98-87d5-d050eab381a6
+    resourceVersion: "742420789"
+    uid: 13fc0509-2eba-4398-9f27-7921c8aaec98
+  spec:
+    accessModes:
+    - ReadWriteOnce
+    capacity:
+      storage: 8Gi
+    claimRef:
+      apiVersion: v1
+      kind: PersistentVolumeClaim
+      name: data-solr-2
+      namespace: temp-solr
+      resourceVersion: "742420700"
+      uid: e2e9603b-6793-4d98-87d5-d050eab381a6
+    csi:
+      driver: nfs.csi.k8s.io
+      volumeAttributes:
+        server: 21.2.0.201
+        share: /k8s/pvc-e2e9603b-6793-4d98-87d5-d050eab381a6
+        storage.kubernetes.io/csiProvisionerIdentity: 1734750476868-8081-nfs.csi.k8s.io
+      volumeHandle: 21.2.0.201/k8s/pvc-e2e9603b-6793-4d98-87d5-d050eab381a6
+    mountOptions:
+    - hard
+    - nfsvers=3
+    persistentVolumeReclaimPolicy: Retain
+    storageClassName: nfs-csi
+    volumeMode: Filesystem
+  status:
+    phase: Bound
+- apiVersion: v1
+  kind: PersistentVolume
+  metadata:
+    annotations:
+      pv.kubernetes.io/provisioned-by: nfs.csi.k8s.io
+    creationTimestamp: "2024-11-18T05:28:01Z"
+    finalizers:
+    - kubernetes.io/pv-protection
+    name: pvc-f90b806b-daa7-4f8f-b8b8-d2a1d94d98ac
+    resourceVersion: "724215635"
+    uid: 6462f57c-6213-4e72-900c-e94d9edccb5a
+  spec:
+    accessModes:
+    - ReadWriteMany
+    capacity:
+      storage: 10Gi
+    claimRef:
+      apiVersion: v1
+      kind: PersistentVolumeClaim
+      name: nfs-quorum-wal-cots-batch-messagequeue-be-server-4
+      namespace: cots-dev
+      resourceVersion: "724214367"
+      uid: f90b806b-daa7-4f8f-b8b8-d2a1d94d98ac
+    csi:
+      driver: nfs.csi.k8s.io
+      volumeAttributes:
+        server: 21.2.0.201
+        share: /k8s/dynamic/cots-dev/rabbitmq-batch/pvc-f90b806b-daa7-4f8f-b8b8-d2a1d94d98ac
+        storage.kubernetes.io/csiProvisionerIdentity: 1731389538793-8081-nfs.csi.k8s.io
+      volumeHandle: 21.2.0.201/k8s/dynamic/cots-dev/rabbitmq-batch/pvc-f90b806b-daa7-4f8f-b8b8-d2a1d94d98ac
+    mountOptions:
+    - hard
+    - nolock
+    - vers=3
+    persistentVolumeReclaimPolicy: Delete
+    storageClassName: cots-nfs-csi-nolock-cots-dev-rabbitmq-batch
+    volumeMode: Filesystem
+  status:
+    phase: Bound
+- apiVersion: v1
+  kind: PersistentVolume
+  metadata:
+    annotations:
+      pv.kubernetes.io/provisioned-by: nfs.csi.k8s.io
+    creationTimestamp: "2024-12-23T09:27:42Z"
+    finalizers:
+    - kubernetes.io/pv-protection
+    name: pvc-f90e45db-9f45-4624-abf1-913fe613567d
+    resourceVersion: "742420826"
+    uid: 83bf3fee-555d-4ae2-b733-c46153d54654
+  spec:
+    accessModes:
+    - ReadWriteOnce
+    capacity:
+      storage: 8Gi
+    claimRef:
+      apiVersion: v1
+      kind: PersistentVolumeClaim
+      name: data-solr-zookeeper-2
+      namespace: temp-solr
+      resourceVersion: "742420648"
+      uid: f90e45db-9f45-4624-abf1-913fe613567d
+    csi:
+      driver: nfs.csi.k8s.io
+      volumeAttributes:
+        server: 21.2.0.201
+        share: /k8s/pvc-f90e45db-9f45-4624-abf1-913fe613567d
+        storage.kubernetes.io/csiProvisionerIdentity: 1734750476868-8081-nfs.csi.k8s.io
+      volumeHandle: 21.2.0.201/k8s/pvc-f90e45db-9f45-4624-abf1-913fe613567d
+    mountOptions:
+    - hard
+    - nfsvers=3
+    persistentVolumeReclaimPolicy: Retain
+    storageClassName: nfs-csi
+    volumeMode: Filesystem
+  status:
+    phase: Bound
+- apiVersion: v1
+  kind: PersistentVolume
+  metadata:
+    annotations:
+      pv.kubernetes.io/provisioned-by: nfs.csi.k8s.io
+    creationTimestamp: "2024-11-18T05:28:13Z"
+    finalizers:
+    - kubernetes.io/pv-protection
+    name: pvc-fdb8ac88-a8fd-41d9-83cd-321fdebc0ab5
+    resourceVersion: "724215819"
+    uid: f39c29aa-ff65-499a-979a-c93a0cb09d48
+  spec:
+    accessModes:
+    - ReadWriteMany
+    capacity:
+      storage: 10Gi
+    claimRef:
+      apiVersion: v1
+      kind: PersistentVolumeClaim
+      name: nfs-quorum-wal-cots-global-messagequeue-be-server-3
+      namespace: cots-dev
+      resourceVersion: "724214309"
+      uid: fdb8ac88-a8fd-41d9-83cd-321fdebc0ab5
+    csi:
+      driver: nfs.csi.k8s.io
+      volumeAttributes:
+        server: 21.2.0.201
+        share: /k8s/dynamic/cots-dev/rabbitmq/pvc-fdb8ac88-a8fd-41d9-83cd-321fdebc0ab5
+        storage.kubernetes.io/csiProvisionerIdentity: 1731389538793-8081-nfs.csi.k8s.io
+      volumeHandle: 21.2.0.201/k8s/dynamic/cots-dev/rabbitmq/pvc-fdb8ac88-a8fd-41d9-83cd-321fdebc0ab5
+    mountOptions:
+    - hard
+    - nolock
+    - vers=3
+    persistentVolumeReclaimPolicy: Delete
+    storageClassName: cots-nfs-csi-nolock-cots-dev-rabbitmq
+    volumeMode: Filesystem
+  status:
+    phase: Bound
+- apiVersion: v1
+  kind: PersistentVolume
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","kind":"PersistentVolume","metadata":{"annotations":{},"name":"redisinsight-pv"},"spec":{"accessModes":["ReadWriteOnce"],"capacity":{"storage":"300Gi"},"claimRef":{"kind":"PersistentVolumeClaim","name":"redisinsight-pv-claim","namespace":"monitor"},"mountOptions":["hard","nfsvers=3"],"nfs":{"path":"/k8s/monitoring/redisinsight","server":"21.2.0.201"},"persistentVolumeReclaimPolicy":"Retain","volumeMode":"Filesystem"}}
+    creationTimestamp: "2024-05-08T07:30:32Z"
+    finalizers:
+    - kubernetes.io/pv-protection
+    name: redisinsight-pv
+    resourceVersion: "583795686"
+    uid: 31e0e0f0-ee14-4edd-89d1-af782059cfd8
+  spec:
+    accessModes:
+    - ReadWriteOnce
+    capacity:
+      storage: 300Gi
+    claimRef:
+      apiVersion: v1
+      kind: PersistentVolumeClaim
+      name: redisinsight-pv-claim
+      namespace: monitor
+      resourceVersion: "583795566"
+      uid: 29865f27-8cfc-4f70-bc02-0e3d228cf6d3
+    mountOptions:
+    - hard
+    - nfsvers=3
+    nfs:
+      path: /k8s/monitoring/redisinsight
+      server: 21.2.0.201
+    persistentVolumeReclaimPolicy: Retain
+    volumeMode: Filesystem
+  status:
+    phase: Bound
+- apiVersion: v1
+  kind: PersistentVolume
+  metadata:
+    annotations:
+      artifact.spinnaker.io/location: cots-dev
+      artifact.spinnaker.io/name: static-pv-batch-hangfirestore-cots-dev
+      artifact.spinnaker.io/type: kubernetes/persistentVolume
+      artifact.spinnaker.io/version: ""
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","kind":"PersistentVolume","metadata":{"annotations":{"artifact.spinnaker.io/location":"cots-dev","artifact.spinnaker.io/name":"static-pv-batch-hangfirestore-cots-dev","artifact.spinnaker.io/type":"kubernetes/persistentVolume","artifact.spinnaker.io/version":"","moniker.spinnaker.io/application":"cots-dev","moniker.spinnaker.io/cluster":"persistentVolume static-pv-batch-hangfirestore-cots-dev"},"labels":{"app.kubernetes.io/managed-by":"spinnaker","app.kubernetes.io/name":"cots-dev"},"name":"static-pv-batch-hangfirestore-cots-dev"},"spec":{"accessModes":["ReadWriteMany"],"capacity":{"storage":"5Gi"},"claimRef":{"name":"cots-batch-hangfirestore-pvc-static","namespace":"cots-dev"},"csi":{"driver":"nfs.csi.k8s.io","volumeAttributes":{"server":"21.2.0.201","share":"/k8s/static/cots-dev/batch-redis"},"volumeHandle":"static-batch-hangfirestore-pv-cots-dev"},"mountOptions":["hard","nolock","vers=3"],"persistentVolumeReclaimPolicy":"Delete","storageClassName":"","volumeMode":"Filesystem"}}
+      moniker.spinnaker.io/application: cots-dev
+      moniker.spinnaker.io/cluster: persistentVolume static-pv-batch-hangfirestore-cots-dev
+    creationTimestamp: "2024-11-18T05:25:41Z"
+    finalizers:
+    - kubernetes.io/pv-protection
+    labels:
+      app.kubernetes.io/managed-by: spinnaker
+      app.kubernetes.io/name: cots-dev
+    name: static-pv-batch-hangfirestore-cots-dev
+    resourceVersion: "728207988"
+    uid: 8e6525c8-72a6-46ee-a282-fc5d9244ae85
+  spec:
+    accessModes:
+    - ReadWriteMany
+    capacity:
+      storage: 5Gi
+    claimRef:
+      apiVersion: v1
+      kind: PersistentVolumeClaim
+      name: cots-batch-hangfirestore-pvc-static
+      namespace: cots-dev
+      resourceVersion: "724212500"
+      uid: 3421c8b3-33fa-4d36-8e14-196eeae81fef
+    csi:
+      driver: nfs.csi.k8s.io
+      volumeAttributes:
+        server: 21.2.0.201
+        share: /k8s/static/cots-dev/batch-redis
+      volumeHandle: static-batch-hangfirestore-pv-cots-dev
+    mountOptions:
+    - hard
+    - nolock
+    - vers=3
+    persistentVolumeReclaimPolicy: Delete
+    volumeMode: Filesystem
+  status:
+    phase: Bound
+- apiVersion: v1
+  kind: PersistentVolume
+  metadata:
+    annotations:
+      artifact.spinnaker.io/location: cots-dev
+      artifact.spinnaker.io/name: static-pv-dms-cots-dev
+      artifact.spinnaker.io/type: kubernetes/persistentVolume
+      artifact.spinnaker.io/version: ""
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","kind":"PersistentVolume","metadata":{"annotations":{"artifact.spinnaker.io/location":"cots-dev","artifact.spinnaker.io/name":"static-pv-dms-cots-dev","artifact.spinnaker.io/type":"kubernetes/persistentVolume","artifact.spinnaker.io/version":"","moniker.spinnaker.io/application":"cots-dev","moniker.spinnaker.io/cluster":"persistentVolume static-pv-dms-cots-dev"},"finalizers":["kubernetes.io/pv-protection"],"labels":{"app.kubernetes.io/managed-by":"spinnaker","app.kubernetes.io/name":"cots-dev"},"managedFields":[{"apiVersion":"v1","fieldsType":"FieldsV1","fieldsV1":{"f:metadata":{"f:annotations":{".":{},"f:artifact.spinnaker.io/location":{},"f:artifact.spinnaker.io/name":{},"f:artifact.spinnaker.io/type":{},"f:artifact.spinnaker.io/version":{},"f:kubectl.kubernetes.io/last-applied-configuration":{},"f:moniker.spinnaker.io/application":{},"f:moniker.spinnaker.io/cluster":{}},"f:labels":{".":{},"f:app.kubernetes.io/managed-by":{},"f:app.kubernetes.io/name":{}}},"f:spec":{"f:accessModes":{},"f:capacity":{".":{},"f:storage":{}},"f:claimRef":{".":{},"f:name":{},"f:namespace":{}},"f:csi":{".":{},"f:driver":{},"f:volumeAttributes":{".":{},"f:server":{},"f:share":{}},"f:volumeHandle":{}},"f:mountOptions":{},"f:persistentVolumeReclaimPolicy":{},"f:volumeMode":{}}},"manager":"kubectl-client-side-apply","operation":"Update"},{"apiVersion":"v1","fieldsType":"FieldsV1","fieldsV1":{"f:spec":{"f:claimRef":{"f:apiVersion":{},"f:kind":{},"f:resourceVersion":{},"f:uid":{}}},"f:status":{"f:phase":{}}},"manager":"kube-controller-manager","operation":"Update"}],"name":"static-pv-dms-archive-2024-cots-dev","selfLink":"/api/v1/persistentvolumes/static-pv-dms-archive-2024-cots-dev"},"spec":{"accessModes":["ReadWriteMany"],"capacity":{"storage":"5Gi"},"claimRef":{"apiVersion":"v1","kind":"PersistentVolumeClaim","name":"cots-global-dms-share-archive-2024-pvc-static","namespace":"cots-dev"},"csi":{"driver":"nfs.csi.k8s.io","volumeAttributes":{"server":"21.2.0.201","share":"/k8s-Document-archive-dev-2024"},"volumeHandle":"static-pv-dms-share-archive-2024-cots-dev"},"mountOptions":["hard","nolock","vers=3"],"persistentVolumeReclaimPolicy":"Delete","volumeMode":"Filesystem"},"status":{"phase":"Bound"}}
+      moniker.spinnaker.io/application: cots-dev
+      moniker.spinnaker.io/cluster: persistentVolume static-pv-dms-cots-dev
+      pv.kubernetes.io/bound-by-controller: "yes"
+    creationTimestamp: "2024-11-26T09:52:26Z"
+    finalizers:
+    - kubernetes.io/pv-protection
+    labels:
+      app.kubernetes.io/managed-by: spinnaker
+      app.kubernetes.io/name: cots-dev
+    name: static-pv-dms-archive-2024-cots-dev
+    resourceVersion: "728698835"
+    uid: 747e5a50-83fb-4553-ba72-aa5cdbb40b5d
+  spec:
+    accessModes:
+    - ReadWriteMany
+    capacity:
+      storage: 5Gi
+    claimRef:
+      apiVersion: v1
+      kind: PersistentVolumeClaim
+      name: cots-global-dms-share-archive-2024-pvc-static
+      namespace: cots-dev
+      resourceVersion: "728698643"
+      uid: a09d7495-e761-4034-b0f0-01a2a54d6a38
+    csi:
+      driver: nfs.csi.k8s.io
+      volumeAttributes:
+        server: 21.2.0.201
+        share: /k8s-Document-archive-dev-2024
+      volumeHandle: static-pv-dms-share-archive-2024-cots-dev
+    mountOptions:
+    - hard
+    - nolock
+    - vers=3
+    persistentVolumeReclaimPolicy: Delete
+    volumeMode: Filesystem
+  status:
+    phase: Bound
+- apiVersion: v1
+  kind: PersistentVolume
+  metadata:
+    annotations:
+      artifact.spinnaker.io/location: cots-dev
+      artifact.spinnaker.io/name: static-pv-dms-cots-dev
+      artifact.spinnaker.io/type: kubernetes/persistentVolume
+      artifact.spinnaker.io/version: ""
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","kind":"PersistentVolume","metadata":{"annotations":{"artifact.spinnaker.io/location":"cots-dev","artifact.spinnaker.io/name":"static-pv-dms-cots-dev","artifact.spinnaker.io/type":"kubernetes/persistentVolume","artifact.spinnaker.io/version":"","moniker.spinnaker.io/application":"cots-dev","moniker.spinnaker.io/cluster":"persistentVolume static-pv-dms-cots-dev"},"finalizers":["kubernetes.io/pv-protection"],"labels":{"app.kubernetes.io/managed-by":"spinnaker","app.kubernetes.io/name":"cots-dev"},"managedFields":[{"apiVersion":"v1","fieldsType":"FieldsV1","fieldsV1":{"f:metadata":{"f:annotations":{".":{},"f:artifact.spinnaker.io/location":{},"f:artifact.spinnaker.io/name":{},"f:artifact.spinnaker.io/type":{},"f:artifact.spinnaker.io/version":{},"f:kubectl.kubernetes.io/last-applied-configuration":{},"f:moniker.spinnaker.io/application":{},"f:moniker.spinnaker.io/cluster":{}},"f:labels":{".":{},"f:app.kubernetes.io/managed-by":{},"f:app.kubernetes.io/name":{}}},"f:spec":{"f:accessModes":{},"f:capacity":{".":{},"f:storage":{}},"f:claimRef":{".":{},"f:name":{},"f:namespace":{}},"f:csi":{".":{},"f:driver":{},"f:volumeAttributes":{".":{},"f:server":{},"f:share":{}},"f:volumeHandle":{}},"f:mountOptions":{},"f:persistentVolumeReclaimPolicy":{},"f:volumeMode":{}}},"manager":"kubectl-client-side-apply","operation":"Update"},{"apiVersion":"v1","fieldsType":"FieldsV1","fieldsV1":{"f:spec":{"f:claimRef":{"f:apiVersion":{},"f:kind":{},"f:resourceVersion":{},"f:uid":{}}},"f:status":{"f:phase":{}}},"manager":"kube-controller-manager","operation":"Update"}],"name":"static-pv-dms-archive-2025-cots-dev","selfLink":"/api/v1/persistentvolumes/static-pv-dms-archive-2025-cots-dev"},"spec":{"accessModes":["ReadWriteMany"],"capacity":{"storage":"5Gi"},"claimRef":{"apiVersion":"v1","kind":"PersistentVolumeClaim","name":"cots-global-dms-share-archive-2025-pvc-static","namespace":"cots-dev"},"csi":{"driver":"nfs.csi.k8s.io","volumeAttributes":{"server":"21.2.0.201","share":"/k8s-Document-archive-dev-2025"},"volumeHandle":"static-pv-dms-share-archive-2025-cots-dev"},"mountOptions":["hard","nolock","vers=3"],"persistentVolumeReclaimPolicy":"Delete","volumeMode":"Filesystem"},"status":{"phase":"Bound"}}
+      moniker.spinnaker.io/application: cots-dev
+      moniker.spinnaker.io/cluster: persistentVolume static-pv-dms-cots-dev
+      pv.kubernetes.io/bound-by-controller: "yes"
+    creationTimestamp: "2024-11-26T09:52:29Z"
+    finalizers:
+    - kubernetes.io/pv-protection
+    labels:
+      app.kubernetes.io/managed-by: spinnaker
+      app.kubernetes.io/name: cots-dev
+    name: static-pv-dms-archive-2025-cots-dev
+    resourceVersion: "728698756"
+    uid: b346a89f-ed2d-4d25-be8f-dd0ebd6c7bd9
+  spec:
+    accessModes:
+    - ReadWriteMany
+    capacity:
+      storage: 5Gi
+    claimRef:
+      apiVersion: v1
+      kind: PersistentVolumeClaim
+      name: cots-global-dms-share-archive-2025-pvc-static
+      namespace: cots-dev
+      resourceVersion: "728698674"
+      uid: 32dcd1c3-ba80-42b7-ad76-eaffdb2b58a3
+    csi:
+      driver: nfs.csi.k8s.io
+      volumeAttributes:
+        server: 21.2.0.201
+        share: /k8s-Document-archive-dev-2025
+      volumeHandle: static-pv-dms-share-archive-2025-cots-dev
+    mountOptions:
+    - hard
+    - nolock
+    - vers=3
+    persistentVolumeReclaimPolicy: Delete
+    volumeMode: Filesystem
+  status:
+    phase: Bound
+- apiVersion: v1
+  kind: PersistentVolume
+  metadata:
+    annotations:
+      artifact.spinnaker.io/location: cots-dev
+      artifact.spinnaker.io/name: static-pv-dms-cots-dev
+      artifact.spinnaker.io/type: kubernetes/persistentVolume
+      artifact.spinnaker.io/version: ""
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","kind":"PersistentVolume","metadata":{"annotations":{"artifact.spinnaker.io/location":"cots-dev","artifact.spinnaker.io/name":"static-pv-dms-cots-dev","artifact.spinnaker.io/type":"kubernetes/persistentVolume","artifact.spinnaker.io/version":"","moniker.spinnaker.io/application":"cots-dev","moniker.spinnaker.io/cluster":"persistentVolume static-pv-dms-cots-dev"},"labels":{"app.kubernetes.io/managed-by":"spinnaker","app.kubernetes.io/name":"cots-dev"},"name":"static-pv-dms-cots-dev"},"spec":{"accessModes":["ReadWriteMany"],"capacity":{"storage":"10Gi"},"claimRef":{"name":"cots-global-dms-share-pvc-static","namespace":"cots-dev"},"csi":{"driver":"nfs.csi.k8s.io","volumeAttributes":{"server":"21.2.0.201","share":"/k8s/doc/dms/cots-dev"},"volumeHandle":"static-pv-dms-share-cots-dev"},"mountOptions":["hard","nolock","vers=3"],"persistentVolumeReclaimPolicy":"Delete","storageClassName":"","volumeMode":"Filesystem"}}
+      moniker.spinnaker.io/application: cots-dev
+      moniker.spinnaker.io/cluster: persistentVolume static-pv-dms-cots-dev
+    creationTimestamp: "2024-11-18T05:25:42Z"
+    finalizers:
+    - kubernetes.io/pv-protection
+    labels:
+      app.kubernetes.io/managed-by: spinnaker
+      app.kubernetes.io/name: cots-dev
+    name: static-pv-dms-cots-dev
+    resourceVersion: "728207995"
+    uid: 89056e37-1310-4c82-9d55-3d10cd91866c
+  spec:
+    accessModes:
+    - ReadWriteMany
+    capacity:
+      storage: 10Gi
+    claimRef:
+      apiVersion: v1
+      kind: PersistentVolumeClaim
+      name: cots-global-dms-share-pvc-static
+      namespace: cots-dev
+      resourceVersion: "724223411"
+      uid: 43904b99-25a2-4c8a-85f3-f3b352884345
+    csi:
+      driver: nfs.csi.k8s.io
+      volumeAttributes:
+        server: 21.2.0.201
+        share: /k8s/doc/dms/cots-dev
+      volumeHandle: static-pv-dms-share-cots-dev
+    mountOptions:
+    - hard
+    - nolock
+    - vers=3
+    persistentVolumeReclaimPolicy: Delete
+    volumeMode: Filesystem
+  status:
+    phase: Bound
+- apiVersion: v1
+  kind: PersistentVolume
+  metadata:
+    annotations:
+      artifact.spinnaker.io/location: cots-dev
+      artifact.spinnaker.io/name: static-pv-documentshare-cots-dev
+      artifact.spinnaker.io/type: kubernetes/persistentVolume
+      artifact.spinnaker.io/version: ""
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","kind":"PersistentVolume","metadata":{"annotations":{"artifact.spinnaker.io/location":"cots-dev","artifact.spinnaker.io/name":"static-pv-documentshare-cots-dev","artifact.spinnaker.io/type":"kubernetes/persistentVolume","artifact.spinnaker.io/version":"","moniker.spinnaker.io/application":"cots-dev","moniker.spinnaker.io/cluster":"persistentVolume static-pv-documentshare-cots-dev"},"labels":{"app.kubernetes.io/managed-by":"spinnaker","app.kubernetes.io/name":"cots-dev"},"name":"static-pv-documentshare-cots-dev"},"spec":{"accessModes":["ReadWriteMany"],"capacity":{"storage":"10Gi"},"claimRef":{"name":"cots-global-documentshare-pvc-static","namespace":"cots-dev"},"csi":{"driver":"nfs.csi.k8s.io","volumeAttributes":{"server":"21.2.0.201","share":"/k8s/static/cots-dev/documentshare"},"volumeHandle":"static-documentshare-pv-cots-dev"},"mountOptions":["hard","nolock","vers=3"],"persistentVolumeReclaimPolicy":"Delete","storageClassName":"","volumeMode":"Filesystem"}}
+      moniker.spinnaker.io/application: cots-dev
+      moniker.spinnaker.io/cluster: persistentVolume static-pv-documentshare-cots-dev
+    creationTimestamp: "2024-11-18T05:25:42Z"
+    finalizers:
+    - kubernetes.io/pv-protection
+    labels:
+      app.kubernetes.io/managed-by: spinnaker
+      app.kubernetes.io/name: cots-dev
+    name: static-pv-documentshare-cots-dev
+    resourceVersion: "728207990"
+    uid: 6baa727f-7168-4702-b1e9-94ef3b799899
+  spec:
+    accessModes:
+    - ReadWriteMany
+    capacity:
+      storage: 10Gi
+    claimRef:
+      apiVersion: v1
+      kind: PersistentVolumeClaim
+      name: cots-global-documentshare-pvc-static
+      namespace: cots-dev
+      resourceVersion: "724212507"
+      uid: 138e66d4-4c79-4c98-8e4a-5ea454ec8e2f
+    csi:
+      driver: nfs.csi.k8s.io
+      volumeAttributes:
+        server: 21.2.0.201
+        share: /k8s/static/cots-dev/documentshare
+      volumeHandle: static-documentshare-pv-cots-dev
+    mountOptions:
+    - hard
+    - nolock
+    - vers=3
+    persistentVolumeReclaimPolicy: Delete
+    volumeMode: Filesystem
+  status:
+    phase: Bound
+- apiVersion: v1
+  kind: PersistentVolume
+  metadata:
+    annotations:
+      artifact.spinnaker.io/location: cots-dev
+      artifact.spinnaker.io/name: static-pv-global-interface-cots-dev
+      artifact.spinnaker.io/type: kubernetes/persistentVolume
+      artifact.spinnaker.io/version: ""
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","kind":"PersistentVolume","metadata":{"annotations":{"artifact.spinnaker.io/location":"cots-dev","artifact.spinnaker.io/name":"static-pv-global-interface-cots-dev","artifact.spinnaker.io/type":"kubernetes/persistentVolume","artifact.spinnaker.io/version":"","moniker.spinnaker.io/application":"cots-dev","moniker.spinnaker.io/cluster":"persistentVolume static-pv-global-interface-cots-dev"},"labels":{"app.kubernetes.io/managed-by":"spinnaker","app.kubernetes.io/name":"cots-dev"},"name":"static-pv-global-interface-cots-dev"},"spec":{"accessModes":["ReadWriteMany"],"capacity":{"storage":"10Gi"},"claimRef":{"kind":"PersistentVolumeClaim","name":"cots-global-interface-pvc-static","namespace":"cots-dev"},"csi":{"driver":"nfs.csi.k8s.io","volumeAttributes":{"server":"21.2.0.201","share":"/k8s/doc/mware/cots-dev"},"volumeHandle":"static-global-interface-pv-cots-dev"},"mountOptions":["hard","nolock","vers=3"],"persistentVolumeReclaimPolicy":"Delete","storageClassName":"","volumeMode":"Filesystem"}}
+      moniker.spinnaker.io/application: cots-dev
+      moniker.spinnaker.io/cluster: persistentVolume static-pv-global-interface-cots-dev
+    creationTimestamp: "2024-11-18T05:25:42Z"
+    finalizers:
+    - kubernetes.io/pv-protection
+    labels:
+      app.kubernetes.io/managed-by: spinnaker
+      app.kubernetes.io/name: cots-dev
+    name: static-pv-global-interface-cots-dev
+    resourceVersion: "773220010"
+    uid: 6d04af54-a77d-4bd1-a73f-ded23e1b3f83
+  spec:
+    accessModes:
+    - ReadWriteMany
+    capacity:
+      storage: 10Gi
+    claimRef:
+      apiVersion: v1
+      kind: PersistentVolumeClaim
+      name: cots-global-interface-pvc-static
+      namespace: cots-dev
+      resourceVersion: "724212513"
+      uid: b44d1193-fa70-433f-8b92-cd0720402a82
+    csi:
+      driver: nfs.csi.k8s.io
+      volumeAttributes:
+        server: 21.2.0.201
+        share: /k8s/doc/mware/cots-dev
+      volumeHandle: static-global-interface-pv-cots-dev
+    mountOptions:
+    - hard
+    - nolock
+    - vers=3
+    persistentVolumeReclaimPolicy: Delete
+    volumeMode: Filesystem
+  status:
+    phase: Bound
+- apiVersion: v1
+  kind: PersistentVolume
+  metadata:
+    annotations:
+      artifact.spinnaker.io/location: cots-dev
+      artifact.spinnaker.io/name: static-pv-jupyterhub-cots-dev
+      artifact.spinnaker.io/type: kubernetes/persistentVolume
+      artifact.spinnaker.io/version: ""
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","kind":"PersistentVolume","metadata":{"annotations":{"artifact.spinnaker.io/location":"cots-dev","artifact.spinnaker.io/name":"static-pv-jupyterhub-cots-dev","artifact.spinnaker.io/type":"kubernetes/persistentVolume","artifact.spinnaker.io/version":"","moniker.spinnaker.io/application":"cots-dev","moniker.spinnaker.io/cluster":"persistentVolume static-pv-jupyterhub-cots-dev"},"labels":{"app.kubernetes.io/managed-by":"spinnaker","app.kubernetes.io/name":"cots-dev"},"name":"static-pv-jupyterhub-cots-dev"},"spec":{"accessModes":["ReadWriteMany"],"capacity":{"storage":"5Gi"},"claimRef":{"name":"cots-global-jupyterhub-pvc-static","namespace":"cots-dev"},"csi":{"driver":"nfs.csi.k8s.io","volumeAttributes":{"server":"21.2.0.201","share":"/k8s/static/cots-dev/jupyterhub"},"volumeHandle":"static-jupyterhub-pv-cots-dev"},"mountOptions":["hard","nolock","vers=3"],"persistentVolumeReclaimPolicy":"Delete","storageClassName":"","volumeMode":"Filesystem"}}
+      moniker.spinnaker.io/application: cots-dev
+      moniker.spinnaker.io/cluster: persistentVolume static-pv-jupyterhub-cots-dev
+    creationTimestamp: "2024-11-18T08:56:51Z"
+    finalizers:
+    - kubernetes.io/pv-protection
+    labels:
+      app.kubernetes.io/managed-by: spinnaker
+      app.kubernetes.io/name: cots-dev
+    name: static-pv-jupyterhub-cots-dev
+    resourceVersion: "728208003"
+    uid: aab9ebb8-fd9d-4767-b992-187938205739
+  spec:
+    accessModes:
+    - ReadWriteMany
+    capacity:
+      storage: 5Gi
+    claimRef:
+      apiVersion: v1
+      kind: PersistentVolumeClaim
+      name: cots-global-jupyterhub-pvc-static
+      namespace: cots-dev
+      resourceVersion: "724316638"
+      uid: 701bcd37-0121-495a-9a1d-7f4c272256b3
+    csi:
+      driver: nfs.csi.k8s.io
+      volumeAttributes:
+        server: 21.2.0.201
+        share: /k8s/static/cots-dev/jupyterhub
+      volumeHandle: static-jupyterhub-pv-cots-dev
+    mountOptions:
+    - hard
+    - nolock
+    - vers=3
+    persistentVolumeReclaimPolicy: Delete
+    volumeMode: Filesystem
+  status:
+    phase: Bound
+- apiVersion: v1
+  kind: PersistentVolume
+  metadata:
+    annotations:
+      artifact.spinnaker.io/location: cots-dev
+      artifact.spinnaker.io/name: static-pv-notification-cots-dev
+      artifact.spinnaker.io/type: kubernetes/persistentVolume
+      artifact.spinnaker.io/version: ""
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","kind":"PersistentVolume","metadata":{"annotations":{"artifact.spinnaker.io/location":"cots-dev","artifact.spinnaker.io/name":"static-pv-notification-cots-dev","artifact.spinnaker.io/type":"kubernetes/persistentVolume","artifact.spinnaker.io/version":"","moniker.spinnaker.io/application":"cots-dev","moniker.spinnaker.io/cluster":"persistentVolume static-pv-notification-cots-dev"},"labels":{"app.kubernetes.io/managed-by":"spinnaker","app.kubernetes.io/name":"cots-dev"},"name":"static-pv-notification-cots-dev"},"spec":{"accessModes":["ReadWriteMany"],"capacity":{"storage":"10Gi"},"claimRef":{"name":"cots-global-notification-pvc-static","namespace":"cots-dev"},"csi":{"driver":"nfs.csi.k8s.io","volumeAttributes":{"server":"21.2.0.201","share":"/k8s/doc/email/cots-dev"},"volumeHandle":"static-notification-pv-cots-dev"},"mountOptions":["hard","nolock","vers=3"],"persistentVolumeReclaimPolicy":"Delete","storageClassName":"","volumeMode":"Filesystem"}}
+      moniker.spinnaker.io/application: cots-dev
+      moniker.spinnaker.io/cluster: persistentVolume static-pv-notification-cots-dev
+    creationTimestamp: "2024-11-18T05:25:44Z"
+    finalizers:
+    - kubernetes.io/pv-protection
+    labels:
+      app.kubernetes.io/managed-by: spinnaker
+      app.kubernetes.io/name: cots-dev
+    name: static-pv-notification-cots-dev
+    resourceVersion: "728208004"
+    uid: 07745b2f-c694-4b08-81eb-50428bc7e517
+  spec:
+    accessModes:
+    - ReadWriteMany
+    capacity:
+      storage: 10Gi
+    claimRef:
+      apiVersion: v1
+      kind: PersistentVolumeClaim
+      name: cots-global-notification-pvc-static
+      namespace: cots-dev
+      resourceVersion: "724212543"
+      uid: bde894bd-7673-4b06-903f-26a4593dcd36
+    csi:
+      driver: nfs.csi.k8s.io
+      volumeAttributes:
+        server: 21.2.0.201
+        share: /k8s/doc/email/cots-dev
+      volumeHandle: static-notification-pv-cots-dev
+    mountOptions:
+    - hard
+    - nolock
+    - vers=3
+    persistentVolumeReclaimPolicy: Delete
+    volumeMode: Filesystem
+  status:
+    phase: Bound
+- apiVersion: v1
+  kind: PersistentVolume
+  metadata:
+    annotations:
+      artifact.spinnaker.io/location: cots-dev
+      artifact.spinnaker.io/name: static-pv-redis-cots-dev
+      artifact.spinnaker.io/type: kubernetes/persistentVolume
+      artifact.spinnaker.io/version: ""
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","kind":"PersistentVolume","metadata":{"annotations":{"artifact.spinnaker.io/location":"cots-dev","artifact.spinnaker.io/name":"static-pv-redis-cots-dev","artifact.spinnaker.io/type":"kubernetes/persistentVolume","artifact.spinnaker.io/version":"","moniker.spinnaker.io/application":"cots-dev","moniker.spinnaker.io/cluster":"persistentVolume static-pv-redis-cots-dev"},"labels":{"app.kubernetes.io/managed-by":"spinnaker","app.kubernetes.io/name":"cots-dev"},"name":"static-pv-redis-cots-dev"},"spec":{"accessModes":["ReadWriteMany"],"capacity":{"storage":"5Gi"},"claimRef":{"name":"cots-global-redis-pvc-static","namespace":"cots-dev"},"csi":{"driver":"nfs.csi.k8s.io","volumeAttributes":{"server":"21.2.0.201","share":"/k8s/static/cots-dev/redis"},"volumeHandle":"static-redis-pv-cots-dev"},"mountOptions":["hard","nolock","vers=3"],"persistentVolumeReclaimPolicy":"Delete","storageClassName":"","volumeMode":"Filesystem"}}
+      moniker.spinnaker.io/application: cots-dev
+      moniker.spinnaker.io/cluster: persistentVolume static-pv-redis-cots-dev
+    creationTimestamp: "2024-11-18T05:25:43Z"
+    finalizers:
+    - kubernetes.io/pv-protection
+    labels:
+      app.kubernetes.io/managed-by: spinnaker
+      app.kubernetes.io/name: cots-dev
+    name: static-pv-redis-cots-dev
+    resourceVersion: "728207999"
+    uid: 3113c828-ae57-4be8-811b-d893b1c372be
+  spec:
+    accessModes:
+    - ReadWriteMany
+    capacity:
+      storage: 5Gi
+    claimRef:
+      apiVersion: v1
+      kind: PersistentVolumeClaim
+      name: cots-global-redis-pvc-static
+      namespace: cots-dev
+      resourceVersion: "724212521"
+      uid: a24f60f8-8d07-48cc-9db1-ca99bbccee77
+    csi:
+      driver: nfs.csi.k8s.io
+      volumeAttributes:
+        server: 21.2.0.201
+        share: /k8s/static/cots-dev/redis
+      volumeHandle: static-redis-pv-cots-dev
+    mountOptions:
+    - hard
+    - nolock
+    - vers=3
+    persistentVolumeReclaimPolicy: Delete
+    volumeMode: Filesystem
+  status:
+    phase: Bound
+- apiVersion: v1
+  kind: PersistentVolume
+  metadata:
+    annotations:
+      artifact.spinnaker.io/location: cots-dev
+      artifact.spinnaker.io/name: static-pv-solr-cots-dev
+      artifact.spinnaker.io/type: kubernetes/persistentVolume
+      artifact.spinnaker.io/version: ""
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","kind":"PersistentVolume","metadata":{"annotations":{"artifact.spinnaker.io/location":"cots-dev","artifact.spinnaker.io/name":"static-pv-solr-cots-dev","artifact.spinnaker.io/type":"kubernetes/persistentVolume","artifact.spinnaker.io/version":"","moniker.spinnaker.io/application":"cots-dev","moniker.spinnaker.io/cluster":"persistentVolume static-pv-solr-cots-dev"},"labels":{"app.kubernetes.io/managed-by":"spinnaker","app.kubernetes.io/name":"cots-dev"},"name":"static-pv-solr-cots-dev"},"spec":{"accessModes":["ReadWriteMany"],"capacity":{"storage":"5Gi"},"claimRef":{"name":"cots-global-solr-pvc-static","namespace":"cots-dev"},"csi":{"driver":"nfs.csi.k8s.io","volumeAttributes":{"server":"21.2.0.201","share":"/k8s/static/cots-dev/solr"},"volumeHandle":"static-solr-pv-cots-dev"},"mountOptions":["hard","nolock","vers=3"],"persistentVolumeReclaimPolicy":"Delete","storageClassName":"","volumeMode":"Filesystem"}}
+      moniker.spinnaker.io/application: cots-dev
+      moniker.spinnaker.io/cluster: persistentVolume static-pv-solr-cots-dev
+    creationTimestamp: "2024-11-18T05:25:43Z"
+    finalizers:
+    - kubernetes.io/pv-protection
+    labels:
+      app.kubernetes.io/managed-by: spinnaker
+      app.kubernetes.io/name: cots-dev
+    name: static-pv-solr-cots-dev
+    resourceVersion: "728208000"
+    uid: e4ba80ac-6394-4bf7-9615-8ee2cad67107
+  spec:
+    accessModes:
+    - ReadWriteMany
+    capacity:
+      storage: 5Gi
+    claimRef:
+      apiVersion: v1
+      kind: PersistentVolumeClaim
+      name: cots-global-solr-pvc-static
+      namespace: cots-dev
+      resourceVersion: "724212528"
+      uid: 7903854b-fff5-4a67-bf49-06b661e4dedb
+    csi:
+      driver: nfs.csi.k8s.io
+      volumeAttributes:
+        server: 21.2.0.201
+        share: /k8s/static/cots-dev/solr
+      volumeHandle: static-solr-pv-cots-dev
+    mountOptions:
+    - hard
+    - nolock
+    - vers=3
+    persistentVolumeReclaimPolicy: Delete
+    volumeMode: Filesystem
+  status:
+    phase: Bound
+- apiVersion: v1
+  kind: PersistentVolume
+  metadata:
+    annotations:
+      artifact.spinnaker.io/location: cots-dev
+      artifact.spinnaker.io/name: static-pv-zookeeper-cots-dev
+      artifact.spinnaker.io/type: kubernetes/persistentVolume
+      artifact.spinnaker.io/version: ""
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","kind":"PersistentVolume","metadata":{"annotations":{"artifact.spinnaker.io/location":"cots-dev","artifact.spinnaker.io/name":"static-pv-zookeeper-cots-dev","artifact.spinnaker.io/type":"kubernetes/persistentVolume","artifact.spinnaker.io/version":"","moniker.spinnaker.io/application":"cots-dev","moniker.spinnaker.io/cluster":"persistentVolume static-pv-zookeeper-cots-dev"},"labels":{"app.kubernetes.io/managed-by":"spinnaker","app.kubernetes.io/name":"cots-dev"},"name":"static-pv-zookeeper-cots-dev"},"spec":{"accessModes":["ReadWriteMany"],"capacity":{"storage":"5Gi"},"claimRef":{"name":"cots-global-zookeeper-pvc-static","namespace":"cots-dev"},"csi":{"driver":"nfs.csi.k8s.io","volumeAttributes":{"server":"21.2.0.201","share":"/k8s/static/cots-dev/zookeeper"},"volumeHandle":"static-zookeeper-pv-cots-dev"},"mountOptions":["hard","nolock","vers=3"],"persistentVolumeReclaimPolicy":"Delete","storageClassName":"","volumeMode":"Filesystem"}}
+      moniker.spinnaker.io/application: cots-dev
+      moniker.spinnaker.io/cluster: persistentVolume static-pv-zookeeper-cots-dev
+    creationTimestamp: "2024-11-18T05:25:43Z"
+    finalizers:
+    - kubernetes.io/pv-protection
+    labels:
+      app.kubernetes.io/managed-by: spinnaker
+      app.kubernetes.io/name: cots-dev
+    name: static-pv-zookeeper-cots-dev
+    resourceVersion: "728208002"
+    uid: 9b14a29d-e461-48a2-bdd6-3a9d609f116d
+  spec:
+    accessModes:
+    - ReadWriteMany
+    capacity:
+      storage: 5Gi
+    claimRef:
+      apiVersion: v1
+      kind: PersistentVolumeClaim
+      name: cots-global-zookeeper-pvc-static
+      namespace: cots-dev
+      resourceVersion: "724212536"
+      uid: 97e02e0c-1905-4dc6-be7e-f683cbc4c3c7
+    csi:
+      driver: nfs.csi.k8s.io
+      volumeAttributes:
+        server: 21.2.0.201
+        share: /k8s/static/cots-dev/zookeeper
+      volumeHandle: static-zookeeper-pv-cots-dev
+    mountOptions:
+    - hard
+    - nolock
+    - vers=3
+    persistentVolumeReclaimPolicy: Delete
+    volumeMode: Filesystem
+  status:
+    phase: Bound
+kind: List
+metadata:
+  resourceVersion: ""

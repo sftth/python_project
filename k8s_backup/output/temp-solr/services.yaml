@@ -1,0 +1,188 @@
+apiVersion: v1
+items:
+- apiVersion: v1
+  kind: Service
+  metadata:
+    annotations:
+      artifact.spinnaker.io/location: temp-solr
+      artifact.spinnaker.io/name: solr
+      artifact.spinnaker.io/type: kubernetes/service
+      artifact.spinnaker.io/version: ""
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","kind":"Service","metadata":{"annotations":{"artifact.spinnaker.io/location":"temp-solr","artifact.spinnaker.io/name":"solr","artifact.spinnaker.io/type":"kubernetes/service","artifact.spinnaker.io/version":"","moniker.spinnaker.io/application":"solr","moniker.spinnaker.io/cluster":"service solr"},"labels":{"app.kubernetes.io/component":"solr","app.kubernetes.io/instance":"solr","app.kubernetes.io/managed-by":"spinnaker","app.kubernetes.io/name":"solr","app.kubernetes.io/version":"9.5.0","helm.sh/chart":"solr-9.0.0"},"name":"solr","namespace":"temp-solr"},"spec":{"ports":[{"name":"tcp-client","port":8983,"protocol":"TCP","targetPort":"http"}],"selector":{"app.kubernetes.io/component":"solr","app.kubernetes.io/instance":"solr","app.kubernetes.io/name":"solr"},"sessionAffinity":"None","type":"ClusterIP"}}
+      moniker.spinnaker.io/application: solr
+      moniker.spinnaker.io/cluster: service solr
+    creationTimestamp: "2024-10-14T16:22:16Z"
+    labels:
+      app.kubernetes.io/component: solr
+      app.kubernetes.io/instance: solr
+      app.kubernetes.io/managed-by: spinnaker
+      app.kubernetes.io/name: solr
+      app.kubernetes.io/version: 9.5.0
+      helm.sh/chart: solr-9.0.0
+      k8slens-edit-resource-version: v1
+    name: solr
+    namespace: temp-solr
+    resourceVersion: "742423068"
+    uid: 28dac5db-b6c3-440a-94a3-024e0aaa45b5
+  spec:
+    clusterIP: 10.233.8.62
+    clusterIPs:
+    - 10.233.8.62
+    ports:
+    - name: tcp-client
+      port: 8983
+      protocol: TCP
+      targetPort: http
+    selector:
+      app.kubernetes.io/component: solr
+      app.kubernetes.io/instance: solr
+      app.kubernetes.io/name: solr
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    annotations:
+      artifact.spinnaker.io/location: temp-solr
+      artifact.spinnaker.io/name: solr-headless
+      artifact.spinnaker.io/type: kubernetes/service
+      artifact.spinnaker.io/version: ""
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","kind":"Service","metadata":{"annotations":{"artifact.spinnaker.io/location":"temp-solr","artifact.spinnaker.io/name":"solr-headless","artifact.spinnaker.io/type":"kubernetes/service","artifact.spinnaker.io/version":"","moniker.spinnaker.io/application":"solr","moniker.spinnaker.io/cluster":"service solr-headless"},"labels":{"app.kubernetes.io/component":"solr","app.kubernetes.io/instance":"solr","app.kubernetes.io/managed-by":"spinnaker","app.kubernetes.io/name":"solr","app.kubernetes.io/version":"9.5.0","helm.sh/chart":"solr-9.0.0"},"name":"solr-headless","namespace":"temp-solr"},"spec":{"clusterIP":"None","ports":[{"name":"tcp-client","port":8983,"protocol":"TCP","targetPort":"http"}],"publishNotReadyAddresses":true,"selector":{"app.kubernetes.io/component":"solr","app.kubernetes.io/instance":"solr","app.kubernetes.io/name":"solr"},"type":"ClusterIP"}}
+      moniker.spinnaker.io/application: solr
+      moniker.spinnaker.io/cluster: service solr-headless
+    creationTimestamp: "2024-10-14T16:22:15Z"
+    labels:
+      app.kubernetes.io/component: solr
+      app.kubernetes.io/instance: solr
+      app.kubernetes.io/managed-by: spinnaker
+      app.kubernetes.io/name: solr
+      app.kubernetes.io/version: 9.5.0
+      helm.sh/chart: solr-9.0.0
+    name: solr-headless
+    namespace: temp-solr
+    resourceVersion: "742423056"
+    uid: 39f6aff0-9bb1-4d9a-a00f-22baa7f669ea
+  spec:
+    clusterIP: None
+    clusterIPs:
+    - None
+    ports:
+    - name: tcp-client
+      port: 8983
+      protocol: TCP
+      targetPort: http
+    publishNotReadyAddresses: true
+    selector:
+      app.kubernetes.io/component: solr
+      app.kubernetes.io/instance: solr
+      app.kubernetes.io/name: solr
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    annotations:
+      artifact.spinnaker.io/location: temp-solr
+      artifact.spinnaker.io/name: solr-zookeeper
+      artifact.spinnaker.io/type: kubernetes/service
+      artifact.spinnaker.io/version: ""
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","kind":"Service","metadata":{"annotations":{"artifact.spinnaker.io/location":"temp-solr","artifact.spinnaker.io/name":"solr-zookeeper","artifact.spinnaker.io/type":"kubernetes/service","artifact.spinnaker.io/version":"","moniker.spinnaker.io/application":"solr","moniker.spinnaker.io/cluster":"service solr-zookeeper"},"labels":{"app.kubernetes.io/component":"zookeeper","app.kubernetes.io/instance":"solr","app.kubernetes.io/managed-by":"spinnaker","app.kubernetes.io/name":"zookeeper","app.kubernetes.io/version":"3.9.2","helm.sh/chart":"zookeeper-13.0.1"},"name":"solr-zookeeper","namespace":"temp-solr"},"spec":{"ports":[{"name":"tcp-client","port":2181,"targetPort":"client"},{"name":"tcp-follower","port":2888,"targetPort":"follower"},{"name":"tcp-election","port":3888,"targetPort":"election"}],"selector":{"app.kubernetes.io/component":"zookeeper","app.kubernetes.io/instance":"solr","app.kubernetes.io/name":"zookeeper"},"sessionAffinity":"None","type":"ClusterIP"}}
+      moniker.spinnaker.io/application: solr
+      moniker.spinnaker.io/cluster: service solr-zookeeper
+    creationTimestamp: "2024-10-14T16:22:15Z"
+    labels:
+      app.kubernetes.io/component: zookeeper
+      app.kubernetes.io/instance: solr
+      app.kubernetes.io/managed-by: spinnaker
+      app.kubernetes.io/name: zookeeper
+      app.kubernetes.io/version: 3.9.2
+      helm.sh/chart: zookeeper-13.0.1
+    name: solr-zookeeper
+    namespace: temp-solr
+    resourceVersion: "742423040"
+    uid: 6eecbc7e-a214-45cc-9ac5-0acbf6d99fe9
+  spec:
+    clusterIP: 10.233.60.197
+    clusterIPs:
+    - 10.233.60.197
+    ports:
+    - name: tcp-client
+      port: 2181
+      protocol: TCP
+      targetPort: client
+    - name: tcp-follower
+      port: 2888
+      protocol: TCP
+      targetPort: follower
+    - name: tcp-election
+      port: 3888
+      protocol: TCP
+      targetPort: election
+    selector:
+      app.kubernetes.io/component: zookeeper
+      app.kubernetes.io/instance: solr
+      app.kubernetes.io/name: zookeeper
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    annotations:
+      artifact.spinnaker.io/location: temp-solr
+      artifact.spinnaker.io/name: solr-zookeeper-headless
+      artifact.spinnaker.io/type: kubernetes/service
+      artifact.spinnaker.io/version: ""
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","kind":"Service","metadata":{"annotations":{"artifact.spinnaker.io/location":"temp-solr","artifact.spinnaker.io/name":"solr-zookeeper-headless","artifact.spinnaker.io/type":"kubernetes/service","artifact.spinnaker.io/version":"","moniker.spinnaker.io/application":"solr","moniker.spinnaker.io/cluster":"service solr-zookeeper-headless"},"labels":{"app.kubernetes.io/component":"zookeeper","app.kubernetes.io/instance":"solr","app.kubernetes.io/managed-by":"spinnaker","app.kubernetes.io/name":"zookeeper","app.kubernetes.io/version":"3.9.2","helm.sh/chart":"zookeeper-13.0.1"},"name":"solr-zookeeper-headless","namespace":"temp-solr"},"spec":{"clusterIP":"None","ports":[{"name":"tcp-client","port":2181,"targetPort":"client"},{"name":"tcp-follower","port":2888,"targetPort":"follower"},{"name":"tcp-election","port":3888,"targetPort":"election"}],"publishNotReadyAddresses":true,"selector":{"app.kubernetes.io/component":"zookeeper","app.kubernetes.io/instance":"solr","app.kubernetes.io/name":"zookeeper"},"type":"ClusterIP"}}
+      moniker.spinnaker.io/application: solr
+      moniker.spinnaker.io/cluster: service solr-zookeeper-headless
+    creationTimestamp: "2024-10-14T16:22:15Z"
+    labels:
+      app.kubernetes.io/component: zookeeper
+      app.kubernetes.io/instance: solr
+      app.kubernetes.io/managed-by: spinnaker
+      app.kubernetes.io/name: zookeeper
+      app.kubernetes.io/version: 3.9.2
+      helm.sh/chart: zookeeper-13.0.1
+    name: solr-zookeeper-headless
+    namespace: temp-solr
+    resourceVersion: "742423025"
+    uid: 1133ee39-067d-4921-ab38-a479d37344cb
+  spec:
+    clusterIP: None
+    clusterIPs:
+    - None
+    ports:
+    - name: tcp-client
+      port: 2181
+      protocol: TCP
+      targetPort: client
+    - name: tcp-follower
+      port: 2888
+      protocol: TCP
+      targetPort: follower
+    - name: tcp-election
+      port: 3888
+      protocol: TCP
+      targetPort: election
+    publishNotReadyAddresses: true
+    selector:
+      app.kubernetes.io/component: zookeeper
+      app.kubernetes.io/instance: solr
+      app.kubernetes.io/name: zookeeper
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+kind: List
+metadata:
+  resourceVersion: ""

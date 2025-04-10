@@ -1,0 +1,934 @@
+apiVersion: v1
+items:
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      deployment.kubernetes.io/revision: "2"
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"apps/v1","kind":"Deployment","metadata":{"annotations":{},"labels":{"addonmanager.kubernetes.io/mode":"Reconcile","k8s-app":"kube-dns","kubernetes.io/name":"coredns"},"name":"coredns","namespace":"kube-system"},"spec":{"selector":{"matchLabels":{"k8s-app":"kube-dns"}},"strategy":{"rollingUpdate":{"maxSurge":"10%","maxUnavailable":0},"type":"RollingUpdate"},"template":{"metadata":{"annotations":{"createdby":"kubespray","seccomp.security.alpha.kubernetes.io/pod":"runtime/default"},"labels":{"k8s-app":"kube-dns"}},"spec":{"affinity":{"nodeAffinity":{"preferredDuringSchedulingIgnoredDuringExecution":[{"preference":{"matchExpressions":[{"key":"node-role.kubernetes.io/control-plane","operator":"In","values":[""]}]},"weight":100}]},"podAntiAffinity":{"requiredDuringSchedulingIgnoredDuringExecution":[{"labelSelector":{"matchLabels":{"k8s-app":"kube-dns"}},"topologyKey":"kubernetes.io/hostname"}]}},"containers":[{"args":["-conf","/etc/coredns/Corefile"],"image":"21.4.0.9:5000/coredns:1.7.0","imagePullPolicy":"IfNotPresent","livenessProbe":{"failureThreshold":10,"httpGet":{"path":"/health","port":8080,"scheme":"HTTP"},"successThreshold":1,"timeoutSeconds":5},"name":"coredns","ports":[{"containerPort":53,"name":"dns","protocol":"UDP"},{"containerPort":53,"name":"dns-tcp","protocol":"TCP"},{"containerPort":9153,"name":"metrics","protocol":"TCP"}],"readinessProbe":{"failureThreshold":10,"httpGet":{"path":"/ready","port":8181,"scheme":"HTTP"},"successThreshold":1,"timeoutSeconds":5},"resources":{"limits":{"memory":"170Mi"},"requests":{"cpu":"100m","memory":"70Mi"}},"securityContext":{"allowPrivilegeEscalation":false,"capabilities":{"add":["NET_BIND_SERVICE"],"drop":["all"]},"readOnlyRootFilesystem":true},"volumeMounts":[{"mountPath":"/etc/coredns","name":"config-volume"}]}],"dnsPolicy":"Default","nodeSelector":{"kubernetes.io/os":"linux"},"priorityClassName":"system-cluster-critical","serviceAccountName":"coredns","tolerations":[{"effect":"NoSchedule","key":"node-role.kubernetes.io/master"},{"effect":"NoSchedule","key":"node-role.kubernetes.io/control-plane"}],"volumes":[{"configMap":{"items":[{"key":"Corefile","path":"Corefile"}],"name":"coredns"},"name":"config-volume"}]}}}}
+    creationTimestamp: "2021-03-21T07:24:43Z"
+    generation: 7
+    labels:
+      addonmanager.kubernetes.io/mode: Reconcile
+      k8s-app: kube-dns
+      kubernetes.io/name: coredns
+    name: coredns
+    namespace: kube-system
+    resourceVersion: "781108136"
+    uid: 4a6b7852-5b9f-463b-b5f1-503b9a45a774
+  spec:
+    progressDeadlineSeconds: 600
+    replicas: 2
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        k8s-app: kube-dns
+    strategy:
+      rollingUpdate:
+        maxSurge: 10%
+        maxUnavailable: 0
+      type: RollingUpdate
+    template:
+      metadata:
+        annotations:
+          createdby: kubespray
+          kubectl.kubernetes.io/restartedAt: "2024-11-12T04:26:44Z"
+          seccomp.security.alpha.kubernetes.io/pod: runtime/default
+        creationTimestamp: null
+        labels:
+          k8s-app: kube-dns
+      spec:
+        affinity:
+          nodeAffinity:
+            preferredDuringSchedulingIgnoredDuringExecution:
+            - preference:
+                matchExpressions:
+                - key: node-role.kubernetes.io/control-plane
+                  operator: In
+                  values:
+                  - ""
+              weight: 100
+          podAntiAffinity:
+            requiredDuringSchedulingIgnoredDuringExecution:
+            - labelSelector:
+                matchLabels:
+                  k8s-app: kube-dns
+              topologyKey: kubernetes.io/hostname
+        containers:
+        - args:
+          - -conf
+          - /etc/coredns/Corefile
+          image: 21.4.0.9:5000/coredns:1.7.0
+          imagePullPolicy: IfNotPresent
+          livenessProbe:
+            failureThreshold: 10
+            httpGet:
+              path: /health
+              port: 8080
+              scheme: HTTP
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 5
+          name: coredns
+          ports:
+          - containerPort: 53
+            name: dns
+            protocol: UDP
+          - containerPort: 53
+            name: dns-tcp
+            protocol: TCP
+          - containerPort: 9153
+            name: metrics
+            protocol: TCP
+          readinessProbe:
+            failureThreshold: 10
+            httpGet:
+              path: /ready
+              port: 8181
+              scheme: HTTP
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 5
+          resources:
+            limits:
+              memory: 170Mi
+            requests:
+              cpu: 100m
+              memory: 70Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              add:
+              - NET_BIND_SERVICE
+              drop:
+              - all
+            readOnlyRootFilesystem: true
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /etc/coredns
+            name: config-volume
+        dnsPolicy: Default
+        nodeSelector:
+          kubernetes.io/os: linux
+        priorityClassName: system-cluster-critical
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        serviceAccount: coredns
+        serviceAccountName: coredns
+        terminationGracePeriodSeconds: 30
+        tolerations:
+        - effect: NoSchedule
+          key: node-role.kubernetes.io/master
+        - effect: NoSchedule
+          key: node-role.kubernetes.io/control-plane
+        volumes:
+        - configMap:
+            defaultMode: 420
+            items:
+            - key: Corefile
+              path: Corefile
+            name: coredns
+          name: config-volume
+  status:
+    availableReplicas: 2
+    conditions:
+    - lastTransitionTime: "2021-03-21T07:24:43Z"
+      lastUpdateTime: "2024-11-12T04:27:01Z"
+      message: ReplicaSet "coredns-5b6954488d" has successfully progressed.
+      reason: NewReplicaSetAvailable
+      status: "True"
+      type: Progressing
+    - lastTransitionTime: "2025-03-24T05:02:42Z"
+      lastUpdateTime: "2025-03-24T05:02:42Z"
+      message: Deployment has minimum availability.
+      reason: MinimumReplicasAvailable
+      status: "True"
+      type: Available
+    observedGeneration: 7
+    readyReplicas: 2
+    replicas: 2
+    updatedReplicas: 2
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      deployment.kubernetes.io/revision: "1"
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"apps/v1","kind":"Deployment","metadata":{"annotations":{},"name":"csi-nfs-controller","namespace":"kube-system"},"spec":{"replicas":2,"selector":{"matchLabels":{"app":"csi-nfs-controller"}},"template":{"metadata":{"labels":{"app":"csi-nfs-controller"}},"spec":{"containers":[{"args":["-v=2","--csi-address=$(ADDRESS)","--leader-election"],"env":[{"name":"ADDRESS","value":"/csi/csi.sock"}],"image":"21.4.0.9:5000/sig-storage/csi-provisioner:v2.1.0","name":"csi-provisioner","resources":{"limits":{"cpu":"100m","memory":"400Mi"},"requests":{"cpu":"10m","memory":"20Mi"}},"volumeMounts":[{"mountPath":"/csi","name":"socket-dir"}]},{"args":["--csi-address=/csi/csi.sock","--probe-timeout=3s","--health-port=29652","--v=2"],"image":"21.4.0.9:5000/sig-storage/livenessprobe:v2.1.0","name":"liveness-probe","resources":{"limits":{"cpu":"100m","memory":"100Mi"},"requests":{"cpu":"10m","memory":"20Mi"}},"volumeMounts":[{"mountPath":"/csi","name":"socket-dir"}]},{"args":["-v=5","--nodeid=$(NODE_ID)","--endpoint=$(CSI_ENDPOINT)"],"env":[{"name":"NODE_ID","valueFrom":{"fieldRef":{"fieldPath":"spec.nodeName"}}},{"name":"CSI_ENDPOINT","value":"unix:///csi/csi.sock"}],"image":"21.4.0.9:5000/k8s/csi/nfs-csi:latest","imagePullPolicy":"IfNotPresent","livenessProbe":{"failureThreshold":5,"httpGet":{"path":"/healthz","port":"healthz"},"initialDelaySeconds":30,"periodSeconds":30,"timeoutSeconds":10},"name":"nfs","ports":[{"containerPort":29652,"name":"healthz","protocol":"TCP"}],"resources":{"limits":{"cpu":"200m","memory":"200Mi"},"requests":{"cpu":"10m","memory":"20Mi"}},"securityContext":{"allowPrivilegeEscalation":true,"capabilities":{"add":["SYS_ADMIN"]},"privileged":true},"volumeMounts":[{"mountPath":"/var/lib/kubelet/pods","mountPropagation":"Bidirectional","name":"pods-mount-dir"},{"mountPath":"/csi","name":"socket-dir"}]}],"dnsPolicy":"ClusterFirstWithHostNet","hostNetwork":true,"nodeSelector":{"kubernetes.io/os":"linux"},"priorityClassName":"system-cluster-critical","serviceAccountName":"csi-nfs-controller-sa","tolerations":[{"effect":"NoSchedule","key":"node-role.kubernetes.io/master","operator":"Equal","value":"true"}],"volumes":[{"hostPath":{"path":"/var/lib/kubelet/pods","type":"Directory"},"name":"pods-mount-dir"},{"emptyDir":{},"name":"socket-dir"}]}}}}
+    creationTimestamp: "2021-03-22T08:01:41Z"
+    generation: 1
+    name: csi-nfs-controller
+    namespace: kube-system
+    resourceVersion: "787127139"
+    uid: ca5d18ab-f89f-4031-9392-3e6abdae978d
+  spec:
+    progressDeadlineSeconds: 600
+    replicas: 2
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        app: csi-nfs-controller
+    strategy:
+      rollingUpdate:
+        maxSurge: 25%
+        maxUnavailable: 25%
+      type: RollingUpdate
+    template:
+      metadata:
+        creationTimestamp: null
+        labels:
+          app: csi-nfs-controller
+      spec:
+        containers:
+        - args:
+          - -v=2
+          - --csi-address=$(ADDRESS)
+          - --leader-election
+          env:
+          - name: ADDRESS
+            value: /csi/csi.sock
+          image: 21.4.0.9:5000/sig-storage/csi-provisioner:v2.1.0
+          imagePullPolicy: IfNotPresent
+          name: csi-provisioner
+          resources:
+            limits:
+              cpu: 100m
+              memory: 400Mi
+            requests:
+              cpu: 10m
+              memory: 20Mi
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /csi
+            name: socket-dir
+        - args:
+          - --csi-address=/csi/csi.sock
+          - --probe-timeout=3s
+          - --health-port=29652
+          - --v=2
+          image: 21.4.0.9:5000/sig-storage/livenessprobe:v2.1.0
+          imagePullPolicy: IfNotPresent
+          name: liveness-probe
+          resources:
+            limits:
+              cpu: 100m
+              memory: 100Mi
+            requests:
+              cpu: 10m
+              memory: 20Mi
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /csi
+            name: socket-dir
+        - args:
+          - -v=5
+          - --nodeid=$(NODE_ID)
+          - --endpoint=$(CSI_ENDPOINT)
+          env:
+          - name: NODE_ID
+            valueFrom:
+              fieldRef:
+                apiVersion: v1
+                fieldPath: spec.nodeName
+          - name: CSI_ENDPOINT
+            value: unix:///csi/csi.sock
+          image: 21.4.0.9:5000/k8s/csi/nfs-csi:latest
+          imagePullPolicy: IfNotPresent
+          livenessProbe:
+            failureThreshold: 5
+            httpGet:
+              path: /healthz
+              port: healthz
+              scheme: HTTP
+            initialDelaySeconds: 30
+            periodSeconds: 30
+            successThreshold: 1
+            timeoutSeconds: 10
+          name: nfs
+          ports:
+          - containerPort: 29652
+            hostPort: 29652
+            name: healthz
+            protocol: TCP
+          resources:
+            limits:
+              cpu: 200m
+              memory: 200Mi
+            requests:
+              cpu: 10m
+              memory: 20Mi
+          securityContext:
+            allowPrivilegeEscalation: true
+            capabilities:
+              add:
+              - SYS_ADMIN
+            privileged: true
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /var/lib/kubelet/pods
+            mountPropagation: Bidirectional
+            name: pods-mount-dir
+          - mountPath: /csi
+            name: socket-dir
+        dnsPolicy: ClusterFirstWithHostNet
+        hostNetwork: true
+        nodeSelector:
+          kubernetes.io/os: linux
+        priorityClassName: system-cluster-critical
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        serviceAccount: csi-nfs-controller-sa
+        serviceAccountName: csi-nfs-controller-sa
+        terminationGracePeriodSeconds: 30
+        tolerations:
+        - effect: NoSchedule
+          key: node-role.kubernetes.io/master
+          operator: Equal
+          value: "true"
+        volumes:
+        - hostPath:
+            path: /var/lib/kubelet/pods
+            type: Directory
+          name: pods-mount-dir
+        - emptyDir: {}
+          name: socket-dir
+  status:
+    availableReplicas: 2
+    conditions:
+    - lastTransitionTime: "2021-03-22T08:01:41Z"
+      lastUpdateTime: "2022-09-09T08:41:14Z"
+      message: ReplicaSet "csi-nfs-controller-7dd8c4b889" has successfully progressed.
+      reason: NewReplicaSetAvailable
+      status: "True"
+      type: Progressing
+    - lastTransitionTime: "2025-04-09T08:06:24Z"
+      lastUpdateTime: "2025-04-09T08:06:24Z"
+      message: Deployment has minimum availability.
+      reason: MinimumReplicasAvailable
+      status: "True"
+      type: Available
+    observedGeneration: 1
+    readyReplicas: 2
+    replicas: 2
+    updatedReplicas: 2
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      deployment.kubernetes.io/revision: "1"
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"apps/v1","kind":"Deployment","metadata":{"annotations":{},"labels":{"addonmanager.kubernetes.io/mode":"Reconcile","k8s-app":"dns-autoscaler"},"name":"dns-autoscaler","namespace":"kube-system"},"spec":{"selector":{"matchLabels":{"k8s-app":"dns-autoscaler"}},"template":{"metadata":{"annotations":{"seccomp.security.alpha.kubernetes.io/pod":"runtime/default"},"labels":{"k8s-app":"dns-autoscaler"}},"spec":{"affinity":{"nodeAffinity":{"preferredDuringSchedulingIgnoredDuringExecution":[{"preference":{"matchExpressions":[{"key":"node-role.kubernetes.io/control-plane","operator":"In","values":[""]}]},"weight":100}]},"podAntiAffinity":{"requiredDuringSchedulingIgnoredDuringExecution":[{"labelSelector":{"matchLabels":{"k8s-app":"dns-autoscaler"}},"topologyKey":"kubernetes.io/hostname"}]}},"containers":[{"command":["/cluster-proportional-autoscaler","--namespace=kube-system","--default-params={\"linear\":{\"preventSinglePointFailure\":true,\"coresPerReplica\":256,\"nodesPerReplica\":16,\"min\":2}}","--logtostderr=true","--v=2","--configmap=dns-autoscaler","--target=Deployment/coredns"],"image":"21.4.0.9:5000/cpa/cluster-proportional-autoscaler-amd64:1.8.3","name":"autoscaler","readinessProbe":{"httpGet":{"path":"/healthz","port":8080,"scheme":"HTTP"}},"resources":{"requests":{"cpu":"20m","memory":"10Mi"}}}],"nodeSelector":{"kubernetes.io/os":"linux"},"priorityClassName":"system-cluster-critical","securityContext":{"fsGroup":65534,"supplementalGroups":[65534]},"serviceAccountName":"dns-autoscaler","tolerations":[{"effect":"NoSchedule","key":"node-role.kubernetes.io/master"},{"effect":"NoSchedule","key":"node-role.kubernetes.io/control-plane"}]}}}}
+    creationTimestamp: "2021-03-21T07:24:48Z"
+    generation: 1
+    labels:
+      addonmanager.kubernetes.io/mode: Reconcile
+      k8s-app: dns-autoscaler
+    name: dns-autoscaler
+    namespace: kube-system
+    resourceVersion: "781109003"
+    uid: 375e3285-a384-4d43-9ef2-c53b753652bf
+  spec:
+    progressDeadlineSeconds: 600
+    replicas: 1
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        k8s-app: dns-autoscaler
+    strategy:
+      rollingUpdate:
+        maxSurge: 25%
+        maxUnavailable: 25%
+      type: RollingUpdate
+    template:
+      metadata:
+        annotations:
+          seccomp.security.alpha.kubernetes.io/pod: runtime/default
+        creationTimestamp: null
+        labels:
+          k8s-app: dns-autoscaler
+      spec:
+        affinity:
+          nodeAffinity:
+            preferredDuringSchedulingIgnoredDuringExecution:
+            - preference:
+                matchExpressions:
+                - key: node-role.kubernetes.io/control-plane
+                  operator: In
+                  values:
+                  - ""
+              weight: 100
+          podAntiAffinity:
+            requiredDuringSchedulingIgnoredDuringExecution:
+            - labelSelector:
+                matchLabels:
+                  k8s-app: dns-autoscaler
+              topologyKey: kubernetes.io/hostname
+        containers:
+        - command:
+          - /cluster-proportional-autoscaler
+          - --namespace=kube-system
+          - --default-params={"linear":{"preventSinglePointFailure":true,"coresPerReplica":256,"nodesPerReplica":16,"min":2}}
+          - --logtostderr=true
+          - --v=2
+          - --configmap=dns-autoscaler
+          - --target=Deployment/coredns
+          image: 21.4.0.9:5000/cpa/cluster-proportional-autoscaler-amd64:1.8.3
+          imagePullPolicy: IfNotPresent
+          name: autoscaler
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /healthz
+              port: 8080
+              scheme: HTTP
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 1
+          resources:
+            requests:
+              cpu: 20m
+              memory: 10Mi
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        nodeSelector:
+          kubernetes.io/os: linux
+        priorityClassName: system-cluster-critical
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext:
+          fsGroup: 65534
+          supplementalGroups:
+          - 65534
+        serviceAccount: dns-autoscaler
+        serviceAccountName: dns-autoscaler
+        terminationGracePeriodSeconds: 30
+        tolerations:
+        - effect: NoSchedule
+          key: node-role.kubernetes.io/master
+        - effect: NoSchedule
+          key: node-role.kubernetes.io/control-plane
+  status:
+    availableReplicas: 1
+    conditions:
+    - lastTransitionTime: "2021-03-21T07:24:48Z"
+      lastUpdateTime: "2022-09-09T08:37:34Z"
+      message: ReplicaSet "dns-autoscaler-685fd9695b" has successfully progressed.
+      reason: NewReplicaSetAvailable
+      status: "True"
+      type: Progressing
+    - lastTransitionTime: "2025-03-24T05:05:20Z"
+      lastUpdateTime: "2025-03-24T05:05:20Z"
+      message: Deployment has minimum availability.
+      reason: MinimumReplicasAvailable
+      status: "True"
+      type: Available
+    observedGeneration: 1
+    readyReplicas: 1
+    replicas: 1
+    updatedReplicas: 1
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      deployment.kubernetes.io/revision: "1"
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"apps/v1","kind":"Deployment","metadata":{"annotations":{},"labels":{"k8s-app":"kubernetes-dashboard"},"name":"kubernetes-dashboard","namespace":"kube-system"},"spec":{"replicas":1,"revisionHistoryLimit":10,"selector":{"matchLabels":{"k8s-app":"kubernetes-dashboard"}},"template":{"metadata":{"labels":{"k8s-app":"kubernetes-dashboard"}},"spec":{"containers":[{"args":["--namespace=kube-system","--auto-generate-certificates","--authentication-mode=token","--token-ttl=900"],"image":"21.4.0.9:5000/kubernetesui/dashboard-amd64:v2.2.0","imagePullPolicy":"IfNotPresent","livenessProbe":{"httpGet":{"path":"/","port":8443,"scheme":"HTTPS"},"initialDelaySeconds":30,"timeoutSeconds":30},"name":"kubernetes-dashboard","ports":[{"containerPort":8443,"protocol":"TCP"}],"resources":{"limits":{"cpu":"100m","memory":"256M"},"requests":{"cpu":"50m","memory":"64M"}},"volumeMounts":[{"mountPath":"/certs","name":"kubernetes-dashboard-certs"},{"mountPath":"/tmp","name":"tmp-volume"}]}],"priorityClassName":"system-cluster-critical","serviceAccountName":"kubernetes-dashboard","tolerations":[{"effect":"NoSchedule","key":"node-role.kubernetes.io/master"},{"effect":"NoSchedule","key":"node-role.kubernetes.io/control-plane"}],"volumes":[{"name":"kubernetes-dashboard-certs","secret":{"secretName":"kubernetes-dashboard-certs"}},{"emptyDir":{},"name":"tmp-volume"}]}}}}
+    creationTimestamp: "2021-03-21T07:24:56Z"
+    generation: 1
+    labels:
+      k8s-app: kubernetes-dashboard
+    name: kubernetes-dashboard
+    namespace: kube-system
+    resourceVersion: "781109035"
+    uid: 68bf43fb-5a2e-4974-9e64-c311938c8a15
+  spec:
+    progressDeadlineSeconds: 600
+    replicas: 1
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        k8s-app: kubernetes-dashboard
+    strategy:
+      rollingUpdate:
+        maxSurge: 25%
+        maxUnavailable: 25%
+      type: RollingUpdate
+    template:
+      metadata:
+        creationTimestamp: null
+        labels:
+          k8s-app: kubernetes-dashboard
+      spec:
+        containers:
+        - args:
+          - --namespace=kube-system
+          - --auto-generate-certificates
+          - --authentication-mode=token
+          - --token-ttl=900
+          image: 21.4.0.9:5000/kubernetesui/dashboard-amd64:v2.2.0
+          imagePullPolicy: IfNotPresent
+          livenessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /
+              port: 8443
+              scheme: HTTPS
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 30
+          name: kubernetes-dashboard
+          ports:
+          - containerPort: 8443
+            protocol: TCP
+          resources:
+            limits:
+              cpu: 100m
+              memory: 256M
+            requests:
+              cpu: 50m
+              memory: 64M
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /certs
+            name: kubernetes-dashboard-certs
+          - mountPath: /tmp
+            name: tmp-volume
+        dnsPolicy: ClusterFirst
+        priorityClassName: system-cluster-critical
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        serviceAccount: kubernetes-dashboard
+        serviceAccountName: kubernetes-dashboard
+        terminationGracePeriodSeconds: 30
+        tolerations:
+        - effect: NoSchedule
+          key: node-role.kubernetes.io/master
+        - effect: NoSchedule
+          key: node-role.kubernetes.io/control-plane
+        volumes:
+        - name: kubernetes-dashboard-certs
+          secret:
+            defaultMode: 420
+            secretName: kubernetes-dashboard-certs
+        - emptyDir: {}
+          name: tmp-volume
+  status:
+    availableReplicas: 1
+    conditions:
+    - lastTransitionTime: "2021-03-21T07:24:56Z"
+      lastUpdateTime: "2022-09-09T08:37:35Z"
+      message: ReplicaSet "kubernetes-dashboard-77d7c9866" has successfully progressed.
+      reason: NewReplicaSetAvailable
+      status: "True"
+      type: Progressing
+    - lastTransitionTime: "2025-03-24T05:05:23Z"
+      lastUpdateTime: "2025-03-24T05:05:23Z"
+      message: Deployment has minimum availability.
+      reason: MinimumReplicasAvailable
+      status: "True"
+      type: Available
+    observedGeneration: 1
+    readyReplicas: 1
+    replicas: 1
+    updatedReplicas: 1
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      deployment.kubernetes.io/revision: "2"
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"apps/v1","kind":"Deployment","metadata":{"annotations":{},"labels":{"k8s-app":"kubernetes-metrics-scraper"},"name":"kubernetes-metrics-scraper","namespace":"kube-system"},"spec":{"replicas":1,"revisionHistoryLimit":10,"selector":{"matchLabels":{"k8s-app":"kubernetes-metrics-scraper"}},"template":{"metadata":{"labels":{"k8s-app":"kubernetes-metrics-scraper"}},"spec":{"containers":[{"image":"21.4.0.9:5000/kubernetesui/metrics-scraper:v1.0.6","livenessProbe":{"httpGet":{"path":"/","port":8000,"scheme":"HTTP"},"initialDelaySeconds":30,"timeoutSeconds":30},"name":"kubernetes-metrics-scraper","ports":[{"containerPort":8000,"protocol":"TCP"}],"volumeMounts":[{"mountPath":"/tmp","name":"tmp-volume"}]}],"priorityClassName":"system-cluster-critical","serviceAccountName":"kubernetes-dashboard","tolerations":[{"effect":"NoSchedule","key":"node-role.kubernetes.io/master"},{"effect":"NoSchedule","key":"node-role.kubernetes.io/control-plane"}],"volumes":[{"emptyDir":{},"name":"tmp-volume"}]}}}}
+    creationTimestamp: "2021-03-21T07:24:57Z"
+    generation: 2
+    labels:
+      k8s-app: kubernetes-metrics-scraper
+      k8slens-edit-resource-version: v1
+    name: kubernetes-metrics-scraper
+    namespace: kube-system
+    resourceVersion: "728051242"
+    uid: ba3c693a-4881-45c3-a073-bd2c068dcce9
+  spec:
+    progressDeadlineSeconds: 600
+    replicas: 1
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        k8s-app: kubernetes-metrics-scraper
+    strategy:
+      rollingUpdate:
+        maxSurge: 25%
+        maxUnavailable: 25%
+      type: RollingUpdate
+    template:
+      metadata:
+        creationTimestamp: null
+        labels:
+          k8s-app: kubernetes-metrics-scraper
+      spec:
+        containers:
+        - image: 21.4.0.9:5000/kubernetesui/metrics-scraper:v1.0.6
+          imagePullPolicy: IfNotPresent
+          livenessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /
+              port: 8000
+              scheme: HTTP
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 30
+          name: kubernetes-metrics-scraper
+          ports:
+          - containerPort: 8000
+            protocol: TCP
+          resources:
+            limits:
+              cpu: 50m
+              memory: 100Mi
+            requests:
+              cpu: 10m
+              memory: 50Mi
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /tmp
+            name: tmp-volume
+        dnsPolicy: ClusterFirst
+        priorityClassName: system-cluster-critical
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        serviceAccount: kubernetes-dashboard
+        serviceAccountName: kubernetes-dashboard
+        terminationGracePeriodSeconds: 30
+        tolerations:
+        - effect: NoSchedule
+          key: node-role.kubernetes.io/master
+        - effect: NoSchedule
+          key: node-role.kubernetes.io/control-plane
+        volumes:
+        - emptyDir: {}
+          name: tmp-volume
+  status:
+    availableReplicas: 1
+    conditions:
+    - lastTransitionTime: "2021-03-21T07:24:57Z"
+      lastUpdateTime: "2024-11-18T16:06:45Z"
+      message: ReplicaSet "kubernetes-metrics-scraper-75fd8449dd" has successfully
+        progressed.
+      reason: NewReplicaSetAvailable
+      status: "True"
+      type: Progressing
+    - lastTransitionTime: "2024-11-25T04:50:36Z"
+      lastUpdateTime: "2024-11-25T04:50:36Z"
+      message: Deployment has minimum availability.
+      reason: MinimumReplicasAvailable
+      status: "True"
+      type: Available
+    observedGeneration: 2
+    readyReplicas: 1
+    replicas: 1
+    updatedReplicas: 1
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      deployment.kubernetes.io/revision: "27"
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"apps/v1","kind":"Deployment","metadata":{"annotations":{},"labels":{"addonmanager.kubernetes.io/mode":"Reconcile","app.kubernetes.io/name":"metrics-server","version":"v0.4.2"},"name":"metrics-server","namespace":"kube-system"},"spec":{"selector":{"matchLabels":{"app.kubernetes.io/name":"metrics-server","version":"v0.4.2"}},"template":{"metadata":{"annotations":{"seccomp.security.alpha.kubernetes.io/pod":"runtime/default"},"labels":{"app.kubernetes.io/name":"metrics-server","version":"v0.4.2"},"name":"metrics-server"},"spec":{"affinity":{"nodeAffinity":{"preferredDuringSchedulingIgnoredDuringExecution":[{"preference":{"matchExpressions":[{"key":"node-role.kubernetes.io/control-plane","operator":"In","values":[""]}]},"weight":100}]}},"containers":[{"command":["/metrics-server","--logtostderr","--cert-dir=/tmp","--secure-port=8443","--kubelet-preferred-address-types=InternalIP","--kubelet-use-node-status-port","--kubelet-insecure-tls","--metric-resolution=60s"],"image":"21.4.0.9:5000/metrics-server/metrics-server:v0.4.2","imagePullPolicy":"IfNotPresent","livenessProbe":{"httpGet":{"path":"/healthz?exclude=readyz","port":"https","scheme":"HTTPS"},"timeoutSeconds":10},"name":"metrics-server","ports":[{"containerPort":8443,"name":"https","protocol":"TCP"}],"readinessProbe":{"httpGet":{"path":"/healthz?exclude=livez","port":"https","scheme":"HTTPS"},"timeoutSeconds":10},"resources":{"limits":{"cpu":"43m","memory":"55Mi"},"requests":{"cpu":"43m","memory":"55Mi"}},"securityContext":{"allowPrivilegeEscalation":false,"capabilities":{"drop":["all"]},"readOnlyRootFilesystem":true,"runAsGroup":10001,"runAsNonRoot":true,"runAsUser":10001},"volumeMounts":[{"mountPath":"/tmp","name":"tmp"}]},{"command":["/pod_nanny","--config-dir=/etc/config","--cpu=40m","--extra-cpu=0.5m","--memory=35Mi","--extra-memory=4Mi","--threshold=5","--deployment=metrics-server","--container=metrics-server","--poll-period=300000","--estimator=exponential","--minClusterSize=5"],"env":[{"name":"MY_POD_NAME","valueFrom":{"fieldRef":{"fieldPath":"metadata.name"}}},{"name":"MY_POD_NAMESPACE","valueFrom":{"fieldRef":{"fieldPath":"metadata.namespace"}}}],"image":"21.4.0.9:5000/addon-resizer:1.8.11","imagePullPolicy":"IfNotPresent","name":"metrics-server-nanny","resources":{"limits":{"cpu":"100m","memory":"300Mi"},"requests":{"cpu":"5m","memory":"50Mi"}},"volumeMounts":[{"mountPath":"/etc/config","name":"metrics-server-config-volume"}]}],"priorityClassName":"system-cluster-critical","serviceAccountName":"metrics-server","tolerations":[{"effect":"NoSchedule","key":"node-role.kubernetes.io/master"},{"effect":"NoSchedule","key":"node-role.kubernetes.io/control-plane"}],"volumes":[{"configMap":{"name":"metrics-server-config"},"name":"metrics-server-config-volume"},{"emptyDir":{},"name":"tmp"}]}}}}
+    creationTimestamp: "2021-03-21T07:25:15Z"
+    generation: 31
+    labels:
+      addonmanager.kubernetes.io/mode: Reconcile
+      app.kubernetes.io/name: metrics-server
+      k8slens-edit-resource-version: v1
+      version: v0.4.2
+    name: metrics-server
+    namespace: kube-system
+    resourceVersion: "728051528"
+    uid: 2b62982e-bfd6-4e09-ae23-366bca79096d
+  spec:
+    progressDeadlineSeconds: 600
+    replicas: 1
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        app.kubernetes.io/name: metrics-server
+        version: v0.4.2
+    strategy:
+      rollingUpdate:
+        maxSurge: 25%
+        maxUnavailable: 25%
+      type: RollingUpdate
+    template:
+      metadata:
+        annotations:
+          kubectl.kubernetes.io/restartedAt: "2024-11-11T15:30:52Z"
+          seccomp.security.alpha.kubernetes.io/pod: runtime/default
+        creationTimestamp: null
+        labels:
+          app.kubernetes.io/name: metrics-server
+          version: v0.4.2
+        name: metrics-server
+      spec:
+        affinity:
+          nodeAffinity:
+            preferredDuringSchedulingIgnoredDuringExecution:
+            - preference:
+                matchExpressions:
+                - key: node-role.kubernetes.io/control-plane
+                  operator: In
+                  values:
+                  - ""
+              weight: 100
+        containers:
+        - command:
+          - /metrics-server
+          - --logtostderr
+          - --cert-dir=/tmp
+          - --secure-port=8443
+          - --kubelet-preferred-address-types=InternalIP
+          - --kubelet-use-node-status-port
+          - --kubelet-insecure-tls
+          - --metric-resolution=60s
+          image: 21.4.0.9:5000/metrics-server/metrics-server:v0.4.2
+          imagePullPolicy: IfNotPresent
+          livenessProbe:
+            failureThreshold: 30
+            httpGet:
+              path: /healthz?exclude=readyz
+              port: https
+              scheme: HTTPS
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 60
+          name: metrics-server
+          ports:
+          - containerPort: 8443
+            name: https
+            protocol: TCP
+          readinessProbe:
+            failureThreshold: 30
+            httpGet:
+              path: /healthz?exclude=livez
+              port: https
+              scheme: HTTPS
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 60
+          resources:
+            limits:
+              cpu: 105m
+              memory: 600Mi
+            requests:
+              cpu: 105m
+              memory: 600Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+              - all
+            readOnlyRootFilesystem: true
+            runAsGroup: 10001
+            runAsNonRoot: true
+            runAsUser: 10001
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /tmp
+            name: tmp
+        - command:
+          - /pod_nanny
+          - --config-dir=/etc/config
+          - --cpu=100m
+          - --extra-cpu=0.5m
+          - --memory=100Mi
+          - --extra-memory=50Mi
+          - --threshold=5
+          - --deployment=metrics-server
+          - --container=metrics-server
+          - --poll-period=300000
+          - --estimator=exponential
+          - --minClusterSize=5
+          env:
+          - name: MY_POD_NAME
+            valueFrom:
+              fieldRef:
+                apiVersion: v1
+                fieldPath: metadata.name
+          - name: MY_POD_NAMESPACE
+            valueFrom:
+              fieldRef:
+                apiVersion: v1
+                fieldPath: metadata.namespace
+          image: 21.4.0.9:5000/addon-resizer:1.8.11
+          imagePullPolicy: IfNotPresent
+          name: metrics-server-nanny
+          resources:
+            requests:
+              cpu: 100m
+              memory: 500Mi
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /etc/config
+            name: metrics-server-config-volume
+        dnsPolicy: ClusterFirst
+        priorityClassName: system-cluster-critical
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        serviceAccount: metrics-server
+        serviceAccountName: metrics-server
+        terminationGracePeriodSeconds: 30
+        tolerations:
+        - effect: NoSchedule
+          key: node-role.kubernetes.io/master
+        - effect: NoSchedule
+          key: node-role.kubernetes.io/control-plane
+        volumes:
+        - configMap:
+            defaultMode: 420
+            name: metrics-server-config
+          name: metrics-server-config-volume
+        - emptyDir: {}
+          name: tmp
+  status:
+    availableReplicas: 1
+    conditions:
+    - lastTransitionTime: "2021-03-21T07:25:15Z"
+      lastUpdateTime: "2024-11-25T04:36:03Z"
+      message: ReplicaSet "metrics-server-6ddb475799" has successfully progressed.
+      reason: NewReplicaSetAvailable
+      status: "True"
+      type: Progressing
+    - lastTransitionTime: "2024-11-25T04:50:54Z"
+      lastUpdateTime: "2024-11-25T04:50:54Z"
+      message: Deployment has minimum availability.
+      reason: MinimumReplicasAvailable
+      status: "True"
+      type: Available
+    observedGeneration: 31
+    readyReplicas: 1
+    replicas: 1
+    updatedReplicas: 1
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      deployment.kubernetes.io/revision: "2"
+    creationTimestamp: "2024-10-23T09:23:02Z"
+    generation: 2
+    labels:
+      app: helm
+      k8slens-edit-resource-version: v1
+      name: tiller
+    name: tiller-deploy
+    namespace: kube-system
+    resourceVersion: "783812845"
+    uid: 9930c31d-2b09-4eeb-ae5d-6c3ae4a5e5b1
+  spec:
+    progressDeadlineSeconds: 600
+    replicas: 1
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        app: helm
+        name: tiller
+    strategy:
+      rollingUpdate:
+        maxSurge: 25%
+        maxUnavailable: 25%
+      type: RollingUpdate
+    template:
+      metadata:
+        creationTimestamp: null
+        labels:
+          app: helm
+          name: tiller
+      spec:
+        automountServiceAccountToken: true
+        containers:
+        - env:
+          - name: TILLER_NAMESPACE
+            value: kube-system
+          - name: TILLER_HISTORY_MAX
+            value: "0"
+          image: ghcr.io/helm/tiller:v2.17.0
+          imagePullPolicy: IfNotPresent
+          livenessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /liveness
+              port: 44135
+              scheme: HTTP
+            initialDelaySeconds: 1
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 1
+          name: tiller
+          ports:
+          - containerPort: 44134
+            name: tiller
+            protocol: TCP
+          - containerPort: 44135
+            name: http
+            protocol: TCP
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /readiness
+              port: 44135
+              scheme: HTTP
+            initialDelaySeconds: 1
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 1
+          resources:
+            limits:
+              cpu: "1"
+              memory: 4Gi
+            requests:
+              cpu: 10m
+              memory: 100Mi
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+  status:
+    availableReplicas: 1
+    conditions:
+    - lastTransitionTime: "2024-10-23T09:23:03Z"
+      lastUpdateTime: "2024-11-18T16:05:50Z"
+      message: ReplicaSet "tiller-deploy-78cf58b59d" has successfully progressed.
+      reason: NewReplicaSetAvailable
+      status: "True"
+      type: Progressing
+    - lastTransitionTime: "2025-03-31T05:59:27Z"
+      lastUpdateTime: "2025-03-31T05:59:27Z"
+      message: Deployment has minimum availability.
+      reason: MinimumReplicasAvailable
+      status: "True"
+      type: Available
+    observedGeneration: 2
+    readyReplicas: 1
+    replicas: 1
+    updatedReplicas: 1
+kind: List
+metadata:
+  resourceVersion: ""

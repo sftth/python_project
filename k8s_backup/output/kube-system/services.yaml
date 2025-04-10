@@ -1,0 +1,355 @@
+apiVersion: v1
+items:
+- apiVersion: v1
+  kind: Service
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","kind":"Service","metadata":{"annotations":{"prometheus.io/port":"9153","prometheus.io/scrape":"true"},"labels":{"addonmanager.kubernetes.io/mode":"Reconcile","k8s-app":"kube-dns","kubernetes.io/name":"coredns"},"name":"coredns","namespace":"kube-system"},"spec":{"clusterIP":"10.233.0.3","ports":[{"name":"dns","port":53,"protocol":"UDP"},{"name":"dns-tcp","port":53,"protocol":"TCP"},{"name":"metrics","port":9153,"protocol":"TCP"}],"selector":{"k8s-app":"kube-dns"}}}
+      prometheus.io/port: "9153"
+      prometheus.io/scrape: "true"
+    creationTimestamp: "2021-03-21T07:24:44Z"
+    labels:
+      addonmanager.kubernetes.io/mode: Reconcile
+      k8s-app: kube-dns
+      kubernetes.io/name: coredns
+    name: coredns
+    namespace: kube-system
+    resourceVersion: "2385"
+    uid: 735f1961-4e24-476a-b892-6ec3b42720c9
+  spec:
+    clusterIP: 10.233.0.3
+    clusterIPs:
+    - 10.233.0.3
+    ports:
+    - name: dns
+      port: 53
+      protocol: UDP
+      targetPort: 53
+    - name: dns-tcp
+      port: 53
+      protocol: TCP
+      targetPort: 53
+    - name: metrics
+      port: 9153
+      protocol: TCP
+      targetPort: 9153
+    selector:
+      k8s-app: kube-dns
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","kind":"Service","metadata":{"annotations":{},"labels":{"k8s-app":"kubernetes-metrics-scraper"},"name":"dashboard-metrics-scraper","namespace":"kube-system"},"spec":{"ports":[{"port":8000,"targetPort":8000}],"selector":{"k8s-app":"kubernetes-metrics-scraper"}}}
+    creationTimestamp: "2021-03-21T07:24:57Z"
+    labels:
+      k8s-app: kubernetes-metrics-scraper
+    name: dashboard-metrics-scraper
+    namespace: kube-system
+    resourceVersion: "2730"
+    uid: 2d25242a-f927-4c43-9f61-e0aaa20b3082
+  spec:
+    clusterIP: 10.233.23.90
+    clusterIPs:
+    - 10.233.23.90
+    ports:
+    - port: 8000
+      protocol: TCP
+      targetPort: 8000
+    selector:
+      k8s-app: kubernetes-metrics-scraper
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","kind":"Service","metadata":{"annotations":{},"labels":{"k8s-app":"kubernetes-dashboard"},"name":"kubernetes-dashboard","namespace":"kube-system"},"spec":{"ports":[{"port":443,"targetPort":8443}],"selector":{"k8s-app":"kubernetes-dashboard"}}}
+    creationTimestamp: "2021-03-21T07:24:56Z"
+    labels:
+      k8s-app: kubernetes-dashboard
+    name: kubernetes-dashboard
+    namespace: kube-system
+    resourceVersion: "2513634"
+    uid: 2a0868c2-914c-45e7-a98f-0b2b4f8deb2d
+  spec:
+    clusterIP: 10.233.44.181
+    clusterIPs:
+    - 10.233.44.181
+    externalTrafficPolicy: Cluster
+    ports:
+    - nodePort: 30002
+      port: 443
+      protocol: TCP
+      targetPort: 8443
+    selector:
+      k8s-app: kubernetes-dashboard
+    sessionAffinity: None
+    type: NodePort
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","kind":"Service","metadata":{"annotations":{},"labels":{"addonmanager.kubernetes.io/mode":"Reconcile","app.kubernetes.io/name":"metrics-server"},"name":"metrics-server","namespace":"kube-system"},"spec":{"ports":[{"name":"https","port":443,"protocol":"TCP","targetPort":"https"}],"selector":{"app.kubernetes.io/name":"metrics-server"}}}
+    creationTimestamp: "2021-03-21T07:25:16Z"
+    labels:
+      addonmanager.kubernetes.io/mode: Reconcile
+      app.kubernetes.io/name: metrics-server
+    name: metrics-server
+    namespace: kube-system
+    resourceVersion: "2902"
+    uid: eba5a1da-c61d-4210-8993-ea3c6d6cf829
+  spec:
+    clusterIP: 10.233.35.245
+    clusterIPs:
+    - 10.233.35.245
+    ports:
+    - name: https
+      port: 443
+      protocol: TCP
+      targetPort: https
+    selector:
+      app.kubernetes.io/name: metrics-server
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    annotations:
+      meta.helm.sh/release-name: monitor
+      meta.helm.sh/release-namespace: monitor
+    creationTimestamp: "2021-03-21T09:24:48Z"
+    labels:
+      app: kube-prometheus-stack-coredns
+      app.kubernetes.io/managed-by: Helm
+      chart: kube-prometheus-stack-14.0.1
+      heritage: Helm
+      jobLabel: coredns
+      release: monitor
+    name: monitor-kube-prometheus-st-coredns
+    namespace: kube-system
+    resourceVersion: "33483"
+    uid: add8f730-913b-45bb-b79a-f070b3c5f408
+  spec:
+    clusterIP: None
+    clusterIPs:
+    - None
+    ports:
+    - name: http-metrics
+      port: 9153
+      protocol: TCP
+      targetPort: 9153
+    selector:
+      k8s-app: kube-dns
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    annotations:
+      meta.helm.sh/release-name: monitor
+      meta.helm.sh/release-namespace: monitor
+    creationTimestamp: "2021-03-21T09:24:48Z"
+    labels:
+      app: kube-prometheus-stack-kube-controller-manager
+      app.kubernetes.io/managed-by: Helm
+      chart: kube-prometheus-stack-14.0.1
+      heritage: Helm
+      jobLabel: kube-controller-manager
+      release: monitor
+    name: monitor-kube-prometheus-st-kube-controller-manager
+    namespace: kube-system
+    resourceVersion: "33480"
+    uid: 31f4ea2f-9dc4-429b-9a0f-1ba49fcf8e16
+  spec:
+    clusterIP: None
+    clusterIPs:
+    - None
+    ports:
+    - name: http-metrics
+      port: 10252
+      protocol: TCP
+      targetPort: 10252
+    selector:
+      component: kube-controller-manager
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    annotations:
+      meta.helm.sh/release-name: monitor
+      meta.helm.sh/release-namespace: monitor
+    creationTimestamp: "2021-03-21T09:24:48Z"
+    labels:
+      app: kube-prometheus-stack-kube-etcd
+      app.kubernetes.io/managed-by: Helm
+      chart: kube-prometheus-stack-14.0.1
+      heritage: Helm
+      jobLabel: kube-etcd
+      release: monitor
+    name: monitor-kube-prometheus-st-kube-etcd
+    namespace: kube-system
+    resourceVersion: "33484"
+    uid: 32fc9793-b050-4292-8027-742bee7effe1
+  spec:
+    clusterIP: None
+    clusterIPs:
+    - None
+    ports:
+    - name: http-metrics
+      port: 2379
+      protocol: TCP
+      targetPort: 2379
+    selector:
+      component: etcd
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    annotations:
+      meta.helm.sh/release-name: monitor
+      meta.helm.sh/release-namespace: monitor
+    creationTimestamp: "2021-03-21T09:24:48Z"
+    labels:
+      app: kube-prometheus-stack-kube-proxy
+      app.kubernetes.io/managed-by: Helm
+      chart: kube-prometheus-stack-14.0.1
+      heritage: Helm
+      jobLabel: kube-proxy
+      release: monitor
+    name: monitor-kube-prometheus-st-kube-proxy
+    namespace: kube-system
+    resourceVersion: "33482"
+    uid: c7ee87cf-975f-4d1e-9468-82bc722b9eca
+  spec:
+    clusterIP: None
+    clusterIPs:
+    - None
+    ports:
+    - name: http-metrics
+      port: 10249
+      protocol: TCP
+      targetPort: 10249
+    selector:
+      k8s-app: kube-proxy
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    annotations:
+      meta.helm.sh/release-name: monitor
+      meta.helm.sh/release-namespace: monitor
+    creationTimestamp: "2021-03-21T09:24:48Z"
+    labels:
+      app: kube-prometheus-stack-kube-scheduler
+      app.kubernetes.io/managed-by: Helm
+      chart: kube-prometheus-stack-14.0.1
+      heritage: Helm
+      jobLabel: kube-scheduler
+      release: monitor
+    name: monitor-kube-prometheus-st-kube-scheduler
+    namespace: kube-system
+    resourceVersion: "33481"
+    uid: 6f83b3aa-49f5-40e8-afa1-bb9f02326882
+  spec:
+    clusterIP: None
+    clusterIPs:
+    - None
+    ports:
+    - name: http-metrics
+      port: 10251
+      protocol: TCP
+      targetPort: 10251
+    selector:
+      component: kube-scheduler
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    creationTimestamp: "2021-03-21T09:24:57Z"
+    labels:
+      app.kubernetes.io/managed-by: prometheus-operator
+      app.kubernetes.io/name: kubelet
+      k8s-app: kubelet
+    name: monitor-kube-prometheus-st-kubelet
+    namespace: kube-system
+    resourceVersion: "33843"
+    uid: ea06b57d-366b-488e-9178-cb0dfee56c9a
+  spec:
+    clusterIP: None
+    clusterIPs:
+    - None
+    ports:
+    - name: https-metrics
+      port: 10250
+      protocol: TCP
+      targetPort: 10250
+    - name: http-metrics
+      port: 10255
+      protocol: TCP
+      targetPort: 10255
+    - name: cadvisor
+      port: 4194
+      protocol: TCP
+      targetPort: 4194
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    creationTimestamp: "2024-10-23T09:23:02Z"
+    labels:
+      app: helm
+      name: tiller
+    name: tiller-deploy
+    namespace: kube-system
+    resourceVersion: "709969692"
+    uid: 9079e48e-57ee-4a41-84bd-4d12b57d1744
+  spec:
+    clusterIP: 10.233.34.206
+    clusterIPs:
+    - 10.233.34.206
+    ports:
+    - name: tiller
+      port: 44134
+      protocol: TCP
+      targetPort: tiller
+    selector:
+      app: helm
+      name: tiller
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+kind: List
+metadata:
+  resourceVersion: ""

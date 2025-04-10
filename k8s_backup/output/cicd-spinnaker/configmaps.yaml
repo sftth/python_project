@@ -1,0 +1,144 @@
+apiVersion: v1
+items:
+- apiVersion: v1
+  data:
+    ca.crt: |
+      -----BEGIN CERTIFICATE-----
+      MIIC5zCCAc+gAwIBAgIBADANBgkqhkiG9w0BAQsFADAVMRMwEQYDVQQDEwprdWJl
+      cm5ldGVzMB4XDTIxMDMyMTA3MjAzN1oXDTMxMDMxOTA3MjAzN1owFTETMBEGA1UE
+      AxMKa3ViZXJuZXRlczCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAK5Q
+      Km9SlI0/d+B0K9PMOxkqAEWKODDnjTfrp2ckTe/TC0/UV3+pS+w9Hgak+OJtLJJU
+      vY5hTf5V/COPVAVP8ID7xJDSZ1pb2Zj1PxHxOd+bmQglFMWUJ0Qgb39cRQ8ALAl2
+      m4Bmbz0bGiN5CC1Rjb8erHZH/Cv/A1wHXA781+jWSMq4tHsLchmPT2YnSbbKplx1
+      c8a6c+KR4PwTq+pTMOt+S2A7943B7l+zAX4PF4wGZ4HI2dwOBBmBIJJxrFDwskpu
+      bS4tJIAnVZpZXLJVaziVY6kvG6Ed7sfzWYa5lJa5v/oQi6F5vcmgJGkYe3OsAbWv
+      lJOucg1sTB8E3f+RJlUCAwEAAaNCMEAwDgYDVR0PAQH/BAQDAgKkMA8GA1UdEwEB
+      /wQFMAMBAf8wHQYDVR0OBBYEFO9ymTLPikbJTjoy+ph5WinG061iMA0GCSqGSIb3
+      DQEBCwUAA4IBAQCVJXNuq+T6dIzybWjijSoYzbCvatsA0TA0nFsa3B7s3wAK0D1h
+      52Vq5Q0FcbbE5kQgUJ6vEGWTenVeCNeEkS5rlYifLRR1rHGfpZuIlb2ES9NYHuYo
+      iKi5unndzg4DCaFr7x9zK5+YhBLzSXpfbhaMvh9M4eroZNP80R4cNYmUJ4y9b28M
+      uhXMDRrJwF7Q95hDhUWY6bNkXqpylGrTzyefvKY4WAIdlnu2i6+wV57JJS1U2e3U
+      KWFXkZUE8jB/V0EXF7kH0NuDSjEz7uwZ+VRR+tTZoraoPrGDt9bvk08GecYM8dxG
+      xksFOuY8WfHwLu0VgkB5mbGaZth6UmG9GZUd
+      -----END CERTIFICATE-----
+  kind: ConfigMap
+  metadata:
+    creationTimestamp: "2023-09-21T09:03:09Z"
+    name: kube-root-ca.crt
+    namespace: cicd-spinnaker
+    resourceVersion: "400350715"
+    uid: 36aa1465-86d5-46e1-8d1f-ad1089f70aff
+- apiVersion: v1
+  data:
+    initialize: |-
+      #!/bin/sh
+      set -e ; # Have script exit in the event of a failed command.
+      MC_CONFIG_DIR="/etc/minio/mc/"
+      MC="/usr/bin/mc --insecure --config-dir ${MC_CONFIG_DIR}"
+
+      # connectToMinio
+      # Use a check-sleep-check loop to wait for Minio service to be available
+      connectToMinio() {
+        SCHEME=$1
+        ATTEMPTS=0 ; LIMIT=29 ; # Allow 30 attempts
+        set -e ; # fail if we can't read the keys.
+        ACCESS=$(cat /config/accesskey) ; SECRET=$(cat /config/secretkey) ;
+        set +e ; # The connections to minio are allowed to fail.
+        echo "Connecting to Minio server: $SCHEME://$MINIO_ENDPOINT:$MINIO_PORT" ;
+        MC_COMMAND="${MC} config host add myminio $SCHEME://$MINIO_ENDPOINT:$MINIO_PORT $ACCESS $SECRET" ;
+        $MC_COMMAND ;
+        STATUS=$? ;
+        until [ $STATUS = 0 ]
+        do
+          ATTEMPTS=`expr $ATTEMPTS + 1` ;
+          echo \"Failed attempts: $ATTEMPTS\" ;
+          if [ $ATTEMPTS -gt $LIMIT ]; then
+            exit 1 ;
+          fi ;
+          sleep 2 ; # 1 second intervals between attempts
+          $MC_COMMAND ;
+          STATUS=$? ;
+        done ;
+        set -e ; # reset `e` as active
+        return 0
+      }
+
+      # checkBucketExists ($bucket)
+      # Check if the bucket exists, by using the exit code of `mc ls`
+      checkBucketExists() {
+        BUCKET=$1
+        CMD=$(${MC} ls myminio/$BUCKET > /dev/null 2>&1)
+        return $?
+      }
+
+      # createBucket ($bucket, $policy, $purge)
+      # Ensure bucket exists, purging if asked to
+      createBucket() {
+        BUCKET=$1
+        POLICY=$2
+        PURGE=$3
+        VERSIONING=$4
+
+        # Purge the bucket, if set & exists
+        # Since PURGE is user input, check explicitly for `true`
+        if [ $PURGE = true ]; then
+          if checkBucketExists $BUCKET ; then
+            echo "Purging bucket '$BUCKET'."
+            set +e ; # don't exit if this fails
+            ${MC} rm -r --force myminio/$BUCKET
+            set -e ; # reset `e` as active
+          else
+            echo "Bucket '$BUCKET' does not exist, skipping purge."
+          fi
+        fi
+
+        # Create the bucket if it does not exist
+        if ! checkBucketExists $BUCKET ; then
+          echo "Creating bucket '$BUCKET'"
+          ${MC} mb myminio/$BUCKET
+        else
+          echo "Bucket '$BUCKET' already exists."
+        fi
+
+
+        # set versioning for bucket
+        if [ ! -z $VERSIONING ] ; then
+          if [ $VERSIONING = true ] ; then
+              echo "Enabling versioning for '$BUCKET'"
+              ${MC} version enable myminio/$BUCKET
+          elif [ $VERSIONING = false ] ; then
+              echo "Suspending versioning for '$BUCKET'"
+              ${MC} version suspend myminio/$BUCKET
+          fi
+        else
+            echo "Bucket '$BUCKET' versioning unchanged."
+        fi
+
+        # At this point, the bucket should exist, skip checking for existence
+        # Set policy on the bucket
+        echo "Setting policy of bucket '$BUCKET' to '$POLICY'."
+        ${MC} policy set $POLICY myminio/$BUCKET
+      }
+
+      # Try connecting to Minio instance
+      scheme=http
+      connectToMinio $scheme
+  kind: ConfigMap
+  metadata:
+    annotations:
+      meta.helm.sh/release-name: minio
+      meta.helm.sh/release-namespace: cicd-spinnaker
+    creationTimestamp: "2023-09-21T09:04:17Z"
+    labels:
+      app: minio
+      app.kubernetes.io/managed-by: Helm
+      chart: minio-8.0.10
+      heritage: Helm
+      release: minio
+    name: minio
+    namespace: cicd-spinnaker
+    resourceVersion: "400351387"
+    uid: d3634189-b187-42e9-81b4-785c1562ec08
+kind: List
+metadata:
+  resourceVersion: ""

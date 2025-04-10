@@ -1,0 +1,307 @@
+apiVersion: v1
+items:
+- apiVersion: v1
+  kind: Service
+  metadata:
+    creationTimestamp: "2021-03-21T09:24:56Z"
+    labels:
+      operated-alertmanager: "true"
+    name: alertmanager-operated
+    namespace: monitor
+    ownerReferences:
+    - apiVersion: monitoring.coreos.com/v1
+      kind: Alertmanager
+      name: monitor-kube-prometheus-st-alertmanager
+      uid: be0599fa-534d-44af-8385-b72f48edd793
+    resourceVersion: "33814"
+    uid: c3f4f107-0c82-4dfb-a7fc-9e9f0f71dea9
+  spec:
+    clusterIP: None
+    clusterIPs:
+    - None
+    ports:
+    - name: web
+      port: 9093
+      protocol: TCP
+      targetPort: web
+    - name: tcp-mesh
+      port: 9094
+      protocol: TCP
+      targetPort: 9094
+    - name: udp-mesh
+      port: 9094
+      protocol: UDP
+      targetPort: 9094
+    selector:
+      app: alertmanager
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    annotations:
+      meta.helm.sh/release-name: monitor
+      meta.helm.sh/release-namespace: monitor
+    creationTimestamp: "2021-03-21T09:24:48Z"
+    labels:
+      app.kubernetes.io/instance: monitor
+      app.kubernetes.io/managed-by: Helm
+      app.kubernetes.io/name: grafana
+      app.kubernetes.io/version: 7.4.2
+      helm.sh/chart: grafana-6.4.8
+    name: monitor-grafana
+    namespace: monitor
+    resourceVersion: "545228176"
+    uid: 1c2bad05-70db-4c3b-b777-68d8fe739558
+  spec:
+    clusterIP: 10.233.8.25
+    clusterIPs:
+    - 10.233.8.25
+    ports:
+    - name: service
+      port: 80
+      protocol: TCP
+      targetPort: 3000
+    selector:
+      app.kubernetes.io/instance: monitor
+      app.kubernetes.io/name: grafana
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    annotations:
+      meta.helm.sh/release-name: monitor
+      meta.helm.sh/release-namespace: monitor
+    creationTimestamp: "2021-03-21T09:24:48Z"
+    labels:
+      app: kube-prometheus-stack-alertmanager
+      app.kubernetes.io/managed-by: Helm
+      chart: kube-prometheus-stack-14.0.1
+      heritage: Helm
+      release: monitor
+      self-monitor: "true"
+    name: monitor-kube-prometheus-st-alertmanager
+    namespace: monitor
+    resourceVersion: "33510"
+    uid: 569f0f77-79ac-41c5-824e-e29a927386ab
+  spec:
+    clusterIP: 10.233.48.153
+    clusterIPs:
+    - 10.233.48.153
+    ports:
+    - name: web
+      port: 9093
+      protocol: TCP
+      targetPort: 9093
+    selector:
+      alertmanager: monitor-kube-prometheus-st-alertmanager
+      app: alertmanager
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    annotations:
+      meta.helm.sh/release-name: monitor
+      meta.helm.sh/release-namespace: monitor
+    creationTimestamp: "2021-03-21T09:24:48Z"
+    labels:
+      app: kube-prometheus-stack-operator
+      app.kubernetes.io/managed-by: Helm
+      chart: kube-prometheus-stack-14.0.1
+      heritage: Helm
+      release: monitor
+    name: monitor-kube-prometheus-st-operator
+    namespace: monitor
+    resourceVersion: "33521"
+    uid: 626b49e6-b21d-477b-a523-ee960f5b6d5b
+  spec:
+    clusterIP: 10.233.39.148
+    clusterIPs:
+    - 10.233.39.148
+    ports:
+    - name: https
+      port: 443
+      protocol: TCP
+      targetPort: https
+    selector:
+      app: kube-prometheus-stack-operator
+      release: monitor
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    annotations:
+      meta.helm.sh/release-name: monitor
+      meta.helm.sh/release-namespace: monitor
+    creationTimestamp: "2021-03-21T09:24:48Z"
+    labels:
+      app: kube-prometheus-stack-prometheus
+      app.kubernetes.io/managed-by: Helm
+      chart: kube-prometheus-stack-14.0.1
+      heritage: Helm
+      k8slens-edit-resource-version: v1
+      release: monitor
+      self-monitor: "true"
+    name: monitor-kube-prometheus-st-prometheus
+    namespace: monitor
+    resourceVersion: "546992770"
+    uid: 03d55f0c-65e8-4144-92a2-b47f0f2423ab
+  spec:
+    clusterIP: 10.233.43.142
+    clusterIPs:
+    - 10.233.43.142
+    externalTrafficPolicy: Cluster
+    ports:
+    - name: web
+      nodePort: 30000
+      port: 9090
+      protocol: TCP
+      targetPort: 9090
+    selector:
+      app: prometheus
+      prometheus: monitor-kube-prometheus-st-prometheus
+    sessionAffinity: None
+    type: NodePort
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    annotations:
+      meta.helm.sh/release-name: monitor
+      meta.helm.sh/release-namespace: monitor
+      prometheus.io/scrape: "true"
+    creationTimestamp: "2021-03-21T09:24:48Z"
+    labels:
+      app.kubernetes.io/instance: monitor
+      app.kubernetes.io/managed-by: Helm
+      app.kubernetes.io/name: kube-state-metrics
+      helm.sh/chart: kube-state-metrics-2.13.0
+    name: monitor-kube-state-metrics
+    namespace: monitor
+    resourceVersion: "33517"
+    uid: 06e06bef-0c83-45cf-a352-946d74ef62b3
+  spec:
+    clusterIP: 10.233.1.69
+    clusterIPs:
+    - 10.233.1.69
+    ports:
+    - name: http
+      port: 8080
+      protocol: TCP
+      targetPort: 8080
+    selector:
+      app.kubernetes.io/instance: monitor
+      app.kubernetes.io/name: kube-state-metrics
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    annotations:
+      meta.helm.sh/release-name: monitor
+      meta.helm.sh/release-namespace: monitor
+      prometheus.io/scrape: "true"
+    creationTimestamp: "2021-03-21T09:24:48Z"
+    labels:
+      app: prometheus-node-exporter
+      app.kubernetes.io/managed-by: Helm
+      chart: prometheus-node-exporter-1.14.2
+      heritage: Helm
+      jobLabel: node-exporter
+      release: monitor
+    name: monitor-prometheus-node-exporter
+    namespace: monitor
+    resourceVersion: "33487"
+    uid: 6bc33b74-24fa-4e4f-84aa-643cc8659102
+  spec:
+    clusterIP: 10.233.15.252
+    clusterIPs:
+    - 10.233.15.252
+    ports:
+    - name: metrics
+      port: 9100
+      protocol: TCP
+      targetPort: 9100
+    selector:
+      app: prometheus-node-exporter
+      release: monitor
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    creationTimestamp: "2021-03-21T09:24:57Z"
+    labels:
+      operated-prometheus: "true"
+    name: prometheus-operated
+    namespace: monitor
+    ownerReferences:
+    - apiVersion: monitoring.coreos.com/v1
+      kind: Prometheus
+      name: monitor-kube-prometheus-st-prometheus
+      uid: 9ce658e1-a803-4b3d-a6e3-8fc09dd8d171
+    resourceVersion: "33873"
+    uid: 108e0d03-9cc0-4dce-a218-70bb82bb211d
+  spec:
+    clusterIP: None
+    clusterIPs:
+    - None
+    ports:
+    - name: web
+      port: 9090
+      protocol: TCP
+      targetPort: web
+    selector:
+      app: prometheus
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","kind":"Service","metadata":{"annotations":{},"name":"redisinsight-service","namespace":"monitor"},"spec":{"ports":[{"port":80,"targetPort":5540}],"selector":{"app":"redisinsight"},"type":"NodePort"}}
+    creationTimestamp: "2024-05-08T05:58:05Z"
+    labels:
+      k8slens-edit-resource-version: v1
+    name: redisinsight-service
+    namespace: monitor
+    resourceVersion: "588386511"
+    uid: 5a25c9f9-c644-44ff-9708-978c26e21e67
+  spec:
+    clusterIP: 10.233.2.252
+    clusterIPs:
+    - 10.233.2.252
+    externalTrafficPolicy: Cluster
+    ports:
+    - nodePort: 30301
+      port: 80
+      protocol: TCP
+      targetPort: 5540
+    selector:
+      app: redisinsight
+    sessionAffinity: None
+    type: NodePort
+  status:
+    loadBalancer: {}
+kind: List
+metadata:
+  resourceVersion: ""

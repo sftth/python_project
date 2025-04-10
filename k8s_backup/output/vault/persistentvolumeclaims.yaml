@@ -1,0 +1,39 @@
+apiVersion: v1
+items:
+- apiVersion: v1
+  kind: PersistentVolumeClaim
+  metadata:
+    annotations:
+      pv.kubernetes.io/bind-completed: "yes"
+      pv.kubernetes.io/bound-by-controller: "yes"
+      volume.beta.kubernetes.io/storage-provisioner: nfs.csi.k8s.io
+    creationTimestamp: "2023-12-08T13:07:21Z"
+    finalizers:
+    - kubernetes.io/pvc-protection
+    labels:
+      app.kubernetes.io/component: server
+      app.kubernetes.io/instance: vault-test
+      app.kubernetes.io/name: vault
+      app.kubernetes.io/part-of: vault
+    name: data-vault-test-server-0
+    namespace: vault
+    resourceVersion: "458666779"
+    uid: 8992dfe5-4ee4-40d1-8510-44e79a724347
+  spec:
+    accessModes:
+    - ReadWriteOnce
+    resources:
+      requests:
+        storage: 10Gi
+    storageClassName: nfs-csi
+    volumeMode: Filesystem
+    volumeName: pvc-8992dfe5-4ee4-40d1-8510-44e79a724347
+  status:
+    accessModes:
+    - ReadWriteOnce
+    capacity:
+      storage: 10Gi
+    phase: Bound
+kind: List
+metadata:
+  resourceVersion: ""

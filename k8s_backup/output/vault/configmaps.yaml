@@ -1,0 +1,66 @@
+apiVersion: v1
+items:
+- apiVersion: v1
+  data:
+    ca.crt: |
+      -----BEGIN CERTIFICATE-----
+      MIIC5zCCAc+gAwIBAgIBADANBgkqhkiG9w0BAQsFADAVMRMwEQYDVQQDEwprdWJl
+      cm5ldGVzMB4XDTIxMDMyMTA3MjAzN1oXDTMxMDMxOTA3MjAzN1owFTETMBEGA1UE
+      AxMKa3ViZXJuZXRlczCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAK5Q
+      Km9SlI0/d+B0K9PMOxkqAEWKODDnjTfrp2ckTe/TC0/UV3+pS+w9Hgak+OJtLJJU
+      vY5hTf5V/COPVAVP8ID7xJDSZ1pb2Zj1PxHxOd+bmQglFMWUJ0Qgb39cRQ8ALAl2
+      m4Bmbz0bGiN5CC1Rjb8erHZH/Cv/A1wHXA781+jWSMq4tHsLchmPT2YnSbbKplx1
+      c8a6c+KR4PwTq+pTMOt+S2A7943B7l+zAX4PF4wGZ4HI2dwOBBmBIJJxrFDwskpu
+      bS4tJIAnVZpZXLJVaziVY6kvG6Ed7sfzWYa5lJa5v/oQi6F5vcmgJGkYe3OsAbWv
+      lJOucg1sTB8E3f+RJlUCAwEAAaNCMEAwDgYDVR0PAQH/BAQDAgKkMA8GA1UdEwEB
+      /wQFMAMBAf8wHQYDVR0OBBYEFO9ymTLPikbJTjoy+ph5WinG061iMA0GCSqGSIb3
+      DQEBCwUAA4IBAQCVJXNuq+T6dIzybWjijSoYzbCvatsA0TA0nFsa3B7s3wAK0D1h
+      52Vq5Q0FcbbE5kQgUJ6vEGWTenVeCNeEkS5rlYifLRR1rHGfpZuIlb2ES9NYHuYo
+      iKi5unndzg4DCaFr7x9zK5+YhBLzSXpfbhaMvh9M4eroZNP80R4cNYmUJ4y9b28M
+      uhXMDRrJwF7Q95hDhUWY6bNkXqpylGrTzyefvKY4WAIdlnu2i6+wV57JJS1U2e3U
+      KWFXkZUE8jB/V0EXF7kH0NuDSjEz7uwZ+VRR+tTZoraoPrGDt9bvk08GecYM8dxG
+      xksFOuY8WfHwLu0VgkB5mbGaZth6UmG9GZUd
+      -----END CERTIFICATE-----
+  kind: ConfigMap
+  metadata:
+    creationTimestamp: "2023-12-08T13:05:09Z"
+    name: kube-root-ca.crt
+    namespace: vault
+    resourceVersion: "458665675"
+    uid: 916dd713-2bd0-487a-b067-c1059ccc4f08
+- apiVersion: v1
+  data:
+    config.hcl: |
+      disable_mlock = true
+      ui = true
+      listener "tcp" {
+        tls_disable = 1
+        address = "[::]:8200"
+        cluster_address = "[::]:8201"
+      }
+      storage "raft" {
+        path = "/bitnami/vault/data"
+      }
+
+      service_registration "kubernetes" {}
+  kind: ConfigMap
+  metadata:
+    annotations:
+      meta.helm.sh/release-name: vault-test
+      meta.helm.sh/release-namespace: vault
+    creationTimestamp: "2023-12-14T11:54:22Z"
+    labels:
+      app.kubernetes.io/component: server
+      app.kubernetes.io/instance: vault-test
+      app.kubernetes.io/managed-by: Helm
+      app.kubernetes.io/name: vault
+      app.kubernetes.io/part-of: vault
+      app.kubernetes.io/version: 1.15.2
+      helm.sh/chart: vault-0.4.5
+    name: vault-test-server
+    namespace: vault
+    resourceVersion: "462476048"
+    uid: 6fcafc97-25ab-42f9-8ac4-eb23b5aa6489
+kind: List
+metadata:
+  resourceVersion: ""

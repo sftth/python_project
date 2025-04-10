@@ -1,0 +1,63 @@
+apiVersion: v1
+items:
+- apiVersion: v1
+  data:
+    ca.crt: |
+      -----BEGIN CERTIFICATE-----
+      MIIC5zCCAc+gAwIBAgIBADANBgkqhkiG9w0BAQsFADAVMRMwEQYDVQQDEwprdWJl
+      cm5ldGVzMB4XDTIxMDMyMTA3MjAzN1oXDTMxMDMxOTA3MjAzN1owFTETMBEGA1UE
+      AxMKa3ViZXJuZXRlczCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAK5Q
+      Km9SlI0/d+B0K9PMOxkqAEWKODDnjTfrp2ckTe/TC0/UV3+pS+w9Hgak+OJtLJJU
+      vY5hTf5V/COPVAVP8ID7xJDSZ1pb2Zj1PxHxOd+bmQglFMWUJ0Qgb39cRQ8ALAl2
+      m4Bmbz0bGiN5CC1Rjb8erHZH/Cv/A1wHXA781+jWSMq4tHsLchmPT2YnSbbKplx1
+      c8a6c+KR4PwTq+pTMOt+S2A7943B7l+zAX4PF4wGZ4HI2dwOBBmBIJJxrFDwskpu
+      bS4tJIAnVZpZXLJVaziVY6kvG6Ed7sfzWYa5lJa5v/oQi6F5vcmgJGkYe3OsAbWv
+      lJOucg1sTB8E3f+RJlUCAwEAAaNCMEAwDgYDVR0PAQH/BAQDAgKkMA8GA1UdEwEB
+      /wQFMAMBAf8wHQYDVR0OBBYEFO9ymTLPikbJTjoy+ph5WinG061iMA0GCSqGSIb3
+      DQEBCwUAA4IBAQCVJXNuq+T6dIzybWjijSoYzbCvatsA0TA0nFsa3B7s3wAK0D1h
+      52Vq5Q0FcbbE5kQgUJ6vEGWTenVeCNeEkS5rlYifLRR1rHGfpZuIlb2ES9NYHuYo
+      iKi5unndzg4DCaFr7x9zK5+YhBLzSXpfbhaMvh9M4eroZNP80R4cNYmUJ4y9b28M
+      uhXMDRrJwF7Q95hDhUWY6bNkXqpylGrTzyefvKY4WAIdlnu2i6+wV57JJS1U2e3U
+      KWFXkZUE8jB/V0EXF7kH0NuDSjEz7uwZ+VRR+tTZoraoPrGDt9bvk08GecYM8dxG
+      xksFOuY8WfHwLu0VgkB5mbGaZth6UmG9GZUd
+      -----END CERTIFICATE-----
+  kind: ConfigMap
+  metadata:
+    creationTimestamp: "2022-03-18T11:13:39Z"
+    name: kube-root-ca.crt
+    namespace: selenium
+    resourceVersion: "101306794"
+    uid: e511de9b-1a8f-4fad-87d8-351089feee79
+- apiVersion: v1
+  data:
+    SE_EVENT_BUS_HOST: selenium-hub
+    SE_EVENT_BUS_PUBLISH_PORT: "4442"
+    SE_EVENT_BUS_SUBSCRIBE_PORT: "4443"
+  kind: ConfigMap
+  metadata:
+    annotations:
+      artifact.spinnaker.io/location: selenium
+      artifact.spinnaker.io/name: selenium-event-bus-config
+      artifact.spinnaker.io/type: kubernetes/configMap
+      artifact.spinnaker.io/version: v000
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","data":{"SE_EVENT_BUS_HOST":"selenium-hub","SE_EVENT_BUS_PUBLISH_PORT":"4442","SE_EVENT_BUS_SUBSCRIBE_PORT":"4443"},"kind":"ConfigMap","metadata":{"annotations":{"artifact.spinnaker.io/location":"selenium","artifact.spinnaker.io/name":"selenium-event-bus-config","artifact.spinnaker.io/type":"kubernetes/configMap","artifact.spinnaker.io/version":"v000","moniker.spinnaker.io/application":"selenium","moniker.spinnaker.io/cluster":"configMap selenium-event-bus-config","moniker.spinnaker.io/sequence":"0"},"labels":{"app.kubernetes.io/component":"selenium-grid-4.7.0-20221202","app.kubernetes.io/instance":"selenium","app.kubernetes.io/managed-by":"spinnaker","app.kubernetes.io/name":"selenium","app.kubernetes.io/version":"4.7.0-20221202","helm.sh/chart":"selenium-grid-0.14.0","moniker.spinnaker.io/sequence":"0"},"name":"selenium-event-bus-config-v000","namespace":"selenium"}}
+      moniker.spinnaker.io/application: selenium
+      moniker.spinnaker.io/cluster: configMap selenium-event-bus-config
+      moniker.spinnaker.io/sequence: "0"
+    creationTimestamp: "2022-08-09T12:37:16Z"
+    labels:
+      app.kubernetes.io/component: selenium-grid-4.7.0-20221202
+      app.kubernetes.io/instance: selenium
+      app.kubernetes.io/managed-by: spinnaker
+      app.kubernetes.io/name: selenium
+      app.kubernetes.io/version: 4.7.0-20221202
+      helm.sh/chart: selenium-grid-0.14.0
+      moniker.spinnaker.io/sequence: "0"
+    name: selenium-event-bus-config-v000
+    namespace: selenium
+    resourceVersion: "202856963"
+    uid: 97b39d85-a5ac-418c-bf9e-31124ff441f5
+kind: List
+metadata:
+  resourceVersion: ""

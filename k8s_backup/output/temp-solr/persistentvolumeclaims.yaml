@@ -1,0 +1,203 @@
+apiVersion: v1
+items:
+- apiVersion: v1
+  kind: PersistentVolumeClaim
+  metadata:
+    annotations:
+      pv.kubernetes.io/bind-completed: "yes"
+      pv.kubernetes.io/bound-by-controller: "yes"
+      volume.beta.kubernetes.io/storage-provisioner: nfs.csi.k8s.io
+    creationTimestamp: "2024-12-23T09:27:34Z"
+    finalizers:
+    - kubernetes.io/pvc-protection
+    labels:
+      app.kubernetes.io/component: solr
+      app.kubernetes.io/instance: solr
+      app.kubernetes.io/name: solr
+    name: data-solr-0
+    namespace: temp-solr
+    resourceVersion: "742420721"
+    uid: 1379d358-598e-4a28-941b-ce6758a2006d
+  spec:
+    accessModes:
+    - ReadWriteOnce
+    resources:
+      requests:
+        storage: 8Gi
+    storageClassName: nfs-csi
+    volumeMode: Filesystem
+    volumeName: pvc-1379d358-598e-4a28-941b-ce6758a2006d
+  status:
+    accessModes:
+    - ReadWriteOnce
+    capacity:
+      storage: 8Gi
+    phase: Bound
+- apiVersion: v1
+  kind: PersistentVolumeClaim
+  metadata:
+    annotations:
+      pv.kubernetes.io/bind-completed: "yes"
+      pv.kubernetes.io/bound-by-controller: "yes"
+      volume.beta.kubernetes.io/storage-provisioner: nfs.csi.k8s.io
+    creationTimestamp: "2024-12-23T09:27:35Z"
+    finalizers:
+    - kubernetes.io/pvc-protection
+    labels:
+      app.kubernetes.io/component: solr
+      app.kubernetes.io/instance: solr
+      app.kubernetes.io/name: solr
+    name: data-solr-1
+    namespace: temp-solr
+    resourceVersion: "742420855"
+    uid: 55d6662f-9c8f-4dc7-bd9a-5d81d9996d32
+  spec:
+    accessModes:
+    - ReadWriteOnce
+    resources:
+      requests:
+        storage: 8Gi
+    storageClassName: nfs-csi
+    volumeMode: Filesystem
+    volumeName: pvc-55d6662f-9c8f-4dc7-bd9a-5d81d9996d32
+  status:
+    accessModes:
+    - ReadWriteOnce
+    capacity:
+      storage: 8Gi
+    phase: Bound
+- apiVersion: v1
+  kind: PersistentVolumeClaim
+  metadata:
+    annotations:
+      pv.kubernetes.io/bind-completed: "yes"
+      pv.kubernetes.io/bound-by-controller: "yes"
+      volume.beta.kubernetes.io/storage-provisioner: nfs.csi.k8s.io
+    creationTimestamp: "2024-12-23T09:27:37Z"
+    finalizers:
+    - kubernetes.io/pvc-protection
+    labels:
+      app.kubernetes.io/component: solr
+      app.kubernetes.io/instance: solr
+      app.kubernetes.io/name: solr
+    name: data-solr-2
+    namespace: temp-solr
+    resourceVersion: "742420793"
+    uid: e2e9603b-6793-4d98-87d5-d050eab381a6
+  spec:
+    accessModes:
+    - ReadWriteOnce
+    resources:
+      requests:
+        storage: 8Gi
+    storageClassName: nfs-csi
+    volumeMode: Filesystem
+    volumeName: pvc-e2e9603b-6793-4d98-87d5-d050eab381a6
+  status:
+    accessModes:
+    - ReadWriteOnce
+    capacity:
+      storage: 8Gi
+    phase: Bound
+- apiVersion: v1
+  kind: PersistentVolumeClaim
+  metadata:
+    annotations:
+      pv.kubernetes.io/bind-completed: "yes"
+      pv.kubernetes.io/bound-by-controller: "yes"
+      volume.beta.kubernetes.io/storage-provisioner: nfs.csi.k8s.io
+    creationTimestamp: "2024-12-23T09:27:33Z"
+    finalizers:
+    - kubernetes.io/pvc-protection
+    labels:
+      app.kubernetes.io/component: zookeeper
+      app.kubernetes.io/instance: solr
+      app.kubernetes.io/name: zookeeper
+    name: data-solr-zookeeper-0
+    namespace: temp-solr
+    resourceVersion: "742420809"
+    uid: 18022edb-57b4-4d6a-8668-699edf93ac7c
+  spec:
+    accessModes:
+    - ReadWriteOnce
+    resources:
+      requests:
+        storage: 8Gi
+    storageClassName: nfs-csi
+    volumeMode: Filesystem
+    volumeName: pvc-18022edb-57b4-4d6a-8668-699edf93ac7c
+  status:
+    accessModes:
+    - ReadWriteOnce
+    capacity:
+      storage: 8Gi
+    phase: Bound
+- apiVersion: v1
+  kind: PersistentVolumeClaim
+  metadata:
+    annotations:
+      pv.kubernetes.io/bind-completed: "yes"
+      pv.kubernetes.io/bound-by-controller: "yes"
+      volume.beta.kubernetes.io/storage-provisioner: nfs.csi.k8s.io
+    creationTimestamp: "2024-12-23T09:27:34Z"
+    finalizers:
+    - kubernetes.io/pvc-protection
+    labels:
+      app.kubernetes.io/component: zookeeper
+      app.kubernetes.io/instance: solr
+      app.kubernetes.io/name: zookeeper
+    name: data-solr-zookeeper-1
+    namespace: temp-solr
+    resourceVersion: "742420816"
+    uid: 844ecaee-7ef4-4d12-baf6-d0bfbe795c5c
+  spec:
+    accessModes:
+    - ReadWriteOnce
+    resources:
+      requests:
+        storage: 8Gi
+    storageClassName: nfs-csi
+    volumeMode: Filesystem
+    volumeName: pvc-844ecaee-7ef4-4d12-baf6-d0bfbe795c5c
+  status:
+    accessModes:
+    - ReadWriteOnce
+    capacity:
+      storage: 8Gi
+    phase: Bound
+- apiVersion: v1
+  kind: PersistentVolumeClaim
+  metadata:
+    annotations:
+      pv.kubernetes.io/bind-completed: "yes"
+      pv.kubernetes.io/bound-by-controller: "yes"
+      volume.beta.kubernetes.io/storage-provisioner: nfs.csi.k8s.io
+    creationTimestamp: "2024-12-23T09:27:35Z"
+    finalizers:
+    - kubernetes.io/pvc-protection
+    labels:
+      app.kubernetes.io/component: zookeeper
+      app.kubernetes.io/instance: solr
+      app.kubernetes.io/name: zookeeper
+    name: data-solr-zookeeper-2
+    namespace: temp-solr
+    resourceVersion: "742420829"
+    uid: f90e45db-9f45-4624-abf1-913fe613567d
+  spec:
+    accessModes:
+    - ReadWriteOnce
+    resources:
+      requests:
+        storage: 8Gi
+    storageClassName: nfs-csi
+    volumeMode: Filesystem
+    volumeName: pvc-f90e45db-9f45-4624-abf1-913fe613567d
+  status:
+    accessModes:
+    - ReadWriteOnce
+    capacity:
+      storage: 8Gi
+    phase: Bound
+kind: List
+metadata:
+  resourceVersion: ""

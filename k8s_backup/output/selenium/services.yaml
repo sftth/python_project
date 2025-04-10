@@ -1,0 +1,182 @@
+apiVersion: v1
+items:
+- apiVersion: v1
+  kind: Service
+  metadata:
+    annotations:
+      artifact.spinnaker.io/location: selenium
+      artifact.spinnaker.io/name: selenium-chrome-node
+      artifact.spinnaker.io/type: kubernetes/service
+      artifact.spinnaker.io/version: ""
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","kind":"Service","metadata":{"annotations":{"artifact.spinnaker.io/location":"selenium","artifact.spinnaker.io/name":"selenium-chrome-node","artifact.spinnaker.io/type":"kubernetes/service","artifact.spinnaker.io/version":"","moniker.spinnaker.io/application":"selenium","moniker.spinnaker.io/cluster":"service selenium-chrome-node"},"labels":{"app.kubernetes.io/component":"selenium-grid-4.7.0-20221202","app.kubernetes.io/instance":"selenium","app.kubernetes.io/managed-by":"spinnaker","app.kubernetes.io/name":"selenium","app.kubernetes.io/version":"4.7.0-20221202","helm.sh/chart":"selenium-grid-0.14.0","name":"selenium-chrome-node"},"name":"selenium-chrome-node","namespace":"selenium"},"spec":{"ports":[{"name":"tcp-chrome","port":6900,"protocol":"TCP","targetPort":5900}],"selector":{"app":"selenium-chrome-node","app.kubernetes.io/instance":"selenium"},"type":"ClusterIP"}}
+      moniker.spinnaker.io/application: selenium
+      moniker.spinnaker.io/cluster: service selenium-chrome-node
+    creationTimestamp: "2022-12-06T11:59:51Z"
+    labels:
+      app.kubernetes.io/component: selenium-grid-4.7.0-20221202
+      app.kubernetes.io/instance: selenium
+      app.kubernetes.io/managed-by: spinnaker
+      app.kubernetes.io/name: selenium
+      app.kubernetes.io/version: 4.7.0-20221202
+      helm.sh/chart: selenium-grid-0.14.0
+      name: selenium-chrome-node
+    name: selenium-chrome-node
+    namespace: selenium
+    resourceVersion: "202856969"
+    uid: 63c93a45-6b60-4562-92b4-deb33dd76801
+  spec:
+    clusterIP: 10.233.35.165
+    clusterIPs:
+    - 10.233.35.165
+    ports:
+    - name: tcp-chrome
+      port: 6900
+      protocol: TCP
+      targetPort: 5900
+    selector:
+      app: selenium-chrome-node
+      app.kubernetes.io/instance: selenium
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    annotations:
+      artifact.spinnaker.io/location: selenium
+      artifact.spinnaker.io/name: selenium-edge-node
+      artifact.spinnaker.io/type: kubernetes/service
+      artifact.spinnaker.io/version: ""
+      hello: world
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","kind":"Service","metadata":{"annotations":{"artifact.spinnaker.io/location":"selenium","artifact.spinnaker.io/name":"selenium-edge-node","artifact.spinnaker.io/type":"kubernetes/service","artifact.spinnaker.io/version":"","hello":"world","moniker.spinnaker.io/application":"selenium","moniker.spinnaker.io/cluster":"service selenium-edge-node"},"labels":{"app.kubernetes.io/component":"selenium-grid-4.7.0-20221202","app.kubernetes.io/instance":"selenium","app.kubernetes.io/managed-by":"spinnaker","app.kubernetes.io/name":"selenium","app.kubernetes.io/version":"4.7.0-20221202","helm.sh/chart":"selenium-grid-0.14.0","name":"selenium-edge-node"},"name":"selenium-edge-node","namespace":"selenium"},"spec":{"ports":[{"name":"tcp-edge","port":6900,"protocol":"TCP","targetPort":5900}],"selector":{"app":"selenium-edge-node","app.kubernetes.io/instance":"selenium"},"type":"ClusterIP"}}
+      moniker.spinnaker.io/application: selenium
+      moniker.spinnaker.io/cluster: service selenium-edge-node
+    creationTimestamp: "2022-12-06T11:59:52Z"
+    labels:
+      app.kubernetes.io/component: selenium-grid-4.7.0-20221202
+      app.kubernetes.io/instance: selenium
+      app.kubernetes.io/managed-by: spinnaker
+      app.kubernetes.io/name: selenium
+      app.kubernetes.io/version: 4.7.0-20221202
+      helm.sh/chart: selenium-grid-0.14.0
+      name: selenium-edge-node
+    name: selenium-edge-node
+    namespace: selenium
+    resourceVersion: "202856972"
+    uid: 4b966270-6016-460b-84dd-eb86e6bdb00b
+  spec:
+    clusterIP: 10.233.49.59
+    clusterIPs:
+    - 10.233.49.59
+    ports:
+    - name: tcp-edge
+      port: 6900
+      protocol: TCP
+      targetPort: 5900
+    selector:
+      app: selenium-edge-node
+      app.kubernetes.io/instance: selenium
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    annotations:
+      artifact.spinnaker.io/location: selenium
+      artifact.spinnaker.io/name: selenium-firefox-node
+      artifact.spinnaker.io/type: kubernetes/service
+      artifact.spinnaker.io/version: ""
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","kind":"Service","metadata":{"annotations":{"artifact.spinnaker.io/location":"selenium","artifact.spinnaker.io/name":"selenium-firefox-node","artifact.spinnaker.io/type":"kubernetes/service","artifact.spinnaker.io/version":"","moniker.spinnaker.io/application":"selenium","moniker.spinnaker.io/cluster":"service selenium-firefox-node"},"labels":{"app.kubernetes.io/component":"selenium-grid-4.7.0-20221202","app.kubernetes.io/instance":"selenium","app.kubernetes.io/managed-by":"spinnaker","app.kubernetes.io/name":"selenium","app.kubernetes.io/version":"4.7.0-20221202","helm.sh/chart":"selenium-grid-0.14.0","name":"selenium-firefox-node"},"name":"selenium-firefox-node","namespace":"selenium"},"spec":{"ports":[{"name":"tcp-firefox","port":6900,"protocol":"TCP","targetPort":5900}],"selector":{"app":"selenium-firefox-node","app.kubernetes.io/instance":"selenium"},"type":"ClusterIP"}}
+      moniker.spinnaker.io/application: selenium
+      moniker.spinnaker.io/cluster: service selenium-firefox-node
+    creationTimestamp: "2022-12-06T11:59:52Z"
+    labels:
+      app.kubernetes.io/component: selenium-grid-4.7.0-20221202
+      app.kubernetes.io/instance: selenium
+      app.kubernetes.io/managed-by: spinnaker
+      app.kubernetes.io/name: selenium
+      app.kubernetes.io/version: 4.7.0-20221202
+      helm.sh/chart: selenium-grid-0.14.0
+      name: selenium-firefox-node
+    name: selenium-firefox-node
+    namespace: selenium
+    resourceVersion: "202856976"
+    uid: e7b205d4-d67b-4892-a588-ac75e4ed4440
+  spec:
+    clusterIP: 10.233.5.241
+    clusterIPs:
+    - 10.233.5.241
+    ports:
+    - name: tcp-firefox
+      port: 6900
+      protocol: TCP
+      targetPort: 5900
+    selector:
+      app: selenium-firefox-node
+      app.kubernetes.io/instance: selenium
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    annotations:
+      artifact.spinnaker.io/location: selenium
+      artifact.spinnaker.io/name: selenium-hub
+      artifact.spinnaker.io/type: kubernetes/service
+      artifact.spinnaker.io/version: ""
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","kind":"Service","metadata":{"annotations":{"artifact.spinnaker.io/location":"selenium","artifact.spinnaker.io/name":"selenium-hub","artifact.spinnaker.io/type":"kubernetes/service","artifact.spinnaker.io/version":"","moniker.spinnaker.io/application":"selenium","moniker.spinnaker.io/cluster":"service selenium-hub"},"labels":{"app":"selenium-hub","app.kubernetes.io/component":"selenium-grid-4.7.0-20221202","app.kubernetes.io/instance":"selenium","app.kubernetes.io/managed-by":"spinnaker","app.kubernetes.io/name":"selenium","app.kubernetes.io/version":"4.7.0-20221202","helm.sh/chart":"selenium-grid-0.14.0"},"name":"selenium-hub","namespace":"selenium"},"spec":{"ports":[{"name":"http-hub","port":4444,"protocol":"TCP","targetPort":4444},{"name":"tcp-hub-pub","port":4442,"protocol":"TCP","targetPort":4442},{"name":"tcp-hub-sub","port":4443,"protocol":"TCP","targetPort":4443}],"selector":{"app":"selenium-hub","app.kubernetes.io/instance":"selenium"},"type":"NodePort"}}
+      moniker.spinnaker.io/application: selenium
+      moniker.spinnaker.io/cluster: service selenium-hub
+    creationTimestamp: "2022-12-06T11:59:52Z"
+    labels:
+      app: selenium-hub
+      app.kubernetes.io/component: selenium-grid-4.7.0-20221202
+      app.kubernetes.io/instance: selenium
+      app.kubernetes.io/managed-by: spinnaker
+      app.kubernetes.io/name: selenium
+      app.kubernetes.io/version: 4.7.0-20221202
+      helm.sh/chart: selenium-grid-0.14.0
+    name: selenium-hub
+    namespace: selenium
+    resourceVersion: "202856979"
+    uid: e0cc25b7-b523-4b66-91c4-0c862aea7728
+  spec:
+    clusterIP: 10.233.16.164
+    clusterIPs:
+    - 10.233.16.164
+    externalTrafficPolicy: Cluster
+    ports:
+    - name: http-hub
+      nodePort: 32111
+      port: 4444
+      protocol: TCP
+      targetPort: 4444
+    - name: tcp-hub-pub
+      nodePort: 30839
+      port: 4442
+      protocol: TCP
+      targetPort: 4442
+    - name: tcp-hub-sub
+      nodePort: 32467
+      port: 4443
+      protocol: TCP
+      targetPort: 4443
+    selector:
+      app: selenium-hub
+      app.kubernetes.io/instance: selenium
+    sessionAffinity: None
+    type: NodePort
+  status:
+    loadBalancer: {}
+kind: List
+metadata:
+  resourceVersion: ""

@@ -1,0 +1,155 @@
+apiVersion: v1
+items:
+- apiVersion: v1
+  kind: Service
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","kind":"Service","metadata":{"annotations":{},"labels":{"app.kubernetes.io/name":"nexus","app.kubernetes.io/service":"docker-proxy","app.kubernetes.io/type":"cicd"},"name":"docker-proxy","namespace":"cicd-nexus"},"spec":{"externalTrafficPolicy":"Cluster","ports":[{"name":"https","nodePort":30243,"port":30243,"protocol":"TCP","targetPort":5002}],"selector":{"app.kubernetes.io/name":"nexus","app.kubernetes.io/service":"docker-proxy","app.kubernetes.io/type":"cicd"},"sessionAffinity":"None","type":"NodePort"}}
+    creationTimestamp: "2024-12-17T08:27:42Z"
+    labels:
+      app.kubernetes.io/name: nexus
+      app.kubernetes.io/service: docker-proxy
+      app.kubernetes.io/type: cicd
+    name: docker-proxy
+    namespace: cicd-nexus
+    resourceVersion: "739363132"
+    uid: 2cc15302-93b3-4fbf-b195-2ebaa2421e28
+  spec:
+    clusterIP: 10.233.34.251
+    clusterIPs:
+    - 10.233.34.251
+    externalTrafficPolicy: Cluster
+    ports:
+    - name: https
+      nodePort: 30243
+      port: 30243
+      protocol: TCP
+      targetPort: 5002
+    selector:
+      app.kubernetes.io/name: nexus
+      app.kubernetes.io/service: docker-proxy
+      app.kubernetes.io/type: cicd
+    sessionAffinity: None
+    type: NodePort
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","kind":"Service","metadata":{"annotations":{},"labels":{"app.service":"helm-proxy"},"name":"helm","namespace":"cicd-nexus"},"spec":{"externalTrafficPolicy":"Cluster","ports":[{"name":"http","nodePort":32472,"port":8080,"protocol":"TCP","targetPort":8080}],"selector":{"app.kubernetes.io/name":"nexus","app.kubernetes.io/service":"helm-proxy","app.kubernetes.io/type":"cicd"},"sessionAffinity":"None","type":"NodePort"}}
+    creationTimestamp: "2023-10-03T02:14:06Z"
+    labels:
+      app.service: helm-proxy
+    name: helm
+    namespace: cicd-nexus
+    resourceVersion: "409472386"
+    uid: 0f8b65a3-e366-43ff-bfc3-57cdb5a0222a
+  spec:
+    clusterIP: 10.233.2.198
+    clusterIPs:
+    - 10.233.2.198
+    externalTrafficPolicy: Cluster
+    ports:
+    - name: http
+      nodePort: 32472
+      port: 8080
+      protocol: TCP
+      targetPort: 8080
+    selector:
+      app.kubernetes.io/name: nexus
+      app.kubernetes.io/service: helm-proxy
+      app.kubernetes.io/type: cicd
+    sessionAffinity: None
+    type: NodePort
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","kind":"Service","metadata":{"annotations":{},"name":"nexus","namespace":"cicd-nexus"},"spec":{"externalTrafficPolicy":"Cluster","ports":[{"name":"webhttpd","nodePort":30100,"port":8081,"protocol":"TCP","targetPort":8081},{"name":"dockerhosted","nodePort":30101,"port":5000,"protocol":"TCP","targetPort":5000},{"name":"dockerhub","nodePort":30102,"port":5001,"protocol":"TCP","targetPort":5001},{"name":"dockerhub2","nodePort":30202,"port":5003,"protocol":"TCP","targetPort":5003},{"name":"dockergroup","nodePort":30103,"port":5002,"protocol":"TCP","targetPort":5002}],"selector":{"app.kubernetes.io/name":"nexus","app.kubernetes.io/service":"nexus","app.kubernetes.io/type":"cicd"},"sessionAffinity":"None","type":"NodePort"}}
+    creationTimestamp: "2023-10-09T03:20:44Z"
+    name: nexus
+    namespace: cicd-nexus
+    resourceVersion: "414387359"
+    uid: b0850606-1038-449d-ad77-d34c86d906ce
+  spec:
+    clusterIP: 10.233.18.16
+    clusterIPs:
+    - 10.233.18.16
+    externalTrafficPolicy: Cluster
+    ports:
+    - name: webhttpd
+      nodePort: 30100
+      port: 8081
+      protocol: TCP
+      targetPort: 8081
+    - name: dockerhosted
+      nodePort: 30101
+      port: 5000
+      protocol: TCP
+      targetPort: 5000
+    - name: dockerhub
+      nodePort: 30102
+      port: 5001
+      protocol: TCP
+      targetPort: 5001
+    - name: dockerhub2
+      nodePort: 30202
+      port: 5003
+      protocol: TCP
+      targetPort: 5003
+    - name: dockergroup
+      nodePort: 30103
+      port: 5002
+      protocol: TCP
+      targetPort: 5002
+    selector:
+      app.kubernetes.io/name: nexus
+      app.kubernetes.io/service: nexus
+      app.kubernetes.io/type: cicd
+    sessionAffinity: None
+    type: NodePort
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","kind":"Service","metadata":{"annotations":{},"labels":{"app.kubernetes.io/name":"nexus","app.kubernetes.io/service":"nexus-proxy","app.kubernetes.io/type":"cicd"},"name":"nexus-proxy","namespace":"cicd-nexus"},"spec":{"externalTrafficPolicy":"Cluster","ports":[{"name":"https","nodePort":30143,"port":30143,"protocol":"TCP","targetPort":5000}],"selector":{"app.kubernetes.io/name":"nexus","app.kubernetes.io/service":"nexus-proxy","app.kubernetes.io/type":"cicd"},"sessionAffinity":"None","type":"NodePort"}}
+    creationTimestamp: "2023-10-03T02:18:30Z"
+    labels:
+      app.kubernetes.io/name: nexus
+      app.kubernetes.io/service: nexus-proxy
+      app.kubernetes.io/type: cicd
+    name: nexus-proxy
+    namespace: cicd-nexus
+    resourceVersion: "409474866"
+    uid: e272ef86-e2cb-4e64-a1e1-ee554cb9b80d
+  spec:
+    clusterIP: 10.233.49.129
+    clusterIPs:
+    - 10.233.49.129
+    externalTrafficPolicy: Cluster
+    ports:
+    - name: https
+      nodePort: 30143
+      port: 30143
+      protocol: TCP
+      targetPort: 5000
+    selector:
+      app.kubernetes.io/name: nexus
+      app.kubernetes.io/service: nexus-proxy
+      app.kubernetes.io/type: cicd
+    sessionAffinity: None
+    type: NodePort
+  status:
+    loadBalancer: {}
+kind: List
+metadata:
+  resourceVersion: ""

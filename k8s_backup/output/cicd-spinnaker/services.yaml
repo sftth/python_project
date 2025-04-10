@@ -1,0 +1,308 @@
+apiVersion: v1
+items:
+- apiVersion: v1
+  kind: Service
+  metadata:
+    annotations:
+      meta.helm.sh/release-name: minio
+      meta.helm.sh/release-namespace: cicd-spinnaker
+    creationTimestamp: "2023-09-21T09:04:17Z"
+    labels:
+      app: minio
+      app.kubernetes.io/managed-by: Helm
+      chart: minio-8.0.10
+      heritage: Helm
+      k8slens-edit-resource-version: v1
+      release: minio
+    name: minio
+    namespace: cicd-spinnaker
+    resourceVersion: "400351631"
+    uid: 0db71f61-5d30-4e79-8abd-ae14b6a4bdd1
+  spec:
+    clusterIP: 10.233.22.0
+    clusterIPs:
+    - 10.233.22.0
+    externalTrafficPolicy: Cluster
+    ports:
+    - name: http
+      nodePort: 30113
+      port: 9000
+      protocol: TCP
+      targetPort: 9000
+    selector:
+      app: minio
+      release: minio
+    sessionAffinity: None
+    type: NodePort
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","kind":"Service","metadata":{"annotations":{},"labels":{"app":"spin","cluster":"spin-clouddriver"},"name":"spin-clouddriver","namespace":"cicd-spinnaker"},"spec":{"ports":[{"port":7002,"protocol":"TCP","targetPort":7002}],"selector":{"app":"spin","cluster":"spin-clouddriver"},"type":"ClusterIP"}}
+    creationTimestamp: "2023-09-21T09:09:55Z"
+    labels:
+      app: spin
+      cluster: spin-clouddriver
+    name: spin-clouddriver
+    namespace: cicd-spinnaker
+    resourceVersion: "400354710"
+    uid: 88435740-53d8-40b2-9906-f28576b2f9ab
+  spec:
+    clusterIP: 10.233.12.85
+    clusterIPs:
+    - 10.233.12.85
+    ports:
+    - port: 7002
+      protocol: TCP
+      targetPort: 7002
+    selector:
+      app: spin
+      cluster: spin-clouddriver
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","kind":"Service","metadata":{"annotations":{},"labels":{"app":"spin","cluster":"spin-deck"},"name":"spin-deck","namespace":"cicd-spinnaker"},"spec":{"ports":[{"port":9000,"protocol":"TCP","targetPort":9000}],"selector":{"app":"spin","cluster":"spin-deck"},"type":"ClusterIP"}}
+    creationTimestamp: "2023-09-21T09:09:55Z"
+    labels:
+      app: spin
+      cluster: spin-deck
+      k8slens-edit-resource-version: v1
+    name: spin-deck
+    namespace: cicd-spinnaker
+    resourceVersion: "400365076"
+    uid: 858e41b3-93c8-4afe-8076-e6f351b91cec
+  spec:
+    clusterIP: 10.233.16.112
+    clusterIPs:
+    - 10.233.16.112
+    externalTrafficPolicy: Cluster
+    ports:
+    - nodePort: 30111
+      port: 9000
+      protocol: TCP
+      targetPort: 9000
+    selector:
+      app: spin
+      cluster: spin-deck
+    sessionAffinity: None
+    type: NodePort
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","kind":"Service","metadata":{"annotations":{},"labels":{"app":"spin","cluster":"spin-echo"},"name":"spin-echo","namespace":"cicd-spinnaker"},"spec":{"ports":[{"port":8089,"protocol":"TCP","targetPort":8089}],"selector":{"app":"spin","cluster":"spin-echo"},"type":"ClusterIP"}}
+    creationTimestamp: "2023-09-21T09:09:55Z"
+    labels:
+      app: spin
+      cluster: spin-echo
+    name: spin-echo
+    namespace: cicd-spinnaker
+    resourceVersion: "400354704"
+    uid: 28fc1793-b25d-4466-a92f-9ca4b0780ed3
+  spec:
+    clusterIP: 10.233.32.110
+    clusterIPs:
+    - 10.233.32.110
+    ports:
+    - port: 8089
+      protocol: TCP
+      targetPort: 8089
+    selector:
+      app: spin
+      cluster: spin-echo
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","kind":"Service","metadata":{"annotations":{},"labels":{"app":"spin","cluster":"spin-front50"},"name":"spin-front50","namespace":"cicd-spinnaker"},"spec":{"ports":[{"port":8080,"protocol":"TCP","targetPort":8080}],"selector":{"app":"spin","cluster":"spin-front50"},"type":"ClusterIP"}}
+    creationTimestamp: "2023-09-21T09:09:55Z"
+    labels:
+      app: spin
+      cluster: spin-front50
+    name: spin-front50
+    namespace: cicd-spinnaker
+    resourceVersion: "400354696"
+    uid: ec70ca9a-b888-4e9f-9f60-e63481d37636
+  spec:
+    clusterIP: 10.233.2.148
+    clusterIPs:
+    - 10.233.2.148
+    ports:
+    - port: 8080
+      protocol: TCP
+      targetPort: 8080
+    selector:
+      app: spin
+      cluster: spin-front50
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","kind":"Service","metadata":{"annotations":{},"labels":{"app":"spin","cluster":"spin-gate"},"name":"spin-gate","namespace":"cicd-spinnaker"},"spec":{"ports":[{"port":8084,"protocol":"TCP","targetPort":8084}],"selector":{"app":"spin","cluster":"spin-gate"},"type":"ClusterIP"}}
+    creationTimestamp: "2023-09-21T09:09:55Z"
+    labels:
+      app: spin
+      cluster: spin-gate
+      k8slens-edit-resource-version: v1
+    name: spin-gate
+    namespace: cicd-spinnaker
+    resourceVersion: "400365289"
+    uid: 2d2cb624-7abe-4969-b524-331e73fce9b5
+  spec:
+    clusterIP: 10.233.11.34
+    clusterIPs:
+    - 10.233.11.34
+    externalTrafficPolicy: Cluster
+    ports:
+    - nodePort: 30112
+      port: 8084
+      protocol: TCP
+      targetPort: 8084
+    selector:
+      app: spin
+      cluster: spin-gate
+    sessionAffinity: None
+    type: NodePort
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","kind":"Service","metadata":{"annotations":{},"labels":{"app":"spin","cluster":"spin-igor"},"name":"spin-igor","namespace":"cicd-spinnaker"},"spec":{"ports":[{"port":8088,"protocol":"TCP","targetPort":8088}],"selector":{"app":"spin","cluster":"spin-igor"},"type":"ClusterIP"}}
+    creationTimestamp: "2023-09-21T10:12:05Z"
+    labels:
+      app: spin
+      cluster: spin-igor
+    name: spin-igor
+    namespace: cicd-spinnaker
+    resourceVersion: "400395756"
+    uid: c1a2651d-9b9e-41c1-aab8-0cee2a5e4f8a
+  spec:
+    clusterIP: 10.233.30.238
+    clusterIPs:
+    - 10.233.30.238
+    ports:
+    - port: 8088
+      protocol: TCP
+      targetPort: 8088
+    selector:
+      app: spin
+      cluster: spin-igor
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","kind":"Service","metadata":{"annotations":{},"labels":{"app":"spin","cluster":"spin-orca"},"name":"spin-orca","namespace":"cicd-spinnaker"},"spec":{"ports":[{"port":8083,"protocol":"TCP","targetPort":8083}],"selector":{"app":"spin","cluster":"spin-orca"},"type":"ClusterIP"}}
+    creationTimestamp: "2023-09-21T09:09:55Z"
+    labels:
+      app: spin
+      cluster: spin-orca
+    name: spin-orca
+    namespace: cicd-spinnaker
+    resourceVersion: "400354708"
+    uid: 457db93d-6b0e-4ed8-98a8-4e8f5e40f9e5
+  spec:
+    clusterIP: 10.233.37.47
+    clusterIPs:
+    - 10.233.37.47
+    ports:
+    - port: 8083
+      protocol: TCP
+      targetPort: 8083
+    selector:
+      app: spin
+      cluster: spin-orca
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","kind":"Service","metadata":{"annotations":{},"labels":{"app":"spin","cluster":"spin-redis"},"name":"spin-redis","namespace":"cicd-spinnaker"},"spec":{"ports":[{"port":6379,"protocol":"TCP","targetPort":6379}],"selector":{"app":"spin","cluster":"spin-redis"},"type":"ClusterIP"}}
+    creationTimestamp: "2023-09-21T09:09:55Z"
+    labels:
+      app: spin
+      cluster: spin-redis
+    name: spin-redis
+    namespace: cicd-spinnaker
+    resourceVersion: "400354719"
+    uid: d9de0940-fae4-4d3f-b054-0ef49d234742
+  spec:
+    clusterIP: 10.233.28.120
+    clusterIPs:
+    - 10.233.28.120
+    ports:
+    - port: 6379
+      protocol: TCP
+      targetPort: 6379
+    selector:
+      app: spin
+      cluster: spin-redis
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","kind":"Service","metadata":{"annotations":{},"labels":{"app":"spin","cluster":"spin-rosco"},"name":"spin-rosco","namespace":"cicd-spinnaker"},"spec":{"ports":[{"port":8087,"protocol":"TCP","targetPort":8087}],"selector":{"app":"spin","cluster":"spin-rosco"},"type":"ClusterIP"}}
+    creationTimestamp: "2023-09-21T09:09:55Z"
+    labels:
+      app: spin
+      cluster: spin-rosco
+    name: spin-rosco
+    namespace: cicd-spinnaker
+    resourceVersion: "400354716"
+    uid: 0800cff8-1d1d-4243-aca0-5c2a06edd540
+  spec:
+    clusterIP: 10.233.24.143
+    clusterIPs:
+    - 10.233.24.143
+    ports:
+    - port: 8087
+      protocol: TCP
+      targetPort: 8087
+    selector:
+      app: spin
+      cluster: spin-rosco
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+kind: List
+metadata:
+  resourceVersion: ""

@@ -1,0 +1,465 @@
+apiVersion: v1
+items:
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      deployment.kubernetes.io/revision: "9"
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"apps/v1","kind":"Deployment","metadata":{"annotations":{},"labels":{"app.kubernetes.io/name":"nexus","app.kubernetes.io/service":"docker-proxy","app.kubernetes.io/type":"cicd"},"name":"docker-proxy","namespace":"cicd-nexus"},"spec":{"progressDeadlineSeconds":600,"replicas":1,"revisionHistoryLimit":3,"selector":{"matchLabels":{"app.kubernetes.io/name":"nexus","app.kubernetes.io/service":"docker-proxy","app.kubernetes.io/type":"cicd"}},"strategy":{"rollingUpdate":{"maxSurge":"25%","maxUnavailable":"25%"},"type":"RollingUpdate"},"template":{"metadata":{"labels":{"app.kubernetes.io/name":"nexus","app.kubernetes.io/service":"docker-proxy","app.kubernetes.io/type":"cicd"}},"spec":{"containers":[{"image":"nexus.cicd-nexus.svc.cluster.local:5002/tools/openresty/openresty:alpine","imagePullPolicy":"IfNotPresent","name":"proxy","ports":[{"containerPort":5000,"protocol":"TCP"}],"resources":{"limits":{"cpu":"100m","memory":"512Mi"},"requests":{"cpu":"10m","memory":"100Mi"}},"terminationMessagePath":"/dev/termination-log","terminationMessagePolicy":"File","volumeMounts":[{"mountPath":"/usr/local/openresty/nginx/conf/nginx.conf","name":"nginx-config-volume","subPath":"nginx.conf"},{"mountPath":"/etc/nginx/ssl/private/docker-proxy.cicd-nexus.svc.cluster.local.crt","name":"docker-proxy-ssl-keys-volume","subPath":"docker-proxy.cicd-nexus.svc.cluster.local.crt"},{"mountPath":"/etc/nginx/ssl/private/docker-proxy.cicd-nexus.svc.cluster.local.key","name":"docker-proxy-ssl-keys-volume","subPath":"docker-proxy.cicd-nexus.svc.cluster.local.key"}]}],"dnsPolicy":"ClusterFirst","restartPolicy":"Always","schedulerName":"default-scheduler","securityContext":{},"terminationGracePeriodSeconds":30,"volumes":[{"configMap":{"defaultMode":420,"items":[{"key":"nginx.conf","path":"nginx.conf"}],"name":"docker-proxy-configmap"},"name":"nginx-config-volume"},{"name":"docker-proxy-ssl-keys-volume","secret":{"defaultMode":256,"items":[{"key":"docker-proxy.cicd-nexus.svc.cluster.local.crt","path":"docker-proxy.cicd-nexus.svc.cluster.local.crt"},{"key":"docker-proxy.cicd-nexus.svc.cluster.local.key","path":"docker-proxy.cicd-nexus.svc.cluster.local.key"}],"secretName":"docker-proxy-ssl-keys-secret"}}]}}}}
+    creationTimestamp: "2024-12-17T08:27:42Z"
+    generation: 11
+    labels:
+      app.kubernetes.io/name: nexus
+      app.kubernetes.io/service: docker-proxy
+      app.kubernetes.io/type: cicd
+    name: docker-proxy
+    namespace: cicd-nexus
+    resourceVersion: "784036188"
+    uid: c8e902cb-5197-428f-a729-ffd05d73d736
+  spec:
+    progressDeadlineSeconds: 600
+    replicas: 1
+    revisionHistoryLimit: 3
+    selector:
+      matchLabels:
+        app.kubernetes.io/name: nexus
+        app.kubernetes.io/service: docker-proxy
+        app.kubernetes.io/type: cicd
+    strategy:
+      rollingUpdate:
+        maxSurge: 25%
+        maxUnavailable: 25%
+      type: RollingUpdate
+    template:
+      metadata:
+        annotations:
+          kubectl.kubernetes.io/restartedAt: "2025-02-24T16:18:59Z"
+        creationTimestamp: null
+        labels:
+          app.kubernetes.io/name: nexus
+          app.kubernetes.io/service: docker-proxy
+          app.kubernetes.io/type: cicd
+      spec:
+        containers:
+        - image: nexus.cicd-nexus.svc.cluster.local:5002/tools/openresty/openresty:alpine
+          imagePullPolicy: IfNotPresent
+          name: proxy
+          ports:
+          - containerPort: 5000
+            protocol: TCP
+          resources:
+            limits:
+              cpu: 100m
+              memory: 512Mi
+            requests:
+              cpu: 10m
+              memory: 100Mi
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /usr/local/openresty/nginx/conf/nginx.conf
+            name: nginx-config-volume
+            subPath: nginx.conf
+          - mountPath: /etc/nginx/ssl/private/docker-proxy.cicd-nexus.svc.cluster.local.crt
+            name: docker-proxy-ssl-keys-volume
+            subPath: docker-proxy.cicd-nexus.svc.cluster.local.crt
+          - mountPath: /etc/nginx/ssl/private/docker-proxy.cicd-nexus.svc.cluster.local.key
+            name: docker-proxy-ssl-keys-volume
+            subPath: docker-proxy.cicd-nexus.svc.cluster.local.key
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+        volumes:
+        - configMap:
+            defaultMode: 420
+            items:
+            - key: nginx.conf
+              path: nginx.conf
+            name: docker-proxy-configmap
+          name: nginx-config-volume
+        - name: docker-proxy-ssl-keys-volume
+          secret:
+            defaultMode: 256
+            items:
+            - key: docker-proxy.cicd-nexus.svc.cluster.local.crt
+              path: docker-proxy.cicd-nexus.svc.cluster.local.crt
+            - key: docker-proxy.cicd-nexus.svc.cluster.local.key
+              path: docker-proxy.cicd-nexus.svc.cluster.local.key
+            secretName: docker-proxy-ssl-keys-secret
+  status:
+    availableReplicas: 1
+    conditions:
+    - lastTransitionTime: "2024-12-17T08:27:42Z"
+      lastUpdateTime: "2025-02-24T16:19:18Z"
+      message: ReplicaSet "docker-proxy-96ff8564" has successfully progressed.
+      reason: NewReplicaSetAvailable
+      status: "True"
+      type: Progressing
+    - lastTransitionTime: "2025-04-01T00:40:53Z"
+      lastUpdateTime: "2025-04-01T00:40:53Z"
+      message: Deployment has minimum availability.
+      reason: MinimumReplicasAvailable
+      status: "True"
+      type: Available
+    observedGeneration: 11
+    readyReplicas: 1
+    replicas: 1
+    updatedReplicas: 1
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      deployment.kubernetes.io/revision: "4"
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"apps/v1","kind":"Deployment","metadata":{"annotations":{},"labels":{"app.kubernetes.io/name":"nexus","app.kubernetes.io/service":"helm-proxy","app.kubernetes.io/type":"cicd"},"name":"helm-proxy","namespace":"cicd-nexus"},"spec":{"progressDeadlineSeconds":600,"replicas":1,"revisionHistoryLimit":3,"selector":{"matchLabels":{"app.kubernetes.io/name":"nexus","app.kubernetes.io/service":"helm-proxy","app.kubernetes.io/type":"cicd"}},"strategy":{"rollingUpdate":{"maxSurge":"25%","maxUnavailable":"25%"},"type":"RollingUpdate"},"template":{"metadata":{"labels":{"app.kubernetes.io/name":"nexus","app.kubernetes.io/service":"helm-proxy","app.kubernetes.io/type":"cicd"}},"spec":{"containers":[{"image":"nexus.pajak.go.id:15000/tools/helm-proxy:v2","imagePullPolicy":"Always","name":"proxy","ports":[{"containerPort":8080,"protocol":"TCP"}],"resources":{},"terminationMessagePath":"/dev/termination-log","terminationMessagePolicy":"File","volumeMounts":[{"mountPath":"/app/server.js","name":"helm-proxy-config","subPath":"server.js"}]}],"dnsPolicy":"ClusterFirst","restartPolicy":"Always","schedulerName":"default-scheduler","securityContext":{},"terminationGracePeriodSeconds":30,"volumes":[{"configMap":{"defaultMode":420,"items":[{"key":"server.js","path":"server.js"}],"name":"helm-proxy-configmap"},"name":"helm-proxy-config"}]}}}}
+    creationTimestamp: "2023-10-03T02:14:06Z"
+    generation: 8
+    labels:
+      app.kubernetes.io/name: nexus
+      app.kubernetes.io/service: helm-proxy
+      app.kubernetes.io/type: cicd
+      k8slens-edit-resource-version: v1
+    name: helm-proxy
+    namespace: cicd-nexus
+    resourceVersion: "784035533"
+    uid: 006b5cad-fb72-4265-82f1-806cf97b29ba
+  spec:
+    progressDeadlineSeconds: 600
+    replicas: 1
+    revisionHistoryLimit: 3
+    selector:
+      matchLabels:
+        app.kubernetes.io/name: nexus
+        app.kubernetes.io/service: helm-proxy
+        app.kubernetes.io/type: cicd
+    strategy:
+      rollingUpdate:
+        maxSurge: 25%
+        maxUnavailable: 25%
+      type: RollingUpdate
+    template:
+      metadata:
+        annotations:
+          kubectl.kubernetes.io/restartedAt: "2023-12-07T05:16:06Z"
+        creationTimestamp: null
+        labels:
+          app.kubernetes.io/name: nexus
+          app.kubernetes.io/service: helm-proxy
+          app.kubernetes.io/type: cicd
+      spec:
+        containers:
+        - image: nexus.pajak.go.id:15000/tools/helm-proxy:v2
+          imagePullPolicy: Always
+          name: proxy
+          ports:
+          - containerPort: 8080
+            protocol: TCP
+          resources:
+            limits:
+              cpu: 100m
+              memory: 512Mi
+            requests:
+              cpu: 10m
+              memory: 100Mi
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /app/server.js
+            name: helm-proxy-config
+            subPath: server.js
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+        volumes:
+        - configMap:
+            defaultMode: 420
+            items:
+            - key: server.js
+              path: server.js
+            name: helm-proxy-configmap
+          name: helm-proxy-config
+  status:
+    availableReplicas: 1
+    conditions:
+    - lastTransitionTime: "2023-10-03T02:14:06Z"
+      lastUpdateTime: "2024-09-16T13:45:55Z"
+      message: ReplicaSet "helm-proxy-7d4c658d44" has successfully progressed.
+      reason: NewReplicaSetAvailable
+      status: "True"
+      type: Progressing
+    - lastTransitionTime: "2025-04-01T00:38:00Z"
+      lastUpdateTime: "2025-04-01T00:38:00Z"
+      message: Deployment has minimum availability.
+      reason: MinimumReplicasAvailable
+      status: "True"
+      type: Available
+    observedGeneration: 8
+    readyReplicas: 1
+    replicas: 1
+    updatedReplicas: 1
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      deployment.kubernetes.io/revision: "13"
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"apps/v1","kind":"Deployment","metadata":{"annotations":{},"labels":{"app.kubernetes.io/name":"nexus","app.kubernetes.io/service":"nexus","app.kubernetes.io/type":"cicd"},"name":"nexus","namespace":"cicd-nexus"},"spec":{"progressDeadlineSeconds":600,"replicas":1,"revisionHistoryLimit":3,"selector":{"matchLabels":{"app.kubernetes.io/name":"nexus","app.kubernetes.io/service":"nexus","app.kubernetes.io/type":"cicd"}},"strategy":{"rollingUpdate":{"maxSurge":"25%","maxUnavailable":"25%"},"type":"RollingUpdate"},"template":{"metadata":{"labels":{"app.kubernetes.io/name":"nexus","app.kubernetes.io/service":"nexus","app.kubernetes.io/type":"cicd"}},"spec":{"containers":[{"image":"sonatype/nexus3:3.60.0","imagePullPolicy":"Always","name":"nexus","ports":[{"containerPort":8081,"protocol":"TCP"}],"resources":{"limits":{"cpu":"4","memory":"16Gi"},"requests":{"cpu":"4","memory":"8196Mi"}},"terminationMessagePath":"/dev/termination-log","terminationMessagePolicy":"File","volumeMounts":[{"mountPath":"/nexus-data","name":"nexus-data"},{"mountPath":"/opt/sonatype/nexus/deploy","name":"nexus-plugins"}]}],"dnsPolicy":"ClusterFirst","hostAliases":[{"hostnames":["api.nuget.org"],"ip":"152.199.40.167"},{"hostnames":["deb.debian.org"],"ip":"199.232.46.132"},{"hostnames":["security.debian.org"],"ip":"151.101.66.132"},{"hostnames":["archive.ubuntu.com"],"ip":"91.189.88.152"},{"hostnames":["dl-cdn.alpinelinux.org"],"ip":"151.101.2.133"},{"hostnames":["search.maven.org"],"ip":"3.219.120.29"},{"hostnames":["well.abanbytes.eu"],"ip":"144.76.63.187"},{"hostnames":["releases.hashicorp.com"],"ip":"151.101.1.183"},{"hostnames":["registry.npmjs.org"],"ip":"104.16.19.35"},{"hostnames":["registry-1.docker.io"],"ip":"3.216.34.172"},{"hostnames":["auth.docker.io"],"ip":"34.205.13.154"},{"hostnames":["download.sonatype.com"],"ip":"52.8.47.104"},{"hostnames":["links.sonatype.com"],"ip":"52.200.117.227"},{"hostnames":["archive.ubuntu.com"],"ip":"185.125.190.39"},{"hostnames":["security.ubuntu.com"],"ip":"91.189.91.39"},{"hostnames":["pypi.org"],"ip":"151.101.64.223"},{"hostnames":["files.pythonhosted.org"],"ip":"199.232.45.63"},{"hostnames":["rhc.sonatype.com"],"ip":"13.33.33.62"}],"restartPolicy":"Always","schedulerName":"default-scheduler","securityContext":{},"terminationGracePeriodSeconds":30,"volumes":[{"name":"nexus-data","persistentVolumeClaim":{"claimName":"cicd-nexus-data-pvc"}},{"name":"nexus-plugins","persistentVolumeClaim":{"claimName":"cicd-nexus-plugins-pvc"}}]}}}}
+    creationTimestamp: "2023-10-09T03:20:44Z"
+    generation: 73
+    labels:
+      app.kubernetes.io/name: nexus
+      app.kubernetes.io/service: nexus
+      app.kubernetes.io/type: cicd
+      k8slens-edit-resource-version: v1
+    name: nexus
+    namespace: cicd-nexus
+    resourceVersion: "784035574"
+    uid: cabe7f11-bca8-4928-9a86-5e665c3c2bc8
+  spec:
+    progressDeadlineSeconds: 600
+    replicas: 1
+    revisionHistoryLimit: 3
+    selector:
+      matchLabels:
+        app.kubernetes.io/name: nexus
+        app.kubernetes.io/service: nexus
+        app.kubernetes.io/type: cicd
+    strategy:
+      rollingUpdate:
+        maxSurge: 25%
+        maxUnavailable: 25%
+      type: RollingUpdate
+    template:
+      metadata:
+        annotations:
+          kubectl.kubernetes.io/restartedAt: "2025-02-24T16:14:49Z"
+        creationTimestamp: null
+        labels:
+          app.kubernetes.io/name: nexus
+          app.kubernetes.io/service: nexus
+          app.kubernetes.io/type: cicd
+      spec:
+        containers:
+        - image: nexus.pajak.go.id:15000/sonatype/nexus3:3.61.0
+          imagePullPolicy: Always
+          name: nexus
+          ports:
+          - containerPort: 8081
+            protocol: TCP
+          resources:
+            limits:
+              cpu: "4"
+              memory: 16Gi
+            requests:
+              cpu: "1"
+              memory: 8196Mi
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /nexus-data
+            name: nexus-data
+          - mountPath: /opt/sonatype/nexus/deploy
+            name: nexus-plugins
+        dnsPolicy: ClusterFirst
+        hostAliases:
+        - hostnames:
+          - api.nuget.org
+          ip: 36.91.234.41
+        - hostnames:
+          - deb.debian.org
+          ip: 199.232.46.132
+        - hostnames:
+          - security.debian.org
+          ip: 151.101.66.132
+        - hostnames:
+          - archive.ubuntu.com
+          ip: 91.189.88.152
+        - hostnames:
+          - dl-cdn.alpinelinux.org
+          ip: 151.101.2.133
+        - hostnames:
+          - search.maven.org
+          ip: 3.219.120.29
+        - hostnames:
+          - well.abanbytes.eu
+          ip: 144.76.63.187
+        - hostnames:
+          - releases.hashicorp.com
+          ip: 151.101.1.183
+        - hostnames:
+          - registry.npmjs.org
+          ip: 104.16.19.35
+        - hostnames:
+          - registry-1.docker.io
+          ip: 52.1.184.176
+        - hostnames:
+          - auth.docker.io
+          ip: 34.205.13.154
+        - hostnames:
+          - download.sonatype.com
+          ip: 52.8.47.104
+        - hostnames:
+          - links.sonatype.com
+          ip: 52.200.117.227
+        - hostnames:
+          - archive.ubuntu.com
+          ip: 185.125.190.39
+        - hostnames:
+          - security.ubuntu.com
+          ip: 91.189.91.39
+        - hostnames:
+          - pypi.org
+          ip: 151.101.64.223
+        - hostnames:
+          - files.pythonhosted.org
+          ip: 199.232.45.63
+        - hostnames:
+          - rhc.sonatype.com
+          ip: 13.33.33.62
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+        volumes:
+        - name: nexus-data
+          persistentVolumeClaim:
+            claimName: cicd-nexus-data-pvc
+        - name: nexus-plugins
+          persistentVolumeClaim:
+            claimName: cicd-nexus-plugins-pvc
+  status:
+    availableReplicas: 1
+    conditions:
+    - lastTransitionTime: "2023-10-09T03:20:44Z"
+      lastUpdateTime: "2025-02-24T16:15:03Z"
+      message: ReplicaSet "nexus-bfb5fbd45" has successfully progressed.
+      reason: NewReplicaSetAvailable
+      status: "True"
+      type: Progressing
+    - lastTransitionTime: "2025-04-01T00:38:07Z"
+      lastUpdateTime: "2025-04-01T00:38:07Z"
+      message: Deployment has minimum availability.
+      reason: MinimumReplicasAvailable
+      status: "True"
+      type: Available
+    observedGeneration: 73
+    readyReplicas: 1
+    replicas: 1
+    updatedReplicas: 1
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      deployment.kubernetes.io/revision: "10"
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"apps/v1","kind":"Deployment","metadata":{"annotations":{},"labels":{"app.kubernetes.io/name":"nexus","app.kubernetes.io/service":"nexus-proxy","app.kubernetes.io/type":"cicd"},"name":"nexus-proxy","namespace":"cicd-nexus"},"spec":{"progressDeadlineSeconds":600,"replicas":1,"revisionHistoryLimit":3,"selector":{"matchLabels":{"app.kubernetes.io/name":"nexus","app.kubernetes.io/service":"nexus-proxy","app.kubernetes.io/type":"cicd"}},"strategy":{"rollingUpdate":{"maxSurge":"25%","maxUnavailable":"25%"},"type":"RollingUpdate"},"template":{"metadata":{"labels":{"app.kubernetes.io/name":"nexus","app.kubernetes.io/service":"nexus-proxy","app.kubernetes.io/type":"cicd"}},"spec":{"containers":[{"image":"nexus.deploy.io:15000/tools/openresty/openresty:alpine","imagePullPolicy":"IfNotPresent","name":"proxy","ports":[{"containerPort":5000,"protocol":"TCP"}],"resources":{},"terminationMessagePath":"/dev/termination-log","terminationMessagePolicy":"File","volumeMounts":[{"mountPath":"/usr/local/openresty/nginx/conf/nginx.conf","name":"nginx-config-volume","subPath":"nginx.conf"},{"mountPath":"/etc/nginx/ssl/private/nexus-proxy.cicd-nexus.svc.cluster.local.crt","name":"nexus-proxy-ssl-keys-volume","subPath":"nexus-proxy.cicd-nexus.svc.cluster.local.crt"},{"mountPath":"/etc/nginx/ssl/private/nexus-proxy.cicd-nexus.svc.cluster.local.key","name":"nexus-proxy-ssl-keys-volume","subPath":"nexus-proxy.cicd-nexus.svc.cluster.local.key"}]}],"dnsPolicy":"ClusterFirst","restartPolicy":"Always","schedulerName":"default-scheduler","securityContext":{},"terminationGracePeriodSeconds":30,"volumes":[{"configMap":{"defaultMode":420,"items":[{"key":"nginx.conf","path":"nginx.conf"}],"name":"nexus-proxy-configmap"},"name":"nginx-config-volume"},{"name":"nexus-proxy-ssl-keys-volume","secret":{"defaultMode":256,"items":[{"key":"nexus-proxy.cicd-nexus.svc.cluster.local.crt","path":"nexus-proxy.cicd-nexus.svc.cluster.local.crt"},{"key":"nexus-proxy.cicd-nexus.svc.cluster.local.key","path":"nexus-proxy.cicd-nexus.svc.cluster.local.key"}],"secretName":"nexus-proxy-ssl-keys-secret"}}]}}}}
+    creationTimestamp: "2023-10-03T02:18:30Z"
+    generation: 17
+    labels:
+      app.kubernetes.io/name: nexus
+      app.kubernetes.io/service: nexus-proxy
+      app.kubernetes.io/type: cicd
+      k8slens-edit-resource-version: v1
+    name: nexus-proxy
+    namespace: cicd-nexus
+    resourceVersion: "784036232"
+    uid: 240a53c4-9fa7-4d95-8dfc-be89026f2808
+  spec:
+    progressDeadlineSeconds: 600
+    replicas: 1
+    revisionHistoryLimit: 3
+    selector:
+      matchLabels:
+        app.kubernetes.io/name: nexus
+        app.kubernetes.io/service: nexus-proxy
+        app.kubernetes.io/type: cicd
+    strategy:
+      rollingUpdate:
+        maxSurge: 25%
+        maxUnavailable: 25%
+      type: RollingUpdate
+    template:
+      metadata:
+        annotations:
+          kubectl.kubernetes.io/restartedAt: "2023-12-07T05:16:09Z"
+        creationTimestamp: null
+        labels:
+          app.kubernetes.io/name: nexus
+          app.kubernetes.io/service: nexus-proxy
+          app.kubernetes.io/type: cicd
+      spec:
+        containers:
+        - image: nexus.cicd-nexus.svc.cluster.local:5002/tools/openresty/openresty:alpine
+          imagePullPolicy: IfNotPresent
+          name: proxy
+          ports:
+          - containerPort: 5000
+            protocol: TCP
+          resources:
+            limits:
+              cpu: 100m
+              memory: 512Mi
+            requests:
+              cpu: 10m
+              memory: 100Mi
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /usr/local/openresty/nginx/conf/nginx.conf
+            name: nginx-config-volume
+            subPath: nginx.conf
+          - mountPath: /etc/nginx/ssl/private/nexus-proxy.cicd-nexus.svc.cluster.local.crt
+            name: nexus-proxy-ssl-keys-volume
+            subPath: nexus-proxy.cicd-nexus.svc.cluster.local.crt
+          - mountPath: /etc/nginx/ssl/private/nexus-proxy.cicd-nexus.svc.cluster.local.key
+            name: nexus-proxy-ssl-keys-volume
+            subPath: nexus-proxy.cicd-nexus.svc.cluster.local.key
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+        volumes:
+        - configMap:
+            defaultMode: 420
+            items:
+            - key: nginx.conf
+              path: nginx.conf
+            name: nexus-proxy-configmap
+          name: nginx-config-volume
+        - name: nexus-proxy-ssl-keys-volume
+          secret:
+            defaultMode: 256
+            items:
+            - key: nexus-proxy.cicd-nexus.svc.cluster.local.crt
+              path: nexus-proxy.cicd-nexus.svc.cluster.local.crt
+            - key: nexus-proxy.cicd-nexus.svc.cluster.local.key
+              path: nexus-proxy.cicd-nexus.svc.cluster.local.key
+            secretName: nexus-proxy-ssl-keys-secret
+  status:
+    availableReplicas: 1
+    conditions:
+    - lastTransitionTime: "2023-10-03T03:04:41Z"
+      lastUpdateTime: "2024-09-16T13:44:43Z"
+      message: ReplicaSet "nexus-proxy-68c49c6c57" has successfully progressed.
+      reason: NewReplicaSetAvailable
+      status: "True"
+      type: Progressing
+    - lastTransitionTime: "2025-04-01T00:41:06Z"
+      lastUpdateTime: "2025-04-01T00:41:06Z"
+      message: Deployment has minimum availability.
+      reason: MinimumReplicasAvailable
+      status: "True"
+      type: Available
+    observedGeneration: 17
+    readyReplicas: 1
+    replicas: 1
+    updatedReplicas: 1
+kind: List
+metadata:
+  resourceVersion: ""

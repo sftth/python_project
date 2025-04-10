@@ -1,0 +1,265 @@
+apiVersion: v1
+items:
+- apiVersion: v1
+  data:
+    nginx.conf: |
+      events {
+          worker_connections  1024;
+      }
+
+      http {
+          proxy_send_timeout   120;
+          proxy_read_timeout   300;
+          proxy_buffering      off;
+
+          # allow large uploads
+          client_max_body_size 1G;
+
+          server {
+              listen              5002 ssl;
+              server_name         docker-proxy.cicd-nexus.svc.cluster.local;
+              ssl_certificate     /etc/nginx/ssl/private/docker-proxy.cicd-nexus.svc.cluster.local.crt;
+              ssl_certificate_key /etc/nginx/ssl/private/docker-proxy.cicd-nexus.svc.cluster.local.key;
+              ssl_protocols       TLSv1 TLSv1.1 TLSv1.2;
+              ssl_ciphers         HIGH:!aNULL:!MD5;
+
+              #
+              # * Serve "docker pull" from 'docker-group'
+              # * Serve "docker push" from 'docker-hosted'
+              #
+              location ~ ^/(v1|v2)/[^/]+/?[^/]+/blobs/ {
+                  if ($request_method ~* (POST|PUT|DELETE|PATCH|HEAD) ) {
+                      rewrite ^/(.*)$ /repository/docker-hosted/$1 last;
+                  }
+                  rewrite ^/(.*)$ /repository/docker-group/$1 last;
+              }
+              location ~ ^/(v1|v2)/ {
+                  if ($request_method ~* (POST|PUT|DELETE|PATCH) ) {
+                      rewrite ^/(.*)$ /repository/docker-hosted/$1 last;
+                  }
+                  rewrite ^/(.*)$ /repository/docker-group/$1 last;
+              }
+
+              location / {
+                  proxy_pass   http://nexus:8081/;
+                  proxy_set_header Host $host;
+                  proxy_set_header X-Real-IP $remote_addr;
+                  proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+                  proxy_set_header X-Forwarded-Proto "https";
+
+                  # force the port number into the WWW-Authenticate response header
+                  header_filter_by_lua_block {
+                      if ngx.status == 401 then
+                          ngx.header['WWW-Authenticate'] = string.format('Bearer realm="https://%s:30243/v2/token",service="https://%s:30243/v2/token"', ngx.var.host, ngx.var.host)
+                      end
+                  }
+              }
+          }
+      }
+  kind: ConfigMap
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","data":{"nginx.conf":"events {\n    worker_connections  1024;\n}\n\nhttp {\n    proxy_send_timeout   120;\n    proxy_read_timeout   300;\n    proxy_buffering      off;\n\n    # allow large uploads\n    client_max_body_size 1G;\n\n    server {\n        listen              5002 ssl;\n        server_name         docker-proxy.cicd-nexus.svc.cluster.local;\n        ssl_certificate     /etc/nginx/ssl/private/docker-proxy.cicd-nexus.svc.cluster.local.crt;\n        ssl_certificate_key /etc/nginx/ssl/private/docker-proxy.cicd-nexus.svc.cluster.local.key;\n        ssl_protocols       TLSv1 TLSv1.1 TLSv1.2;\n        ssl_ciphers         HIGH:!aNULL:!MD5;\n\n        #\n        # * Serve \"docker pull\" from 'docker-group'\n        # * Serve \"docker push\" from 'docker-hosted'\n        #\n        location ~ ^/(v1|v2)/[^/]+/?[^/]+/blobs/ {\n            if ($request_method ~* (POST|PUT|DELETE|PATCH|HEAD) ) {\n                rewrite ^/(.*)$ /repository/docker-hosted/$1 last;\n            }\n            rewrite ^/(.*)$ /repository/docker-group/$1 last;\n        }\n        location ~ ^/(v1|v2)/ {\n            if ($request_method ~* (POST|PUT|DELETE|PATCH) ) {\n                rewrite ^/(.*)$ /repository/docker-hosted/$1 last;\n            }\n            rewrite ^/(.*)$ /repository/docker-group/$1 last;\n        }\n\n        location / {\n            proxy_pass   http://nexus:5002/;\n            proxy_set_header Host $host;\n            proxy_set_header X-Real-IP $remote_addr;\n            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;\n            proxy_set_header X-Forwarded-Proto \"https\";\n\n            # force the port number into the WWW-Authenticate response header\n            header_filter_by_lua_block {\n                if ngx.status == 401 then\n                    ngx.header['WWW-Authenticate'] = string.format('Bearer realm=\"https://%s:30143/v2/token\",service=\"https://%s:30143/v2/token\"', ngx.var.host, ngx.var.host)\n                end\n            }\n        }\n    }\n}\n"},"kind":"ConfigMap","metadata":{"annotations":{},"labels":{"k8slens-edit-resource-version":"v1"},"name":"docker-proxy-configmap","namespace":"cicd-nexus"}}
+    creationTimestamp: "2024-12-17T08:27:42Z"
+    labels:
+      k8slens-edit-resource-version: v1
+    name: docker-proxy-configmap
+    namespace: cicd-nexus
+    resourceVersion: "739759313"
+    uid: 8bd959f3-8fb9-4b62-aef2-e2143e75441b
+- apiVersion: v1
+  data:
+    server.js: |
+      'use strict'
+
+      const express = require('express');
+      const httpProxy = require('http-proxy');
+      const http = require('http');
+      const app = express();
+      const apiProxy = httpProxy.createProxyServer();
+
+      const LISTEN_HOST = process.env.LISTEN_HOST || '0.0.0.0';
+      const LISTEN_PORT = process.env.LISTEN_PORT || 8080;
+      // upstream Docker registry base URL
+      const DOCKER_REGISTRY_URL = process.env.DOCKER_REGISTRY_URL || "http://10.244.252.41:30100/repository/docker-hosted";
+
+      const UPSTREAM_SERVER_ORIGIN = new URL(DOCKER_REGISTRY_URL).origin;
+      const UPSTREAM_SERVER_PATH = new URL(DOCKER_REGISTRY_URL).pathname;
+
+      function forwardHeader(hdr, downstreamRes, res) {
+        downstreamRes.set(hdr, res.getHeader(hdr));
+      }
+
+      // e.g. "/helm-main/cots-backend/0.1.0"
+      app.get('/:repo/:name/:tag', function(downstreamReq, downstreamRes) {
+
+        // e.g. "http://10.247.134.51:30100/repository/docker-hosted/v2/helm-main/cots-backend/manifests/0.1.0"
+        const manifestOptions = new URL(DOCKER_REGISTRY_URL + "/v2/" + downstreamReq.params.repo + "/" + downstreamReq.params.name + "/manifests/" + downstreamReq.params.tag);
+        console.log("GET " + manifestOptions.toString());
+
+        // fetch Docker manifest
+        const mreq = http.request(manifestOptions, manifestRes => {
+          console.log(manifestRes.statusCode + " " + manifestRes.statusMessage);
+          manifestRes.on('data', d => {
+            if(manifestRes.statusCode != 200) {
+              downstreamRes.set(manifestRes.headers).status(manifestRes.statusCode).send(d);
+              return;
+            }
+            //console.log(">" + d + "<");
+            const manifest = JSON.parse(d);
+            if(!manifest.layers || manifest.layers.length == 0) {
+              downstreamRes.sendStatus(500);
+              console.error("GET " + manifestOptions.toString() + ":\n  manifest.layers missing");
+              return;
+            }
+            const layerDigest = manifest.layers[0].digest;
+
+            // e.g. "http://10.247.134.51:30100/repository/docker-hosted/v2/helm-main/cots-backend/blobs/sha256:0979729aeb11e7cfe771d0f5c05265e521105d991aaa539d2e4d39757702ef85"
+            const layerOptions = new URL(DOCKER_REGISTRY_URL + "/v2/" + downstreamReq.params.repo + "/" + downstreamReq.params.name + "/blobs/" + layerDigest);
+
+            // proxy to Docker layer (= Helm chart tgz)
+
+            //downstreamReq.path = layerOptions.pathname;
+            //downstreamReq.origin = UPSTREAM_SERVER_ORIGIN;
+            const myUrl = new URL(layerOptions.pathname, UPSTREAM_SERVER_ORIGIN);
+            //var myHeaders = [...downstreamReq.headers];
+            var myHeaders = {};
+            Object.keys(downstreamReq.headers).forEach(header => {
+              myHeaders[header] = downstreamReq.headers[header];
+            });
+            myHeaders['host'] = UPSTREAM_SERVER_ORIGIN.replace('http://', '').replace('https://', '');
+            console.log("GET " + myUrl.toString());
+            //console.log('  new host: ' + myHeaders['host']);
+            const wreq = {
+              method: downstreamReq.method,
+              headers: myHeaders,
+              socket: downstreamReq.socket,
+              isSpdy: downstreamReq.isSpdy,
+              connection: downstreamReq.connection,
+              on: downstreamReq.on,
+              //pipe: downstreamReq.pipe,
+              pipe: arg => downstreamReq.pipe(arg),
+              url: myUrl.toString(),
+              httpVersion: downstreamReq.httpVersion
+            };
+            apiProxy.web(wreq, downstreamRes, {target: UPSTREAM_SERVER_ORIGIN});
+          })
+        })
+        mreq.on('error', error => {
+          console.error(error)
+        })
+        mreq.end()
+      });
+
+      console.log("listen on " + LISTEN_HOST + ":" + LISTEN_PORT);
+      app.listen(LISTEN_PORT, LISTEN_HOST);
+  kind: ConfigMap
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","binaryData":{},"data":{"server.js":"'use strict'\n\nconst express = require('express');\nconst httpProxy = require('http-proxy');\nconst http = require('http');\nconst app = express();\nconst apiProxy = httpProxy.createProxyServer();\n\nconst LISTEN_HOST = process.env.LISTEN_HOST || '0.0.0.0';\nconst LISTEN_PORT = process.env.LISTEN_PORT || 8080;\n// upstream Docker registry base URL\nconst DOCKER_REGISTRY_URL = process.env.DOCKER_REGISTRY_URL || \"http://10.247.134.51:30100/repository/docker-hosted\";\n\nconst UPSTREAM_SERVER_ORIGIN = new URL(DOCKER_REGISTRY_URL).origin;\nconst UPSTREAM_SERVER_PATH = new URL(DOCKER_REGISTRY_URL).pathname;\n\nfunction forwardHeader(hdr, downstreamRes, res) {\n  downstreamRes.set(hdr, res.getHeader(hdr));\n}\n\n// e.g. \"/helm-main/cots-backend/0.1.0\"\napp.get('/:repo/:name/:tag', function(downstreamReq, downstreamRes) {\n\n  // e.g. \"http://10.247.134.51:30100/repository/docker-hosted/v2/helm-main/cots-backend/manifests/0.1.0\"\n  const manifestOptions = new URL(DOCKER_REGISTRY_URL + \"/v2/\" + downstreamReq.params.repo + \"/\" + downstreamReq.params.name + \"/manifests/\" + downstreamReq.params.tag);\n  console.log(\"GET \" + manifestOptions.toString());\n\n  // fetch Docker manifest\n  const mreq = http.request(manifestOptions, manifestRes =\u003e {\n    console.log(manifestRes.statusCode + \" \" + manifestRes.statusMessage);\n    manifestRes.on('data', d =\u003e {\n      if(manifestRes.statusCode != 200) {\n        downstreamRes.set(manifestRes.headers).status(manifestRes.statusCode).send(d);\n        return;\n      }\n      //console.log(\"\u003e\" + d + \"\u003c\");\n      const manifest = JSON.parse(d);\n      if(!manifest.layers || manifest.layers.length == 0) {\n        downstreamRes.sendStatus(500);\n        console.error(\"GET \" + manifestOptions.toString() + \":\\n  manifest.layers missing\");\n        return;\n      }\n      const layerDigest = manifest.layers[0].digest;\n\n      // e.g. \"http://10.247.134.51:30100/repository/docker-hosted/v2/helm-main/cots-backend/blobs/sha256:0979729aeb11e7cfe771d0f5c05265e521105d991aaa539d2e4d39757702ef85\"\n      const layerOptions = new URL(DOCKER_REGISTRY_URL + \"/v2/\" + downstreamReq.params.repo + \"/\" + downstreamReq.params.name + \"/blobs/\" + layerDigest);\n\n      // proxy to Docker layer (= Helm chart tgz)\n\n      //downstreamReq.path = layerOptions.pathname;\n      //downstreamReq.origin = UPSTREAM_SERVER_ORIGIN;\n      const myUrl = new URL(layerOptions.pathname, UPSTREAM_SERVER_ORIGIN);\n      //var myHeaders = [...downstreamReq.headers];\n      var myHeaders = {};\n      Object.keys(downstreamReq.headers).forEach(header =\u003e {\n        myHeaders[header] = downstreamReq.headers[header];\n      });\n      myHeaders['host'] = UPSTREAM_SERVER_ORIGIN.replace('http://', '').replace('https://', '');\n      console.log(\"GET \" + myUrl.toString());\n      //console.log('  new host: ' + myHeaders['host']);\n      const wreq = {\n        method: downstreamReq.method,\n        headers: myHeaders,\n        socket: downstreamReq.socket,\n        isSpdy: downstreamReq.isSpdy,\n        connection: downstreamReq.connection,\n        on: downstreamReq.on,\n        //pipe: downstreamReq.pipe,\n        pipe: arg =\u003e downstreamReq.pipe(arg),\n        url: myUrl.toString(),\n        httpVersion: downstreamReq.httpVersion\n      };\n      apiProxy.web(wreq, downstreamRes, {target: UPSTREAM_SERVER_ORIGIN});\n    })\n  })\n  mreq.on('error', error =\u003e {\n    console.error(error)\n  })\n  mreq.end()\n});\n\nconsole.log(\"listen on \" + LISTEN_HOST + \":\" + LISTEN_PORT);\napp.listen(LISTEN_PORT, LISTEN_HOST);\n"},"kind":"ConfigMap","metadata":{"annotations":{},"name":"helm-proxy-configmap","namespace":"cicd-nexus"}}
+    creationTimestamp: "2023-10-03T02:14:06Z"
+    name: helm-proxy-configmap
+    namespace: cicd-nexus
+    resourceVersion: "416813897"
+    uid: 4e4a2cfc-8446-4b59-8d4e-002d3905f512
+- apiVersion: v1
+  data:
+    ca.crt: |
+      -----BEGIN CERTIFICATE-----
+      MIIC5zCCAc+gAwIBAgIBADANBgkqhkiG9w0BAQsFADAVMRMwEQYDVQQDEwprdWJl
+      cm5ldGVzMB4XDTIxMDMyMTA3MjAzN1oXDTMxMDMxOTA3MjAzN1owFTETMBEGA1UE
+      AxMKa3ViZXJuZXRlczCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAK5Q
+      Km9SlI0/d+B0K9PMOxkqAEWKODDnjTfrp2ckTe/TC0/UV3+pS+w9Hgak+OJtLJJU
+      vY5hTf5V/COPVAVP8ID7xJDSZ1pb2Zj1PxHxOd+bmQglFMWUJ0Qgb39cRQ8ALAl2
+      m4Bmbz0bGiN5CC1Rjb8erHZH/Cv/A1wHXA781+jWSMq4tHsLchmPT2YnSbbKplx1
+      c8a6c+KR4PwTq+pTMOt+S2A7943B7l+zAX4PF4wGZ4HI2dwOBBmBIJJxrFDwskpu
+      bS4tJIAnVZpZXLJVaziVY6kvG6Ed7sfzWYa5lJa5v/oQi6F5vcmgJGkYe3OsAbWv
+      lJOucg1sTB8E3f+RJlUCAwEAAaNCMEAwDgYDVR0PAQH/BAQDAgKkMA8GA1UdEwEB
+      /wQFMAMBAf8wHQYDVR0OBBYEFO9ymTLPikbJTjoy+ph5WinG061iMA0GCSqGSIb3
+      DQEBCwUAA4IBAQCVJXNuq+T6dIzybWjijSoYzbCvatsA0TA0nFsa3B7s3wAK0D1h
+      52Vq5Q0FcbbE5kQgUJ6vEGWTenVeCNeEkS5rlYifLRR1rHGfpZuIlb2ES9NYHuYo
+      iKi5unndzg4DCaFr7x9zK5+YhBLzSXpfbhaMvh9M4eroZNP80R4cNYmUJ4y9b28M
+      uhXMDRrJwF7Q95hDhUWY6bNkXqpylGrTzyefvKY4WAIdlnu2i6+wV57JJS1U2e3U
+      KWFXkZUE8jB/V0EXF7kH0NuDSjEz7uwZ+VRR+tTZoraoPrGDt9bvk08GecYM8dxG
+      xksFOuY8WfHwLu0VgkB5mbGaZth6UmG9GZUd
+      -----END CERTIFICATE-----
+  kind: ConfigMap
+  metadata:
+    creationTimestamp: "2023-10-03T01:35:16Z"
+    name: kube-root-ca.crt
+    namespace: cicd-nexus
+    resourceVersion: "409450608"
+    uid: cf4ed31d-9061-4619-9291-53440c0c0cb7
+- apiVersion: v1
+  data:
+    nginx.conf: |
+      events {
+          worker_connections  1024;
+      }
+
+      http {
+          proxy_send_timeout   120;
+          proxy_read_timeout   300;
+          proxy_buffering      off;
+
+          # allow large uploads
+          client_max_body_size 1G;
+
+          server {
+              listen              5000 ssl;
+              server_name         nexus-proxy.cicd-nexus.svc.cluster.local;
+              ssl_certificate     /etc/nginx/ssl/private/nexus-proxy.cicd-nexus.svc.cluster.local.crt;
+              ssl_certificate_key /etc/nginx/ssl/private/nexus-proxy.cicd-nexus.svc.cluster.local.key;
+              ssl_protocols       TLSv1 TLSv1.1 TLSv1.2;
+              ssl_ciphers         HIGH:!aNULL:!MD5;
+
+              #
+              # * Serve "docker pull" from 'docker-group'
+              # * Serve "docker push" from 'docker-hosted'
+              #
+              location ~ ^/(v1|v2)/[^/]+/?[^/]+/blobs/ {
+                  if ($request_method ~* (POST|PUT|DELETE|PATCH|HEAD) ) {
+                      rewrite ^/(.*)$ /repository/docker-hosted/$1 last;
+                  }
+                  rewrite ^/(.*)$ /repository/docker-group/$1 last;
+              }
+              location ~ ^/(v1|v2)/ {
+                  if ($request_method ~* (POST|PUT|DELETE|PATCH) ) {
+                      rewrite ^/(.*)$ /repository/docker-hosted/$1 last;
+                  }
+                  rewrite ^/(.*)$ /repository/docker-group/$1 last;
+              }
+
+              location / {
+                  proxy_pass   http://nexus:8081/;
+                  proxy_set_header Host $host;
+                  proxy_set_header X-Real-IP $remote_addr;
+                  proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+                  proxy_set_header X-Forwarded-Proto "https";
+
+                  # force the port number into the WWW-Authenticate response header
+                  header_filter_by_lua_block {
+                      if ngx.status == 401 then
+                          ngx.header['WWW-Authenticate'] = string.format('Bearer realm="https://%s:30143/v2/token",service="https://%s:30143/v2/token"', ngx.var.host, ngx.var.host)
+                      end
+                  }
+              }
+          }
+      }
+  kind: ConfigMap
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","binaryData":{},"data":{"nginx.conf":"events {\n    worker_connections  1024;\n}\n\nhttp {\n    proxy_send_timeout   120;\n    proxy_read_timeout   300;\n    proxy_buffering      off;\n\n    # allow large uploads\n    client_max_body_size 1G;\n\n    server {\n        listen              5000 ssl;\n        server_name         nexus-proxy.cicd-nexus.svc.cluster.local;\n        ssl_certificate     /etc/nginx/ssl/private/nexus-proxy.cicd-nexus.svc.cluster.local.crt;\n        ssl_certificate_key /etc/nginx/ssl/private/nexus-proxy.cicd-nexus.svc.cluster.local.key;\n        ssl_protocols       TLSv1 TLSv1.1 TLSv1.2;\n        ssl_ciphers         HIGH:!aNULL:!MD5;\n\n        #\n        # * Serve \"docker pull\" from 'docker-group'\n        # * Serve \"docker push\" from 'docker-hosted'\n        #\n        location ~ ^/(v1|v2)/[^/]+/?[^/]+/blobs/ {\n            if ($request_method ~* (POST|PUT|DELETE|PATCH|HEAD) ) {\n                rewrite ^/(.*)$ /repository/docker-hosted/$1 last;\n            }\n            rewrite ^/(.*)$ /repository/docker-group/$1 last;\n        }\n        location ~ ^/(v1|v2)/ {\n            if ($request_method ~* (POST|PUT|DELETE|PATCH) ) {\n                rewrite ^/(.*)$ /repository/docker-hosted/$1 last;\n            }\n            rewrite ^/(.*)$ /repository/docker-group/$1 last;\n        }\n\n        location / {\n            proxy_pass   http://nexus:8081/;\n            proxy_set_header Host $host;\n            proxy_set_header X-Real-IP $remote_addr;\n            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;\n            proxy_set_header X-Forwarded-Proto \"https\";\n\n            # force the port number into the WWW-Authenticate response header\n            header_filter_by_lua_block {\n                if ngx.status == 401 then\n                    ngx.header['WWW-Authenticate'] = string.format('Bearer realm=\"https://%s:30143/v2/token\",service=\"https://%s:30143/v2/token\"', ngx.var.host, ngx.var.host)\n                end\n            }\n        }\n    }\n}\n"},"kind":"ConfigMap","metadata":{"annotations":{},"name":"nexus-proxy-configmap","namespace":"cicd-nexus"}}
+    creationTimestamp: "2023-10-03T02:18:30Z"
+    labels:
+      k8slens-edit-resource-version: v1
+    name: nexus-proxy-configmap
+    namespace: cicd-nexus
+    resourceVersion: "412156649"
+    uid: 19aa2bc7-d1fd-41e5-95cf-7e235c34c1ae
+kind: List
+metadata:
+  resourceVersion: ""

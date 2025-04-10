@@ -1,0 +1,98 @@
+apiVersion: v1
+items:
+- apiVersion: v1
+  kind: Service
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","kind":"Service","metadata":{"annotations":{},"name":"gitlab","namespace":"cicd-gitlab"},"spec":{"externalTrafficPolicy":"Cluster","ports":[{"name":"gitlab-ui","nodePort":30180,"port":80,"protocol":"TCP","targetPort":80},{"name":"gitlab-ssh","nodePort":30122,"port":22,"protocol":"TCP","targetPort":22}],"selector":{"app.kubernetes.io/component":"gitlab","app.kubernetes.io/name":"gitlab","app.kubernetes.io/type":"cicd"},"sessionAffinity":"None","type":"NodePort"}}
+    creationTimestamp: "2023-02-04T15:47:51Z"
+    name: gitlab
+    namespace: cicd-gitlab
+    resourceVersion: "231076911"
+    uid: e62976d5-649d-4221-8645-234125581b5f
+  spec:
+    clusterIP: 10.233.17.7
+    clusterIPs:
+    - 10.233.17.7
+    externalTrafficPolicy: Cluster
+    ports:
+    - name: gitlab-ui
+      nodePort: 30080
+      port: 80
+      protocol: TCP
+      targetPort: 30080
+    - name: gitlab-ssh
+      nodePort: 30022
+      port: 22
+      protocol: TCP
+      targetPort: 22
+    selector:
+      app.kubernetes.io/component: gitlab
+      app.kubernetes.io/name: gitlab
+      app.kubernetes.io/type: cicd
+    sessionAffinity: None
+    type: NodePort
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","kind":"Service","metadata":{"annotations":{},"name":"postgresql","namespace":"cicd-gitlab"},"spec":{"externalTrafficPolicy":"Cluster","ports":[{"nodePort":30106,"port":5432,"protocol":"TCP","targetPort":5432}],"selector":{"app.kubernetes.io/component":"postgresql","app.kubernetes.io/name":"gitlab","app.kubernetes.io/type":"cicd"},"sessionAffinity":"None","type":"NodePort"}}
+    creationTimestamp: "2023-02-04T15:47:16Z"
+    name: postgresql
+    namespace: cicd-gitlab
+    resourceVersion: "231039399"
+    uid: 7cb8859c-4963-4e2e-8214-33f2d6ac9876
+  spec:
+    clusterIP: 10.233.46.42
+    clusterIPs:
+    - 10.233.46.42
+    externalTrafficPolicy: Cluster
+    ports:
+    - nodePort: 30106
+      port: 5432
+      protocol: TCP
+      targetPort: 5432
+    selector:
+      app.kubernetes.io/component: postgresql
+      app.kubernetes.io/name: gitlab
+      app.kubernetes.io/type: cicd
+    sessionAffinity: None
+    type: NodePort
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","kind":"Service","metadata":{"annotations":{},"name":"redis","namespace":"cicd-gitlab"},"spec":{"externalTrafficPolicy":"Cluster","ports":[{"nodePort":30107,"port":6379,"protocol":"TCP","targetPort":6379}],"selector":{"app.kubernetes.io/component":"redis","app.kubernetes.io/name":"gitlab","app.kubernetes.io/type":"cicd"},"sessionAffinity":"None","type":"NodePort"}}
+    creationTimestamp: "2023-02-04T15:47:16Z"
+    name: redis
+    namespace: cicd-gitlab
+    resourceVersion: "231039404"
+    uid: 674d9385-fdb6-4f4d-9462-6ca140a3cb6c
+  spec:
+    clusterIP: 10.233.50.27
+    clusterIPs:
+    - 10.233.50.27
+    externalTrafficPolicy: Cluster
+    ports:
+    - nodePort: 30107
+      port: 6379
+      protocol: TCP
+      targetPort: 6379
+    selector:
+      app.kubernetes.io/component: redis
+      app.kubernetes.io/name: gitlab
+      app.kubernetes.io/type: cicd
+    sessionAffinity: None
+    type: NodePort
+  status:
+    loadBalancer: {}
+kind: List
+metadata:
+  resourceVersion: ""

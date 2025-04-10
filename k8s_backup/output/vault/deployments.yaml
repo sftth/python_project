@@ -1,0 +1,150 @@
+apiVersion: v1
+items:
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      deployment.kubernetes.io/revision: "1"
+      meta.helm.sh/release-name: vault-test
+      meta.helm.sh/release-namespace: vault
+    creationTimestamp: "2023-12-14T11:54:23Z"
+    generation: 2
+    labels:
+      app.kubernetes.io/component: injector
+      app.kubernetes.io/instance: vault-test
+      app.kubernetes.io/managed-by: Helm
+      app.kubernetes.io/name: vault
+      app.kubernetes.io/part-of: vault
+      app.kubernetes.io/version: 1.3.1
+      helm.sh/chart: vault-0.4.5
+    name: vault-test-injector
+    namespace: vault
+    resourceVersion: "690202333"
+    uid: 3d85fa22-b4f9-42d7-bcba-6a93e9665443
+  spec:
+    progressDeadlineSeconds: 600
+    replicas: 0
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        app.kubernetes.io/component: injector
+        app.kubernetes.io/instance: vault-test
+        app.kubernetes.io/name: vault
+        app.kubernetes.io/part-of: vault
+    strategy:
+      rollingUpdate:
+        maxSurge: 25%
+        maxUnavailable: 25%
+      type: RollingUpdate
+    template:
+      metadata:
+        creationTimestamp: null
+        labels:
+          app.kubernetes.io/component: injector
+          app.kubernetes.io/instance: vault-test
+          app.kubernetes.io/managed-by: Helm
+          app.kubernetes.io/name: vault
+          app.kubernetes.io/part-of: vault
+          app.kubernetes.io/version: 1.3.1
+          helm.sh/chart: vault-0.4.5
+      spec:
+        affinity:
+          podAntiAffinity:
+            preferredDuringSchedulingIgnoredDuringExecution:
+            - podAffinityTerm:
+                labelSelector:
+                  matchLabels:
+                    app.kubernetes.io/component: injector
+                    app.kubernetes.io/instance: vault-test
+                    app.kubernetes.io/name: vault
+                topologyKey: kubernetes.io/hostname
+              weight: 1
+        containers:
+        - args:
+          - agent-inject
+          - 2>&1
+          env:
+          - name: AGENT_INJECT_LISTEN
+            value: :8080
+          - name: AGENT_INJECT_VAULT_ADDR
+            value: http://vault-test-server:8200
+          - name: AGENT_INJECT_VAULT_AUTH_PATH
+            value: auth/kubernetes
+          - name: AGENT_INJECT_VAULT_IMAGE
+            value: docker.io/bitnami/vault:1.15.2-debian-11-r1
+          - name: AGENT_INJECT_TLS_AUTO
+            value: vault-test-vault-injector
+          - name: AGENT_INJECT_TLS_AUTO_HOSTS
+            value: vault-test-injector,vault-test-injector.vault,vault-test-injector.vault.svc
+          - name: POD_NAME
+            valueFrom:
+              fieldRef:
+                apiVersion: v1
+                fieldPath: metadata.name
+          image: docker.io/bitnami/vault-k8s:1.3.1-debian-11-r1
+          imagePullPolicy: IfNotPresent
+          livenessProbe:
+            failureThreshold: 5
+            httpGet:
+              path: /health/ready
+              port: https
+              scheme: HTTPS
+            initialDelaySeconds: 5
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 5
+          name: sidecar-injector
+          ports:
+          - containerPort: 8080
+            name: https
+            protocol: TCP
+          readinessProbe:
+            failureThreshold: 5
+            httpGet:
+              path: /health/ready
+              port: https
+              scheme: HTTPS
+            initialDelaySeconds: 5
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 5
+          resources: {}
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+              - ALL
+            privileged: false
+            readOnlyRootFilesystem: true
+            runAsNonRoot: true
+            runAsUser: 1001
+            seccompProfile:
+              type: RuntimeDefault
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext:
+          fsGroup: 1001
+        serviceAccount: vault-test-injector
+        serviceAccountName: vault-test-injector
+        terminationGracePeriodSeconds: 30
+  status:
+    conditions:
+    - lastTransitionTime: "2023-12-14T11:54:23Z"
+      lastUpdateTime: "2023-12-14T11:54:43Z"
+      message: ReplicaSet "vault-test-injector-7f589c4dc4" has successfully progressed.
+      reason: NewReplicaSetAvailable
+      status: "True"
+      type: Progressing
+    - lastTransitionTime: "2024-09-04T18:19:11Z"
+      lastUpdateTime: "2024-09-04T18:19:11Z"
+      message: Deployment has minimum availability.
+      reason: MinimumReplicasAvailable
+      status: "True"
+      type: Available
+    observedGeneration: 2
+kind: List
+metadata:
+  resourceVersion: ""

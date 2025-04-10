@@ -1,0 +1,141 @@
+apiVersion: v1
+items:
+- apiVersion: v1
+  data:
+    ca.crt: |
+      -----BEGIN CERTIFICATE-----
+      MIIC5zCCAc+gAwIBAgIBADANBgkqhkiG9w0BAQsFADAVMRMwEQYDVQQDEwprdWJl
+      cm5ldGVzMB4XDTIxMDMyMTA3MjAzN1oXDTMxMDMxOTA3MjAzN1owFTETMBEGA1UE
+      AxMKa3ViZXJuZXRlczCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAK5Q
+      Km9SlI0/d+B0K9PMOxkqAEWKODDnjTfrp2ckTe/TC0/UV3+pS+w9Hgak+OJtLJJU
+      vY5hTf5V/COPVAVP8ID7xJDSZ1pb2Zj1PxHxOd+bmQglFMWUJ0Qgb39cRQ8ALAl2
+      m4Bmbz0bGiN5CC1Rjb8erHZH/Cv/A1wHXA781+jWSMq4tHsLchmPT2YnSbbKplx1
+      c8a6c+KR4PwTq+pTMOt+S2A7943B7l+zAX4PF4wGZ4HI2dwOBBmBIJJxrFDwskpu
+      bS4tJIAnVZpZXLJVaziVY6kvG6Ed7sfzWYa5lJa5v/oQi6F5vcmgJGkYe3OsAbWv
+      lJOucg1sTB8E3f+RJlUCAwEAAaNCMEAwDgYDVR0PAQH/BAQDAgKkMA8GA1UdEwEB
+      /wQFMAMBAf8wHQYDVR0OBBYEFO9ymTLPikbJTjoy+ph5WinG061iMA0GCSqGSIb3
+      DQEBCwUAA4IBAQCVJXNuq+T6dIzybWjijSoYzbCvatsA0TA0nFsa3B7s3wAK0D1h
+      52Vq5Q0FcbbE5kQgUJ6vEGWTenVeCNeEkS5rlYifLRR1rHGfpZuIlb2ES9NYHuYo
+      iKi5unndzg4DCaFr7x9zK5+YhBLzSXpfbhaMvh9M4eroZNP80R4cNYmUJ4y9b28M
+      uhXMDRrJwF7Q95hDhUWY6bNkXqpylGrTzyefvKY4WAIdlnu2i6+wV57JJS1U2e3U
+      KWFXkZUE8jB/V0EXF7kH0NuDSjEz7uwZ+VRR+tTZoraoPrGDt9bvk08GecYM8dxG
+      xksFOuY8WfHwLu0VgkB5mbGaZth6UmG9GZUd
+      -----END CERTIFICATE-----
+  kind: ConfigMap
+  metadata:
+    creationTimestamp: "2024-10-14T09:33:47Z"
+    name: kube-root-ca.crt
+    namespace: temp-solr
+    resourceVersion: "705272111"
+    uid: 5eb7c9d8-b79f-4fb0-8f86-b1854af6bb76
+- apiVersion: v1
+  data:
+    init-certs.sh: |-
+      #!/bin/bash
+
+      . /opt/bitnami/scripts/liblog.sh
+
+      if [[ -f "/certs/keystore.p12" ]] && [[ -f "/certs/truststore.p12" ]]; then
+          # the user provided keystore.p12 and truststore.p12 files (prefered)
+          cp "/certs/keystore.p12" "/opt/bitnami/solr/certs/keystore.p12"
+          cp "/certs/truststore.p12" "/opt/bitnami/solr/certs/truststore.p12"
+      elif [[ -f "/certs/ca.crt" ]] && [[ -f "/certs/tls.key" ]] && [[ -f "/certs/tls.crt" ]]; then
+          # the user provided ca.crt & tls.key & tls.crt so we "calculate" keystore.p12 and truststore.p12
+          openssl pkcs12 -export -in "/certs/tls.crt" \
+              -inkey "/certs/tls.key" -out "/tmp/keystore.p12" \
+              -passin pass:"/certs/tls.key" -passout pass:"${SOLR_SSL_KEY_STORE_PASSWORD}"
+          keytool -importkeystore -srckeystore "/tmp/keystore.p12" \
+              -srcstoretype PKCS12 \
+              -srcstorepass "${SOLR_SSL_KEY_STORE_PASSWORD}" \
+              -deststorepass "${SOLR_SSL_KEY_STORE_PASSWORD}" \
+              -destkeystore "/opt/bitnami/solr/certs/keystore.p12" \
+              -noprompt
+          rm "/tmp/keystore.p12"
+          keytool -import -file "/certs/ca.crt" -keystore "/opt/bitnami/solr/certs/truststore.p12" -storepass "${SOLR_SSL_TRUST_STORE_PASSWORD}" -noprompt
+      else
+          info "No certificate files provided ... nothing to do ..."
+      fi
+    setup.sh: |-
+      #!/bin/bash
+      NODE_ID="${MY_POD_NAME#"solr-"}"
+      if [[ "$NODE_ID" -eq "0" ]]; then
+          export SOLR_CLOUD_BOOTSTRAP=yes
+      fi
+      # Use hostname instead of IP to register in ZooKeeper
+      export SOLR_HOST="${MY_POD_NAME}.solr-headless.temp-solr.svc.cluster.local"
+      /opt/bitnami/scripts/solr/entrypoint.sh /opt/bitnami/scripts/solr/run.sh
+  kind: ConfigMap
+  metadata:
+    annotations:
+      artifact.spinnaker.io/location: temp-solr
+      artifact.spinnaker.io/name: solr-scripts
+      artifact.spinnaker.io/type: kubernetes/configMap
+      artifact.spinnaker.io/version: v000
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","data":{"init-certs.sh":"#!/bin/bash\n\n. /opt/bitnami/scripts/liblog.sh\n\nif [[ -f \"/certs/keystore.p12\" ]] \u0026\u0026 [[ -f \"/certs/truststore.p12\" ]]; then\n    # the user provided keystore.p12 and truststore.p12 files (prefered)\n    cp \"/certs/keystore.p12\" \"/opt/bitnami/solr/certs/keystore.p12\"\n    cp \"/certs/truststore.p12\" \"/opt/bitnami/solr/certs/truststore.p12\"\nelif [[ -f \"/certs/ca.crt\" ]] \u0026\u0026 [[ -f \"/certs/tls.key\" ]] \u0026\u0026 [[ -f \"/certs/tls.crt\" ]]; then\n    # the user provided ca.crt \u0026 tls.key \u0026 tls.crt so we \"calculate\" keystore.p12 and truststore.p12\n    openssl pkcs12 -export -in \"/certs/tls.crt\" \\\n        -inkey \"/certs/tls.key\" -out \"/tmp/keystore.p12\" \\\n        -passin pass:\"/certs/tls.key\" -passout pass:\"${SOLR_SSL_KEY_STORE_PASSWORD}\"\n    keytool -importkeystore -srckeystore \"/tmp/keystore.p12\" \\\n        -srcstoretype PKCS12 \\\n        -srcstorepass \"${SOLR_SSL_KEY_STORE_PASSWORD}\" \\\n        -deststorepass \"${SOLR_SSL_KEY_STORE_PASSWORD}\" \\\n        -destkeystore \"/opt/bitnami/solr/certs/keystore.p12\" \\\n        -noprompt\n    rm \"/tmp/keystore.p12\"\n    keytool -import -file \"/certs/ca.crt\" -keystore \"/opt/bitnami/solr/certs/truststore.p12\" -storepass \"${SOLR_SSL_TRUST_STORE_PASSWORD}\" -noprompt\nelse\n    info \"No certificate files provided ... nothing to do ...\"\nfi","setup.sh":"#!/bin/bash\nNODE_ID=\"${MY_POD_NAME#\"solr-\"}\"\nif [[ \"$NODE_ID\" -eq \"0\" ]]; then\n    export SOLR_CLOUD_BOOTSTRAP=yes\nfi\n# Use hostname instead of IP to register in ZooKeeper\nexport SOLR_HOST=\"${MY_POD_NAME}.solr-headless.temp-solr.svc.cluster.local\"\n/opt/bitnami/scripts/solr/entrypoint.sh /opt/bitnami/scripts/solr/run.sh"},"kind":"ConfigMap","metadata":{"annotations":{"artifact.spinnaker.io/location":"temp-solr","artifact.spinnaker.io/name":"solr-scripts","artifact.spinnaker.io/type":"kubernetes/configMap","artifact.spinnaker.io/version":"v000","moniker.spinnaker.io/application":"solr","moniker.spinnaker.io/cluster":"configMap solr-scripts","moniker.spinnaker.io/sequence":"0"},"labels":{"app.kubernetes.io/component":"solr","app.kubernetes.io/instance":"solr","app.kubernetes.io/managed-by":"spinnaker","app.kubernetes.io/name":"solr","app.kubernetes.io/version":"9.5.0","helm.sh/chart":"solr-9.0.0","moniker.spinnaker.io/sequence":"0"},"name":"solr-scripts-v000","namespace":"temp-solr"}}
+      moniker.spinnaker.io/application: solr
+      moniker.spinnaker.io/cluster: configMap solr-scripts
+      moniker.spinnaker.io/sequence: "0"
+    creationTimestamp: "2024-10-14T16:22:14Z"
+    labels:
+      app.kubernetes.io/component: solr
+      app.kubernetes.io/instance: solr
+      app.kubernetes.io/managed-by: spinnaker
+      app.kubernetes.io/name: solr
+      app.kubernetes.io/version: 9.5.0
+      helm.sh/chart: solr-9.0.0
+      moniker.spinnaker.io/sequence: "0"
+    name: solr-scripts-v000
+    namespace: temp-solr
+    resourceVersion: "742422970"
+    uid: 5ccf5214-f347-45ad-893e-f3bfd572c73e
+- apiVersion: v1
+  data:
+    init-certs.sh: '#!/bin/bash'
+    setup.sh: |-
+      #!/bin/bash
+
+      # Execute entrypoint as usual after obtaining ZOO_SERVER_ID
+      # check ZOO_SERVER_ID in persistent volume via myid
+      # if not present, set based on POD hostname
+      if [[ -f "/bitnami/zookeeper/data/myid" ]]; then
+          export ZOO_SERVER_ID="$(cat /bitnami/zookeeper/data/myid)"
+      else
+          HOSTNAME="$(hostname -s)"
+          if [[ $HOSTNAME =~ (.*)-([0-9]+)$ ]]; then
+              ORD=${BASH_REMATCH[2]}
+              export ZOO_SERVER_ID="$((ORD + 1 ))"
+          else
+              echo "Failed to get index from hostname $HOSTNAME"
+              exit 1
+          fi
+      fi
+      exec /entrypoint.sh /run.sh
+  kind: ConfigMap
+  metadata:
+    annotations:
+      artifact.spinnaker.io/location: temp-solr
+      artifact.spinnaker.io/name: solr-zookeeper-scripts
+      artifact.spinnaker.io/type: kubernetes/configMap
+      artifact.spinnaker.io/version: v000
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","data":{"init-certs.sh":"#!/bin/bash","setup.sh":"#!/bin/bash\n\n# Execute entrypoint as usual after obtaining ZOO_SERVER_ID\n# check ZOO_SERVER_ID in persistent volume via myid\n# if not present, set based on POD hostname\nif [[ -f \"/bitnami/zookeeper/data/myid\" ]]; then\n    export ZOO_SERVER_ID=\"$(cat /bitnami/zookeeper/data/myid)\"\nelse\n    HOSTNAME=\"$(hostname -s)\"\n    if [[ $HOSTNAME =~ (.*)-([0-9]+)$ ]]; then\n        ORD=${BASH_REMATCH[2]}\n        export ZOO_SERVER_ID=\"$((ORD + 1 ))\"\n    else\n        echo \"Failed to get index from hostname $HOSTNAME\"\n        exit 1\n    fi\nfi\nexec /entrypoint.sh /run.sh"},"kind":"ConfigMap","metadata":{"annotations":{"artifact.spinnaker.io/location":"temp-solr","artifact.spinnaker.io/name":"solr-zookeeper-scripts","artifact.spinnaker.io/type":"kubernetes/configMap","artifact.spinnaker.io/version":"v000","moniker.spinnaker.io/application":"solr","moniker.spinnaker.io/cluster":"configMap solr-zookeeper-scripts","moniker.spinnaker.io/sequence":"0"},"labels":{"app.kubernetes.io/component":"zookeeper","app.kubernetes.io/instance":"solr","app.kubernetes.io/managed-by":"spinnaker","app.kubernetes.io/name":"zookeeper","app.kubernetes.io/version":"3.9.2","helm.sh/chart":"zookeeper-13.0.1","moniker.spinnaker.io/sequence":"0"},"name":"solr-zookeeper-scripts-v000","namespace":"temp-solr"}}
+      moniker.spinnaker.io/application: solr
+      moniker.spinnaker.io/cluster: configMap solr-zookeeper-scripts
+      moniker.spinnaker.io/sequence: "0"
+    creationTimestamp: "2024-10-14T16:22:13Z"
+    labels:
+      app.kubernetes.io/component: zookeeper
+      app.kubernetes.io/instance: solr
+      app.kubernetes.io/managed-by: spinnaker
+      app.kubernetes.io/name: zookeeper
+      app.kubernetes.io/version: 3.9.2
+      helm.sh/chart: zookeeper-13.0.1
+      moniker.spinnaker.io/sequence: "0"
+    name: solr-zookeeper-scripts-v000
+    namespace: temp-solr
+    resourceVersion: "742422963"
+    uid: 0d1cbd70-7625-4026-9873-d88be9200c0e
+kind: List
+metadata:
+  resourceVersion: ""

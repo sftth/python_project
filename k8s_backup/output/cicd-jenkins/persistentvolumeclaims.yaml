@@ -1,0 +1,1660 @@
+apiVersion: v1
+items:
+- apiVersion: v1
+  kind: PersistentVolumeClaim
+  metadata:
+    annotations:
+      pv.kubernetes.io/bind-completed: "yes"
+      pv.kubernetes.io/bound-by-controller: "yes"
+    creationTimestamp: "2024-01-08T07:56:54Z"
+    finalizers:
+    - kubernetes.io/pvc-protection
+    labels:
+      app: jenkins-agent
+    name: agent-data-jenkins-agent-0
+    namespace: cicd-jenkins
+    resourceVersion: "478695636"
+    uid: 791f43e3-44c2-4c0e-ad63-64e58c4ba3a1
+  spec:
+    accessModes:
+    - ReadWriteMany
+    resources:
+      requests:
+        storage: 10Gi
+    storageClassName: nfs
+    volumeMode: Filesystem
+    volumeName: cicd-jenkins-agent-0-pv
+  status:
+    accessModes:
+    - ReadWriteMany
+    capacity:
+      storage: 10Gi
+    phase: Bound
+- apiVersion: v1
+  kind: PersistentVolumeClaim
+  metadata:
+    annotations:
+      pv.kubernetes.io/bind-completed: "yes"
+      pv.kubernetes.io/bound-by-controller: "yes"
+    creationTimestamp: "2024-01-08T07:58:22Z"
+    finalizers:
+    - kubernetes.io/pvc-protection
+    labels:
+      app: jenkins-agent
+    name: agent-data-jenkins-agent-1
+    namespace: cicd-jenkins
+    resourceVersion: "478696395"
+    uid: ad2e7338-3db1-433c-90aa-93e14130190e
+  spec:
+    accessModes:
+    - ReadWriteMany
+    resources:
+      requests:
+        storage: 10Gi
+    storageClassName: nfs
+    volumeMode: Filesystem
+    volumeName: cicd-jenkins-agent-1-pv
+  status:
+    accessModes:
+    - ReadWriteMany
+    capacity:
+      storage: 10Gi
+    phase: Bound
+- apiVersion: v1
+  kind: PersistentVolumeClaim
+  metadata:
+    annotations:
+      pv.kubernetes.io/bind-completed: "yes"
+      pv.kubernetes.io/bound-by-controller: "yes"
+    creationTimestamp: "2024-05-07T03:34:39Z"
+    finalizers:
+    - kubernetes.io/pvc-protection
+    labels:
+      app: jenkins-agent
+    name: agent-data-jenkins-agent-10
+    namespace: cicd-jenkins
+    resourceVersion: "582761167"
+    uid: 2873fee8-cf55-4630-b43b-fe45ce2e4b1d
+  spec:
+    accessModes:
+    - ReadWriteMany
+    resources:
+      requests:
+        storage: 10Gi
+    storageClassName: nfs
+    volumeMode: Filesystem
+    volumeName: cicd-jenkins-agent-10-pv
+  status:
+    accessModes:
+    - ReadWriteMany
+    capacity:
+      storage: 10Gi
+    phase: Bound
+- apiVersion: v1
+  kind: PersistentVolumeClaim
+  metadata:
+    annotations:
+      pv.kubernetes.io/bind-completed: "yes"
+      pv.kubernetes.io/bound-by-controller: "yes"
+    creationTimestamp: "2024-05-07T03:47:12Z"
+    finalizers:
+    - kubernetes.io/pvc-protection
+    labels:
+      app: jenkins-agent
+    name: agent-data-jenkins-agent-11
+    namespace: cicd-jenkins
+    resourceVersion: "582762779"
+    uid: dfd214f7-8329-451d-b7b0-1f14cd1b4311
+  spec:
+    accessModes:
+    - ReadWriteMany
+    resources:
+      requests:
+        storage: 10Gi
+    storageClassName: nfs
+    volumeMode: Filesystem
+    volumeName: cicd-jenkins-agent-11-pv
+  status:
+    accessModes:
+    - ReadWriteMany
+    capacity:
+      storage: 10Gi
+    phase: Bound
+- apiVersion: v1
+  kind: PersistentVolumeClaim
+  metadata:
+    annotations:
+      pv.kubernetes.io/bind-completed: "yes"
+      pv.kubernetes.io/bound-by-controller: "yes"
+    creationTimestamp: "2024-05-07T03:50:51Z"
+    finalizers:
+    - kubernetes.io/pvc-protection
+    labels:
+      app: jenkins-agent
+    name: agent-data-jenkins-agent-12
+    namespace: cicd-jenkins
+    resourceVersion: "582765069"
+    uid: c999b6a3-755e-4a56-bd11-3b18eae3488a
+  spec:
+    accessModes:
+    - ReadWriteMany
+    resources:
+      requests:
+        storage: 10Gi
+    storageClassName: nfs
+    volumeMode: Filesystem
+    volumeName: cicd-jenkins-agent-12-pv
+  status:
+    accessModes:
+    - ReadWriteMany
+    capacity:
+      storage: 10Gi
+    phase: Bound
+- apiVersion: v1
+  kind: PersistentVolumeClaim
+  metadata:
+    annotations:
+      pv.kubernetes.io/bind-completed: "yes"
+      pv.kubernetes.io/bound-by-controller: "yes"
+    creationTimestamp: "2024-05-07T03:53:08Z"
+    finalizers:
+    - kubernetes.io/pvc-protection
+    labels:
+      app: jenkins-agent
+    name: agent-data-jenkins-agent-13
+    namespace: cicd-jenkins
+    resourceVersion: "582766557"
+    uid: 7e7e38bf-5983-46bc-94db-5b1ab661e274
+  spec:
+    accessModes:
+    - ReadWriteMany
+    resources:
+      requests:
+        storage: 10Gi
+    storageClassName: nfs
+    volumeMode: Filesystem
+    volumeName: cicd-jenkins-agent-13-pv
+  status:
+    accessModes:
+    - ReadWriteMany
+    capacity:
+      storage: 10Gi
+    phase: Bound
+- apiVersion: v1
+  kind: PersistentVolumeClaim
+  metadata:
+    annotations:
+      pv.kubernetes.io/bind-completed: "yes"
+      pv.kubernetes.io/bound-by-controller: "yes"
+    creationTimestamp: "2024-05-07T03:54:08Z"
+    finalizers:
+    - kubernetes.io/pvc-protection
+    labels:
+      app: jenkins-agent
+    name: agent-data-jenkins-agent-14
+    namespace: cicd-jenkins
+    resourceVersion: "582767238"
+    uid: ef3fdc38-1a54-4747-815e-9a68c78f1052
+  spec:
+    accessModes:
+    - ReadWriteMany
+    resources:
+      requests:
+        storage: 10Gi
+    storageClassName: nfs
+    volumeMode: Filesystem
+    volumeName: cicd-jenkins-agent-14-pv
+  status:
+    accessModes:
+    - ReadWriteMany
+    capacity:
+      storage: 10Gi
+    phase: Bound
+- apiVersion: v1
+  kind: PersistentVolumeClaim
+  metadata:
+    annotations:
+      pv.kubernetes.io/bind-completed: "yes"
+      pv.kubernetes.io/bound-by-controller: "yes"
+    creationTimestamp: "2024-05-07T04:03:16Z"
+    finalizers:
+    - kubernetes.io/pvc-protection
+    labels:
+      app: jenkins-agent
+    name: agent-data-jenkins-agent-15
+    namespace: cicd-jenkins
+    resourceVersion: "582772944"
+    uid: 5997f96b-a238-4db2-9d89-b3af30bd7348
+  spec:
+    accessModes:
+    - ReadWriteMany
+    resources:
+      requests:
+        storage: 10Gi
+    storageClassName: nfs
+    volumeMode: Filesystem
+    volumeName: cicd-jenkins-agent-15-pv
+  status:
+    accessModes:
+    - ReadWriteMany
+    capacity:
+      storage: 10Gi
+    phase: Bound
+- apiVersion: v1
+  kind: PersistentVolumeClaim
+  metadata:
+    annotations:
+      pv.kubernetes.io/bind-completed: "yes"
+      pv.kubernetes.io/bound-by-controller: "yes"
+    creationTimestamp: "2024-05-14T14:12:22Z"
+    finalizers:
+    - kubernetes.io/pvc-protection
+    labels:
+      app: jenkins-agent
+    name: agent-data-jenkins-agent-16
+    namespace: cicd-jenkins
+    resourceVersion: "589439308"
+    uid: 2d264ead-0b40-465a-a370-67aefa5c5ff2
+  spec:
+    accessModes:
+    - ReadWriteMany
+    resources:
+      requests:
+        storage: 10Gi
+    storageClassName: nfs
+    volumeMode: Filesystem
+    volumeName: cicd-jenkins-agent-16-pv
+  status:
+    accessModes:
+    - ReadWriteMany
+    capacity:
+      storage: 10Gi
+    phase: Bound
+- apiVersion: v1
+  kind: PersistentVolumeClaim
+  metadata:
+    annotations:
+      pv.kubernetes.io/bind-completed: "yes"
+      pv.kubernetes.io/bound-by-controller: "yes"
+    creationTimestamp: "2024-05-14T14:23:53Z"
+    finalizers:
+    - kubernetes.io/pvc-protection
+    labels:
+      app: jenkins-agent
+    name: agent-data-jenkins-agent-17
+    namespace: cicd-jenkins
+    resourceVersion: "589446591"
+    uid: 2ddb8e6e-5f68-4e57-aad1-d141340dd77f
+  spec:
+    accessModes:
+    - ReadWriteMany
+    resources:
+      requests:
+        storage: 10Gi
+    storageClassName: nfs
+    volumeMode: Filesystem
+    volumeName: cicd-jenkins-agent-17-pv
+  status:
+    accessModes:
+    - ReadWriteMany
+    capacity:
+      storage: 10Gi
+    phase: Bound
+- apiVersion: v1
+  kind: PersistentVolumeClaim
+  metadata:
+    annotations:
+      pv.kubernetes.io/bind-completed: "yes"
+      pv.kubernetes.io/bound-by-controller: "yes"
+    creationTimestamp: "2024-05-14T14:55:30Z"
+    finalizers:
+    - kubernetes.io/pvc-protection
+    labels:
+      app: jenkins-agent
+    name: agent-data-jenkins-agent-18
+    namespace: cicd-jenkins
+    resourceVersion: "589466292"
+    uid: 1301692e-0c14-43a6-a0e4-d90e34b8058c
+  spec:
+    accessModes:
+    - ReadWriteMany
+    resources:
+      requests:
+        storage: 10Gi
+    storageClassName: nfs
+    volumeMode: Filesystem
+    volumeName: cicd-jenkins-agent-18-pv
+  status:
+    accessModes:
+    - ReadWriteMany
+    capacity:
+      storage: 10Gi
+    phase: Bound
+- apiVersion: v1
+  kind: PersistentVolumeClaim
+  metadata:
+    annotations:
+      pv.kubernetes.io/bind-completed: "yes"
+      pv.kubernetes.io/bound-by-controller: "yes"
+    creationTimestamp: "2024-05-14T15:15:18Z"
+    finalizers:
+    - kubernetes.io/pvc-protection
+    labels:
+      app: jenkins-agent
+    name: agent-data-jenkins-agent-19
+    namespace: cicd-jenkins
+    resourceVersion: "589478762"
+    uid: 35ff92ce-dd25-4cda-b366-d6330d2c55a3
+  spec:
+    accessModes:
+    - ReadWriteMany
+    resources:
+      requests:
+        storage: 10Gi
+    storageClassName: nfs
+    volumeMode: Filesystem
+    volumeName: cicd-jenkins-agent-19-pv
+  status:
+    accessModes:
+    - ReadWriteMany
+    capacity:
+      storage: 10Gi
+    phase: Bound
+- apiVersion: v1
+  kind: PersistentVolumeClaim
+  metadata:
+    annotations:
+      pv.kubernetes.io/bind-completed: "yes"
+      pv.kubernetes.io/bound-by-controller: "yes"
+    creationTimestamp: "2024-01-08T07:59:30Z"
+    finalizers:
+    - kubernetes.io/pvc-protection
+    labels:
+      app: jenkins-agent
+    name: agent-data-jenkins-agent-2
+    namespace: cicd-jenkins
+    resourceVersion: "478697093"
+    uid: 2d05c875-65ec-4aa9-a2f3-12b7a24a648e
+  spec:
+    accessModes:
+    - ReadWriteMany
+    resources:
+      requests:
+        storage: 10Gi
+    storageClassName: nfs
+    volumeMode: Filesystem
+    volumeName: cicd-jenkins-agent-2-pv
+  status:
+    accessModes:
+    - ReadWriteMany
+    capacity:
+      storage: 10Gi
+    phase: Bound
+- apiVersion: v1
+  kind: PersistentVolumeClaim
+  metadata:
+    annotations:
+      pv.kubernetes.io/bind-completed: "yes"
+      pv.kubernetes.io/bound-by-controller: "yes"
+    creationTimestamp: "2024-05-14T15:19:32Z"
+    finalizers:
+    - kubernetes.io/pvc-protection
+    labels:
+      app: jenkins-agent
+    name: agent-data-jenkins-agent-20
+    namespace: cicd-jenkins
+    resourceVersion: "589481447"
+    uid: 72b4ab51-f9b7-4114-96d3-6985574ba25a
+  spec:
+    accessModes:
+    - ReadWriteMany
+    resources:
+      requests:
+        storage: 10Gi
+    storageClassName: nfs
+    volumeMode: Filesystem
+    volumeName: cicd-jenkins-agent-20-pv
+  status:
+    accessModes:
+    - ReadWriteMany
+    capacity:
+      storage: 10Gi
+    phase: Bound
+- apiVersion: v1
+  kind: PersistentVolumeClaim
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","kind":"PersistentVolumeClaim","metadata":{"annotations":{},"labels":{"app":"jenkins-agent"},"name":"agent-data-jenkins-agent-3","namespace":"cicd-jenkins"},"spec":{"accessModes":["ReadWriteMany"],"resources":{"requests":{"storage":"10Gi"}},"storageClassName":"nfs","volumeMode":"Filesystem","volumeName":"cicd-jenkins-agent-3-pv"}}
+      pv.kubernetes.io/bind-completed: "yes"
+    creationTimestamp: "2024-04-16T04:24:30Z"
+    finalizers:
+    - kubernetes.io/pvc-protection
+    labels:
+      app: jenkins-agent
+    name: agent-data-jenkins-agent-3
+    namespace: cicd-jenkins
+    resourceVersion: "563987545"
+    uid: 10f1d896-bea6-4cce-9020-384c3eec290b
+  spec:
+    accessModes:
+    - ReadWriteMany
+    resources:
+      requests:
+        storage: 10Gi
+    storageClassName: nfs
+    volumeMode: Filesystem
+    volumeName: cicd-jenkins-agent-3-pv
+  status:
+    accessModes:
+    - ReadWriteMany
+    capacity:
+      storage: 10Gi
+    phase: Bound
+- apiVersion: v1
+  kind: PersistentVolumeClaim
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","kind":"PersistentVolumeClaim","metadata":{"annotations":{},"labels":{"app":"jenkins-agent"},"name":"agent-data-jenkins-agent-4","namespace":"cicd-jenkins"},"spec":{"accessModes":["ReadWriteMany"],"resources":{"requests":{"storage":"10Gi"}},"storageClassName":"nfs","volumeMode":"Filesystem","volumeName":"cicd-jenkins-agent-4-pv"}}
+      pv.kubernetes.io/bind-completed: "yes"
+    creationTimestamp: "2024-04-16T05:37:03Z"
+    finalizers:
+    - kubernetes.io/pvc-protection
+    labels:
+      app: jenkins-agent
+    name: agent-data-jenkins-agent-4
+    namespace: cicd-jenkins
+    resourceVersion: "563986700"
+    uid: ff38d0af-4600-4b35-864a-50970c793f72
+  spec:
+    accessModes:
+    - ReadWriteMany
+    resources:
+      requests:
+        storage: 10Gi
+    storageClassName: nfs
+    volumeMode: Filesystem
+    volumeName: cicd-jenkins-agent-4-pv
+  status:
+    accessModes:
+    - ReadWriteMany
+    capacity:
+      storage: 10Gi
+    phase: Bound
+- apiVersion: v1
+  kind: PersistentVolumeClaim
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","kind":"PersistentVolumeClaim","metadata":{"annotations":{},"labels":{"app":"jenkins-agent"},"name":"agent-data-jenkins-agent-5","namespace":"cicd-jenkins"},"spec":{"accessModes":["ReadWriteMany"],"resources":{"requests":{"storage":"10Gi"}},"storageClassName":"nfs","volumeMode":"Filesystem","volumeName":"cicd-jenkins-agent-5-pv"}}
+      pv.kubernetes.io/bind-completed: "yes"
+    creationTimestamp: "2024-04-16T05:49:15Z"
+    finalizers:
+    - kubernetes.io/pvc-protection
+    labels:
+      app: jenkins-agent
+    name: agent-data-jenkins-agent-5
+    namespace: cicd-jenkins
+    resourceVersion: "563998467"
+    uid: ac5f9d39-717d-4743-9060-bf44029af4d2
+  spec:
+    accessModes:
+    - ReadWriteMany
+    resources:
+      requests:
+        storage: 10Gi
+    storageClassName: nfs
+    volumeMode: Filesystem
+    volumeName: cicd-jenkins-agent-5-pv
+  status:
+    accessModes:
+    - ReadWriteMany
+    capacity:
+      storage: 10Gi
+    phase: Bound
+- apiVersion: v1
+  kind: PersistentVolumeClaim
+  metadata:
+    annotations:
+      pv.kubernetes.io/bind-completed: "yes"
+      pv.kubernetes.io/bound-by-controller: "yes"
+    creationTimestamp: "2024-04-16T05:58:24Z"
+    finalizers:
+    - kubernetes.io/pvc-protection
+    labels:
+      app: jenkins-agent
+    name: agent-data-jenkins-agent-6
+    namespace: cicd-jenkins
+    resourceVersion: "564001730"
+    uid: f7868061-18ef-4215-9222-2288390fa99e
+  spec:
+    accessModes:
+    - ReadWriteMany
+    resources:
+      requests:
+        storage: 10Gi
+    storageClassName: nfs
+    volumeMode: Filesystem
+    volumeName: cicd-jenkins-agent-6-pv
+  status:
+    accessModes:
+    - ReadWriteMany
+    capacity:
+      storage: 10Gi
+    phase: Bound
+- apiVersion: v1
+  kind: PersistentVolumeClaim
+  metadata:
+    annotations:
+      pv.kubernetes.io/bind-completed: "yes"
+      pv.kubernetes.io/bound-by-controller: "yes"
+    creationTimestamp: "2024-04-16T06:07:47Z"
+    finalizers:
+    - kubernetes.io/pvc-protection
+    labels:
+      app: jenkins-agent
+    name: agent-data-jenkins-agent-7
+    namespace: cicd-jenkins
+    resourceVersion: "564007668"
+    uid: 1d436097-fa5f-4e18-80e1-09823c949103
+  spec:
+    accessModes:
+    - ReadWriteMany
+    resources:
+      requests:
+        storage: 10Gi
+    storageClassName: nfs
+    volumeMode: Filesystem
+    volumeName: cicd-jenkins-agent-7-pv
+  status:
+    accessModes:
+    - ReadWriteMany
+    capacity:
+      storage: 10Gi
+    phase: Bound
+- apiVersion: v1
+  kind: PersistentVolumeClaim
+  metadata:
+    annotations:
+      pv.kubernetes.io/bind-completed: "yes"
+      pv.kubernetes.io/bound-by-controller: "yes"
+    creationTimestamp: "2024-04-16T06:14:34Z"
+    finalizers:
+    - kubernetes.io/pvc-protection
+    labels:
+      app: jenkins-agent
+    name: agent-data-jenkins-agent-8
+    namespace: cicd-jenkins
+    resourceVersion: "564012552"
+    uid: 88bef387-26a4-4d43-8db4-375ee6886452
+  spec:
+    accessModes:
+    - ReadWriteMany
+    resources:
+      requests:
+        storage: 10Gi
+    storageClassName: nfs
+    volumeMode: Filesystem
+    volumeName: cicd-jenkins-agent-8-pv
+  status:
+    accessModes:
+    - ReadWriteMany
+    capacity:
+      storage: 10Gi
+    phase: Bound
+- apiVersion: v1
+  kind: PersistentVolumeClaim
+  metadata:
+    annotations:
+      pv.kubernetes.io/bind-completed: "yes"
+      pv.kubernetes.io/bound-by-controller: "yes"
+    creationTimestamp: "2024-04-16T06:16:32Z"
+    finalizers:
+    - kubernetes.io/pvc-protection
+    labels:
+      app: jenkins-agent
+    name: agent-data-jenkins-agent-9
+    namespace: cicd-jenkins
+    resourceVersion: "564014195"
+    uid: 05d98514-afb6-4fb8-b84d-d2fec612365b
+  spec:
+    accessModes:
+    - ReadWriteMany
+    resources:
+      requests:
+        storage: 10Gi
+    storageClassName: nfs
+    volumeMode: Filesystem
+    volumeName: cicd-jenkins-agent-9-pv
+  status:
+    accessModes:
+    - ReadWriteMany
+    capacity:
+      storage: 10Gi
+    phase: Bound
+- apiVersion: v1
+  kind: PersistentVolumeClaim
+  metadata:
+    annotations:
+      pv.kubernetes.io/bind-completed: "yes"
+      pv.kubernetes.io/bound-by-controller: "yes"
+    creationTimestamp: "2024-12-18T03:18:22Z"
+    finalizers:
+    - kubernetes.io/pvc-protection
+    labels:
+      app: jenkins-buildx-agent
+    name: agent-data-jenkins-buildx-agent-0
+    namespace: cicd-jenkins
+    resourceVersion: "739783843"
+    uid: 963d5249-44c4-45b7-8383-48d688a5fb75
+  spec:
+    accessModes:
+    - ReadWriteMany
+    resources:
+      requests:
+        storage: 10Gi
+    storageClassName: nfs
+    volumeMode: Filesystem
+    volumeName: cicd-jenkins-buildx-agent-0-pv
+  status:
+    accessModes:
+    - ReadWriteMany
+    capacity:
+      storage: 10Gi
+    phase: Bound
+- apiVersion: v1
+  kind: PersistentVolumeClaim
+  metadata:
+    annotations:
+      pv.kubernetes.io/bind-completed: "yes"
+      pv.kubernetes.io/bound-by-controller: "yes"
+    creationTimestamp: "2024-12-20T05:19:24Z"
+    finalizers:
+    - kubernetes.io/pvc-protection
+    labels:
+      app: jenkins-buildx-agent
+    name: agent-data-jenkins-buildx-agent-1
+    namespace: cicd-jenkins
+    resourceVersion: "740826272"
+    uid: 321e5b68-e7a6-4fed-a68b-99351284ab1d
+  spec:
+    accessModes:
+    - ReadWriteMany
+    resources:
+      requests:
+        storage: 10Gi
+    storageClassName: nfs
+    volumeMode: Filesystem
+    volumeName: cicd-jenkins-buildx-agent-1-pv
+  status:
+    accessModes:
+    - ReadWriteMany
+    capacity:
+      storage: 10Gi
+    phase: Bound
+- apiVersion: v1
+  kind: PersistentVolumeClaim
+  metadata:
+    annotations:
+      pv.kubernetes.io/bind-completed: "yes"
+      pv.kubernetes.io/bound-by-controller: "yes"
+    creationTimestamp: "2025-02-17T07:25:33Z"
+    finalizers:
+    - kubernetes.io/pvc-protection
+    labels:
+      app: jenkins-buildx-agent
+    name: agent-data-jenkins-buildx-agent-10
+    namespace: cicd-jenkins
+    resourceVersion: "767045852"
+    uid: 0b6df98a-717d-462f-9630-60fb7f5a4361
+  spec:
+    accessModes:
+    - ReadWriteMany
+    resources:
+      requests:
+        storage: 10Gi
+    storageClassName: nfs
+    volumeMode: Filesystem
+    volumeName: cicd-jenkins-buildx-agent-10-pv
+  status:
+    accessModes:
+    - ReadWriteMany
+    capacity:
+      storage: 10Gi
+    phase: Bound
+- apiVersion: v1
+  kind: PersistentVolumeClaim
+  metadata:
+    annotations:
+      pv.kubernetes.io/bind-completed: "yes"
+      pv.kubernetes.io/bound-by-controller: "yes"
+    creationTimestamp: "2025-02-17T07:25:39Z"
+    finalizers:
+    - kubernetes.io/pvc-protection
+    labels:
+      app: jenkins-buildx-agent
+    name: agent-data-jenkins-buildx-agent-11
+    namespace: cicd-jenkins
+    resourceVersion: "767045898"
+    uid: 5803322f-4cc8-47fc-90dd-e32d66608ab7
+  spec:
+    accessModes:
+    - ReadWriteMany
+    resources:
+      requests:
+        storage: 10Gi
+    storageClassName: nfs
+    volumeMode: Filesystem
+    volumeName: cicd-jenkins-buildx-agent-11-pv
+  status:
+    accessModes:
+    - ReadWriteMany
+    capacity:
+      storage: 10Gi
+    phase: Bound
+- apiVersion: v1
+  kind: PersistentVolumeClaim
+  metadata:
+    annotations:
+      pv.kubernetes.io/bind-completed: "yes"
+      pv.kubernetes.io/bound-by-controller: "yes"
+    creationTimestamp: "2024-12-20T05:19:30Z"
+    finalizers:
+    - kubernetes.io/pvc-protection
+    labels:
+      app: jenkins-buildx-agent
+    name: agent-data-jenkins-buildx-agent-2
+    namespace: cicd-jenkins
+    resourceVersion: "740826910"
+    uid: 9bbc206b-ed1f-4423-af9a-ba6fe6e8a39c
+  spec:
+    accessModes:
+    - ReadWriteMany
+    resources:
+      requests:
+        storage: 10Gi
+    storageClassName: nfs
+    volumeMode: Filesystem
+    volumeName: cicd-jenkins-buildx-agent-2-pv
+  status:
+    accessModes:
+    - ReadWriteMany
+    capacity:
+      storage: 10Gi
+    phase: Bound
+- apiVersion: v1
+  kind: PersistentVolumeClaim
+  metadata:
+    annotations:
+      pv.kubernetes.io/bind-completed: "yes"
+      pv.kubernetes.io/bound-by-controller: "yes"
+    creationTimestamp: "2024-12-20T05:32:55Z"
+    finalizers:
+    - kubernetes.io/pvc-protection
+    labels:
+      app: jenkins-buildx-agent
+    name: agent-data-jenkins-buildx-agent-3
+    namespace: cicd-jenkins
+    resourceVersion: "740831033"
+    uid: 4a6a2641-8bdb-4e17-b347-c3cdc83551bb
+  spec:
+    accessModes:
+    - ReadWriteMany
+    resources:
+      requests:
+        storage: 10Gi
+    storageClassName: nfs
+    volumeMode: Filesystem
+    volumeName: cicd-jenkins-buildx-agent-3-pv
+  status:
+    accessModes:
+    - ReadWriteMany
+    capacity:
+      storage: 10Gi
+    phase: Bound
+- apiVersion: v1
+  kind: PersistentVolumeClaim
+  metadata:
+    annotations:
+      pv.kubernetes.io/bind-completed: "yes"
+      pv.kubernetes.io/bound-by-controller: "yes"
+    creationTimestamp: "2024-12-20T05:40:03Z"
+    finalizers:
+    - kubernetes.io/pvc-protection
+    labels:
+      app: jenkins-buildx-agent
+    name: agent-data-jenkins-buildx-agent-4
+    namespace: cicd-jenkins
+    resourceVersion: "740833979"
+    uid: 6f80ed24-cc59-4db6-80fa-c934a1c2e3c5
+  spec:
+    accessModes:
+    - ReadWriteMany
+    resources:
+      requests:
+        storage: 10Gi
+    storageClassName: nfs
+    volumeMode: Filesystem
+    volumeName: cicd-jenkins-buildx-agent-4-pv
+  status:
+    accessModes:
+    - ReadWriteMany
+    capacity:
+      storage: 10Gi
+    phase: Bound
+- apiVersion: v1
+  kind: PersistentVolumeClaim
+  metadata:
+    annotations:
+      pv.kubernetes.io/bind-completed: "yes"
+      pv.kubernetes.io/bound-by-controller: "yes"
+    creationTimestamp: "2024-12-20T05:43:02Z"
+    finalizers:
+    - kubernetes.io/pvc-protection
+    labels:
+      app: jenkins-buildx-agent
+    name: agent-data-jenkins-buildx-agent-5
+    namespace: cicd-jenkins
+    resourceVersion: "740835234"
+    uid: f3bb47f4-0230-4961-9d6e-faa5be272d04
+  spec:
+    accessModes:
+    - ReadWriteMany
+    resources:
+      requests:
+        storage: 10Gi
+    storageClassName: nfs
+    volumeMode: Filesystem
+    volumeName: cicd-jenkins-buildx-agent-5-pv
+  status:
+    accessModes:
+    - ReadWriteMany
+    capacity:
+      storage: 10Gi
+    phase: Bound
+- apiVersion: v1
+  kind: PersistentVolumeClaim
+  metadata:
+    annotations:
+      pv.kubernetes.io/bind-completed: "yes"
+      pv.kubernetes.io/bound-by-controller: "yes"
+    creationTimestamp: "2025-02-17T07:19:33Z"
+    finalizers:
+    - kubernetes.io/pvc-protection
+    labels:
+      app: jenkins-buildx-agent
+    name: agent-data-jenkins-buildx-agent-6
+    namespace: cicd-jenkins
+    resourceVersion: "767043892"
+    uid: c559b12f-7ad4-4e6c-9d23-7545a89d6c67
+  spec:
+    accessModes:
+    - ReadWriteMany
+    resources:
+      requests:
+        storage: 10Gi
+    storageClassName: nfs
+    volumeMode: Filesystem
+    volumeName: cicd-jenkins-buildx-agent-6-pv
+  status:
+    accessModes:
+    - ReadWriteMany
+    capacity:
+      storage: 10Gi
+    phase: Bound
+- apiVersion: v1
+  kind: PersistentVolumeClaim
+  metadata:
+    annotations:
+      pv.kubernetes.io/bind-completed: "yes"
+      pv.kubernetes.io/bound-by-controller: "yes"
+    creationTimestamp: "2025-02-17T07:19:39Z"
+    finalizers:
+    - kubernetes.io/pvc-protection
+    labels:
+      app: jenkins-buildx-agent
+    name: agent-data-jenkins-buildx-agent-7
+    namespace: cicd-jenkins
+    resourceVersion: "767043939"
+    uid: 07cc319c-058e-491f-9390-3aaddff85bce
+  spec:
+    accessModes:
+    - ReadWriteMany
+    resources:
+      requests:
+        storage: 10Gi
+    storageClassName: nfs
+    volumeMode: Filesystem
+    volumeName: cicd-jenkins-buildx-agent-7-pv
+  status:
+    accessModes:
+    - ReadWriteMany
+    capacity:
+      storage: 10Gi
+    phase: Bound
+- apiVersion: v1
+  kind: PersistentVolumeClaim
+  metadata:
+    annotations:
+      pv.kubernetes.io/bind-completed: "yes"
+      pv.kubernetes.io/bound-by-controller: "yes"
+    creationTimestamp: "2025-02-17T07:19:46Z"
+    finalizers:
+    - kubernetes.io/pvc-protection
+    labels:
+      app: jenkins-buildx-agent
+    name: agent-data-jenkins-buildx-agent-8
+    namespace: cicd-jenkins
+    resourceVersion: "767043990"
+    uid: 72e4de6a-8c57-4355-b0cb-02ad57b0cdb8
+  spec:
+    accessModes:
+    - ReadWriteMany
+    resources:
+      requests:
+        storage: 10Gi
+    storageClassName: nfs
+    volumeMode: Filesystem
+    volumeName: cicd-jenkins-buildx-agent-8-pv
+  status:
+    accessModes:
+    - ReadWriteMany
+    capacity:
+      storage: 10Gi
+    phase: Bound
+- apiVersion: v1
+  kind: PersistentVolumeClaim
+  metadata:
+    annotations:
+      pv.kubernetes.io/bind-completed: "yes"
+      pv.kubernetes.io/bound-by-controller: "yes"
+    creationTimestamp: "2025-02-17T07:19:51Z"
+    finalizers:
+    - kubernetes.io/pvc-protection
+    labels:
+      app: jenkins-buildx-agent
+    name: agent-data-jenkins-buildx-agent-9
+    namespace: cicd-jenkins
+    resourceVersion: "767044040"
+    uid: 3a4048ba-a262-4586-a4d3-878b32142cf5
+  spec:
+    accessModes:
+    - ReadWriteMany
+    resources:
+      requests:
+        storage: 10Gi
+    storageClassName: nfs
+    volumeMode: Filesystem
+    volumeName: cicd-jenkins-buildx-agent-9-pv
+  status:
+    accessModes:
+    - ReadWriteMany
+    capacity:
+      storage: 10Gi
+    phase: Bound
+- apiVersion: v1
+  kind: PersistentVolumeClaim
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","kind":"PersistentVolumeClaim","metadata":{"annotations":{},"name":"jenkins-pvc","namespace":"cicd-jenkins"},"spec":{"accessModes":["ReadWriteMany"],"resources":{"requests":{"storage":"20Gi"}},"storageClassName":"","volumeMode":"Filesystem","volumeName":"cicd-jenkins-pv"}}
+      pv.kubernetes.io/bind-completed: "yes"
+    creationTimestamp: "2024-01-08T03:02:34Z"
+    finalizers:
+    - kubernetes.io/pvc-protection
+    name: jenkins-pvc
+    namespace: cicd-jenkins
+    resourceVersion: "478548054"
+    uid: 28bd9146-973a-4be5-8716-c542f0626c87
+  spec:
+    accessModes:
+    - ReadWriteMany
+    resources:
+      requests:
+        storage: 20Gi
+    storageClassName: ""
+    volumeMode: Filesystem
+    volumeName: cicd-jenkins-pv
+  status:
+    accessModes:
+    - ReadWriteMany
+    capacity:
+      storage: 200Gi
+    phase: Bound
+- apiVersion: v1
+  kind: PersistentVolumeClaim
+  metadata:
+    annotations:
+      pv.kubernetes.io/bind-completed: "yes"
+    creationTimestamp: "2024-01-08T07:56:54Z"
+    finalizers:
+    - kubernetes.io/pvc-protection
+    labels:
+      app: jenkins-agent
+      k8slens-edit-resource-version: v1
+    name: repo-cache-jenkins-agent-0
+    namespace: cicd-jenkins
+    resourceVersion: "478696315"
+    uid: 54198a79-1dcf-45b2-b49b-ed0b76052d1f
+  spec:
+    accessModes:
+    - ReadWriteMany
+    resources:
+      requests:
+        storage: 100Gi
+    storageClassName: nfs
+    volumeMode: Filesystem
+    volumeName: cicd-jenkins-agent-repo-0-pv
+  status:
+    accessModes:
+    - ReadWriteMany
+    capacity:
+      storage: 10Gi
+    phase: Bound
+- apiVersion: v1
+  kind: PersistentVolumeClaim
+  metadata:
+    annotations:
+      pv.kubernetes.io/bind-completed: "yes"
+    creationTimestamp: "2024-01-08T07:58:22Z"
+    finalizers:
+    - kubernetes.io/pvc-protection
+    labels:
+      app: jenkins-agent
+      k8slens-edit-resource-version: v1
+    name: repo-cache-jenkins-agent-1
+    namespace: cicd-jenkins
+    resourceVersion: "478696585"
+    uid: d534eccb-8aa3-4623-b8f7-1a87014e16ad
+  spec:
+    accessModes:
+    - ReadWriteMany
+    resources:
+      requests:
+        storage: 100Gi
+    storageClassName: nfs
+    volumeMode: Filesystem
+    volumeName: cicd-jenkins-agent-repo-1-pv
+  status:
+    accessModes:
+    - ReadWriteMany
+    capacity:
+      storage: 10Gi
+    phase: Bound
+- apiVersion: v1
+  kind: PersistentVolumeClaim
+  metadata:
+    annotations:
+      pv.kubernetes.io/bind-completed: "yes"
+    creationTimestamp: "2024-05-07T03:34:39Z"
+    finalizers:
+    - kubernetes.io/pvc-protection
+    labels:
+      app: jenkins-agent
+      k8slens-edit-resource-version: v1
+    name: repo-cache-jenkins-agent-10
+    namespace: cicd-jenkins
+    resourceVersion: "582762253"
+    uid: a6845313-0491-442b-bd45-f8169eda3529
+  spec:
+    accessModes:
+    - ReadWriteMany
+    resources:
+      requests:
+        storage: 100Gi
+    storageClassName: nfs
+    volumeMode: Filesystem
+    volumeName: cicd-jenkins-agent-repo-10-pv
+  status:
+    accessModes:
+    - ReadWriteMany
+    capacity:
+      storage: 10Gi
+    phase: Bound
+- apiVersion: v1
+  kind: PersistentVolumeClaim
+  metadata:
+    annotations:
+      pv.kubernetes.io/bind-completed: "yes"
+    creationTimestamp: "2024-05-07T03:47:12Z"
+    finalizers:
+    - kubernetes.io/pvc-protection
+    labels:
+      app: jenkins-agent
+      k8slens-edit-resource-version: v1
+    name: repo-cache-jenkins-agent-11
+    namespace: cicd-jenkins
+    resourceVersion: "582764950"
+    uid: 17ed920d-bfa6-49c9-b560-f562e0ea9e72
+  spec:
+    accessModes:
+    - ReadWriteMany
+    resources:
+      requests:
+        storage: 100Gi
+    storageClassName: nfs
+    volumeMode: Filesystem
+    volumeName: cicd-jenkins-agent-repo-11-pv
+  status:
+    accessModes:
+    - ReadWriteMany
+    capacity:
+      storage: 10Gi
+    phase: Bound
+- apiVersion: v1
+  kind: PersistentVolumeClaim
+  metadata:
+    annotations:
+      pv.kubernetes.io/bind-completed: "yes"
+    creationTimestamp: "2024-05-07T03:50:51Z"
+    finalizers:
+    - kubernetes.io/pvc-protection
+    labels:
+      app: jenkins-agent
+      k8slens-edit-resource-version: v1
+    name: repo-cache-jenkins-agent-12
+    namespace: cicd-jenkins
+    resourceVersion: "582766411"
+    uid: 8d0f1df0-b388-4c40-aae8-407b88a21b72
+  spec:
+    accessModes:
+    - ReadWriteMany
+    resources:
+      requests:
+        storage: 100Gi
+    storageClassName: nfs
+    volumeMode: Filesystem
+    volumeName: cicd-jenkins-agent-repo-12-pv
+  status:
+    accessModes:
+    - ReadWriteMany
+    capacity:
+      storage: 10Gi
+    phase: Bound
+- apiVersion: v1
+  kind: PersistentVolumeClaim
+  metadata:
+    annotations:
+      pv.kubernetes.io/bind-completed: "yes"
+    creationTimestamp: "2024-05-07T03:53:08Z"
+    finalizers:
+    - kubernetes.io/pvc-protection
+    labels:
+      app: jenkins-agent
+      k8slens-edit-resource-version: v1
+    name: repo-cache-jenkins-agent-13
+    namespace: cicd-jenkins
+    resourceVersion: "582767112"
+    uid: 6d779822-a283-407e-ac35-639c2d64fd97
+  spec:
+    accessModes:
+    - ReadWriteMany
+    resources:
+      requests:
+        storage: 100Gi
+    storageClassName: nfs
+    volumeMode: Filesystem
+    volumeName: cicd-jenkins-agent-repo-13-pv
+  status:
+    accessModes:
+    - ReadWriteMany
+    capacity:
+      storage: 10Gi
+    phase: Bound
+- apiVersion: v1
+  kind: PersistentVolumeClaim
+  metadata:
+    annotations:
+      pv.kubernetes.io/bind-completed: "yes"
+    creationTimestamp: "2024-05-07T03:54:08Z"
+    finalizers:
+    - kubernetes.io/pvc-protection
+    labels:
+      app: jenkins-agent
+      k8slens-edit-resource-version: v1
+    name: repo-cache-jenkins-agent-14
+    namespace: cicd-jenkins
+    resourceVersion: "582767766"
+    uid: c0a53656-5c0a-4755-b829-528ba9189298
+  spec:
+    accessModes:
+    - ReadWriteMany
+    resources:
+      requests:
+        storage: 100Gi
+    storageClassName: nfs
+    volumeMode: Filesystem
+    volumeName: cicd-jenkins-agent-repo-14-pv
+  status:
+    accessModes:
+    - ReadWriteMany
+    capacity:
+      storage: 10Gi
+    phase: Bound
+- apiVersion: v1
+  kind: PersistentVolumeClaim
+  metadata:
+    annotations:
+      pv.kubernetes.io/bind-completed: "yes"
+    creationTimestamp: "2024-05-07T04:03:16Z"
+    finalizers:
+    - kubernetes.io/pvc-protection
+    labels:
+      app: jenkins-agent
+      k8slens-edit-resource-version: v1
+    name: repo-cache-jenkins-agent-15
+    namespace: cicd-jenkins
+    resourceVersion: "582773517"
+    uid: 38c210a5-18f9-4f03-9a3a-4df102ab6fe9
+  spec:
+    accessModes:
+    - ReadWriteMany
+    resources:
+      requests:
+        storage: 100Gi
+    storageClassName: nfs
+    volumeMode: Filesystem
+    volumeName: cicd-jenkins-agent-repo-15-pv
+  status:
+    accessModes:
+    - ReadWriteMany
+    capacity:
+      storage: 10Gi
+    phase: Bound
+- apiVersion: v1
+  kind: PersistentVolumeClaim
+  metadata:
+    annotations:
+      pv.kubernetes.io/bind-completed: "yes"
+    creationTimestamp: "2024-05-14T14:12:22Z"
+    finalizers:
+    - kubernetes.io/pvc-protection
+    labels:
+      app: jenkins-agent
+      k8slens-edit-resource-version: v1
+    name: repo-cache-jenkins-agent-16
+    namespace: cicd-jenkins
+    resourceVersion: "589445623"
+    uid: c2c52a67-8230-49db-a71a-659bd8373cf8
+  spec:
+    accessModes:
+    - ReadWriteMany
+    resources:
+      requests:
+        storage: 100Gi
+    storageClassName: nfs
+    volumeMode: Filesystem
+    volumeName: cicd-jenkins-agent-repo-16-pv
+  status:
+    accessModes:
+    - ReadWriteMany
+    capacity:
+      storage: 10Gi
+    phase: Bound
+- apiVersion: v1
+  kind: PersistentVolumeClaim
+  metadata:
+    annotations:
+      pv.kubernetes.io/bind-completed: "yes"
+    creationTimestamp: "2024-05-14T14:23:53Z"
+    finalizers:
+    - kubernetes.io/pvc-protection
+    labels:
+      app: jenkins-agent
+      k8slens-edit-resource-version: v1
+    name: repo-cache-jenkins-agent-17
+    namespace: cicd-jenkins
+    resourceVersion: "589466098"
+    uid: dc3a8544-50d0-4523-ac1c-e785ea769177
+  spec:
+    accessModes:
+    - ReadWriteMany
+    resources:
+      requests:
+        storage: 100Gi
+    storageClassName: nfs
+    volumeMode: Filesystem
+    volumeName: cicd-jenkins-agent-repo-17-pv
+  status:
+    accessModes:
+    - ReadWriteMany
+    capacity:
+      storage: 10Gi
+    phase: Bound
+- apiVersion: v1
+  kind: PersistentVolumeClaim
+  metadata:
+    annotations:
+      pv.kubernetes.io/bind-completed: "yes"
+    creationTimestamp: "2024-05-14T14:55:30Z"
+    finalizers:
+    - kubernetes.io/pvc-protection
+    labels:
+      app: jenkins-agent
+      k8slens-edit-resource-version: v1
+    name: repo-cache-jenkins-agent-18
+    namespace: cicd-jenkins
+    resourceVersion: "589477631"
+    uid: 60d6950c-a60b-46b6-beb5-9598e33f3372
+  spec:
+    accessModes:
+    - ReadWriteMany
+    resources:
+      requests:
+        storage: 100Gi
+    storageClassName: nfs
+    volumeMode: Filesystem
+    volumeName: cicd-jenkins-agent-repo-18-pv
+  status:
+    accessModes:
+    - ReadWriteMany
+    capacity:
+      storage: 10Gi
+    phase: Bound
+- apiVersion: v1
+  kind: PersistentVolumeClaim
+  metadata:
+    annotations:
+      pv.kubernetes.io/bind-completed: "yes"
+    creationTimestamp: "2024-05-14T15:15:18Z"
+    finalizers:
+    - kubernetes.io/pvc-protection
+    labels:
+      app: jenkins-agent
+      k8slens-edit-resource-version: v1
+    name: repo-cache-jenkins-agent-19
+    namespace: cicd-jenkins
+    resourceVersion: "589480259"
+    uid: 404f94af-bea1-4c01-a066-087d6033b938
+  spec:
+    accessModes:
+    - ReadWriteMany
+    resources:
+      requests:
+        storage: 100Gi
+    storageClassName: nfs
+    volumeMode: Filesystem
+    volumeName: cicd-jenkins-agent-repo-19-pv
+  status:
+    accessModes:
+    - ReadWriteMany
+    capacity:
+      storage: 10Gi
+    phase: Bound
+- apiVersion: v1
+  kind: PersistentVolumeClaim
+  metadata:
+    annotations:
+      pv.kubernetes.io/bind-completed: "yes"
+    creationTimestamp: "2024-01-08T07:59:30Z"
+    finalizers:
+    - kubernetes.io/pvc-protection
+    labels:
+      app: jenkins-agent
+      k8slens-edit-resource-version: v1
+    name: repo-cache-jenkins-agent-2
+    namespace: cicd-jenkins
+    resourceVersion: "478697385"
+    uid: 09f4fe56-6e0d-4378-b6fb-0265c4784804
+  spec:
+    accessModes:
+    - ReadWriteMany
+    resources:
+      requests:
+        storage: 100Gi
+    storageClassName: nfs
+    volumeMode: Filesystem
+    volumeName: cicd-jenkins-agent-repo-2-pv
+  status:
+    accessModes:
+    - ReadWriteMany
+    capacity:
+      storage: 10Gi
+    phase: Bound
+- apiVersion: v1
+  kind: PersistentVolumeClaim
+  metadata:
+    annotations:
+      pv.kubernetes.io/bind-completed: "yes"
+    creationTimestamp: "2024-05-14T15:35:02Z"
+    finalizers:
+    - kubernetes.io/pvc-protection
+    labels:
+      app: jenkins-agent
+      k8slens-edit-resource-version: v1
+    name: repo-cache-jenkins-agent-20
+    namespace: cicd-jenkins
+    resourceVersion: "589492083"
+    uid: 7f629a84-0ae3-401d-8baa-81dd7a774b1e
+  spec:
+    accessModes:
+    - ReadWriteMany
+    resources:
+      requests:
+        storage: 100Gi
+    storageClassName: nfs
+    volumeMode: Filesystem
+    volumeName: cicd-jenkins-agent-repo-20-pv
+  status:
+    accessModes:
+    - ReadWriteMany
+    capacity:
+      storage: 10Gi
+    phase: Bound
+- apiVersion: v1
+  kind: PersistentVolumeClaim
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","kind":"PersistentVolumeClaim","metadata":{"annotations":{},"labels":{"app":"jenkins-agent"},"name":"repo-cache-jenkins-agent-3","namespace":"cicd-jenkins"},"spec":{"accessModes":["ReadWriteMany"],"resources":{"requests":{"storage":"100Gi"}},"storageClassName":"nfs","volumeMode":"Filesystem","volumeName":"cicd-jenkins-agent-repo-3-pv"}}
+      pv.kubernetes.io/bind-completed: "yes"
+    creationTimestamp: "2024-04-16T04:24:30Z"
+    finalizers:
+    - kubernetes.io/pvc-protection
+    labels:
+      app: jenkins-agent
+    name: repo-cache-jenkins-agent-3
+    namespace: cicd-jenkins
+    resourceVersion: "563987752"
+    uid: 45741909-0215-45b7-80ab-b51771c1f5f0
+  spec:
+    accessModes:
+    - ReadWriteMany
+    resources:
+      requests:
+        storage: 100Gi
+    storageClassName: nfs
+    volumeMode: Filesystem
+    volumeName: cicd-jenkins-agent-repo-3-pv
+  status:
+    accessModes:
+    - ReadWriteMany
+    capacity:
+      storage: 10Gi
+    phase: Bound
+- apiVersion: v1
+  kind: PersistentVolumeClaim
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","kind":"PersistentVolumeClaim","metadata":{"annotations":{},"labels":{"app":"jenkins-agent"},"name":"repo-cache-jenkins-agent-4","namespace":"cicd-jenkins"},"spec":{"accessModes":["ReadWriteMany"],"resources":{"requests":{"storage":"100Gi"}},"storageClassName":"nfs","volumeMode":"Filesystem","volumeName":"cicd-jenkins-agent-repo-4-pv"}}
+      pv.kubernetes.io/bind-completed: "yes"
+    creationTimestamp: "2024-04-16T05:37:03Z"
+    finalizers:
+    - kubernetes.io/pvc-protection
+    labels:
+      app: jenkins-agent
+    name: repo-cache-jenkins-agent-4
+    namespace: cicd-jenkins
+    resourceVersion: "563986508"
+    uid: 87bc0c58-15a3-4d9f-83e8-650100cfb9e0
+  spec:
+    accessModes:
+    - ReadWriteMany
+    resources:
+      requests:
+        storage: 100Gi
+    storageClassName: nfs
+    volumeMode: Filesystem
+    volumeName: cicd-jenkins-agent-repo-4-pv
+  status:
+    accessModes:
+    - ReadWriteMany
+    capacity:
+      storage: 10Gi
+    phase: Bound
+- apiVersion: v1
+  kind: PersistentVolumeClaim
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","kind":"PersistentVolumeClaim","metadata":{"annotations":{},"labels":{"app":"jenkins-agent"},"name":"repo-cache-jenkins-agent-5","namespace":"cicd-jenkins"},"spec":{"accessModes":["ReadWriteMany"],"resources":{"requests":{"storage":"100Gi"}},"storageClassName":"nfs","volumeMode":"Filesystem","volumeName":"cicd-jenkins-agent-repo-5-pv"}}
+      pv.kubernetes.io/bind-completed: "yes"
+    creationTimestamp: "2024-04-16T05:49:15Z"
+    finalizers:
+    - kubernetes.io/pvc-protection
+    labels:
+      app: jenkins-agent
+    name: repo-cache-jenkins-agent-5
+    namespace: cicd-jenkins
+    resourceVersion: "563998627"
+    uid: 06bfcf5c-cda4-44d5-b95b-0bb6f028fefe
+  spec:
+    accessModes:
+    - ReadWriteMany
+    resources:
+      requests:
+        storage: 100Gi
+    storageClassName: nfs
+    volumeMode: Filesystem
+    volumeName: cicd-jenkins-agent-repo-5-pv
+  status:
+    accessModes:
+    - ReadWriteMany
+    capacity:
+      storage: 10Gi
+    phase: Bound
+- apiVersion: v1
+  kind: PersistentVolumeClaim
+  metadata:
+    annotations:
+      pv.kubernetes.io/bind-completed: "yes"
+    creationTimestamp: "2024-04-16T05:58:24Z"
+    finalizers:
+    - kubernetes.io/pvc-protection
+    labels:
+      app: jenkins-agent
+      k8slens-edit-resource-version: v1
+    name: repo-cache-jenkins-agent-6
+    namespace: cicd-jenkins
+    resourceVersion: "564004316"
+    uid: 85fe45c3-b595-4eeb-b2d1-2a550057352b
+  spec:
+    accessModes:
+    - ReadWriteMany
+    resources:
+      requests:
+        storage: 100Gi
+    storageClassName: nfs
+    volumeMode: Filesystem
+    volumeName: cicd-jenkins-agent-repo-6-pv
+  status:
+    accessModes:
+    - ReadWriteMany
+    capacity:
+      storage: 10Gi
+    phase: Bound
+- apiVersion: v1
+  kind: PersistentVolumeClaim
+  metadata:
+    annotations:
+      pv.kubernetes.io/bind-completed: "yes"
+    creationTimestamp: "2024-04-16T06:07:47Z"
+    finalizers:
+    - kubernetes.io/pvc-protection
+    labels:
+      app: jenkins-agent
+      k8slens-edit-resource-version: v1
+    name: repo-cache-jenkins-agent-7
+    namespace: cicd-jenkins
+    resourceVersion: "564008417"
+    uid: bb7172b7-498f-42d2-8682-1e19e0e6b92b
+  spec:
+    accessModes:
+    - ReadWriteMany
+    resources:
+      requests:
+        storage: 100Gi
+    storageClassName: nfs
+    volumeMode: Filesystem
+    volumeName: cicd-jenkins-agent-repo-7-pv
+  status:
+    accessModes:
+    - ReadWriteMany
+    capacity:
+      storage: 10Gi
+    phase: Bound
+- apiVersion: v1
+  kind: PersistentVolumeClaim
+  metadata:
+    annotations:
+      pv.kubernetes.io/bind-completed: "yes"
+    creationTimestamp: "2024-04-16T06:14:34Z"
+    finalizers:
+    - kubernetes.io/pvc-protection
+    labels:
+      app: jenkins-agent
+      k8slens-edit-resource-version: v1
+    name: repo-cache-jenkins-agent-8
+    namespace: cicd-jenkins
+    resourceVersion: "564012872"
+    uid: a45bdcdd-54e6-4368-8fd9-e31045c06953
+  spec:
+    accessModes:
+    - ReadWriteMany
+    resources:
+      requests:
+        storage: 100Gi
+    storageClassName: nfs
+    volumeMode: Filesystem
+    volumeName: cicd-jenkins-agent-repo-8-pv
+  status:
+    accessModes:
+    - ReadWriteMany
+    capacity:
+      storage: 10Gi
+    phase: Bound
+- apiVersion: v1
+  kind: PersistentVolumeClaim
+  metadata:
+    annotations:
+      pv.kubernetes.io/bind-completed: "yes"
+    creationTimestamp: "2024-04-16T06:16:32Z"
+    finalizers:
+    - kubernetes.io/pvc-protection
+    labels:
+      app: jenkins-agent
+      k8slens-edit-resource-version: v1
+    name: repo-cache-jenkins-agent-9
+    namespace: cicd-jenkins
+    resourceVersion: "564014507"
+    uid: c82461f2-39b8-40b7-8d0a-9aac143e4379
+  spec:
+    accessModes:
+    - ReadWriteMany
+    resources:
+      requests:
+        storage: 100Gi
+    storageClassName: nfs
+    volumeMode: Filesystem
+    volumeName: cicd-jenkins-agent-repo-9-pv
+  status:
+    accessModes:
+    - ReadWriteMany
+    capacity:
+      storage: 10Gi
+    phase: Bound
+kind: List
+metadata:
+  resourceVersion: ""

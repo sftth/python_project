@@ -1,0 +1,471 @@
+apiVersion: v1
+items:
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      artifact.spinnaker.io/location: selenium
+      artifact.spinnaker.io/name: selenium-chrome-node
+      artifact.spinnaker.io/type: kubernetes/deployment
+      artifact.spinnaker.io/version: ""
+      deployment.kubernetes.io/revision: "3"
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"apps/v1","kind":"Deployment","metadata":{"annotations":{"artifact.spinnaker.io/location":"selenium","artifact.spinnaker.io/name":"selenium-chrome-node","artifact.spinnaker.io/type":"kubernetes/deployment","artifact.spinnaker.io/version":"","moniker.spinnaker.io/application":"selenium","moniker.spinnaker.io/cluster":"deployment selenium-chrome-node"},"labels":{"app":"selenium-chrome-node","app.kubernetes.io/component":"selenium-grid-4.7.0-20221202","app.kubernetes.io/instance":"selenium","app.kubernetes.io/managed-by":"spinnaker","app.kubernetes.io/name":"selenium-chrome-node","app.kubernetes.io/version":"4.7.0-20221202","helm.sh/chart":"selenium-grid-0.14.0"},"name":"selenium-chrome-node","namespace":"selenium"},"spec":{"replicas":5,"selector":{"matchLabels":{"app":"selenium-chrome-node","app.kubernetes.io/instance":"selenium"}},"template":{"metadata":{"annotations":{"artifact.spinnaker.io/location":"selenium","artifact.spinnaker.io/name":"selenium-chrome-node","artifact.spinnaker.io/type":"kubernetes/deployment","artifact.spinnaker.io/version":"","checksum/event-bus-configmap":"ce3116bc9f027fceea2cf35e7a25a35b485e69acbab6e5696c40a776b1bad2e8","moniker.spinnaker.io/application":"selenium","moniker.spinnaker.io/cluster":"deployment selenium-chrome-node"},"labels":{"app":"selenium-chrome-node","app.kubernetes.io/component":"selenium-grid-4.7.0-20221202","app.kubernetes.io/instance":"selenium","app.kubernetes.io/managed-by":"spinnaker","app.kubernetes.io/name":"selenium-chrome-node","app.kubernetes.io/version":"4.7.0-20221202","helm.sh/chart":"selenium-grid-0.14.0"}},"spec":{"containers":[{"envFrom":[{"configMapRef":{"name":"selenium-event-bus-config-v000"}}],"image":"selenium/node-chrome:4.7.0-20221202","imagePullPolicy":"IfNotPresent","name":"selenium-chrome-node","ports":[{"containerPort":5555,"protocol":"TCP"}],"resources":{"limits":{"cpu":"1","memory":"2Gi"},"requests":{"cpu":"1","memory":"1Gi"}},"volumeMounts":[{"mountPath":"/dev/shm","name":"dshm"}]}],"hostAliases":[{"hostnames":["ctas-intqa.intranet.pajak.go.id","tpportal-intqa.intranet.pajak.go.id","deportal-intqa.intranet.pajak.go.id"],"ip":"10.244.252.84"}],"terminationGracePeriodSeconds":30,"volumes":[{"emptyDir":{"medium":"Memory","sizeLimit":"3Gi"},"name":"dshm"}]}}}}
+      moniker.spinnaker.io/application: selenium
+      moniker.spinnaker.io/cluster: deployment selenium-chrome-node
+    creationTimestamp: "2022-12-08T08:53:57Z"
+    generation: 4
+    labels:
+      app: selenium-chrome-node
+      app.kubernetes.io/component: selenium-grid-4.7.0-20221202
+      app.kubernetes.io/instance: selenium
+      app.kubernetes.io/managed-by: spinnaker
+      app.kubernetes.io/name: selenium-chrome-node
+      app.kubernetes.io/version: 4.7.0-20221202
+      helm.sh/chart: selenium-grid-0.14.0
+    name: selenium-chrome-node
+    namespace: selenium
+    resourceVersion: "699001058"
+    uid: b8d6dbea-c0ae-48ec-a874-be0e94b976d0
+  spec:
+    progressDeadlineSeconds: 600
+    replicas: 0
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        app: selenium-chrome-node
+        app.kubernetes.io/instance: selenium
+    strategy:
+      rollingUpdate:
+        maxSurge: 25%
+        maxUnavailable: 25%
+      type: RollingUpdate
+    template:
+      metadata:
+        annotations:
+          artifact.spinnaker.io/location: selenium
+          artifact.spinnaker.io/name: selenium-chrome-node
+          artifact.spinnaker.io/type: kubernetes/deployment
+          artifact.spinnaker.io/version: ""
+          checksum/event-bus-configmap: ce3116bc9f027fceea2cf35e7a25a35b485e69acbab6e5696c40a776b1bad2e8
+          moniker.spinnaker.io/application: selenium
+          moniker.spinnaker.io/cluster: deployment selenium-chrome-node
+        creationTimestamp: null
+        labels:
+          app: selenium-chrome-node
+          app.kubernetes.io/component: selenium-grid-4.7.0-20221202
+          app.kubernetes.io/instance: selenium
+          app.kubernetes.io/managed-by: spinnaker
+          app.kubernetes.io/name: selenium-chrome-node
+          app.kubernetes.io/version: 4.7.0-20221202
+          helm.sh/chart: selenium-grid-0.14.0
+      spec:
+        containers:
+        - envFrom:
+          - configMapRef:
+              name: selenium-event-bus-config-v000
+          image: selenium/node-chrome:4.7.0-20221202
+          imagePullPolicy: IfNotPresent
+          name: selenium-chrome-node
+          ports:
+          - containerPort: 5555
+            protocol: TCP
+          resources:
+            limits:
+              cpu: "1"
+              memory: 2Gi
+            requests:
+              cpu: "1"
+              memory: 1Gi
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /dev/shm
+            name: dshm
+          - mountPath: /usr/local/share/ca-certificates/DGT.crt
+            name: dgt-cert-volume
+            subPath: DGT.crt
+        dnsPolicy: ClusterFirst
+        hostAliases:
+        - hostnames:
+          - ctas-intqa.intranet.pajak.go.id
+          - tpportal-intqa.intranet.pajak.go.id
+          - deportal-intqa.intranet.pajak.go.id
+          ip: 10.244.252.84
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+        volumes:
+        - emptyDir:
+            medium: Memory
+            sizeLimit: 3Gi
+          name: dshm
+        - name: dgt-cert-volume
+          secret:
+            defaultMode: 256
+            secretName: dgt-cert-secret
+  status:
+    conditions:
+    - lastTransitionTime: "2022-12-08T08:53:57Z"
+      lastUpdateTime: "2023-09-27T09:16:18Z"
+      message: ReplicaSet "selenium-chrome-node-549d769f76" has successfully progressed.
+      reason: NewReplicaSetAvailable
+      status: "True"
+      type: Progressing
+    - lastTransitionTime: "2024-09-10T01:04:39Z"
+      lastUpdateTime: "2024-09-10T01:04:39Z"
+      message: Deployment has minimum availability.
+      reason: MinimumReplicasAvailable
+      status: "True"
+      type: Available
+    observedGeneration: 4
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      artifact.spinnaker.io/location: selenium
+      artifact.spinnaker.io/name: selenium-edge-node
+      artifact.spinnaker.io/type: kubernetes/deployment
+      artifact.spinnaker.io/version: ""
+      deployment.kubernetes.io/revision: "2"
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"apps/v1","kind":"Deployment","metadata":{"annotations":{"artifact.spinnaker.io/location":"selenium","artifact.spinnaker.io/name":"selenium-edge-node","artifact.spinnaker.io/type":"kubernetes/deployment","artifact.spinnaker.io/version":"","moniker.spinnaker.io/application":"selenium","moniker.spinnaker.io/cluster":"deployment selenium-edge-node"},"labels":{"app":"selenium-edge-node","app.kubernetes.io/component":"selenium-grid-4.7.0-20221202","app.kubernetes.io/instance":"selenium","app.kubernetes.io/managed-by":"spinnaker","app.kubernetes.io/name":"selenium-edge-node","app.kubernetes.io/version":"4.7.0-20221202","helm.sh/chart":"selenium-grid-0.14.0"},"name":"selenium-edge-node","namespace":"selenium"},"spec":{"replicas":5,"selector":{"matchLabels":{"app":"selenium-edge-node","app.kubernetes.io/instance":"selenium"}},"template":{"metadata":{"annotations":{"artifact.spinnaker.io/location":"selenium","artifact.spinnaker.io/name":"selenium-edge-node","artifact.spinnaker.io/type":"kubernetes/deployment","artifact.spinnaker.io/version":"","checksum/event-bus-configmap":"ce3116bc9f027fceea2cf35e7a25a35b485e69acbab6e5696c40a776b1bad2e8","moniker.spinnaker.io/application":"selenium","moniker.spinnaker.io/cluster":"deployment selenium-edge-node"},"labels":{"app":"selenium-edge-node","app.kubernetes.io/component":"selenium-grid-4.7.0-20221202","app.kubernetes.io/instance":"selenium","app.kubernetes.io/managed-by":"spinnaker","app.kubernetes.io/name":"selenium-edge-node","app.kubernetes.io/version":"4.7.0-20221202","helm.sh/chart":"selenium-grid-0.14.0"}},"spec":{"containers":[{"envFrom":[{"configMapRef":{"name":"selenium-event-bus-config-v000"}}],"image":"selenium/node-edge:4.7.0-20221202","imagePullPolicy":"IfNotPresent","name":"selenium-edge-node","ports":[{"containerPort":5555,"protocol":"TCP"}],"resources":{"limits":{"cpu":"1","memory":"2Gi"},"requests":{"cpu":"1","memory":"1Gi"}},"volumeMounts":[{"mountPath":"/dev/shm","name":"dshm"}]}],"hostAliases":[{"hostnames":["ctas-intqa.intranet.pajak.go.id","tpportal-intqa.intranet.pajak.go.id","deportal-intqa.intranet.pajak.go.id"],"ip":"10.244.252.84"}],"terminationGracePeriodSeconds":30,"volumes":[{"emptyDir":{"medium":"Memory","sizeLimit":"3Gi"},"name":"dshm"}]}}}}
+      moniker.spinnaker.io/application: selenium
+      moniker.spinnaker.io/cluster: deployment selenium-edge-node
+    creationTimestamp: "2022-12-08T08:53:57Z"
+    generation: 3
+    labels:
+      app: selenium-edge-node
+      app.kubernetes.io/component: selenium-grid-4.7.0-20221202
+      app.kubernetes.io/instance: selenium
+      app.kubernetes.io/managed-by: spinnaker
+      app.kubernetes.io/name: selenium-edge-node
+      app.kubernetes.io/version: 4.7.0-20221202
+      helm.sh/chart: selenium-grid-0.14.0
+    name: selenium-edge-node
+    namespace: selenium
+    resourceVersion: "699001296"
+    uid: c56060f7-feb2-400b-8669-4c6edb4f9ba9
+  spec:
+    progressDeadlineSeconds: 600
+    replicas: 0
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        app: selenium-edge-node
+        app.kubernetes.io/instance: selenium
+    strategy:
+      rollingUpdate:
+        maxSurge: 25%
+        maxUnavailable: 25%
+      type: RollingUpdate
+    template:
+      metadata:
+        annotations:
+          artifact.spinnaker.io/location: selenium
+          artifact.spinnaker.io/name: selenium-edge-node
+          artifact.spinnaker.io/type: kubernetes/deployment
+          artifact.spinnaker.io/version: ""
+          checksum/event-bus-configmap: ce3116bc9f027fceea2cf35e7a25a35b485e69acbab6e5696c40a776b1bad2e8
+          moniker.spinnaker.io/application: selenium
+          moniker.spinnaker.io/cluster: deployment selenium-edge-node
+        creationTimestamp: null
+        labels:
+          app: selenium-edge-node
+          app.kubernetes.io/component: selenium-grid-4.7.0-20221202
+          app.kubernetes.io/instance: selenium
+          app.kubernetes.io/managed-by: spinnaker
+          app.kubernetes.io/name: selenium-edge-node
+          app.kubernetes.io/version: 4.7.0-20221202
+          helm.sh/chart: selenium-grid-0.14.0
+      spec:
+        containers:
+        - envFrom:
+          - configMapRef:
+              name: selenium-event-bus-config-v000
+          image: selenium/node-edge:4.7.0-20221202
+          imagePullPolicy: IfNotPresent
+          name: selenium-edge-node
+          ports:
+          - containerPort: 5555
+            protocol: TCP
+          resources:
+            limits:
+              cpu: "1"
+              memory: 2Gi
+            requests:
+              cpu: "1"
+              memory: 1Gi
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /dev/shm
+            name: dshm
+          - mountPath: /usr/local/share/ca-certificates/DGT.crt
+            name: dgt-cert-volume
+            subPath: DGT.crt
+        dnsPolicy: ClusterFirst
+        hostAliases:
+        - hostnames:
+          - ctas-intqa.intranet.pajak.go.id
+          - tpportal-intqa.intranet.pajak.go.id
+          - deportal-intqa.intranet.pajak.go.id
+          ip: 10.244.252.84
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+        volumes:
+        - emptyDir:
+            medium: Memory
+            sizeLimit: 3Gi
+          name: dshm
+        - name: dgt-cert-volume
+          secret:
+            defaultMode: 256
+            secretName: dgt-cert-secret
+  status:
+    conditions:
+    - lastTransitionTime: "2022-12-08T08:53:57Z"
+      lastUpdateTime: "2023-09-27T09:22:52Z"
+      message: ReplicaSet "selenium-edge-node-846845cf54" has successfully progressed.
+      reason: NewReplicaSetAvailable
+      status: "True"
+      type: Progressing
+    - lastTransitionTime: "2024-09-04T18:18:19Z"
+      lastUpdateTime: "2024-09-04T18:18:19Z"
+      message: Deployment has minimum availability.
+      reason: MinimumReplicasAvailable
+      status: "True"
+      type: Available
+    observedGeneration: 3
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      artifact.spinnaker.io/location: selenium
+      artifact.spinnaker.io/name: selenium-firefox-node
+      artifact.spinnaker.io/type: kubernetes/deployment
+      artifact.spinnaker.io/version: ""
+      deployment.kubernetes.io/revision: "1"
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"apps/v1","kind":"Deployment","metadata":{"annotations":{"artifact.spinnaker.io/location":"selenium","artifact.spinnaker.io/name":"selenium-firefox-node","artifact.spinnaker.io/type":"kubernetes/deployment","artifact.spinnaker.io/version":"","moniker.spinnaker.io/application":"selenium","moniker.spinnaker.io/cluster":"deployment selenium-firefox-node"},"labels":{"app":"selenium-firefox-node","app.kubernetes.io/component":"selenium-grid-4.7.0-20221202","app.kubernetes.io/instance":"selenium","app.kubernetes.io/managed-by":"spinnaker","app.kubernetes.io/name":"selenium-firefox-node","app.kubernetes.io/version":"4.7.0-20221202","helm.sh/chart":"selenium-grid-0.14.0"},"name":"selenium-firefox-node","namespace":"selenium"},"spec":{"replicas":5,"selector":{"matchLabels":{"app":"selenium-firefox-node","app.kubernetes.io/instance":"selenium"}},"template":{"metadata":{"annotations":{"artifact.spinnaker.io/location":"selenium","artifact.spinnaker.io/name":"selenium-firefox-node","artifact.spinnaker.io/type":"kubernetes/deployment","artifact.spinnaker.io/version":"","checksum/event-bus-configmap":"ce3116bc9f027fceea2cf35e7a25a35b485e69acbab6e5696c40a776b1bad2e8","moniker.spinnaker.io/application":"selenium","moniker.spinnaker.io/cluster":"deployment selenium-firefox-node"},"labels":{"app":"selenium-firefox-node","app.kubernetes.io/component":"selenium-grid-4.7.0-20221202","app.kubernetes.io/instance":"selenium","app.kubernetes.io/managed-by":"spinnaker","app.kubernetes.io/name":"selenium-firefox-node","app.kubernetes.io/version":"4.7.0-20221202","helm.sh/chart":"selenium-grid-0.14.0"}},"spec":{"containers":[{"envFrom":[{"configMapRef":{"name":"selenium-event-bus-config-v000"}}],"image":"selenium/node-firefox:4.7.0-20221202","imagePullPolicy":"IfNotPresent","name":"selenium-firefox-node","ports":[{"containerPort":5555,"protocol":"TCP"}],"resources":{"limits":{"cpu":"1","memory":"2Gi"},"requests":{"cpu":"1","memory":"1Gi"}},"volumeMounts":[{"mountPath":"/dev/shm","name":"dshm"}]}],"hostAliases":[{"hostnames":["ctas-intqa.intranet.pajak.go.id","tpportal-intqa.intranet.pajak.go.id","deportal-intqa.intranet.pajak.go.id"],"ip":"10.244.252.84"}],"terminationGracePeriodSeconds":30,"volumes":[{"emptyDir":{"medium":"Memory","sizeLimit":"1Gi"},"name":"dshm"}]}}}}
+      moniker.spinnaker.io/application: selenium
+      moniker.spinnaker.io/cluster: deployment selenium-firefox-node
+    creationTimestamp: "2022-12-08T08:53:57Z"
+    generation: 2
+    labels:
+      app: selenium-firefox-node
+      app.kubernetes.io/component: selenium-grid-4.7.0-20221202
+      app.kubernetes.io/instance: selenium
+      app.kubernetes.io/managed-by: spinnaker
+      app.kubernetes.io/name: selenium-firefox-node
+      app.kubernetes.io/version: 4.7.0-20221202
+      helm.sh/chart: selenium-grid-0.14.0
+    name: selenium-firefox-node
+    namespace: selenium
+    resourceVersion: "699001211"
+    uid: 87fb9d84-1690-421c-b56d-2efa6d6a5696
+  spec:
+    progressDeadlineSeconds: 600
+    replicas: 0
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        app: selenium-firefox-node
+        app.kubernetes.io/instance: selenium
+    strategy:
+      rollingUpdate:
+        maxSurge: 25%
+        maxUnavailable: 25%
+      type: RollingUpdate
+    template:
+      metadata:
+        annotations:
+          artifact.spinnaker.io/location: selenium
+          artifact.spinnaker.io/name: selenium-firefox-node
+          artifact.spinnaker.io/type: kubernetes/deployment
+          artifact.spinnaker.io/version: ""
+          checksum/event-bus-configmap: ce3116bc9f027fceea2cf35e7a25a35b485e69acbab6e5696c40a776b1bad2e8
+          moniker.spinnaker.io/application: selenium
+          moniker.spinnaker.io/cluster: deployment selenium-firefox-node
+        creationTimestamp: null
+        labels:
+          app: selenium-firefox-node
+          app.kubernetes.io/component: selenium-grid-4.7.0-20221202
+          app.kubernetes.io/instance: selenium
+          app.kubernetes.io/managed-by: spinnaker
+          app.kubernetes.io/name: selenium-firefox-node
+          app.kubernetes.io/version: 4.7.0-20221202
+          helm.sh/chart: selenium-grid-0.14.0
+      spec:
+        containers:
+        - envFrom:
+          - configMapRef:
+              name: selenium-event-bus-config-v000
+          image: selenium/node-firefox:4.7.0-20221202
+          imagePullPolicy: IfNotPresent
+          name: selenium-firefox-node
+          ports:
+          - containerPort: 5555
+            protocol: TCP
+          resources:
+            limits:
+              cpu: "1"
+              memory: 2Gi
+            requests:
+              cpu: "1"
+              memory: 1Gi
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /dev/shm
+            name: dshm
+        dnsPolicy: ClusterFirst
+        hostAliases:
+        - hostnames:
+          - ctas-intqa.intranet.pajak.go.id
+          - tpportal-intqa.intranet.pajak.go.id
+          - deportal-intqa.intranet.pajak.go.id
+          ip: 10.244.252.84
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+        volumes:
+        - emptyDir:
+            medium: Memory
+            sizeLimit: 1Gi
+          name: dshm
+  status:
+    conditions:
+    - lastTransitionTime: "2022-12-08T08:53:57Z"
+      lastUpdateTime: "2022-12-08T08:59:02Z"
+      message: ReplicaSet "selenium-firefox-node-84859ddc89" has successfully progressed.
+      reason: NewReplicaSetAvailable
+      status: "True"
+      type: Progressing
+    - lastTransitionTime: "2024-03-28T05:13:46Z"
+      lastUpdateTime: "2024-03-28T05:13:46Z"
+      message: Deployment has minimum availability.
+      reason: MinimumReplicasAvailable
+      status: "True"
+      type: Available
+    observedGeneration: 2
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      artifact.spinnaker.io/location: selenium
+      artifact.spinnaker.io/name: selenium-hub
+      artifact.spinnaker.io/type: kubernetes/deployment
+      artifact.spinnaker.io/version: ""
+      deployment.kubernetes.io/revision: "1"
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"apps/v1","kind":"Deployment","metadata":{"annotations":{"artifact.spinnaker.io/location":"selenium","artifact.spinnaker.io/name":"selenium-hub","artifact.spinnaker.io/type":"kubernetes/deployment","artifact.spinnaker.io/version":"","moniker.spinnaker.io/application":"selenium","moniker.spinnaker.io/cluster":"deployment selenium-hub"},"labels":{"app":"selenium-hub","app.kubernetes.io/component":"selenium-grid-4.7.0-20221202","app.kubernetes.io/instance":"selenium","app.kubernetes.io/managed-by":"spinnaker","app.kubernetes.io/name":"selenium-hub","app.kubernetes.io/version":"4.7.0-20221202","helm.sh/chart":"selenium-grid-0.14.0"},"name":"selenium-hub","namespace":"selenium"},"spec":{"replicas":1,"selector":{"matchLabels":{"app":"selenium-hub","app.kubernetes.io/instance":"selenium"}},"template":{"metadata":{"annotations":{"artifact.spinnaker.io/location":"selenium","artifact.spinnaker.io/name":"selenium-hub","artifact.spinnaker.io/type":"kubernetes/deployment","artifact.spinnaker.io/version":"","moniker.spinnaker.io/application":"selenium","moniker.spinnaker.io/cluster":"deployment selenium-hub"},"labels":{"app":"selenium-hub","app.kubernetes.io/component":"selenium-grid-4.7.0-20221202","app.kubernetes.io/instance":"selenium","app.kubernetes.io/managed-by":"spinnaker","app.kubernetes.io/name":"selenium-hub","app.kubernetes.io/version":"4.7.0-20221202","helm.sh/chart":"selenium-grid-0.14.0"}},"spec":{"containers":[{"image":"selenium/hub:4.7.0-20221202","imagePullPolicy":"IfNotPresent","livenessProbe":{"failureThreshold":10,"httpGet":{"path":"/readyz","port":4444},"initialDelaySeconds":10,"periodSeconds":10,"successThreshold":1,"timeoutSeconds":10},"name":"selenium-hub","ports":[{"containerPort":4444,"protocol":"TCP"},{"containerPort":4442,"protocol":"TCP"},{"containerPort":4443,"protocol":"TCP"}],"readinessProbe":{"failureThreshold":10,"httpGet":{"path":"/readyz","port":4444},"initialDelaySeconds":12,"periodSeconds":10,"successThreshold":1,"timeoutSeconds":10}}]}}}}
+      moniker.spinnaker.io/application: selenium
+      moniker.spinnaker.io/cluster: deployment selenium-hub
+    creationTimestamp: "2022-12-08T08:53:57Z"
+    generation: 2
+    labels:
+      app: selenium-hub
+      app.kubernetes.io/component: selenium-grid-4.7.0-20221202
+      app.kubernetes.io/instance: selenium
+      app.kubernetes.io/managed-by: spinnaker
+      app.kubernetes.io/name: selenium-hub
+      app.kubernetes.io/version: 4.7.0-20221202
+      helm.sh/chart: selenium-grid-0.14.0
+    name: selenium-hub
+    namespace: selenium
+    resourceVersion: "709995794"
+    uid: 72782c1d-32d7-4d6b-95a0-408048929c12
+  spec:
+    progressDeadlineSeconds: 600
+    replicas: 0
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        app: selenium-hub
+        app.kubernetes.io/instance: selenium
+    strategy:
+      rollingUpdate:
+        maxSurge: 25%
+        maxUnavailable: 25%
+      type: RollingUpdate
+    template:
+      metadata:
+        annotations:
+          artifact.spinnaker.io/location: selenium
+          artifact.spinnaker.io/name: selenium-hub
+          artifact.spinnaker.io/type: kubernetes/deployment
+          artifact.spinnaker.io/version: ""
+          moniker.spinnaker.io/application: selenium
+          moniker.spinnaker.io/cluster: deployment selenium-hub
+        creationTimestamp: null
+        labels:
+          app: selenium-hub
+          app.kubernetes.io/component: selenium-grid-4.7.0-20221202
+          app.kubernetes.io/instance: selenium
+          app.kubernetes.io/managed-by: spinnaker
+          app.kubernetes.io/name: selenium-hub
+          app.kubernetes.io/version: 4.7.0-20221202
+          helm.sh/chart: selenium-grid-0.14.0
+      spec:
+        containers:
+        - image: selenium/hub:4.7.0-20221202
+          imagePullPolicy: IfNotPresent
+          livenessProbe:
+            failureThreshold: 10
+            httpGet:
+              path: /readyz
+              port: 4444
+              scheme: HTTP
+            initialDelaySeconds: 10
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 10
+          name: selenium-hub
+          ports:
+          - containerPort: 4444
+            protocol: TCP
+          - containerPort: 4442
+            protocol: TCP
+          - containerPort: 4443
+            protocol: TCP
+          readinessProbe:
+            failureThreshold: 10
+            httpGet:
+              path: /readyz
+              port: 4444
+              scheme: HTTP
+            initialDelaySeconds: 12
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 10
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+  status:
+    conditions:
+    - lastTransitionTime: "2022-12-08T08:53:57Z"
+      lastUpdateTime: "2022-12-08T09:00:26Z"
+      message: ReplicaSet "selenium-hub-64f95c9ccf" has successfully progressed.
+      reason: NewReplicaSetAvailable
+      status: "True"
+      type: Progressing
+    - lastTransitionTime: "2024-09-09T10:07:23Z"
+      lastUpdateTime: "2024-09-09T10:07:23Z"
+      message: Deployment has minimum availability.
+      reason: MinimumReplicasAvailable
+      status: "True"
+      type: Available
+    observedGeneration: 2
+kind: List
+metadata:
+  resourceVersion: ""

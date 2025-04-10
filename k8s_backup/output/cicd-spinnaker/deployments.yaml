@@ -1,0 +1,1192 @@
+apiVersion: v1
+items:
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      deployment.kubernetes.io/revision: "7"
+      meta.helm.sh/release-name: minio
+      meta.helm.sh/release-namespace: cicd-spinnaker
+    creationTimestamp: "2023-09-21T09:04:17Z"
+    generation: 14
+    labels:
+      app: minio
+      app.kubernetes.io/managed-by: Helm
+      chart: minio-8.0.10
+      heritage: Helm
+      k8slens-edit-resource-version: v1
+      release: minio
+    name: minio
+    namespace: cicd-spinnaker
+    resourceVersion: "784036678"
+    uid: 2241530a-147f-42e0-aa76-00624a2c5036
+  spec:
+    progressDeadlineSeconds: 600
+    replicas: 1
+    revisionHistoryLimit: 2
+    selector:
+      matchLabels:
+        app: minio
+        release: minio
+    strategy:
+      rollingUpdate:
+        maxSurge: 100%
+        maxUnavailable: 0
+      type: RollingUpdate
+    template:
+      metadata:
+        annotations:
+          checksum/config: 7c481ffb9966b6f77ee7a5f1ee61f1d953938d804f32c718c910c4efac30c080
+          checksum/secrets: 6d722ca6bc16ba983bbca56459c5e8c4642e5be28933ff257256ec9ac09a0046
+        creationTimestamp: null
+        labels:
+          app: minio
+          release: minio
+        name: minio
+      spec:
+        containers:
+        - command:
+          - /bin/sh
+          - -ce
+          - /usr/bin/docker-entrypoint.sh minio -S /etc/minio/certs/ server /export
+          env:
+          - name: MINIO_ACCESS_KEY
+            valueFrom:
+              secretKeyRef:
+                key: accesskey
+                name: minio
+          - name: MINIO_SECRET_KEY
+            valueFrom:
+              secretKeyRef:
+                key: secretkey
+                name: minio
+          image: nexus.pajak.go.id:15000/minio/minio:RELEASE.2021-02-14T04-01-33Z
+          imagePullPolicy: IfNotPresent
+          name: minio
+          ports:
+          - containerPort: 9000
+            name: http
+            protocol: TCP
+          resources:
+            limits:
+              cpu: "2"
+              memory: 4Gi
+            requests:
+              cpu: 50m
+              memory: 300Mi
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /export
+            name: export
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext:
+          fsGroup: 1000
+          runAsGroup: 1000
+          runAsUser: 1000
+        serviceAccount: minio
+        serviceAccountName: minio
+        terminationGracePeriodSeconds: 30
+        volumes:
+        - name: export
+          persistentVolumeClaim:
+            claimName: cicd-spinnaker-minio-pvc
+        - name: minio-user
+          secret:
+            defaultMode: 420
+            secretName: minio
+  status:
+    availableReplicas: 1
+    conditions:
+    - lastTransitionTime: "2023-09-21T09:04:17Z"
+      lastUpdateTime: "2024-11-18T15:17:25Z"
+      message: ReplicaSet "minio-5c5d95864d" has successfully progressed.
+      reason: NewReplicaSetAvailable
+      status: "True"
+      type: Progressing
+    - lastTransitionTime: "2025-04-01T00:42:26Z"
+      lastUpdateTime: "2025-04-01T00:42:26Z"
+      message: Deployment has minimum availability.
+      reason: MinimumReplicasAvailable
+      status: "True"
+      type: Available
+    observedGeneration: 14
+    readyReplicas: 1
+    replicas: 1
+    updatedReplicas: 1
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      deployment.kubernetes.io/revision: "52"
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"apps/v1","kind":"Deployment","metadata":{"annotations":{"moniker.spinnaker.io/application":"\"spin\"","moniker.spinnaker.io/cluster":"\"clouddriver\""},"labels":{"app":"spin","app.kubernetes.io/managed-by":"halyard","app.kubernetes.io/name":"clouddriver","app.kubernetes.io/part-of":"spinnaker","app.kubernetes.io/version":"1.32.2","cluster":"spin-clouddriver"},"name":"spin-clouddriver","namespace":"cicd-spinnaker"},"spec":{"replicas":5,"selector":{"matchLabels":{"app":"spin","cluster":"spin-clouddriver"}},"template":{"metadata":{"annotations":null,"labels":{"app":"spin","app.kubernetes.io/managed-by":"halyard","app.kubernetes.io/name":"clouddriver","app.kubernetes.io/part-of":"spinnaker","app.kubernetes.io/version":"1.32.2","cluster":"spin-clouddriver"}},"spec":{"affinity":{"nodeAffinity":null,"podAffinity":null,"podAntiAffinity":null},"containers":[{"env":[{"name":"JAVA_OPTS","value":"-XX:MaxRAMPercentage=50.0"},{"name":"SPRING_PROFILES_ACTIVE","value":"local"}],"image":"nexus.pajak.go.id:15000/us-docker.pkg.dev/spinnaker-community/docker/clouddriver:5.82.0","lifecycle":{},"livenessProbe":null,"name":"clouddriver","ports":[{"containerPort":7002}],"readinessProbe":{"exec":{"command":["wget","--no-check-certificate","--spider","-q","http://localhost:7002/health"]},"initialDelaySeconds":null},"resources":{"limits":{"cpu":"4","memory":"12Gi"},"requests":{"cpu":"100m","memory":"2Gi"}},"securityContext":null,"volumeMounts":[{"mountPath":"/opt/spinnaker/config","name":"spin-clouddriver-files-2105090796"},{"mountPath":"/home/spinnaker/.hal/default/staging/dependencies","name":"spin-clouddriver-files-976606127"}]}],"imagePullSecrets":[],"terminationGracePeriodSeconds":720,"tolerations":[],"volumes":[{"name":"spin-clouddriver-files-2105090796","secret":{"secretName":"spin-clouddriver-files-2105090796"}},{"name":"spin-clouddriver-files-976606127","secret":{"secretName":"spin-clouddriver-files-976606127"}}]}}}}
+      moniker.spinnaker.io/application: '"spin"'
+      moniker.spinnaker.io/cluster: '"clouddriver"'
+    creationTimestamp: "2023-09-21T09:09:58Z"
+    generation: 86
+    labels:
+      app: spin
+      app.kubernetes.io/managed-by: halyard
+      app.kubernetes.io/name: clouddriver
+      app.kubernetes.io/part-of: spinnaker
+      app.kubernetes.io/version: 1.32.2
+      cluster: spin-clouddriver
+      k8slens-edit-resource-version: v1
+    name: spin-clouddriver
+    namespace: cicd-spinnaker
+    resourceVersion: "787416141"
+    uid: 37870dfb-b783-4e5f-b5b4-691c0a8093b6
+  spec:
+    progressDeadlineSeconds: 600
+    replicas: 5
+    revisionHistoryLimit: 2
+    selector:
+      matchLabels:
+        app: spin
+        cluster: spin-clouddriver
+    strategy:
+      rollingUpdate:
+        maxSurge: 25%
+        maxUnavailable: 25%
+      type: RollingUpdate
+    template:
+      metadata:
+        creationTimestamp: null
+        labels:
+          app: spin
+          app.kubernetes.io/managed-by: halyard
+          app.kubernetes.io/name: clouddriver
+          app.kubernetes.io/part-of: spinnaker
+          app.kubernetes.io/version: 1.32.2
+          cluster: spin-clouddriver
+      spec:
+        affinity: {}
+        containers:
+        - env:
+          - name: JAVA_OPTS
+            value: -XX:MaxRAMPercentage=50.0
+          - name: SPRING_PROFILES_ACTIVE
+            value: local
+          image: nexus.pajak.go.id:15000/us-docker.pkg.dev/spinnaker-community/docker/clouddriver:5.82.0
+          imagePullPolicy: IfNotPresent
+          lifecycle: {}
+          name: clouddriver
+          ports:
+          - containerPort: 7002
+            protocol: TCP
+          readinessProbe:
+            exec:
+              command:
+              - wget
+              - --no-check-certificate
+              - --spider
+              - -q
+              - http://localhost:7002/health
+            failureThreshold: 3
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 1
+          resources:
+            limits:
+              cpu: "4"
+              memory: 12Gi
+            requests:
+              cpu: 100m
+              memory: 2Gi
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /opt/spinnaker/config
+            name: spin-clouddriver-files-2105090796
+          - mountPath: /home/spinnaker/.hal/default/staging/dependencies
+            name: spin-clouddriver-files-976606127
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 720
+        topologySpreadConstraints:
+        - labelSelector:
+            matchLabels:
+              cluster: spin-clouddriver
+          maxSkew: 1
+          topologyKey: kubernetes.io/hostname
+          whenUnsatisfiable: DoNotSchedule
+        volumes:
+        - name: spin-clouddriver-files-2105090796
+          secret:
+            defaultMode: 420
+            secretName: spin-clouddriver-files-2105090796
+        - name: spin-clouddriver-files-976606127
+          secret:
+            defaultMode: 420
+            secretName: spin-clouddriver-files-976606127
+  status:
+    availableReplicas: 5
+    conditions:
+    - lastTransitionTime: "2025-04-07T05:32:12Z"
+      lastUpdateTime: "2025-04-07T05:32:12Z"
+      message: Deployment has minimum availability.
+      reason: MinimumReplicasAvailable
+      status: "True"
+      type: Available
+    - lastTransitionTime: "2025-04-07T04:56:53Z"
+      lastUpdateTime: "2025-04-07T05:33:41Z"
+      message: ReplicaSet "spin-clouddriver-84fc9bcc54" has successfully progressed.
+      reason: NewReplicaSetAvailable
+      status: "True"
+      type: Progressing
+    observedGeneration: 86
+    readyReplicas: 5
+    replicas: 5
+    updatedReplicas: 5
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      deployment.kubernetes.io/revision: "20"
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"apps/v1","kind":"Deployment","metadata":{"annotations":{"moniker.spinnaker.io/application":"\"spin\"","moniker.spinnaker.io/cluster":"\"deck\""},"labels":{"app":"spin","app.kubernetes.io/managed-by":"halyard","app.kubernetes.io/name":"deck","app.kubernetes.io/part-of":"spinnaker","app.kubernetes.io/version":"1.32.2","cluster":"spin-deck"},"name":"spin-deck","namespace":"cicd-spinnaker"},"spec":{"replicas":1,"selector":{"matchLabels":{"app":"spin","cluster":"spin-deck"}},"template":{"metadata":{"annotations":null,"labels":{"app":"spin","app.kubernetes.io/managed-by":"halyard","app.kubernetes.io/name":"deck","app.kubernetes.io/part-of":"spinnaker","app.kubernetes.io/version":"1.32.2","cluster":"spin-deck"}},"spec":{"affinity":{"nodeAffinity":null,"podAffinity":null,"podAntiAffinity":null},"containers":[{"env":[],"image":"nexus.pajak.go.id:15000/us-docker.pkg.dev/spinnaker-community/docker/deck:3.15.1","lifecycle":{},"livenessProbe":null,"name":"deck","ports":[{"containerPort":9000}],"readinessProbe":{"initialDelaySeconds":null,"tcpSocket":{"port":9000}},"resources":{"limits":{},"requests":{}},"securityContext":null,"volumeMounts":[{"mountPath":"/opt/spinnaker/config","name":"spin-deck-files-1039139365"}]}],"imagePullSecrets":[],"terminationGracePeriodSeconds":60,"tolerations":[],"volumes":[{"name":"spin-deck-files-1039139365","secret":{"secretName":"spin-deck-files-1039139365"}}]}}}}
+      moniker.spinnaker.io/application: '"spin"'
+      moniker.spinnaker.io/cluster: '"deck"'
+    creationTimestamp: "2023-09-21T09:09:58Z"
+    generation: 29
+    labels:
+      app: spin
+      app.kubernetes.io/managed-by: halyard
+      app.kubernetes.io/name: deck
+      app.kubernetes.io/part-of: spinnaker
+      app.kubernetes.io/version: 1.32.2
+      cluster: spin-deck
+      k8slens-edit-resource-version: v1
+    name: spin-deck
+    namespace: cicd-spinnaker
+    resourceVersion: "786320629"
+    uid: e86adabd-c3c2-4b38-973a-061d5ec9b6b8
+  spec:
+    progressDeadlineSeconds: 600
+    replicas: 1
+    revisionHistoryLimit: 2
+    selector:
+      matchLabels:
+        app: spin
+        cluster: spin-deck
+    strategy:
+      rollingUpdate:
+        maxSurge: 25%
+        maxUnavailable: 25%
+      type: RollingUpdate
+    template:
+      metadata:
+        creationTimestamp: null
+        labels:
+          app: spin
+          app.kubernetes.io/managed-by: halyard
+          app.kubernetes.io/name: deck
+          app.kubernetes.io/part-of: spinnaker
+          app.kubernetes.io/version: 1.32.2
+          cluster: spin-deck
+      spec:
+        affinity: {}
+        containers:
+        - image: nexus.pajak.go.id:15000/us-docker.pkg.dev/spinnaker-community/docker/deck:3.15.1
+          imagePullPolicy: IfNotPresent
+          lifecycle: {}
+          name: deck
+          ports:
+          - containerPort: 9000
+            protocol: TCP
+          readinessProbe:
+            failureThreshold: 3
+            periodSeconds: 10
+            successThreshold: 1
+            tcpSocket:
+              port: 9000
+            timeoutSeconds: 1
+          resources:
+            limits:
+              cpu: "4"
+              memory: 8Gi
+            requests:
+              cpu: 10m
+              memory: 50Mi
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /opt/spinnaker/config
+            name: spin-deck-files-1039139365
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 60
+        volumes:
+        - name: spin-deck-files-1039139365
+          secret:
+            defaultMode: 420
+            secretName: spin-deck-files-1039139365
+  status:
+    availableReplicas: 1
+    conditions:
+    - lastTransitionTime: "2025-04-01T02:20:13Z"
+      lastUpdateTime: "2025-04-01T02:20:13Z"
+      message: Deployment has minimum availability.
+      reason: MinimumReplicasAvailable
+      status: "True"
+      type: Available
+    - lastTransitionTime: "2025-04-07T02:12:53Z"
+      lastUpdateTime: "2025-04-07T05:32:07Z"
+      message: ReplicaSet "spin-deck-8cd47bfd5" has successfully progressed.
+      reason: NewReplicaSetAvailable
+      status: "True"
+      type: Progressing
+    observedGeneration: 29
+    readyReplicas: 1
+    replicas: 1
+    updatedReplicas: 1
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      deployment.kubernetes.io/revision: "24"
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"apps/v1","kind":"Deployment","metadata":{"annotations":{"moniker.spinnaker.io/application":"\"spin\"","moniker.spinnaker.io/cluster":"\"echo\""},"labels":{"app":"spin","app.kubernetes.io/managed-by":"halyard","app.kubernetes.io/name":"echo","app.kubernetes.io/part-of":"spinnaker","app.kubernetes.io/version":"1.32.2","cluster":"spin-echo"},"name":"spin-echo","namespace":"cicd-spinnaker"},"spec":{"replicas":1,"selector":{"matchLabels":{"app":"spin","cluster":"spin-echo"}},"template":{"metadata":{"annotations":null,"labels":{"app":"spin","app.kubernetes.io/managed-by":"halyard","app.kubernetes.io/name":"echo","app.kubernetes.io/part-of":"spinnaker","app.kubernetes.io/version":"1.32.2","cluster":"spin-echo"}},"spec":{"affinity":{"nodeAffinity":null,"podAffinity":null,"podAntiAffinity":null},"containers":[{"env":[{"name":"JAVA_OPTS","value":"-XX:MaxRAMPercentage=50.0"},{"name":"SPRING_PROFILES_ACTIVE","value":"local"}],"image":"nexus.pajak.go.id:15000/us-docker.pkg.dev/spinnaker-community/docker/echo:2.39.0","lifecycle":{},"livenessProbe":null,"name":"echo","ports":[{"containerPort":8089}],"readinessProbe":{"exec":{"command":["wget","--no-check-certificate","--spider","-q","http://localhost:8089/health"]},"initialDelaySeconds":null},"resources":{"limits":{},"requests":{}},"securityContext":null,"volumeMounts":[{"mountPath":"/opt/spinnaker/config","name":"spin-echo-files-1716300031"},{"mountPath":"/home/spinnaker/.hal/default/staging/dependencies","name":"spin-echo-files-2083851398"}]}],"imagePullSecrets":[],"terminationGracePeriodSeconds":60,"tolerations":[],"volumes":[{"name":"spin-echo-files-1716300031","secret":{"secretName":"spin-echo-files-1716300031"}},{"name":"spin-echo-files-2083851398","secret":{"secretName":"spin-echo-files-2083851398"}}]}}}}
+      moniker.spinnaker.io/application: '"spin"'
+      moniker.spinnaker.io/cluster: '"echo"'
+    creationTimestamp: "2023-09-21T09:09:57Z"
+    generation: 36
+    labels:
+      app: spin
+      app.kubernetes.io/managed-by: halyard
+      app.kubernetes.io/name: echo
+      app.kubernetes.io/part-of: spinnaker
+      app.kubernetes.io/version: 1.32.2
+      cluster: spin-echo
+      k8slens-edit-resource-version: v1
+    name: spin-echo
+    namespace: cicd-spinnaker
+    resourceVersion: "787384189"
+    uid: 2a9e5720-dfbf-404a-af1c-33b6471c1e4f
+  spec:
+    progressDeadlineSeconds: 600
+    replicas: 1
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        app: spin
+        cluster: spin-echo
+    strategy:
+      rollingUpdate:
+        maxSurge: 25%
+        maxUnavailable: 25%
+      type: RollingUpdate
+    template:
+      metadata:
+        creationTimestamp: null
+        labels:
+          app: spin
+          app.kubernetes.io/managed-by: halyard
+          app.kubernetes.io/name: echo
+          app.kubernetes.io/part-of: spinnaker
+          app.kubernetes.io/version: 1.32.2
+          cluster: spin-echo
+      spec:
+        affinity: {}
+        containers:
+        - env:
+          - name: JAVA_OPTS
+            value: -XX:MaxRAMPercentage=50.0
+          - name: SPRING_PROFILES_ACTIVE
+            value: local
+          image: nexus.pajak.go.id:15000/us-docker.pkg.dev/spinnaker-community/docker/echo:2.39.0
+          imagePullPolicy: IfNotPresent
+          lifecycle: {}
+          name: echo
+          ports:
+          - containerPort: 8089
+            protocol: TCP
+          readinessProbe:
+            exec:
+              command:
+              - wget
+              - --no-check-certificate
+              - --spider
+              - -q
+              - http://localhost:8089/health
+            failureThreshold: 3
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 1
+          resources:
+            limits:
+              cpu: "4"
+              memory: 8Gi
+            requests:
+              cpu: 10m
+              memory: 100Mi
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /opt/spinnaker/config
+            name: spin-echo-files-1716300031
+          - mountPath: /home/spinnaker/.hal/default/staging/dependencies
+            name: spin-echo-files-2083851398
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 60
+        volumes:
+        - name: spin-echo-files-1716300031
+          secret:
+            defaultMode: 420
+            secretName: spin-echo-files-1716300031
+        - name: spin-echo-files-2083851398
+          secret:
+            defaultMode: 420
+            secretName: spin-echo-files-2083851398
+  status:
+    availableReplicas: 1
+    conditions:
+    - lastTransitionTime: "2023-09-21T09:28:57Z"
+      lastUpdateTime: "2025-04-07T05:32:03Z"
+      message: ReplicaSet "spin-echo-68545c8554" has successfully progressed.
+      reason: NewReplicaSetAvailable
+      status: "True"
+      type: Progressing
+    - lastTransitionTime: "2025-04-10T00:11:57Z"
+      lastUpdateTime: "2025-04-10T00:11:57Z"
+      message: Deployment has minimum availability.
+      reason: MinimumReplicasAvailable
+      status: "True"
+      type: Available
+    observedGeneration: 36
+    readyReplicas: 1
+    replicas: 1
+    updatedReplicas: 1
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      deployment.kubernetes.io/revision: "21"
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"apps/v1","kind":"Deployment","metadata":{"annotations":{"moniker.spinnaker.io/application":"\"spin\"","moniker.spinnaker.io/cluster":"\"front50\""},"labels":{"app":"spin","app.kubernetes.io/managed-by":"halyard","app.kubernetes.io/name":"front50","app.kubernetes.io/part-of":"spinnaker","app.kubernetes.io/version":"1.32.2","cluster":"spin-front50"},"name":"spin-front50","namespace":"cicd-spinnaker"},"spec":{"replicas":1,"selector":{"matchLabels":{"app":"spin","cluster":"spin-front50"}},"template":{"metadata":{"annotations":null,"labels":{"app":"spin","app.kubernetes.io/managed-by":"halyard","app.kubernetes.io/name":"front50","app.kubernetes.io/part-of":"spinnaker","app.kubernetes.io/version":"1.32.2","cluster":"spin-front50"}},"spec":{"affinity":{"nodeAffinity":null,"podAffinity":null,"podAntiAffinity":null},"containers":[{"env":[{"name":"JAVA_OPTS","value":"-XX:MaxRAMPercentage=50.0"}],"image":"nexus.pajak.go.id:15000/us-docker.pkg.dev/spinnaker-community/docker/front50:2.30.1","lifecycle":{},"livenessProbe":null,"name":"front50","ports":[{"containerPort":8080}],"readinessProbe":{"exec":{"command":["wget","--no-check-certificate","--spider","-q","http://localhost:8080/health"]},"initialDelaySeconds":null},"resources":{"limits":{},"requests":{}},"securityContext":null,"volumeMounts":[{"mountPath":"/opt/spinnaker/config","name":"spin-front50-files-1946067925"},{"mountPath":"/root/.aws","name":"spin-front50-files-1221485296"},{"mountPath":"/home/spinnaker/.aws","name":"spin-front50-files-1221485296"}]}],"imagePullSecrets":[],"terminationGracePeriodSeconds":60,"tolerations":[],"volumes":[{"name":"spin-front50-files-1946067925","secret":{"secretName":"spin-front50-files-1946067925"}},{"name":"spin-front50-files-1221485296","secret":{"secretName":"spin-front50-files-1221485296"}}]}}}}
+      moniker.spinnaker.io/application: '"spin"'
+      moniker.spinnaker.io/cluster: '"front50"'
+    creationTimestamp: "2023-09-21T09:09:59Z"
+    generation: 30
+    labels:
+      app: spin
+      app.kubernetes.io/managed-by: halyard
+      app.kubernetes.io/name: front50
+      app.kubernetes.io/part-of: spinnaker
+      app.kubernetes.io/version: 1.32.2
+      cluster: spin-front50
+      k8slens-edit-resource-version: v1
+    name: spin-front50
+    namespace: cicd-spinnaker
+    resourceVersion: "787431530"
+    uid: 23a67ef2-3362-411a-bb06-3ac2e3f4b703
+  spec:
+    progressDeadlineSeconds: 600
+    replicas: 1
+    revisionHistoryLimit: 2
+    selector:
+      matchLabels:
+        app: spin
+        cluster: spin-front50
+    strategy:
+      rollingUpdate:
+        maxSurge: 25%
+        maxUnavailable: 25%
+      type: RollingUpdate
+    template:
+      metadata:
+        creationTimestamp: null
+        labels:
+          app: spin
+          app.kubernetes.io/managed-by: halyard
+          app.kubernetes.io/name: front50
+          app.kubernetes.io/part-of: spinnaker
+          app.kubernetes.io/version: 1.32.2
+          cluster: spin-front50
+      spec:
+        affinity: {}
+        containers:
+        - env:
+          - name: JAVA_OPTS
+            value: -XX:MaxRAMPercentage=50.0
+          image: nexus.pajak.go.id:15000/us-docker.pkg.dev/spinnaker-community/docker/front50:2.30.1
+          imagePullPolicy: IfNotPresent
+          lifecycle: {}
+          name: front50
+          ports:
+          - containerPort: 8080
+            protocol: TCP
+          readinessProbe:
+            exec:
+              command:
+              - wget
+              - --no-check-certificate
+              - --spider
+              - -q
+              - http://localhost:8080/health
+            failureThreshold: 3
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 1
+          resources:
+            limits:
+              cpu: "4"
+              memory: 12Gi
+            requests:
+              cpu: 10m
+              memory: 100Mi
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /opt/spinnaker/config
+            name: spin-front50-files-1946067925
+          - mountPath: /root/.aws
+            name: spin-front50-files-1221485296
+          - mountPath: /home/spinnaker/.aws
+            name: spin-front50-files-1221485296
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 60
+        volumes:
+        - name: spin-front50-files-1946067925
+          secret:
+            defaultMode: 420
+            secretName: spin-front50-files-1946067925
+        - name: spin-front50-files-1221485296
+          secret:
+            defaultMode: 420
+            secretName: spin-front50-files-1221485296
+  status:
+    availableReplicas: 1
+    conditions:
+    - lastTransitionTime: "2023-09-21T09:09:59Z"
+      lastUpdateTime: "2025-04-07T05:32:36Z"
+      message: ReplicaSet "spin-front50-767dbc989b" has successfully progressed.
+      reason: NewReplicaSetAvailable
+      status: "True"
+      type: Progressing
+    - lastTransitionTime: "2025-04-10T03:11:35Z"
+      lastUpdateTime: "2025-04-10T03:11:35Z"
+      message: Deployment has minimum availability.
+      reason: MinimumReplicasAvailable
+      status: "True"
+      type: Available
+    observedGeneration: 30
+    readyReplicas: 1
+    replicas: 1
+    updatedReplicas: 1
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      deployment.kubernetes.io/revision: "28"
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"apps/v1","kind":"Deployment","metadata":{"annotations":{"moniker.spinnaker.io/application":"\"spin\"","moniker.spinnaker.io/cluster":"\"gate\""},"labels":{"app":"spin","app.kubernetes.io/managed-by":"halyard","app.kubernetes.io/name":"gate","app.kubernetes.io/part-of":"spinnaker","app.kubernetes.io/version":"1.32.2","cluster":"spin-gate"},"name":"spin-gate","namespace":"cicd-spinnaker"},"spec":{"replicas":1,"selector":{"matchLabels":{"app":"spin","cluster":"spin-gate"}},"template":{"metadata":{"annotations":null,"labels":{"app":"spin","app.kubernetes.io/managed-by":"halyard","app.kubernetes.io/name":"gate","app.kubernetes.io/part-of":"spinnaker","app.kubernetes.io/version":"1.32.2","cluster":"spin-gate"}},"spec":{"affinity":{"nodeAffinity":null,"podAffinity":null,"podAntiAffinity":null},"containers":[{"env":[{"name":"JAVA_OPTS","value":"-XX:MaxRAMPercentage=50.0"},{"name":"SPRING_PROFILES_ACTIVE","value":"local"}],"image":"nexus.pajak.go.id:15000/us-docker.pkg.dev/spinnaker-community/docker/gate:6.60.1","lifecycle":{},"livenessProbe":null,"name":"gate","ports":[{"containerPort":8084}],"readinessProbe":{"exec":{"command":["wget","--no-check-certificate","--spider","-q","http://localhost:8084/health"]},"initialDelaySeconds":null},"resources":{"limits":{},"requests":{}},"securityContext":null,"volumeMounts":[{"mountPath":"/opt/spinnaker/config","name":"spin-gate-files-1600139530"}]}],"imagePullSecrets":[],"terminationGracePeriodSeconds":60,"tolerations":[],"volumes":[{"name":"spin-gate-files-1600139530","secret":{"secretName":"spin-gate-files-1600139530"}}]}}}}
+      moniker.spinnaker.io/application: '"spin"'
+      moniker.spinnaker.io/cluster: '"gate"'
+    creationTimestamp: "2023-09-21T09:09:57Z"
+    generation: 34
+    labels:
+      app: spin
+      app.kubernetes.io/managed-by: halyard
+      app.kubernetes.io/name: gate
+      app.kubernetes.io/part-of: spinnaker
+      app.kubernetes.io/version: 1.32.2
+      cluster: spin-gate
+      k8slens-edit-resource-version: v1
+    name: spin-gate
+    namespace: cicd-spinnaker
+    resourceVersion: "786321328"
+    uid: 4bf1c88f-6d84-43fd-96a3-707012ba0924
+  spec:
+    progressDeadlineSeconds: 600
+    replicas: 1
+    revisionHistoryLimit: 2
+    selector:
+      matchLabels:
+        app: spin
+        cluster: spin-gate
+    strategy:
+      rollingUpdate:
+        maxSurge: 25%
+        maxUnavailable: 25%
+      type: RollingUpdate
+    template:
+      metadata:
+        creationTimestamp: null
+        labels:
+          app: spin
+          app.kubernetes.io/managed-by: halyard
+          app.kubernetes.io/name: gate
+          app.kubernetes.io/part-of: spinnaker
+          app.kubernetes.io/version: 1.32.2
+          cluster: spin-gate
+      spec:
+        affinity: {}
+        containers:
+        - env:
+          - name: JAVA_OPTS
+            value: -XX:MaxRAMPercentage=50.0
+          - name: SPRING_PROFILES_ACTIVE
+            value: local
+          image: nexus.pajak.go.id:15000/us-docker.pkg.dev/spinnaker-community/docker/gate:6.60.1
+          imagePullPolicy: IfNotPresent
+          lifecycle: {}
+          name: gate
+          ports:
+          - containerPort: 8084
+            protocol: TCP
+          readinessProbe:
+            exec:
+              command:
+              - wget
+              - --no-check-certificate
+              - --spider
+              - -q
+              - http://localhost:8084/health
+            failureThreshold: 15
+            periodSeconds: 120
+            successThreshold: 1
+            timeoutSeconds: 60
+          resources:
+            limits:
+              cpu: "4"
+              memory: 8Gi
+            requests:
+              cpu: 5m
+              memory: 1Gi
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /opt/spinnaker/config
+            name: spin-gate-files-1600139530
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 60
+        volumes:
+        - name: spin-gate-files-1600139530
+          secret:
+            defaultMode: 420
+            secretName: spin-gate-files-1600139530
+  status:
+    availableReplicas: 1
+    conditions:
+    - lastTransitionTime: "2025-04-01T02:20:27Z"
+      lastUpdateTime: "2025-04-01T02:20:27Z"
+      message: Deployment has minimum availability.
+      reason: MinimumReplicasAvailable
+      status: "True"
+      type: Available
+    - lastTransitionTime: "2025-04-07T02:13:13Z"
+      lastUpdateTime: "2025-04-07T05:34:11Z"
+      message: ReplicaSet "spin-gate-7474877559" has successfully progressed.
+      reason: NewReplicaSetAvailable
+      status: "True"
+      type: Progressing
+    observedGeneration: 34
+    readyReplicas: 1
+    replicas: 1
+    updatedReplicas: 1
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      deployment.kubernetes.io/revision: "23"
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"apps/v1","kind":"Deployment","metadata":{"annotations":{"moniker.spinnaker.io/application":"\"spin\"","moniker.spinnaker.io/cluster":"\"igor\""},"labels":{"app":"spin","app.kubernetes.io/managed-by":"halyard","app.kubernetes.io/name":"igor","app.kubernetes.io/part-of":"spinnaker","app.kubernetes.io/version":"1.32.2","cluster":"spin-igor"},"name":"spin-igor","namespace":"cicd-spinnaker"},"spec":{"replicas":1,"selector":{"matchLabels":{"app":"spin","cluster":"spin-igor"}},"template":{"metadata":{"annotations":null,"labels":{"app":"spin","app.kubernetes.io/managed-by":"halyard","app.kubernetes.io/name":"igor","app.kubernetes.io/part-of":"spinnaker","app.kubernetes.io/version":"1.32.2","cluster":"spin-igor"}},"spec":{"affinity":{"nodeAffinity":null,"podAffinity":null,"podAntiAffinity":null},"containers":[{"env":[{"name":"JAVA_OPTS","value":"-XX:MaxRAMPercentage=50.0"},{"name":"SPRING_PROFILES_ACTIVE","value":"local"}],"image":"nexus.pajak.go.id:15000/us-docker.pkg.dev/spinnaker-community/docker/igor:4.13.3","lifecycle":{},"livenessProbe":null,"name":"igor","ports":[{"containerPort":8088}],"readinessProbe":{"exec":{"command":["wget","--no-check-certificate","--spider","-q","http://localhost:8088/health"]},"initialDelaySeconds":null},"resources":{"limits":{},"requests":{}},"securityContext":null,"volumeMounts":[{"mountPath":"/opt/spinnaker/config","name":"spin-igor-files-1096463623"},{"mountPath":"/home/spinnaker/.hal/default/staging/dependencies","name":"spin-igor-files-2083851398"}]}],"imagePullSecrets":[],"terminationGracePeriodSeconds":60,"tolerations":[],"volumes":[{"name":"spin-igor-files-1096463623","secret":{"secretName":"spin-igor-files-1096463623"}},{"name":"spin-igor-files-2083851398","secret":{"secretName":"spin-igor-files-2083851398"}}]}}}}
+      moniker.spinnaker.io/application: '"spin"'
+      moniker.spinnaker.io/cluster: '"igor"'
+    creationTimestamp: "2023-09-21T10:12:08Z"
+    generation: 27
+    labels:
+      app: spin
+      app.kubernetes.io/managed-by: halyard
+      app.kubernetes.io/name: igor
+      app.kubernetes.io/part-of: spinnaker
+      app.kubernetes.io/version: 1.32.2
+      cluster: spin-igor
+      k8slens-edit-resource-version: v1
+    name: spin-igor
+    namespace: cicd-spinnaker
+    resourceVersion: "786320868"
+    uid: fff1e7b2-e8ee-473b-8821-c1deac18a71d
+  spec:
+    progressDeadlineSeconds: 600
+    replicas: 1
+    revisionHistoryLimit: 2
+    selector:
+      matchLabels:
+        app: spin
+        cluster: spin-igor
+    strategy:
+      rollingUpdate:
+        maxSurge: 25%
+        maxUnavailable: 25%
+      type: RollingUpdate
+    template:
+      metadata:
+        creationTimestamp: null
+        labels:
+          app: spin
+          app.kubernetes.io/managed-by: halyard
+          app.kubernetes.io/name: igor
+          app.kubernetes.io/part-of: spinnaker
+          app.kubernetes.io/version: 1.32.2
+          cluster: spin-igor
+      spec:
+        affinity: {}
+        containers:
+        - env:
+          - name: JAVA_OPTS
+            value: -XX:MaxRAMPercentage=50.0
+          - name: SPRING_PROFILES_ACTIVE
+            value: local
+          image: nexus.pajak.go.id:15000/us-docker.pkg.dev/spinnaker-community/docker/igor:4.13.3
+          imagePullPolicy: IfNotPresent
+          lifecycle: {}
+          name: igor
+          ports:
+          - containerPort: 8088
+            protocol: TCP
+          readinessProbe:
+            exec:
+              command:
+              - wget
+              - --no-check-certificate
+              - --spider
+              - -q
+              - http://localhost:8088/health
+            failureThreshold: 3
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 1
+          resources:
+            limits:
+              cpu: "4"
+              memory: 4Gi
+            requests:
+              cpu: 5m
+              memory: 100Mi
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /opt/spinnaker/config
+            name: spin-igor-files-1096463623
+          - mountPath: /home/spinnaker/.hal/default/staging/dependencies
+            name: spin-igor-files-2083851398
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 60
+        volumes:
+        - name: spin-igor-files-1096463623
+          secret:
+            defaultMode: 420
+            secretName: spin-igor-files-1096463623
+        - name: spin-igor-files-2083851398
+          secret:
+            defaultMode: 420
+            secretName: spin-igor-files-2083851398
+  status:
+    availableReplicas: 1
+    conditions:
+    - lastTransitionTime: "2025-04-01T02:25:21Z"
+      lastUpdateTime: "2025-04-01T02:25:21Z"
+      message: Deployment has minimum availability.
+      reason: MinimumReplicasAvailable
+      status: "True"
+      type: Available
+    - lastTransitionTime: "2023-09-21T10:12:08Z"
+      lastUpdateTime: "2025-04-07T05:32:41Z"
+      message: ReplicaSet "spin-igor-57bc76dcbf" has successfully progressed.
+      reason: NewReplicaSetAvailable
+      status: "True"
+      type: Progressing
+    observedGeneration: 27
+    readyReplicas: 1
+    replicas: 1
+    updatedReplicas: 1
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      deployment.kubernetes.io/revision: "38"
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"apps/v1","kind":"Deployment","metadata":{"annotations":{"moniker.spinnaker.io/application":"\"spin\"","moniker.spinnaker.io/cluster":"\"orca\""},"labels":{"app":"spin","app.kubernetes.io/managed-by":"halyard","app.kubernetes.io/name":"orca","app.kubernetes.io/part-of":"spinnaker","app.kubernetes.io/version":"1.32.2","cluster":"spin-orca"},"name":"spin-orca","namespace":"cicd-spinnaker"},"spec":{"replicas":1,"selector":{"matchLabels":{"app":"spin","cluster":"spin-orca"}},"template":{"metadata":{"annotations":null,"labels":{"app":"spin","app.kubernetes.io/managed-by":"halyard","app.kubernetes.io/name":"orca","app.kubernetes.io/part-of":"spinnaker","app.kubernetes.io/version":"1.32.2","cluster":"spin-orca"}},"spec":{"affinity":{"nodeAffinity":null,"podAffinity":null,"podAntiAffinity":null},"containers":[{"env":[{"name":"JAVA_OPTS","value":"-XX:MaxRAMPercentage=50.0"},{"name":"SPRING_PROFILES_ACTIVE","value":"local"}],"image":"nexus.pajak.go.id:15000/us-docker.pkg.dev/spinnaker-community/docker/orca:8.36.0","lifecycle":{"preStop":{"exec":{"command":["bash","/opt/spinnaker/scripts/shutdown.sh"]}}},"livenessProbe":null,"name":"orca","ports":[{"containerPort":8083}],"readinessProbe":{"exec":{"command":["wget","--no-check-certificate","--spider","-q","http://localhost:8083/health"]},"initialDelaySeconds":null},"resources":{"limits":{},"requests":{}},"securityContext":null,"volumeMounts":[{"mountPath":"/opt/spinnaker/config","name":"spin-orca-files-284640741"},{"mountPath":"/opt/spinnaker/scripts","name":"spin-orca-files-795629369"}]}],"imagePullSecrets":[],"terminationGracePeriodSeconds":60,"tolerations":[],"volumes":[{"name":"spin-orca-files-795629369","secret":{"secretName":"spin-orca-files-795629369"}},{"name":"spin-orca-files-284640741","secret":{"secretName":"spin-orca-files-284640741"}}]}}}}
+      moniker.spinnaker.io/application: '"spin"'
+      moniker.spinnaker.io/cluster: '"orca"'
+    creationTimestamp: "2023-09-21T09:09:58Z"
+    generation: 55
+    labels:
+      app: spin
+      app.kubernetes.io/managed-by: halyard
+      app.kubernetes.io/name: orca
+      app.kubernetes.io/part-of: spinnaker
+      app.kubernetes.io/version: 1.32.2
+      cluster: spin-orca
+      k8slens-edit-resource-version: v1
+    name: spin-orca
+    namespace: cicd-spinnaker
+    resourceVersion: "786320926"
+    uid: adb9829d-2a2e-407b-8c8b-8f6cfdd6fe83
+  spec:
+    progressDeadlineSeconds: 600
+    replicas: 1
+    revisionHistoryLimit: 2
+    selector:
+      matchLabels:
+        app: spin
+        cluster: spin-orca
+    strategy:
+      rollingUpdate:
+        maxSurge: 25%
+        maxUnavailable: 25%
+      type: RollingUpdate
+    template:
+      metadata:
+        creationTimestamp: null
+        labels:
+          app: spin
+          app.kubernetes.io/managed-by: halyard
+          app.kubernetes.io/name: orca
+          app.kubernetes.io/part-of: spinnaker
+          app.kubernetes.io/version: 1.32.2
+          cluster: spin-orca
+      spec:
+        affinity: {}
+        containers:
+        - env:
+          - name: JAVA_OPTS
+            value: -XX:MaxRAMPercentage=50.0
+          - name: SPRING_PROFILES_ACTIVE
+            value: local
+          image: nexus.pajak.go.id:15000/us-docker.pkg.dev/spinnaker-community/docker/orca:8.36.0
+          imagePullPolicy: IfNotPresent
+          lifecycle:
+            preStop:
+              exec:
+                command:
+                - bash
+                - /opt/spinnaker/scripts/shutdown.sh
+          name: orca
+          ports:
+          - containerPort: 8083
+            protocol: TCP
+          readinessProbe:
+            exec:
+              command:
+              - wget
+              - --no-check-certificate
+              - --spider
+              - -q
+              - http://localhost:8083/health
+            failureThreshold: 3
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 1
+          resources:
+            limits:
+              cpu: "2"
+              memory: 32Gi
+            requests:
+              cpu: 500m
+              memory: 4Gi
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /opt/spinnaker/config
+            name: spin-orca-files-284640741
+          - mountPath: /opt/spinnaker/scripts
+            name: spin-orca-files-795629369
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 60
+        topologySpreadConstraints:
+        - labelSelector:
+            matchLabels:
+              app.kubernetes.io/name: orca
+          maxSkew: 1
+          topologyKey: kubernetes.io/hostname
+          whenUnsatisfiable: DoNotSchedule
+        volumes:
+        - name: spin-orca-files-795629369
+          secret:
+            defaultMode: 420
+            secretName: spin-orca-files-795629369
+        - name: spin-orca-files-284640741
+          secret:
+            defaultMode: 420
+            secretName: spin-orca-files-284640741
+  status:
+    availableReplicas: 1
+    conditions:
+    - lastTransitionTime: "2025-04-01T02:19:13Z"
+      lastUpdateTime: "2025-04-01T02:19:13Z"
+      message: Deployment has minimum availability.
+      reason: MinimumReplicasAvailable
+      status: "True"
+      type: Available
+    - lastTransitionTime: "2025-04-07T02:13:25Z"
+      lastUpdateTime: "2025-04-07T05:32:50Z"
+      message: ReplicaSet "spin-orca-5c88988d98" has successfully progressed.
+      reason: NewReplicaSetAvailable
+      status: "True"
+      type: Progressing
+    observedGeneration: 55
+    readyReplicas: 1
+    replicas: 1
+    updatedReplicas: 1
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      deployment.kubernetes.io/revision: "13"
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"apps/v1","kind":"Deployment","metadata":{"annotations":{"moniker.spinnaker.io/application":"\"spin\"","moniker.spinnaker.io/cluster":"\"redis\""},"labels":{"app":"spin","app.kubernetes.io/managed-by":"halyard","app.kubernetes.io/name":"redis","app.kubernetes.io/part-of":"spinnaker","app.kubernetes.io/version":"1.32.2","cluster":"spin-redis"},"name":"spin-redis","namespace":"cicd-spinnaker"},"spec":{"replicas":1,"selector":{"matchLabels":{"app":"spin","cluster":"spin-redis"}},"template":{"metadata":{"annotations":null,"labels":{"app":"spin","app.kubernetes.io/managed-by":"halyard","app.kubernetes.io/name":"redis","app.kubernetes.io/part-of":"spinnaker","app.kubernetes.io/version":"1.32.2","cluster":"spin-redis"}},"spec":{"affinity":{"nodeAffinity":null,"podAffinity":null,"podAntiAffinity":null},"containers":[{"env":[{"name":"MASTER","value":"true"}],"image":"redis:6.2","lifecycle":{},"livenessProbe":null,"name":"redis","ports":[{"containerPort":6379}],"readinessProbe":{"initialDelaySeconds":null,"tcpSocket":{"port":6379}},"resources":{"limits":{},"requests":{}},"securityContext":null,"volumeMounts":[]}],"imagePullSecrets":[],"terminationGracePeriodSeconds":60,"tolerations":[],"volumes":[]}}}}
+      moniker.spinnaker.io/application: '"spin"'
+      moniker.spinnaker.io/cluster: '"redis"'
+    creationTimestamp: "2023-09-21T09:09:57Z"
+    generation: 21
+    labels:
+      app: spin
+      app.kubernetes.io/managed-by: halyard
+      app.kubernetes.io/name: redis
+      app.kubernetes.io/part-of: spinnaker
+      app.kubernetes.io/version: 1.32.2
+      cluster: spin-redis
+      k8slens-edit-resource-version: v1
+    name: spin-redis
+    namespace: cicd-spinnaker
+    resourceVersion: "784036885"
+    uid: 3f3569aa-959c-4cf7-a0c8-a6fefab29635
+  spec:
+    progressDeadlineSeconds: 600
+    replicas: 1
+    revisionHistoryLimit: 2
+    selector:
+      matchLabels:
+        app: spin
+        cluster: spin-redis
+    strategy:
+      rollingUpdate:
+        maxSurge: 25%
+        maxUnavailable: 25%
+      type: RollingUpdate
+    template:
+      metadata:
+        annotations:
+          kubectl.kubernetes.io/restartedAt: "2024-04-29T06:09:08Z"
+        creationTimestamp: null
+        labels:
+          app: spin
+          app.kubernetes.io/managed-by: halyard
+          app.kubernetes.io/name: redis
+          app.kubernetes.io/part-of: spinnaker
+          app.kubernetes.io/version: 1.32.2
+          cluster: spin-redis
+      spec:
+        affinity: {}
+        containers:
+        - env:
+          - name: MASTER
+            value: "true"
+          image: nexus.pajak.go.id:15000/us-docker.pkg.dev/spinnaker-community/redis/redis-cluster:v2
+          imagePullPolicy: IfNotPresent
+          lifecycle: {}
+          name: redis
+          ports:
+          - containerPort: 6379
+            protocol: TCP
+          readinessProbe:
+            failureThreshold: 3
+            periodSeconds: 10
+            successThreshold: 1
+            tcpSocket:
+              port: 6379
+            timeoutSeconds: 1
+          resources:
+            limits:
+              cpu: "4"
+              memory: 32Gi
+            requests:
+              cpu: "1"
+              memory: 8Gi
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /redis-master-data
+            name: redis-volume
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 60
+        volumes:
+        - name: redis-volume
+          persistentVolumeClaim:
+            claimName: cicd-spinnaker-redis-pvc
+  status:
+    availableReplicas: 1
+    conditions:
+    - lastTransitionTime: "2023-09-21T09:09:57Z"
+      lastUpdateTime: "2024-11-21T03:23:31Z"
+      message: ReplicaSet "spin-redis-85fbb57b64" has successfully progressed.
+      reason: NewReplicaSetAvailable
+      status: "True"
+      type: Progressing
+    - lastTransitionTime: "2025-04-01T00:43:16Z"
+      lastUpdateTime: "2025-04-01T00:43:16Z"
+      message: Deployment has minimum availability.
+      reason: MinimumReplicasAvailable
+      status: "True"
+      type: Available
+    observedGeneration: 21
+    readyReplicas: 1
+    replicas: 1
+    updatedReplicas: 1
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      deployment.kubernetes.io/revision: "24"
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"apps/v1","kind":"Deployment","metadata":{"annotations":{"moniker.spinnaker.io/application":"\"spin\"","moniker.spinnaker.io/cluster":"\"rosco\""},"labels":{"app":"spin","app.kubernetes.io/managed-by":"halyard","app.kubernetes.io/name":"rosco","app.kubernetes.io/part-of":"spinnaker","app.kubernetes.io/version":"1.32.2","cluster":"spin-rosco"},"name":"spin-rosco","namespace":"cicd-spinnaker"},"spec":{"replicas":1,"selector":{"matchLabels":{"app":"spin","cluster":"spin-rosco"}},"template":{"metadata":{"annotations":null,"labels":{"app":"spin","app.kubernetes.io/managed-by":"halyard","app.kubernetes.io/name":"rosco","app.kubernetes.io/part-of":"spinnaker","app.kubernetes.io/version":"1.32.2","cluster":"spin-rosco"}},"spec":{"affinity":{"nodeAffinity":null,"podAffinity":null,"podAntiAffinity":null},"containers":[{"env":[{"name":"JAVA_OPTS","value":"-XX:MaxRAMPercentage=50.0"},{"name":"SPRING_PROFILES_ACTIVE","value":"local"}],"image":"nexus.pajak.go.id:15000/us-docker.pkg.dev/spinnaker-community/docker/rosco:1.18.0","lifecycle":{},"livenessProbe":null,"name":"rosco","ports":[{"containerPort":8087}],"readinessProbe":{"exec":{"command":["wget","--no-check-certificate","--spider","-q","http://localhost:8087/health"]},"initialDelaySeconds":null},"resources":{"limits":{},"requests":{}},"securityContext":null,"volumeMounts":[{"mountPath":"/opt/spinnaker/config","name":"spin-rosco-files-1916617473"},{"mountPath":"/opt/rosco/config/packer","name":"spin-rosco-files-1045425083"},{"mountPath":"/opt/rosco/config/packer/scripts","name":"spin-rosco-files-442774875"}]}],"imagePullSecrets":[],"terminationGracePeriodSeconds":60,"tolerations":[],"volumes":[{"name":"spin-rosco-files-1916617473","secret":{"secretName":"spin-rosco-files-1916617473"}},{"name":"spin-rosco-files-442774875","secret":{"secretName":"spin-rosco-files-442774875"}},{"name":"spin-rosco-files-1045425083","secret":{"secretName":"spin-rosco-files-1045425083"}}]}}}}
+      moniker.spinnaker.io/application: '"spin"'
+      moniker.spinnaker.io/cluster: '"rosco"'
+    creationTimestamp: "2023-09-21T09:09:59Z"
+    generation: 32
+    labels:
+      app: spin
+      app.kubernetes.io/managed-by: halyard
+      app.kubernetes.io/name: rosco
+      app.kubernetes.io/part-of: spinnaker
+      app.kubernetes.io/version: 1.32.2
+      cluster: spin-rosco
+      k8slens-edit-resource-version: v1
+    name: spin-rosco
+    namespace: cicd-spinnaker
+    resourceVersion: "787383957"
+    uid: 091384c5-1333-411d-ace3-da4c77ac0a1d
+  spec:
+    progressDeadlineSeconds: 600
+    replicas: 1
+    revisionHistoryLimit: 2
+    selector:
+      matchLabels:
+        app: spin
+        cluster: spin-rosco
+    strategy:
+      rollingUpdate:
+        maxSurge: 25%
+        maxUnavailable: 25%
+      type: RollingUpdate
+    template:
+      metadata:
+        creationTimestamp: null
+        labels:
+          app: spin
+          app.kubernetes.io/managed-by: halyard
+          app.kubernetes.io/name: rosco
+          app.kubernetes.io/part-of: spinnaker
+          app.kubernetes.io/version: 1.32.2
+          cluster: spin-rosco
+      spec:
+        affinity: {}
+        containers:
+        - env:
+          - name: JAVA_OPTS
+            value: -XX:MaxRAMPercentage=50.0
+          - name: SPRING_PROFILES_ACTIVE
+            value: local
+          image: nexus.pajak.go.id:15000/us-docker.pkg.dev/spinnaker-community/docker/rosco:1.18.0
+          imagePullPolicy: IfNotPresent
+          lifecycle: {}
+          name: rosco
+          ports:
+          - containerPort: 8087
+            protocol: TCP
+          readinessProbe:
+            exec:
+              command:
+              - wget
+              - --no-check-certificate
+              - --spider
+              - -q
+              - http://localhost:8087/health
+            failureThreshold: 3
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 1
+          resources:
+            limits:
+              cpu: "4"
+              memory: 8Gi
+            requests:
+              cpu: 10m
+              memory: 2Gi
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /opt/spinnaker/config
+            name: spin-rosco-files-1916617473
+          - mountPath: /opt/rosco/config/packer
+            name: spin-rosco-files-1045425083
+          - mountPath: /opt/rosco/config/packer/scripts
+            name: spin-rosco-files-442774875
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 60
+        volumes:
+        - name: spin-rosco-files-1916617473
+          secret:
+            defaultMode: 420
+            secretName: spin-rosco-files-1916617473
+        - name: spin-rosco-files-442774875
+          secret:
+            defaultMode: 420
+            secretName: spin-rosco-files-442774875
+        - name: spin-rosco-files-1045425083
+          secret:
+            defaultMode: 420
+            secretName: spin-rosco-files-1045425083
+  status:
+    availableReplicas: 1
+    conditions:
+    - lastTransitionTime: "2023-09-21T09:09:59Z"
+      lastUpdateTime: "2025-04-07T05:32:06Z"
+      message: ReplicaSet "spin-rosco-5c8df45fbd" has successfully progressed.
+      reason: NewReplicaSetAvailable
+      status: "True"
+      type: Progressing
+    - lastTransitionTime: "2025-04-10T00:11:31Z"
+      lastUpdateTime: "2025-04-10T00:11:31Z"
+      message: Deployment has minimum availability.
+      reason: MinimumReplicasAvailable
+      status: "True"
+      type: Available
+    observedGeneration: 32
+    readyReplicas: 1
+    replicas: 1
+    updatedReplicas: 1
+kind: List
+metadata:
+  resourceVersion: ""

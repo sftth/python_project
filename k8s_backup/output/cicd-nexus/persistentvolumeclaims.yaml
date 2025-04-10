@@ -1,0 +1,71 @@
+apiVersion: v1
+items:
+- apiVersion: v1
+  kind: PersistentVolumeClaim
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","kind":"PersistentVolumeClaim","metadata":{"annotations":{},"labels":{"app.kubernetes.io/component":"data","app.kubernetes.io/name":"cicd-nexus","app.kubernetes.io/type":"cicd"},"name":"cicd-nexus-data-pvc","namespace":"cicd-nexus"},"spec":{"accessModes":["ReadWriteOnce"],"resources":{"requests":{"storage":"500Gi"}},"storageClassName":"","volumeMode":"Filesystem","volumeName":"cicd-nexus-data-pv"}}
+      pv.kubernetes.io/bind-completed: "yes"
+    creationTimestamp: "2023-11-10T06:08:24Z"
+    finalizers:
+    - kubernetes.io/pvc-protection
+    labels:
+      app.kubernetes.io/component: data
+      app.kubernetes.io/name: cicd-nexus
+      app.kubernetes.io/type: cicd
+    name: cicd-nexus-data-pvc
+    namespace: cicd-nexus
+    resourceVersion: "438365642"
+    uid: f5dd09c9-67d8-4476-ba8f-1d64712d2d37
+  spec:
+    accessModes:
+    - ReadWriteOnce
+    resources:
+      requests:
+        storage: 500Gi
+    storageClassName: ""
+    volumeMode: Filesystem
+    volumeName: cicd-nexus-data-pv
+  status:
+    accessModes:
+    - ReadWriteOnce
+    capacity:
+      storage: 500Gi
+    phase: Bound
+- apiVersion: v1
+  kind: PersistentVolumeClaim
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","kind":"PersistentVolumeClaim","metadata":{"annotations":{},"labels":{"app.kubernetes.io/component":"plugins","app.kubernetes.io/name":"cicd-nexus","app.kubernetes.io/type":"cicd"},"name":"cicd-nexus-plugins-pvc","namespace":"cicd-nexus"},"spec":{"accessModes":["ReadWriteOnce"],"resources":{"requests":{"storage":"1Gi"}},"storageClassName":"","volumeMode":"Filesystem","volumeName":"cicd-nexus-plugins-pv"}}
+      pv.kubernetes.io/bind-completed: "yes"
+    creationTimestamp: "2023-11-10T06:08:24Z"
+    finalizers:
+    - kubernetes.io/pvc-protection
+    labels:
+      app.kubernetes.io/component: plugins
+      app.kubernetes.io/name: cicd-nexus
+      app.kubernetes.io/type: cicd
+    name: cicd-nexus-plugins-pvc
+    namespace: cicd-nexus
+    resourceVersion: "438365637"
+    uid: caca1199-6a0c-4952-80fc-11aaaee42f36
+  spec:
+    accessModes:
+    - ReadWriteOnce
+    resources:
+      requests:
+        storage: 1Gi
+    storageClassName: ""
+    volumeMode: Filesystem
+    volumeName: cicd-nexus-plugins-pv
+  status:
+    accessModes:
+    - ReadWriteOnce
+    capacity:
+      storage: 1Gi
+    phase: Bound
+kind: List
+metadata:
+  resourceVersion: ""

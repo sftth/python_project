@@ -1,0 +1,86 @@
+apiVersion: v1
+items:
+- apiVersion: v1
+  data:
+    filebeat.yml: |-
+      filebeat.inputs:
+      - type: container
+        paths:
+          - /var/log/containers/*.log
+
+        multiline:
+          type: pattern
+          pattern: '^\['
+          negate: true
+          match: after
+
+        processors:
+          - add_kubernetes_metadata:
+              host: ${NODE_NAME}
+              matchers:
+              - logs_path:
+                  logs_path: "/var/log/containers/"
+
+      # To enable hints based autodiscover, remove `filebeat.inputs` configuration and uncomment this:
+      #filebeat.autodiscover:
+      #  providers:
+      #    - type: kubernetes
+      #      node: ${NODE_NAME}
+      #      hints.enabled: true
+      #      hints.default_config:
+      #        type: container
+      #        paths:
+      #          - /var/log/containers/*${data.kubernetes.container.id}.log
+
+      processors:
+        - add_cloud_metadata:
+        - add_host_metadata:
+
+      cloud.id: ${ELASTIC_CLOUD_ID}
+      cloud.auth: ${ELASTIC_CLOUD_AUTH}
+
+      output.elasticsearch:
+        ssl.verification_mode: none
+        hosts: ['https://${ELASTICSEARCH_HOST:elasticsearch}:${ELASTICSEARCH_PORT:9200}']
+        username: ${ELASTICSEARCH_USERNAME}
+        password: ${ELASTICSEARCH_PASSWORD}
+  kind: ConfigMap
+  metadata:
+    creationTimestamp: "2022-05-03T15:48:33Z"
+    labels:
+      k8s-app: filebeat
+    name: filebeat-config
+    namespace: kube-monitor
+    resourceVersion: "122451031"
+    uid: 33ee7897-538d-4b31-be8e-a3eb47acb1b6
+- apiVersion: v1
+  data:
+    ca.crt: |
+      -----BEGIN CERTIFICATE-----
+      MIIC5zCCAc+gAwIBAgIBADANBgkqhkiG9w0BAQsFADAVMRMwEQYDVQQDEwprdWJl
+      cm5ldGVzMB4XDTIxMDMyMTA3MjAzN1oXDTMxMDMxOTA3MjAzN1owFTETMBEGA1UE
+      AxMKa3ViZXJuZXRlczCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAK5Q
+      Km9SlI0/d+B0K9PMOxkqAEWKODDnjTfrp2ckTe/TC0/UV3+pS+w9Hgak+OJtLJJU
+      vY5hTf5V/COPVAVP8ID7xJDSZ1pb2Zj1PxHxOd+bmQglFMWUJ0Qgb39cRQ8ALAl2
+      m4Bmbz0bGiN5CC1Rjb8erHZH/Cv/A1wHXA781+jWSMq4tHsLchmPT2YnSbbKplx1
+      c8a6c+KR4PwTq+pTMOt+S2A7943B7l+zAX4PF4wGZ4HI2dwOBBmBIJJxrFDwskpu
+      bS4tJIAnVZpZXLJVaziVY6kvG6Ed7sfzWYa5lJa5v/oQi6F5vcmgJGkYe3OsAbWv
+      lJOucg1sTB8E3f+RJlUCAwEAAaNCMEAwDgYDVR0PAQH/BAQDAgKkMA8GA1UdEwEB
+      /wQFMAMBAf8wHQYDVR0OBBYEFO9ymTLPikbJTjoy+ph5WinG061iMA0GCSqGSIb3
+      DQEBCwUAA4IBAQCVJXNuq+T6dIzybWjijSoYzbCvatsA0TA0nFsa3B7s3wAK0D1h
+      52Vq5Q0FcbbE5kQgUJ6vEGWTenVeCNeEkS5rlYifLRR1rHGfpZuIlb2ES9NYHuYo
+      iKi5unndzg4DCaFr7x9zK5+YhBLzSXpfbhaMvh9M4eroZNP80R4cNYmUJ4y9b28M
+      uhXMDRrJwF7Q95hDhUWY6bNkXqpylGrTzyefvKY4WAIdlnu2i6+wV57JJS1U2e3U
+      KWFXkZUE8jB/V0EXF7kH0NuDSjEz7uwZ+VRR+tTZoraoPrGDt9bvk08GecYM8dxG
+      xksFOuY8WfHwLu0VgkB5mbGaZth6UmG9GZUd
+      -----END CERTIFICATE-----
+  kind: ConfigMap
+  metadata:
+    creationTimestamp: "2022-05-03T15:44:41Z"
+    name: kube-root-ca.crt
+    namespace: kube-monitor
+    resourceVersion: "116102391"
+    uid: 0d36ea3e-5eaf-45dd-8990-ee8b170703b7
+kind: List
+metadata:
+  resourceVersion: ""

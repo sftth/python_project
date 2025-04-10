@@ -1,0 +1,88 @@
+apiVersion: v1
+items:
+- apiVersion: v1
+  data:
+    daemon.json: |
+      {
+        "features": {
+          "buildkit": true
+        },
+        "allow-insecure-entitlements": ["network.host"],
+        "insecure-registries": [
+          "nexus.cicd-nexus.svc.cluster.local:5002",
+          "21.4.0.9:5000",
+          "21.100.0.161:5000",
+          "10.244.252.41:31510",
+          "10.244.252.41:31511",
+          "10.244.252.41:31512",
+          "10.244.252.41:31513",
+          "10.244.252.41:32001",
+          "cicd-nexus.nexus.svc.cluster.local:5000",
+          "nexus.nexus.svc.cluster.local:5000",
+          "nexus.nexus.svc.cluster.local:5001",
+          "nexus.nexus.svc.cluster.local:5002",
+          "nexus.nexus.svc.cluster.local:5003",
+          "nexus.cicd-nexus.svc.cluster.local:5000",
+          "nexus.cicd-nexus.svc.cluster.local:5001",
+          "nexus.cicd-nexus.svc.cluster.local:5002",
+          "nexus.cicd-nexus.svc.cluster.local:5003",
+          "nexus.cicd-nexus:5000",
+          "nexus.cicd-nexus:5001",
+          "nexus.cicd-nexus:5002",
+          "nexus.cicd-nexus:5003",
+          "10.233.34.245:5000",
+          "10.244.252.227:5000",
+          "nexus.pajak.go.id:15000",
+          "nexus.deploy.io:15000",
+          "nexus-proxy.cicd-nexus.svc.cluster.local:30143"
+        ],
+        "registry-mirrors": [
+          "https://nexus-proxy.cicd-nexus.svc.cluster.local:30143"
+        ]
+      }
+  kind: ConfigMap
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","data":{"daemon.json":"{\n    \"insecure-registries\": [\n        \"nexus.cicd-nexus.svc.cluster.local:5002\"\n    ]\n}\n"},"kind":"ConfigMap","metadata":{"annotations":{},"labels":{"app.kubernetes.io/instance":"jenkins","app.kubernetes.io/managed-by":"spinnaker","app.kubernetes.io/name":"jenkins"},"name":"cicd-jenkins-daemonjson-configmap","namespace":"cicd-jenkins"}}
+    creationTimestamp: "2024-12-17T02:03:50Z"
+    labels:
+      app.kubernetes.io/instance: jenkins
+      app.kubernetes.io/managed-by: spinnaker
+      app.kubernetes.io/name: jenkins
+      k8slens-edit-resource-version: v1
+    name: cicd-jenkins-daemonjson-configmap
+    namespace: cicd-jenkins
+    resourceVersion: "739966076"
+    uid: 007c90c8-ded5-4774-b60d-5eb85b620098
+- apiVersion: v1
+  data:
+    ca.crt: |
+      -----BEGIN CERTIFICATE-----
+      MIIC5zCCAc+gAwIBAgIBADANBgkqhkiG9w0BAQsFADAVMRMwEQYDVQQDEwprdWJl
+      cm5ldGVzMB4XDTIxMDMyMTA3MjAzN1oXDTMxMDMxOTA3MjAzN1owFTETMBEGA1UE
+      AxMKa3ViZXJuZXRlczCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAK5Q
+      Km9SlI0/d+B0K9PMOxkqAEWKODDnjTfrp2ckTe/TC0/UV3+pS+w9Hgak+OJtLJJU
+      vY5hTf5V/COPVAVP8ID7xJDSZ1pb2Zj1PxHxOd+bmQglFMWUJ0Qgb39cRQ8ALAl2
+      m4Bmbz0bGiN5CC1Rjb8erHZH/Cv/A1wHXA781+jWSMq4tHsLchmPT2YnSbbKplx1
+      c8a6c+KR4PwTq+pTMOt+S2A7943B7l+zAX4PF4wGZ4HI2dwOBBmBIJJxrFDwskpu
+      bS4tJIAnVZpZXLJVaziVY6kvG6Ed7sfzWYa5lJa5v/oQi6F5vcmgJGkYe3OsAbWv
+      lJOucg1sTB8E3f+RJlUCAwEAAaNCMEAwDgYDVR0PAQH/BAQDAgKkMA8GA1UdEwEB
+      /wQFMAMBAf8wHQYDVR0OBBYEFO9ymTLPikbJTjoy+ph5WinG061iMA0GCSqGSIb3
+      DQEBCwUAA4IBAQCVJXNuq+T6dIzybWjijSoYzbCvatsA0TA0nFsa3B7s3wAK0D1h
+      52Vq5Q0FcbbE5kQgUJ6vEGWTenVeCNeEkS5rlYifLRR1rHGfpZuIlb2ES9NYHuYo
+      iKi5unndzg4DCaFr7x9zK5+YhBLzSXpfbhaMvh9M4eroZNP80R4cNYmUJ4y9b28M
+      uhXMDRrJwF7Q95hDhUWY6bNkXqpylGrTzyefvKY4WAIdlnu2i6+wV57JJS1U2e3U
+      KWFXkZUE8jB/V0EXF7kH0NuDSjEz7uwZ+VRR+tTZoraoPrGDt9bvk08GecYM8dxG
+      xksFOuY8WfHwLu0VgkB5mbGaZth6UmG9GZUd
+      -----END CERTIFICATE-----
+  kind: ConfigMap
+  metadata:
+    creationTimestamp: "2024-01-08T02:49:12Z"
+    name: kube-root-ca.crt
+    namespace: cicd-jenkins
+    resourceVersion: "478541369"
+    uid: f8c43e10-dcb7-47ac-b4bb-a417962f2ce7
+kind: List
+metadata:
+  resourceVersion: ""

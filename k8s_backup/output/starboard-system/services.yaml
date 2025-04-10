@@ -1,0 +1,39 @@
+apiVersion: v1
+items:
+- apiVersion: v1
+  kind: Service
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","kind":"Service","metadata":{"annotations":{"prometheus.io/path":"/metrics","prometheus.io/scrape":"true"},"labels":{"app.kubernetes.io/instance":"starboard-operator","app.kubernetes.io/managed-by":"kubectl","app.kubernetes.io/name":"starboard-operator","app.kubernetes.io/version":"0.15.9-rc3"},"name":"starboard-operator","namespace":"starboard-system"},"spec":{"ports":[{"name":"metrics","port":80,"targetPort":"metrics"}],"selector":{"app.kubernetes.io/instance":"starboard-operator","app.kubernetes.io/name":"starboard-operator"},"type":"ClusterIP"}}
+      prometheus.io/path: /metrics
+      prometheus.io/scrape: "true"
+    creationTimestamp: "2021-11-16T06:19:14Z"
+    labels:
+      app.kubernetes.io/instance: starboard-operator
+      app.kubernetes.io/managed-by: kubectl
+      app.kubernetes.io/name: starboard-operator
+      app.kubernetes.io/version: 0.15.9-rc3
+    name: starboard-operator
+    namespace: starboard-system
+    resourceVersion: "163559295"
+    uid: e47fb623-8ad0-48ad-94a5-69f382612088
+  spec:
+    clusterIP: 10.233.51.35
+    clusterIPs:
+    - 10.233.51.35
+    ports:
+    - name: metrics
+      port: 80
+      protocol: TCP
+      targetPort: metrics
+    selector:
+      app.kubernetes.io/instance: starboard-operator
+      app.kubernetes.io/name: starboard-operator
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+kind: List
+metadata:
+  resourceVersion: ""

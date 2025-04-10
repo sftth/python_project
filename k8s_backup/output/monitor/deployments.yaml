@@ -1,0 +1,545 @@
+apiVersion: v1
+items:
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      deployment.kubernetes.io/revision: "3"
+      meta.helm.sh/release-name: monitor
+      meta.helm.sh/release-namespace: monitor
+    creationTimestamp: "2021-03-21T09:24:49Z"
+    generation: 3
+    labels:
+      app.kubernetes.io/instance: monitor
+      app.kubernetes.io/managed-by: Helm
+      app.kubernetes.io/name: grafana
+      app.kubernetes.io/version: 7.4.2
+      helm.sh/chart: grafana-6.4.8
+      k8slens-edit-resource-version: v1
+    name: monitor-grafana
+    namespace: monitor
+    resourceVersion: "783813707"
+    uid: b408a48a-6aae-4dfa-aa59-a4c1a2b2f6a3
+  spec:
+    progressDeadlineSeconds: 600
+    replicas: 1
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        app.kubernetes.io/instance: monitor
+        app.kubernetes.io/name: grafana
+    strategy:
+      rollingUpdate:
+        maxSurge: 25%
+        maxUnavailable: 25%
+      type: RollingUpdate
+    template:
+      metadata:
+        annotations:
+          checksum/config: 6644d6a750683d87db8eec25668858fa9b72b7df5a15832d86b48e36c140046d
+          checksum/dashboards-json-config: 01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b
+          checksum/sc-dashboard-provider-config: 6a70c2a6b2b1251c2687e53157fd995e16c0455dc5105ab0c9a6eab5a7fe74f4
+          checksum/secret: d55ae77602b4ca89b42f121989a44835bc134cb810664c56a6c4ad04a43534d6
+        creationTimestamp: null
+        labels:
+          app.kubernetes.io/instance: monitor
+          app.kubernetes.io/name: grafana
+      spec:
+        containers:
+        - env:
+          - name: METHOD
+          - name: LABEL
+            value: grafana_dashboard
+          - name: FOLDER
+            value: /tmp/dashboards
+          - name: RESOURCE
+            value: both
+          image: 21.4.0.9:5000/kiwigrid/k8s-sidecar:1.10.6
+          imagePullPolicy: IfNotPresent
+          name: grafana-sc-dashboard
+          resources:
+            limits:
+              cpu: "1"
+              memory: 2Gi
+            requests:
+              cpu: 10m
+              memory: 100Mi
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /tmp/dashboards
+            name: sc-dashboard-volume
+        - env:
+          - name: GF_SECURITY_ADMIN_USER
+            valueFrom:
+              secretKeyRef:
+                key: admin-user
+                name: monitor-grafana
+          - name: GF_SECURITY_ADMIN_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                key: admin-password
+                name: monitor-grafana
+          image: 21.4.0.9:5000/grafana/grafana:7.4.2
+          imagePullPolicy: IfNotPresent
+          livenessProbe:
+            failureThreshold: 10
+            httpGet:
+              path: /api/health
+              port: 3000
+              scheme: HTTP
+            initialDelaySeconds: 60
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 30
+          name: grafana
+          ports:
+          - containerPort: 80
+            name: service
+            protocol: TCP
+          - containerPort: 3000
+            name: grafana
+            protocol: TCP
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /api/health
+              port: 3000
+              scheme: HTTP
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 1
+          resources:
+            limits:
+              cpu: "4"
+              memory: 8Gi
+            requests:
+              cpu: 10m
+              memory: 100Mi
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /etc/grafana/grafana.ini
+            name: config
+            subPath: grafana.ini
+          - mountPath: /var/lib/grafana
+            name: storage
+          - mountPath: /tmp/dashboards
+            name: sc-dashboard-volume
+          - mountPath: /etc/grafana/provisioning/dashboards/sc-dashboardproviders.yaml
+            name: sc-dashboard-provider
+            subPath: provider.yaml
+          - mountPath: /etc/grafana/provisioning/datasources
+            name: sc-datasources-volume
+        dnsPolicy: ClusterFirst
+        initContainers:
+        - env:
+          - name: METHOD
+            value: LIST
+          - name: LABEL
+            value: grafana_datasource
+          - name: FOLDER
+            value: /etc/grafana/provisioning/datasources
+          - name: RESOURCE
+            value: both
+          image: 21.4.0.9:5000/kiwigrid/k8s-sidecar:1.10.6
+          imagePullPolicy: IfNotPresent
+          name: grafana-sc-datasources
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /etc/grafana/provisioning/datasources
+            name: sc-datasources-volume
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext:
+          fsGroup: 472
+          runAsGroup: 472
+          runAsUser: 472
+        serviceAccount: monitor-grafana
+        serviceAccountName: monitor-grafana
+        terminationGracePeriodSeconds: 30
+        volumes:
+        - configMap:
+            defaultMode: 420
+            name: monitor-grafana
+          name: config
+        - emptyDir: {}
+          name: storage
+        - emptyDir: {}
+          name: sc-dashboard-volume
+        - configMap:
+            defaultMode: 420
+            name: monitor-grafana-config-dashboards
+          name: sc-dashboard-provider
+        - emptyDir: {}
+          name: sc-datasources-volume
+  status:
+    availableReplicas: 1
+    conditions:
+    - lastTransitionTime: "2021-03-21T09:24:49Z"
+      lastUpdateTime: "2024-11-18T15:48:13Z"
+      message: ReplicaSet "monitor-grafana-64c65d9c84" has successfully progressed.
+      reason: NewReplicaSetAvailable
+      status: "True"
+      type: Progressing
+    - lastTransitionTime: "2025-03-31T06:03:17Z"
+      lastUpdateTime: "2025-03-31T06:03:17Z"
+      message: Deployment has minimum availability.
+      reason: MinimumReplicasAvailable
+      status: "True"
+      type: Available
+    observedGeneration: 3
+    readyReplicas: 1
+    replicas: 1
+    updatedReplicas: 1
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      deployment.kubernetes.io/revision: "5"
+      meta.helm.sh/release-name: monitor
+      meta.helm.sh/release-namespace: monitor
+    creationTimestamp: "2021-03-21T09:24:49Z"
+    generation: 5
+    labels:
+      app: kube-prometheus-stack-operator
+      app.kubernetes.io/managed-by: Helm
+      chart: kube-prometheus-stack-14.0.1
+      heritage: Helm
+      k8slens-edit-resource-version: v1
+      release: monitor
+    name: monitor-kube-prometheus-st-operator
+    namespace: monitor
+    resourceVersion: "773364578"
+    uid: aa0571e2-5d6e-46ea-b7d8-d84ffb44c27c
+  spec:
+    progressDeadlineSeconds: 600
+    replicas: 1
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        app: kube-prometheus-stack-operator
+        release: monitor
+    strategy:
+      rollingUpdate:
+        maxSurge: 25%
+        maxUnavailable: 25%
+      type: RollingUpdate
+    template:
+      metadata:
+        annotations:
+          kubectl.kubernetes.io/restartedAt: "2024-12-09T11:36:38Z"
+        creationTimestamp: null
+        labels:
+          app: kube-prometheus-stack-operator
+          chart: kube-prometheus-stack-14.0.1
+          heritage: Helm
+          release: monitor
+      spec:
+        containers:
+        - args:
+          - --kubelet-service=kube-system/monitor-kube-prometheus-st-kubelet
+          - --localhost=127.0.0.1
+          - --prometheus-config-reloader=21.4.0.9:5000/prometheus-operator/prometheus-config-reloader:v0.46.0
+          - --config-reloader-cpu=100m
+          - --config-reloader-memory=50Mi
+          - --web.enable-tls=true
+          - --web.cert-file=/cert/cert
+          - --web.key-file=/cert/key
+          - --web.listen-address=:10250
+          - --web.tls-min-version=VersionTLS13
+          image: 21.4.0.9:5000/prometheus-operator/prometheus-operator:v0.46.0
+          imagePullPolicy: IfNotPresent
+          name: kube-prometheus-stack
+          ports:
+          - containerPort: 10250
+            name: https
+            protocol: TCP
+          resources:
+            limits:
+              cpu: "1"
+              memory: 4Gi
+            requests:
+              cpu: 10m
+              memory: 100Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /cert
+            name: tls-secret
+            readOnly: true
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext:
+          fsGroup: 65534
+          runAsGroup: 65534
+          runAsNonRoot: true
+          runAsUser: 65534
+        serviceAccount: monitor-kube-prometheus-st-operator
+        serviceAccountName: monitor-kube-prometheus-st-operator
+        terminationGracePeriodSeconds: 30
+        volumes:
+        - name: tls-secret
+          secret:
+            defaultMode: 420
+            secretName: monitor-kube-prometheus-st-admission
+  status:
+    availableReplicas: 1
+    conditions:
+    - lastTransitionTime: "2021-03-21T09:24:49Z"
+      lastUpdateTime: "2024-12-09T11:36:42Z"
+      message: ReplicaSet "monitor-kube-prometheus-st-operator-699b877745" has successfully
+        progressed.
+      reason: NewReplicaSetAvailable
+      status: "True"
+      type: Progressing
+    - lastTransitionTime: "2025-03-03T09:53:34Z"
+      lastUpdateTime: "2025-03-03T09:53:34Z"
+      message: Deployment has minimum availability.
+      reason: MinimumReplicasAvailable
+      status: "True"
+      type: Available
+    observedGeneration: 5
+    readyReplicas: 1
+    replicas: 1
+    updatedReplicas: 1
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      deployment.kubernetes.io/revision: "2"
+      meta.helm.sh/release-name: monitor
+      meta.helm.sh/release-namespace: monitor
+    creationTimestamp: "2021-03-21T09:24:49Z"
+    generation: 2
+    labels:
+      app.kubernetes.io/instance: monitor
+      app.kubernetes.io/managed-by: Helm
+      app.kubernetes.io/name: kube-state-metrics
+      app.kubernetes.io/version: 1.9.8
+      helm.sh/chart: kube-state-metrics-2.13.0
+      k8slens-edit-resource-version: v1
+    name: monitor-kube-state-metrics
+    namespace: monitor
+    resourceVersion: "783812822"
+    uid: 7c9e33e5-9575-4967-82ec-153082568edf
+  spec:
+    progressDeadlineSeconds: 600
+    replicas: 1
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        app.kubernetes.io/name: kube-state-metrics
+    strategy:
+      rollingUpdate:
+        maxSurge: 25%
+        maxUnavailable: 25%
+      type: RollingUpdate
+    template:
+      metadata:
+        creationTimestamp: null
+        labels:
+          app.kubernetes.io/instance: monitor
+          app.kubernetes.io/name: kube-state-metrics
+      spec:
+        containers:
+        - args:
+          - --collectors=certificatesigningrequests
+          - --collectors=configmaps
+          - --collectors=cronjobs
+          - --collectors=daemonsets
+          - --collectors=deployments
+          - --collectors=endpoints
+          - --collectors=horizontalpodautoscalers
+          - --collectors=ingresses
+          - --collectors=jobs
+          - --collectors=limitranges
+          - --collectors=mutatingwebhookconfigurations
+          - --collectors=namespaces
+          - --collectors=networkpolicies
+          - --collectors=nodes
+          - --collectors=persistentvolumeclaims
+          - --collectors=persistentvolumes
+          - --collectors=poddisruptionbudgets
+          - --collectors=pods
+          - --collectors=replicasets
+          - --collectors=replicationcontrollers
+          - --collectors=resourcequotas
+          - --collectors=secrets
+          - --collectors=services
+          - --collectors=statefulsets
+          - --collectors=storageclasses
+          - --collectors=validatingwebhookconfigurations
+          - --collectors=volumeattachments
+          - --telemetry-port=8081
+          image: 21.4.0.9:5000/kube-state-metrics/kube-state-metrics:v1.9.8
+          imagePullPolicy: IfNotPresent
+          livenessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /healthz
+              port: 8080
+              scheme: HTTP
+            initialDelaySeconds: 5
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 5
+          name: kube-state-metrics
+          ports:
+          - containerPort: 8080
+            protocol: TCP
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /
+              port: 8080
+              scheme: HTTP
+            initialDelaySeconds: 5
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 5
+          resources:
+            limits:
+              cpu: "1"
+              memory: 2Gi
+            requests:
+              cpu: 10m
+              memory: 100Mi
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext:
+          fsGroup: 65534
+          runAsGroup: 65534
+          runAsUser: 65534
+        serviceAccount: monitor-kube-state-metrics
+        serviceAccountName: monitor-kube-state-metrics
+        terminationGracePeriodSeconds: 30
+  status:
+    availableReplicas: 1
+    conditions:
+    - lastTransitionTime: "2021-03-21T09:24:49Z"
+      lastUpdateTime: "2024-11-18T15:46:35Z"
+      message: ReplicaSet "monitor-kube-state-metrics-849f995fdb" has successfully
+        progressed.
+      reason: NewReplicaSetAvailable
+      status: "True"
+      type: Progressing
+    - lastTransitionTime: "2025-03-31T05:59:24Z"
+      lastUpdateTime: "2025-03-31T05:59:24Z"
+      message: Deployment has minimum availability.
+      reason: MinimumReplicasAvailable
+      status: "True"
+      type: Available
+    observedGeneration: 2
+    readyReplicas: 1
+    replicas: 1
+    updatedReplicas: 1
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      deployment.kubernetes.io/revision: "11"
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"apps/v1","kind":"Deployment","metadata":{"annotations":{},"labels":{"app":"redisinsight"},"name":"redisinsight","namespace":"monitor"},"spec":{"replicas":1,"selector":{"matchLabels":{"app":"redisinsight"}},"template":{"metadata":{"labels":{"app":"redisinsight"}},"spec":{"containers":[{"image":"redis/redisinsight:latest","imagePullPolicy":"IfNotPresent","name":"redisinsight","ports":[{"containerPort":5540,"protocol":"TCP"}],"volumeMounts":[{"mountPath":"/data","name":"redisinsight"}]}],"initContainers":[{"command":["/bin/sh","-c","chown -R 1001 /data              \n"],"image":"busybox","name":"init","resources":{},"terminationMessagePath":"/dev/termination-log","terminationMessagePolicy":"File","volumeMounts":[{"mountPath":"/data","name":"redisinsight"}]}],"volumes":[{"name":"redisinsight","persistentVolumeClaim":{"claimName":"redisinsight-pv-claim"}}]}}}}
+    creationTimestamp: "2024-05-08T05:59:01Z"
+    generation: 11
+    labels:
+      app: redisinsight
+      k8slens-edit-resource-version: v1
+    name: redisinsight
+    namespace: monitor
+    resourceVersion: "784638889"
+    uid: bba52af0-12e8-497f-b18a-f0a7caa75d61
+  spec:
+    progressDeadlineSeconds: 600
+    replicas: 1
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        app: redisinsight
+    strategy:
+      rollingUpdate:
+        maxSurge: 25%
+        maxUnavailable: 25%
+      type: RollingUpdate
+    template:
+      metadata:
+        annotations:
+          kubectl.kubernetes.io/restartedAt: "2024-07-23T01:46:18Z"
+        creationTimestamp: null
+        labels:
+          app: redisinsight
+      spec:
+        containers:
+        - image: nexus.cicd-nexus.svc.cluster.local:5002/redis/redisinsight:latest
+          imagePullPolicy: IfNotPresent
+          name: redisinsight
+          ports:
+          - containerPort: 5540
+            protocol: TCP
+          resources:
+            limits:
+              cpu: "4"
+              memory: 8Gi
+            requests:
+              cpu: 10m
+              memory: 100Mi
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /data
+            name: redisinsight
+        dnsPolicy: ClusterFirst
+        initContainers:
+        - command:
+          - /bin/sh
+          - -c
+          - "chown -R 1001 /data              \n"
+          image: nexus.cicd-nexus.svc.cluster.local:5002/busybox
+          imagePullPolicy: Always
+          name: init
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+          - mountPath: /data
+            name: redisinsight
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+        volumes:
+        - name: redisinsight
+          persistentVolumeClaim:
+            claimName: redisinsight-pv-claim
+  status:
+    availableReplicas: 1
+    conditions:
+    - lastTransitionTime: "2024-05-08T05:59:01Z"
+      lastUpdateTime: "2024-11-18T15:46:02Z"
+      message: ReplicaSet "redisinsight-59cf8b54c" has successfully progressed.
+      reason: NewReplicaSetAvailable
+      status: "True"
+      type: Progressing
+    - lastTransitionTime: "2025-04-02T20:08:23Z"
+      lastUpdateTime: "2025-04-02T20:08:23Z"
+      message: Deployment has minimum availability.
+      reason: MinimumReplicasAvailable
+      status: "True"
+      type: Available
+    observedGeneration: 11
+    readyReplicas: 1
+    replicas: 1
+    updatedReplicas: 1
+kind: List
+metadata:
+  resourceVersion: ""

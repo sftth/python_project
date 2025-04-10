@@ -1,0 +1,7 @@
+name: k8s_env
+dependencies:
+  - python=3.9
+  - pip
+  - pip:
+      - kubernetes
+      - requests
