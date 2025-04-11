@@ -5,6 +5,7 @@ from openpyxl import load_workbook
 from openpyxl.styles import Font, Alignment, PatternFill, Border, Side, NamedStyle
 from datetime import datetime
 from naver_stock.utils.file_utils import generate_dated_excel_filename
+from naver_stock.utils.file_utils import save_or_append_excel
 
 # ✅ 조회할 종목 리스트
 stock_list = [
@@ -85,8 +86,10 @@ def nh_save_xlsx():
     # ✅ 엑셀 파일로 저장
     os.makedirs(OUTPUT_DIR, exist_ok=True)
     excel_filename = generate_dated_excel_filename(prefix="nh", output_dir=OUTPUT_DIR)
+    print(f"⛔Excel file name: {excel_filename} ")
 #    excel_filename = "nh_stocks_data_v1.1.xlsx"
-    df.to_excel(excel_filename, index=False, sheet_name="Stock Prices")
+#    df.to_excel(excel_filename, index=False, sheet_name="Stock Prices")
+    save_or_append_excel(df, excel_filename, sheet_name="Stock Prices")
 
     # ✅ 엑셀 파일 불러와 서식 적용
     wb = load_workbook(excel_filename)
@@ -122,14 +125,14 @@ def nh_save_xlsx():
     for row in ws.iter_rows(min_row=2, max_row=ws.max_row):
         row[1].alignment = center_align
         row[5].alignment = center_align
-        row[5].style = date_style  # 날짜 형식 적용
-        row[6].style = currency_style  # 종가 형식 적용
-        row[7].style = currency_style  # 전일 대비 형식 적용
-        row[8].style = percent_style  # 등락률(%) 형식 적용
-        row[9].style = currency_style  # 시가 형식 적용
-        row[10].style = currency_style  # 고가 형식 적용
-        row[11].style = currency_style  # 저가 형식 적용
+        row[5].style = date_style       # Date
+        row[6].style = currency_style   # Finishing
+        row[7].style = currency_style   # Previous
+        row[8].style = percent_style    # (%)
+        row[9].style = currency_style   # Starting
+        row[10].style = currency_style  # High
+        row[11].style = currency_style  # Low
 
-    # ✅ 엑셀 파일 저장
+    # ✅ Saving excel file
     wb.save(excel_filename)
-    print(f"✅ 모든 종목 데이터가 엑셀에 저장 완료 (서식 적용): {excel_filename}")
+    print(f"✅ Saving excel file is completed successfully: {excel_filename}")
