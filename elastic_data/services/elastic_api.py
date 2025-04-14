@@ -89,4 +89,5 @@ def get_indices_web():
     </html>
     """
 
-    return template, html_table
+#    return template, html_table
+    return data

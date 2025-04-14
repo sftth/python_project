@@ -7,7 +7,8 @@ app = Flask(__name__)
 
 @app.route('/')
 def home():
-    template, html_table = get_indices_web()
+#    template, html_table = get_indices_web()
+
     return render_template_string(template, table=html_table)
 
 if __name__ == '__main__':
