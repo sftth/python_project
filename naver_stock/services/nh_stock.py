@@ -3,45 +3,44 @@ import pandas as pd
 import os
 from openpyxl import load_workbook
 from openpyxl.styles import Font, Alignment, PatternFill, Border, Side, NamedStyle
-from datetime import datetime
-from naver_stock.utils.file_utils import generate_dated_excel_filename
-from naver_stock.utils.file_utils import save_or_append_excel
+from naver_stock.utils.file_utils import generate_dated_excel_filename, save_or_append_excel
+from naver_stock.utils.api_utils import append_data
 
 # ✅ 조회할 종목 리스트
 stock_list = [
-["대한항공","003490"],
-["두산에너빌리티","034020"],
-["디어유","376300"],
-["삼성전자","005930"],
-["삼성중공업","010140"],
-["쏠리드","050890"],
-["에코프로비엠","247540"],
-["코오롱티슈진","950160"],
-["포스코인터내셔널","047050"],
-["포스코퓨처엠","003670"],
-["한국항공우주","047810"],
-["한화솔루션","009835"],
-["한화에어로스페이스","012450"],
-["한화오션","042660"],
-["현대로템","064350"],
-["현대차","005380"],
-["현대ADM","187660"],
-["후성","093370"],
-["HPSP","403870"],
-["KODEX 미디어&엔터테인먼트","266360"],
-["KODEX 코스닥150레버리지","233740"],
-["LG생활건강","051900"],
-["LG씨엔에스","064400"],
-["LG전자","066570"],
-["LS에코에너지","229640"],
-["Plus 한화그룹주","0000J0"],
-["POSCO홀딩스","005490"],
-["SAMG엔터","419530"],
-["SK하이닉스","000660"],
-["SOL 조선 TOP3플러스","466920"],
-["TIGER 200에너지화학레버리지","243890"],
-["TIGER 미국나스닥100커버드콜(합성)","441680"],
-["TIGER 미국S&P500","360750"]
+["stock","HPSP","403870"],
+["etf","KODEX 미디어&엔터테인먼트","266360"],
+["etf","KODEX 코스닥150레버리지","233740"],
+["stock","LG생활건강","051900"],
+["stock","LG씨엔에스","064400"],
+["stock","LG전자","066570"],
+["stock","LS에코에너지","229640"],
+["stock","Plus 한화그룹주","0000J0"],
+["stock","POSCO홀딩스","005490"],
+["stock","SAMG엔터","419530"],
+["stock","SK하이닉스","000660"],
+["stock","SOL 조선 TOP3플러스","466920"],
+["etf","TIGER 200에너지화학레버리지","243890"],
+["etf","TIGER 미국S&P500","360750"],
+["etf","TIGER 미국나스닥100커버드콜(합성)","441680"],
+["stock","대한항공","003490"],
+["stock","두산에너빌리티","034020"],
+["stock","디어유","376300"],
+["stock","삼성전자","005930"],
+["stock","삼성중공업","010140"],
+["stock","솔트룩스","304100"],
+["stock","쏠리드","050890"],
+["stock","에코프로비엠","247540"],
+["stock","코오롱티슈진","950160"],
+["stock","포스코인터내셔널","047050"],
+["stock","포스코퓨처엠","003670"],
+["stock","한국항공우주","047810"],
+["stock","한화에어로스페이스","012450"],
+["stock","한화오션","042660"],
+["stock","현대ADM","187660"],
+["stock","현대로템","064350"],
+["stock","현대차","005380"],
+["stock","후성","093370"]
 ]
 
 OUTPUT_DIR = "output"
@@ -49,34 +48,21 @@ OUTPUT_DIR = "output"
 # ✅ API 기본 URL
 base_url = "https://m.stock.naver.com/api/stock/{}/price?pageSize=1&page=1"
 
-# ✅ 데이터 저장할 리스트 생성
-all_stock_data = []
+
 
 def nh_save_xlsx():
+    # ✅ 데이터 저장할 리스트 생성
+    all_stock_data = []
+
     # ✅ 각 종목별 데이터 요청
     headers = {"User-Agent": "Mozilla/5.0"}
-    for name, stock_code in stock_list:
+    for category, name, stock_code in stock_list:
         url = base_url.format(stock_code)
         response = requests.get(url, headers=headers)
 
         if response.status_code == 200:
             data = response.json()
-            if isinstance(data, list):
-                for item in data:
-                    all_stock_data.append({
-                        "공백": "",
-                        "증권사": "NH",
-                        "Type":"",
-                        "이름":name,
-                        "종목 코드": stock_code,
-                        "거래 날짜": datetime.strptime(item["localTradedAt"][:10], "%Y-%m-%d").strftime("%Y.%m.%d"),
-                        "종가": int(item["closePrice"].replace(",", "")),  # 쉼표 제거 후 정수 변환
-                        "전일 대비": int(item["compareToPreviousClosePrice"].replace(",", "")),  # ✅ 쉼표 제거 후 int 변환
-                        "등락률 (%)": float(item["fluctuationsRatio"]) * 0.01,  # 등락률은 소수점 필요
-                        "시가": int(item["openPrice"].replace(",", "")),
-                        "고가": int(item["highPrice"].replace(",", "")),
-                        "저가": int(item["lowPrice"].replace(",", ""))
-                    })
+            all_stock_data += append_data(data, firm="NH", category=category, name=name, stock_code=stock_code)
         else:
             print(f"⛔ {stock_code} 데이터 가져오기 실패 (HTTP {response.status_code})")
 
@@ -123,15 +109,20 @@ def nh_save_xlsx():
 
     # ✅ 데이터 셀 스타일 적용
     for row in ws.iter_rows(min_row=2, max_row=ws.max_row):
-        row[1].alignment = center_align
-        row[5].alignment = center_align
-        row[5].style = date_style       # Date
-        row[6].style = currency_style   # Finishing
-        row[7].style = currency_style   # Previous
-        row[8].style = percent_style    # (%)
-        row[9].style = currency_style   # Starting
-        row[10].style = currency_style  # High
-        row[11].style = currency_style  # Low
+        if row[5].style == "Normal":  # 날짜 셀
+            row[5].style = date_style
+        if row[6].style == "Normal":  # 종가
+            row[6].style = currency_style
+        if row[7].style == "Normal":  # 전일 대비
+            row[7].style = currency_style
+        if row[8].style == "Normal":  # 등락률
+            row[8].style = percent_style
+        if row[9].style == "Normal":  # 시가
+            row[9].style = currency_style
+        if row[10].style == "Normal":  # 고가
+            row[10].style = currency_style
+        if row[11].style == "Normal":  # 저가
+            row[11].style = currency_style
 
     # ✅ Saving excel file
     wb.save(excel_filename)

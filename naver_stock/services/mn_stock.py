@@ -3,7 +3,8 @@ import pandas as pd
 import os
 from openpyxl import load_workbook
 from openpyxl.styles import Font, Alignment, PatternFill, Border, Side, NamedStyle
-from naver_stock.utils.file_utils import generate_dated_excel_filename
+from naver_stock.utils.file_utils import generate_dated_excel_filename, save_or_append_excel
+from naver_stock.utils.api_utils import append_data
 
 # ✅ 조회할 종목 리스트
 stock_list = [
@@ -13,13 +14,13 @@ stock_list = [
 ["stock","블랙스톤","BX"],
 ["stock","코인베이스 글로벌","COIN.O"],
 ["stock","세일즈포스닷컴","CRM"],
-["etf","SPDR 다우존스 ETF (Dow Jones Industrial Average ETF Trust)","DIA"],
+["etf","SPDR 다우존스 ETF","DIA"],
 ["stock","알파벳C주","GOOG.O"],
 ["stock","골드만 삭스 그룹","GS"],
 ["stock","아이온큐","IONQ.K"],
-["etf","아이셰어즈 코어 S&P500 ETF (iShared Core S&P 500 ETF)","IVV"],
-["etf","아이셰어즈 글로벌 금융 ETF (iShares Global Finacials ETF)","IXG"],
-["etf","JP모간 에쿼티 프리미엄 인컴 ETF (JPMorgan Equity Preminum Income ETF)","JEPI.K"],
+["etf","아이셰어즈 코어 S&P500 ETF","IVV"],
+["etf","아이셰어즈 글로벌 금융 ETF","IXG"],
+["etf","JP모간 에쿼티 프리미엄 인컴 ETF","JEPI.K"],
 ["stock","제이피모간 체이스","JPM"],
 ["stock","코카콜라","KO"],
 ["stock","메타 프랫폼스","META.O"],
@@ -27,24 +28,24 @@ stock_list = [
 ["stock","엔비디아","NVDA.O"],
 ["stock","리얼리티 인컴","O"],
 ["stock","유니버설 디스플레이","OLED.O"],
-["etf","아이셰어즈 우선주 ETF (iShares Preferred & Income Securities ETF)","PFF.O"],
+["etf","아이셰어즈 우선주 ETF","PFF.O"],
 ["stock","팔란티어 테크놀로지스 A주","PLTR.O"],
 ["stock","펠로톤 인터렉티브","PTON.O"],
-["etf","인베스코 QQQ ETF (Invesco QQQ Trust)","QQQ.O"],
-["etf","인베스코 나스닥100 ETF (Invesco NASDAQ 100 ETF)","QQQM.O"],
-["etf","글로벌엑스 나스닥 100 커버드콜 ETF (글로벌 x 나스닥 100 커버드 콜 ETF)","QYLD.O"],
-["etf","슈왑 미국 배당주 ETF (Schwab U.S. Dividend Equity ETF)","SCHD.K"],
+["etf","인베스코 QQQ ETF","QQQ.O"],
+["etf","인베스코 나스닥100 ETF","QQQM.O"],
+["etf","글로벌엑스 나스닥 100 커버드콜 ETF","QYLD.O"],
+["etf","슈왑 미국 배당주 ETF","SCHD.K"],
 ["stock","슈퍼 마이크로 컴퓨터","SMCI.O"],
 ["stock","소파이 테크놀로지스","SOFI.O"],
-["etf","인베스코 S&P500 고배당 저변동성 ETF (Invesco S&P 500 High Dividend Low Volatility ETF)","SPHD.K"],
-["etf","인베스코 S&P500 저변동성 ETF (Invesco S&P 500 Low Volatility ETF)","SPLV.K"],
-["etf","SPDR S&P500 ETF (SPDR S&P 500 ETF Trust)","SPY"],
-["etf","프로셰어즈 나스닥100 3배 레버리지 ETF (ProShares UltraPro QQQ)","TQQQ.O"],
+["etf","인베스코 S&P500 고배당 저변동성 ETF","SPHD.K"],
+["etf","인베스코 S&P500 저변동성 ETF","SPLV.K"],
+["etf","SPDR S&P500 ETF","SPY"],
+["etf","프로셰어즈 나스닥100 3배 레버리지 ETF","TQQQ.O"],
 ["stock","테슬라","TSLA.O"],
 ["stock","유나이티드 에어라인 홀딩스","UAL.O"],
 ["stock","업스타트 홀딩스","UPST.O"],
 ["etf","뱅가드 S&P500 ETF","VOO"],
-["etf","SPDR 미국 항공우주&방위산업 ETF (SPDR S&P Aerospace & Defense ETF)","XAR"],
+["etf","SPDR 미국 항공우주&방위산업 ETF","XAR"],
 ["stock","블록","XYZ"]
 ]
 
@@ -53,36 +54,21 @@ OUTPUT_DIR = "output"
 # ✅ API 기본 URL
 base_url = "https://api.stock.naver.com/{}/{}/price?page=1&pageSize=1"
 
-# ✅ 데이터 저장할 리스트 생성
-all_stock_data = []
-
 def mn_save_xlsx():
+    # ✅ 데이터 저장할 리스트 생성
+    all_stock_data = []
     # ✅ 각 종목별 데이터 요청
     headers = {"User-Agent": "Mozilla/5.0"}
-    for category, name, symbol in stock_list:
-        url = base_url.format(category, symbol)
+    for category, name, stock_code in stock_list:
+        url = base_url.format(category, stock_code)
         response = requests.get(url, headers=headers)
 
         if response.status_code == 200:
             data = response.json()
-            if isinstance(data, list):
-                for item in data:
-                    all_stock_data.append({
-                        "공백": "",
-                        "증권사": "MN",
-                        "카테고리": category, # stock인지 etf인지 구분
-                        "이름": name,
-                        "종목 코드": symbol,
-                        "거래 날짜": item["localTradedAt"][:10],  # YYYY-MM-DD 형식으로 자르기
-                        "종가": float(item["closePrice"].replace(",", "")),  # 쉼표 제거 후 정수 변환
-                        "전일 대비": float(item["compareToPreviousClosePrice"].replace(",", "")),  # ✅ 쉼표 제거 후 int 변환
-                        "등락률 (%)": float(item["fluctuationsRatio"]) * 0.01,  # 등락률은 소수점 필요
-                        "시가": float(item["openPrice"].replace(",", "")),
-                        "고가": float(item["highPrice"].replace(",", "")),
-                        "저가": float(item["lowPrice"].replace(",", ""))
-                    })
+            all_stock_data += append_data(data, firm="MN", category=category, name=name, stock_code=stock_code)
+
         else:
-            print(f"⛔ {category} {symbol} 데이터 가져오기 실패 (HTTP {response.status_code})")
+            print(f"⛔ {category} {stock_code} 데이터 가져오기 실패 (HTTP {response.status_code})")
 
     # ✅ 데이터프레임 변환
     df = pd.DataFrame(all_stock_data)
@@ -91,7 +77,9 @@ def mn_save_xlsx():
     os.makedirs(OUTPUT_DIR, exist_ok=True)
     excel_filename = generate_dated_excel_filename(prefix="mn", output_dir=OUTPUT_DIR)
 #    excel_filename = "mn_stocks_data_v1.1.xlsx"
-    df.to_excel(excel_filename, index=False, sheet_name="Stock Prices")
+#    df.to_excel(excel_filename, index=False, sheet_name="Stock Prices")
+
+    save_or_append_excel(df, excel_filename, sheet_name="Stock Prices")
 
     # ✅ 엑셀 파일 불러와 서식 적용
     wb = load_workbook(excel_filename)
@@ -104,9 +92,9 @@ def mn_save_xlsx():
     center_align = Alignment(horizontal="center", vertical="center")
 
     # ✅ 숫자 스타일 지정
-    currency_style = NamedStyle(name="currency_style", number_format="#,##0")
+    currency_style = NamedStyle(name="currency_style", number_format=r'_(₩* #,##0_);_(₩* (#,##0);_(₩* "-"_);_(@_)')
     percent_style = NamedStyle(name="percent_style", number_format="0.00%")
-    date_style = NamedStyle(name="date_style", number_format="YYYY-MM-DD")
+    date_style = NamedStyle(name="date_style", number_format="yyyy.mm.dd")
 
     # ✅ 스타일을 워크북에 추가 (기존 스타일 중복 방지)
     if "currency_style" not in wb.named_styles:
@@ -125,13 +113,20 @@ def mn_save_xlsx():
 
     # ✅ 데이터 셀 스타일 적용
     for row in ws.iter_rows(min_row=2, max_row=ws.max_row):
-        row[5].style = date_style  # 날짜 형식 적용
-        row[6].style = currency_style  # 종가 형식 적용
-        row[7].style = currency_style  # 전일 대비 형식 적용
-        row[8].style = percent_style  # 등락률(%) 형식 적용
-        row[9].style = currency_style  # 시가 형식 적용
-        row[10].style = currency_style  # 고가 형식 적용
-        row[11].style = currency_style  # 저가 형식 적용
+        if row[5].style == "Normal":  # 날짜 셀
+            row[5].style = date_style
+        if row[6].style == "Normal":  # 종가
+            row[6].style = currency_style
+        if row[7].style == "Normal":  # 전일 대비
+            row[7].style = currency_style
+        if row[8].style == "Normal":  # 등락률
+            row[8].style = percent_style
+        if row[9].style == "Normal":  # 시가
+            row[9].style = currency_style
+        if row[10].style == "Normal":  # 고가
+            row[10].style = currency_style
+        if row[11].style == "Normal":  # 저가
+            row[11].style = currency_style
 
     # ✅ 엑셀 파일 저장
     wb.save(excel_filename)

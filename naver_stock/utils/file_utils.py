@@ -16,7 +16,7 @@ def generate_dated_excel_filename(prefix="stock", output_dir="output"):
     """
     os.makedirs(output_dir, exist_ok=True)
 
-    today_str = datetime.today().strftime("%Y.%m")
+    today_str = datetime.today().strftime("%Y.%m.%d")
     filename = f"{prefix}-{today_str}.xlsx"
     return os.path.join(output_dir, filename)
 
