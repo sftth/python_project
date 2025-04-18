@@ -62,3 +62,10 @@ def save_or_append_excel(df, output_path, sheet_name="Stock Prices"):
         # Create excel if there is not
         df.to_excel(output_path, index=False, sheet_name=sheet_name)
         print(f"📁 Created new Excel file: {output_path}")
+
+def save_excel(df, output_path, sheet_name="Stock Prices"):
+    #If there is a no directory, create it
+    os.makedirs(os.path.dirname(output_path), exist_ok=True)
+    # Create excel if there is not
+    df.to_excel(output_path, index=False, sheet_name=sheet_name)
+    print(f"📁 Created new Excel file: {output_path}")

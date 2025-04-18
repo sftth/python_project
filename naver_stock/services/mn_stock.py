@@ -3,7 +3,7 @@ import pandas as pd
 import os
 from openpyxl import load_workbook
 from openpyxl.styles import Font, Alignment, PatternFill, Border, Side, NamedStyle
-from naver_stock.utils.file_utils import generate_dated_excel_filename, save_or_append_excel
+from naver_stock.utils.file_utils import generate_dated_excel_filename, save_or_append_excel, save_excel
 from naver_stock.utils.api_utils import append_data
 
 # ✅ 조회할 종목 리스트
@@ -46,7 +46,8 @@ stock_list = [
 ["stock","업스타트 홀딩스","UPST.O"],
 ["etf","뱅가드 S&P500 ETF","VOO"],
 ["etf","SPDR 미국 항공우주&방위산업 ETF","XAR"],
-["stock","블록","XYZ"]
+["stock","블록","XYZ"],
+["stock","넷플릭스","NFLX.O"]
 ]
 
 OUTPUT_DIR = "output"
@@ -79,7 +80,8 @@ def mn_save_xlsx():
 #    excel_filename = "mn_stocks_data_v1.1.xlsx"
 #    df.to_excel(excel_filename, index=False, sheet_name="Stock Prices")
 
-    save_or_append_excel(df, excel_filename, sheet_name="Stock Prices")
+    #save_or_append_excel(df, excel_filename, sheet_name="Stock Prices")
+    save_excel(df, excel_filename, sheet_name="Stock Prices")
 
     # ✅ 엑셀 파일 불러와 서식 적용
     wb = load_workbook(excel_filename)
@@ -92,9 +94,9 @@ def mn_save_xlsx():
     center_align = Alignment(horizontal="center", vertical="center")
 
     # ✅ 숫자 스타일 지정
-    currency_style = NamedStyle(name="currency_style", number_format=r'_(₩* #,##0_);_(₩* (#,##0);_(₩* "-"_);_(@_)')
+    currency_style = NamedStyle(name="currency_style", number_format=r'_($* #,##0.00_);_($* (#,##0.00);_($* "-"??_);_(@_)')
     percent_style = NamedStyle(name="percent_style", number_format="0.00%")
-    date_style = NamedStyle(name="date_style", number_format="yyyy.mm.dd")
+    date_style = NamedStyle(name="date_style", number_format="yyyy.m.d")
 
     # ✅ 스타일을 워크북에 추가 (기존 스타일 중복 방지)
     if "currency_style" not in wb.named_styles:
