@@ -8,14 +8,6 @@ from naver_stock.utils.api_utils import append_data
 
 # ✅ 조회할 종목 리스트
 stock_list = [
-["stock","LG에너지솔루션","373220"],
-["stock","LG전자","066570"],
-["stock","NAVER","035420"],
-["stock","SK리츠","395400"],
-["stock","TIGER배당커버드콜액티브","472150"],
-["stock","TIGER은행고배당플러스 TOP10","466940"],
-["stock","TIGER 차이나전기차SOLACTIVE","371460"],
-["stock","TIGER 차이나항셍테크","371160"],
 ["stock","그래디언트","035080"],
 ["stock","대원미디어","048910"],
 ["stock","에스디바이오센서","137310"],
@@ -23,7 +15,15 @@ stock_list = [
 ["stock","카카오","035720"],
 ["stock","카카오게임즈","293490"],
 ["stock","카카오뱅크","323410"],
-["stock","펄어비스","263750"]
+["stock","펄어비스","263750"],
+["stock","LG에너지솔루션","373220"],
+["stock","LG전자","066570"],
+["stock","NAVER","035420"],
+["stock","SK리츠","395400"],
+["stock","TIGER 차이나전기차SOLACTIVE","371460"],
+["stock","TIGER 차이나항셍테크","371160"],
+["stock","TIGER배당커버드콜액티브","472150"],
+["stock","TIGER은행고배당플러스 TOP10","466940"]
 ]
 
 stock_list_us = [
