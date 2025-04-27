@@ -1,7 +1,11 @@
 from pykrx import stock
 import pandas as pd
-import datetime
+from datetime import datetime
+import os
 
+output_dir = 'output_krx'
+
+# KRX Ticker lists
 def fetch_krx_ticker_list(market='KOSPI'):
     print(f"Start krx ticker list")
     ticker_list = stock.get_market_ticker_list(market=market.upper())
@@ -13,6 +17,7 @@ def fetch_krx_ticker_list(market='KOSPI'):
     print(f"Finish krx ticker list")
     return df
 
+# KRX Stock price by ticker
 def fetch_krx_stock_price_by_ticker(from_date, to_date, ticker):
     print(f"{from_date} {to_date} target ticker: {ticker}")
 
@@ -20,6 +25,7 @@ def fetch_krx_stock_price_by_ticker(from_date, to_date, ticker):
 
     return df
 
+# All KRX Stock price monthly
 def fetch_krx_stock_price_monthly(from_date, to_date, ticker ):
     print(f"{from_date} {to_date} target ticker: {ticker}")
 
@@ -27,6 +33,7 @@ def fetch_krx_stock_price_monthly(from_date, to_date, ticker ):
 
     return df
 
+# All KRX Stock PES, EPS, PBR, BPS
 def fetch_krx_stock_fundamental(date, market='KOSPI'):
     print(f"Start {date}-{market}-fundamental")
 
@@ -41,6 +48,7 @@ def fetch_krx_stock_fundamental(date, market='KOSPI'):
 
     return df
 
+# KRX STock PES, EPS, PBR, BPS
 def fetch_krx_stock_fundamental_by_ticker(from_date, to_date, ticker):
     print(f"Start {from_date}-{to_date}-{ticker}-fundamental")
     df = stock.get_market_fundamental(from_date, to_date, ticker)
@@ -65,11 +73,17 @@ def fetch_krx_per_top10(market='KOSPI'):
 
 #    return top10
 
+# Saving excel file
 def save_to_excel(df,market, filename="per_top10_kospi"):
-    try:
-        output_filename = f"{filename}_{market}.xlsx"
-        df.to_excel(output_filename, index=False)
+    #If there is no directory, create it
+    os.makedirs(output_dir, exist_ok=True)
 
+    today_str = datetime.today().strftime("%Y.%m.%d")
+    excel_filename = f"{filename}_{market}_{today_str}.xlsx"
+    output_filename = os.path.join(output_dir, excel_filename)
+
+    try:
+        df.to_excel(output_filename, index=False)
         print(f"저장 완료: {filename}")
     except Exception as e:
         print(f"엑셀 저장 중 오류 발생: {e}")
