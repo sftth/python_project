@@ -8,6 +8,7 @@ from naver_stock.utils.api_utils import append_data
 
 # ✅ 조회할 종목 리스트
 stock_list = [
+["stock","애플","AAPL.O"],
 ["stock","아마존","AMZN.O"],
 ["stock","뱅크오브아메리카","BAC"],
 ["stock","블랙록","BLK"],
@@ -23,10 +24,11 @@ stock_list = [
 ["etf","JP모간 에쿼티 프리미엄 인컴 ETF","JEPI.K"],
 ["stock","제이피모간 체이스","JPM"],
 ["stock","코카콜라","KO"],
-["stock","메타 프랫폼스","META.O"],
+["stock","메타 플랫폼스","META.O"],
 ["stock","마이크로소프트","MSFT.O"],
+["stock","넷플릭스","NFLX.O"],
 ["stock","엔비디아","NVDA.O"],
-["stock","리얼리티 인컴","O"],
+["stock","리얼티 인컴","O"],
 ["stock","유니버설 디스플레이","OLED.O"],
 ["etf","아이셰어즈 우선주 ETF","PFF.O"],
 ["stock","팔란티어 테크놀로지스 A주","PLTR.O"],
@@ -46,11 +48,10 @@ stock_list = [
 ["stock","업스타트 홀딩스","UPST.O"],
 ["etf","뱅가드 S&P500 ETF","VOO"],
 ["etf","SPDR 미국 항공우주&방위산업 ETF","XAR"],
-["stock","블록","XYZ"],
-["stock","넷플릭스","NFLX.O"]
+["stock","블록","XYZ"]
 ]
 
-OUTPUT_DIR = "output"
+OUTPUT_DIR = "output/mn"
 
 # ✅ API 기본 URL
 base_url = "https://api.stock.naver.com/{}/{}/price?page=1&pageSize=1"

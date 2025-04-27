@@ -28,13 +28,16 @@ stock_list = [
 ["stock","디어유","376300"],
 ["stock","삼성전자","005930"],
 ["stock","삼성중공업","010140"],
+["stock","세아제강","306200"],
 ["stock","솔트룩스","304100"],
 ["stock","쏠리드","050890"],
 ["stock","에코프로비엠","247540"],
+["stock","오뚜기","007310"],
 ["stock","코오롱티슈진","950160"],
 ["stock","포스코인터내셔널","047050"],
 ["stock","포스코퓨처엠","003670"],
 ["stock","한국항공우주","047810"],
+["stock","한샘","009240"],
 ["stock","한화에어로스페이스","012450"],
 ["stock","한화오션","042660"],
 ["stock","현대ADM","187660"],
@@ -44,7 +47,7 @@ stock_list = [
 ["stock","후성","093370"]
 ]
 
-OUTPUT_DIR = "output"
+OUTPUT_DIR = "output/nh"
 
 # ✅ API 기본 URL
 base_url = "https://m.stock.naver.com/api/stock/{}/price?pageSize=1&page=1"

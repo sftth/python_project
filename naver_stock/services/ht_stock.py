@@ -31,7 +31,7 @@ stock_list_us = [
 ["etf","Volatility shares bitcoin strategy 2x ETF","BITX.K"]
 ]
 
-OUTPUT_DIR = "output"
+OUTPUT_DIR = "output/ht"
 
 # ✅ API 기본 URL
 base_url = "https://m.stock.naver.com/api/{}/{}/price?pageSize=1&page=1"
