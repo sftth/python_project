@@ -50,7 +50,7 @@ stock_list = [
 OUTPUT_DIR = "output/nh"
 
 # ✅ API 기본 URL
-base_url = "https://m.stock.naver.com/api/stock/{}/price?pageSize=1&page=1"
+base_url = "https://m.stock.naver.com/api/stock/{}/price?pageSize=5&page=1"
 
 
 

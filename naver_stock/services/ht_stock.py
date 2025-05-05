@@ -34,8 +34,8 @@ stock_list_us = [
 OUTPUT_DIR = "output/ht"
 
 # ✅ API 기본 URL
-base_url = "https://m.stock.naver.com/api/{}/{}/price?pageSize=1&page=1"
-base_url_us = "https://api.stock.naver.com/{}/{}/price?page=1&pageSize=1"
+base_url = "https://m.stock.naver.com/api/{}/{}/price?pageSize=5&page=1"
+base_url_us = "https://api.stock.naver.com/{}/{}/price?page=5&pageSize=1"
 
 # ✅ 각 종목별 데이터 요청
 headers = {"User-Agent": "Mozilla/5.0"}

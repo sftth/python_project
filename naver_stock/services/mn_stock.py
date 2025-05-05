@@ -54,7 +54,7 @@ stock_list = [
 OUTPUT_DIR = "output/mn"
 
 # ✅ API 기본 URL
-base_url = "https://api.stock.naver.com/{}/{}/price?page=1&pageSize=1"
+base_url = "https://api.stock.naver.com/{}/{}/price?page=1&pageSize=5"
 
 def mn_save_xlsx():
     # ✅ 데이터 저장할 리스트 생성

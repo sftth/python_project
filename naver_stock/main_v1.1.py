@@ -6,7 +6,7 @@
 from naver_stock.services.ht_stock import ht_save_xlsx
 from naver_stock.services.nh_stock import nh_save_xlsx
 from naver_stock.services.mn_stock import mn_save_xlsx
-from naver_stock.services.get_stock_details import get_stock_info
+from naver_stock.services.get_stock_details import get_stock_info, get_stock_info_v1
 
 #NH투자증권
 nh_stock_list = [
@@ -118,18 +118,18 @@ mn_stock_list = [
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
     print("🔄 Starting save xlsx for ht...")
-    ht_save_xlsx()
-#    get_stock_info(ht_stock_list, prefix="ht", output_dir="output/ht")
+#    ht_save_xlsx()
+    get_stock_info_v1(ht_stock_list, prefix="ht", output_dir="output/ht")
     print("✅ Save xlsx for ht completed.")
 
     print("🔄 Starting save xlsx for nh...")
-    nh_save_xlsx()
-#    get_stock_info(nh_stock_list, prefix="nh", output_dir="output/nh")
+#    nh_save_xlsx()
+    get_stock_info_v1(nh_stock_list, prefix="nh", output_dir="output/nh")
     print("✅ Save xlsx for nh completed.")
 
     print("🔄 Starting save xlsx for mn...")
-#    get_stock_info(mn_stock_list, prefix="mn", output_dir="output/mn")
-    mn_save_xlsx()
+    get_stock_info_v1(mn_stock_list, prefix="mn", output_dir="output/mn")
+#    mn_save_xlsx()
 #    nh_save_stock_infos(mn_stock_list, prefix="mn_stock_info", output_dir="output/mn")
     print("✅ Save xlsx for mn completed.")
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/

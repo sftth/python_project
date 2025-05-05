@@ -1,0 +1,91 @@
+Sub ImportNHStockFiles()
+    Dim fromDate As Date, toDate As Date
+    Dim currentDate As Date
+    Dim filePath As String, fileName As String
+    Dim mainWs As Worksheet, tempWb As Workbook, tempWs As Worksheet
+    Dim outputRow As Long
+    Dim values(1 To 4) As Variant
+    Dim folderPath As String
+    Dim fromInput As String, toInput As String
+    Dim lastRow As Long
+
+    ' C2 값 → 대문자로 변환
+    'sheetName = UCase(CStr(ThisWorkbook.Sheets(1).Range("C2").Value))
+    'sheetName = sheetName & "_1.2"  ' 최종: "NH_1.2"
+
+    'On Error Resume Next
+    Set mainWs = ThisWorkbook.Sheets("NH")
+    'On Error GoTo 0
+
+    If mainWs Is Nothing Then
+        MsgBox "시트 '" & sheetName & "' 를 찾을 수 없습니다.", vbExclamation
+        Exit Sub
+    End If
+
+    '문자열로 받아서 변환 시도
+    'fromInput = Trim(mainWs.Range("F2").Value)
+    toInput = Trim(mainWs.Range("H2").Value)
+
+    On Error GoTo InvalidDate
+    'fromDate = CDate(Replace(fromInput, ".", "/")) ' "2025.4.1" → "2025/4/1"
+    fromDate = Date ' 오늘 날짜로 설정
+    toDate = CDate(Replace(toInput, ".", "/"))
+    On Error GoTo 0
+
+    '폴더 선택
+    folderPath = "/Users/Summit/IDE/workspace/python/python_project/naver_stock/output/nh/"
+
+    If folderPath = "" Then
+        MsgBox "폴더 경로가 비어 있습니다.", vbExclamation
+        Exit Sub
+    End If
+
+    outputRow = mainWs.Cells(mainWs.Rows.Count, 2).End(xlUp).Row + 1
+
+    Dim investmentCode As String
+    investmentCode = CStr(mainWs.Range("C2").Value)
+
+    'For currentDate = fromDate To toDate
+        fileName = investmentCode & "-" & Year(fromDate) & "." & Format(fromDate, "mm") & ".xlsx"
+        filePath = folderPath & fileName
+
+        '오늘 날짜 시트 이름 생성
+        todaySheetName = "nh_" & Format(Date, "yyyy.mm.dd")
+
+        If Len(Dir(filePath)) > 0 Then
+            Set tempWb = Workbooks.Open(filePath, ReadOnly:=True)
+            ' 날짜 기반 시트 선택
+            On Error Resume Next
+            Set tempWs = tempWb.Sheets(todaySheetName)
+            On Error GoTo 0
+
+            If Not tempWs Is Nothing Then
+                lastRow = tempWs.Cells(tempWs.Rows.Count, 2).End(xlUp).Row
+                'MsgBox "마지막 행: " & lastRow
+            Else
+                MsgBox "시트 '" & todaySheetName & "'를 찾을 수 없습니다."
+            End If
+
+            'MsgBox "LastRow" & lastRow & "outputRow" & outputRow
+
+            ' A2:D100 읽기 루프
+            Dim i As Long
+            For i = 2 To lastRow
+                ' A열이 비어있으면 주단
+                ' If IsEmpty(tempWs.Cells(i, 1)) Then Exit For
+
+                mainWs.Cells(outputRow, 1).Resize(1, 20).Value = tempWs.Cells(i, 1).Resize(1, 20).Value
+
+                outputRow = outputRow + 1
+            Next i
+
+            tempWb.Close SaveChanges:=False
+        End If
+    'Next currentDate
+
+    MsgBox "데이터 수집 완료!", vbInformation
+    Exit Sub
+
+InvalidDate:
+    MsgBox "F2 또는 H2의 날짜 형식이 잘못되었습니다." & vbCrLf & "예: 2025.4.1 또는 2025-04-01", vbCritical
+End Sub
