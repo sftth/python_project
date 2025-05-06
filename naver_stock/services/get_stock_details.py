@@ -406,10 +406,10 @@ def save_info_to_excel_v1(all_stock_data, prefix="nh", output_dir="/output"):
     left_align = Alignment(horizontal="left", vertical="center")
 
     # ✅ 숫자 스타일 지정
-    currency_style = NamedStyle(name="currency_style", number_format=r'_(₩* #,##0_);_(₩* (#,##0);_(₩* "-"_);_(@_)')
-    number_style = NamedStyle(name="number_style",  number_format="#,##0.00")
-    percent_style = NamedStyle(name="percent_style", number_format="0.00%")
-    date_style = NamedStyle(name="date_style", number_format="yyyy.mm.dd")
+    currency_style = ensure_named_style(wb, "currency_style", number_format=r'_(₩* #,##0_);_(₩* (#,##0);_(₩* "-"_);_(@_)')
+    number_style = ensure_named_style(wb, "number_style",  number_format="#,##0.00")
+    percent_style = ensure_named_style(wb, "percent_style", number_format="0.00%")
+    date_style = ensure_named_style(wb, "date_style", number_format="yyyy.mm.dd")
 
     # ✅ 스타일을 워크북에 추가 (기존 스타일 중복 방지)
     if "currency_style" not in wb.named_styles:
@@ -455,3 +455,11 @@ def save_info_to_excel_v1(all_stock_data, prefix="nh", output_dir="/output"):
     # ✅ 엑셀 파일 저장
     wb.save(excel_filename)
     print(f"✅ 모든 종목 데이터가 엑셀에 저장 완료 (서식 적용): {excel_filename}")
+
+def ensure_named_style(wb, style_name, number_format):
+    for style in wb.named_styles:
+        if style == style_name:
+            return style
+    new_style = NamedStyle(name=style_name, number_format=number_format)
+    wb.add_named_style(new_style)
+    return new_style
